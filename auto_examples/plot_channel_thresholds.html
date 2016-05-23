@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plot channel-level thresholds &mdash; autoreject 0.1.dev0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="index.html">Examples</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Plot channel-level thresholds</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/auto_examples/plot_channel_thresholds.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="section" id="plot-channel-level-thresholds">
+<span id="sphx-glr-auto-examples-plot-channel-thresholds-py"></span><h1>Plot channel-level thresholds<a class="headerlink" href="#plot-channel-level-thresholds" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to use <code class="docutils literal"><span class="pre">autoreject</span></code> to find
+channel-wise thresholds.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1"># License: BSD (3-clause)</span>
+</pre></div>
+</div>
+<p>Let us first load the <cite>raw</cite> data using MNE-Python.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_path</span><span class="p">()</span>
+<span class="n">raw_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Raw</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Read a total of 4 projection items:
+        PCA-v1 (1 x 102)  idle
+        PCA-v2 (1 x 102)  idle
+        PCA-v3 (1 x 102)  idle
+        Average EEG reference (1 x 60)  idle
+Current compensation grade : 0
+    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+Ready.
+Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+</pre></div>
+</div>
+<p>Let us apply the SSP projectors to remove ECG artifacts. This must be done
+to ensure that the channel-level thresholds are not sensitive to ECG
+artifacts.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">projs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">compute_proj_ecg</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">n_eeg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                              <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">add_proj</span><span class="p">(</span><span class="n">projs</span><span class="p">)</span><span class="o">.</span><span class="n">apply_proj</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  9 projection items deactivated
+Created an SSP operator (subspace dimension = 9)
+13 projection items activated
+SSP projectors applied...
+</pre></div>
+</div>
+<p>We can extract the events (or triggers) for epoching our signal.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">event_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
+                           <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
+<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_events</span><span class="p">(</span><span class="n">event_fname</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have the events, we can extract the trials for the selection
+of channels defined by <code class="docutils literal"><span class="pre">picks</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">picks</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                       <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
+                    <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                    <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can define a threshold range over which the threshold must be found
+and then compute the channel-level thresholds using
+<a class="reference internal" href="../generated/autoreject.compute_threshes.html#autoreject.compute_threshes" title="autoreject.compute_threshes"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_threshes()</span></code></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">compute_threshes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="n">thresh_range</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="mf">4e-13</span><span class="p">,</span> <span class="mf">900e-13</span><span class="p">))</span>
+<span class="n">threshes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">compute_threshes</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">thresh_range</span><span class="p">)[</span><span class="s1">&#39;meg&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Cleaning ch MEG 0113
+Cleaning ch MEG 0112
+Cleaning ch MEG 0122
+Cleaning ch MEG 0123
+Cleaning ch MEG 0132
+Cleaning ch MEG 0133
+Cleaning ch MEG 0143
+Cleaning ch MEG 0142
+Cleaning ch MEG 0213
+Cleaning ch MEG 0212
+Cleaning ch MEG 0222
+Cleaning ch MEG 0223
+Cleaning ch MEG 0232
+Cleaning ch MEG 0233
+Cleaning ch MEG 0243
+Cleaning ch MEG 0242
+Cleaning ch MEG 0313
+Cleaning ch MEG 0312
+Cleaning ch MEG 0322
+Cleaning ch MEG 0323
+Cleaning ch MEG 0333
+Cleaning ch MEG 0332
+Cleaning ch MEG 0343
+Cleaning ch MEG 0342
+Cleaning ch MEG 0413
+Cleaning ch MEG 0412
+Cleaning ch MEG 0422
+Cleaning ch MEG 0423
+Cleaning ch MEG 0432
+Cleaning ch MEG 0433
+Cleaning ch MEG 0443
+Cleaning ch MEG 0442
+Cleaning ch MEG 0513
+Cleaning ch MEG 0512
+Cleaning ch MEG 0523
+Cleaning ch MEG 0522
+Cleaning ch MEG 0532
+Cleaning ch MEG 0533
+Cleaning ch MEG 0542
+Cleaning ch MEG 0543
+Cleaning ch MEG 0613
+Cleaning ch MEG 0612
+Cleaning ch MEG 0622
+Cleaning ch MEG 0623
+Cleaning ch MEG 0633
+Cleaning ch MEG 0632
+Cleaning ch MEG 0642
+Cleaning ch MEG 0643
+Cleaning ch MEG 0713
+Cleaning ch MEG 0712
+Cleaning ch MEG 0723
+Cleaning ch MEG 0722
+Cleaning ch MEG 0733
+Cleaning ch MEG 0732
+Cleaning ch MEG 0743
+Cleaning ch MEG 0742
+Cleaning ch MEG 0813
+Cleaning ch MEG 0812
+Cleaning ch MEG 0822
+Cleaning ch MEG 0823
+Cleaning ch MEG 0913
+Cleaning ch MEG 0912
+Cleaning ch MEG 0923
+Cleaning ch MEG 0922
+Cleaning ch MEG 0932
+Cleaning ch MEG 0933
+Cleaning ch MEG 0942
+Cleaning ch MEG 0943
+Cleaning ch MEG 1013
+Cleaning ch MEG 1012
+Cleaning ch MEG 1023
+Cleaning ch MEG 1022
+Cleaning ch MEG 1032
+Cleaning ch MEG 1033
+Cleaning ch MEG 1043
+Cleaning ch MEG 1042
+Cleaning ch MEG 1112
+Cleaning ch MEG 1113
+Cleaning ch MEG 1123
+Cleaning ch MEG 1122
+Cleaning ch MEG 1133
+Cleaning ch MEG 1132
+Cleaning ch MEG 1142
+Cleaning ch MEG 1143
+Cleaning ch MEG 1213
+Cleaning ch MEG 1212
+Cleaning ch MEG 1223
+Cleaning ch MEG 1222
+Cleaning ch MEG 1232
+Cleaning ch MEG 1233
+Cleaning ch MEG 1243
+Cleaning ch MEG 1242
+Cleaning ch MEG 1312
+Cleaning ch MEG 1313
+Cleaning ch MEG 1323
+Cleaning ch MEG 1322
+Cleaning ch MEG 1333
+Cleaning ch MEG 1332
+Cleaning ch MEG 1342
+Cleaning ch MEG 1343
+Cleaning ch MEG 1412
+Cleaning ch MEG 1413
+Cleaning ch MEG 1423
+Cleaning ch MEG 1422
+Cleaning ch MEG 1433
+Cleaning ch MEG 1432
+Cleaning ch MEG 1442
+Cleaning ch MEG 1443
+Cleaning ch MEG 1512
+Cleaning ch MEG 1513
+Cleaning ch MEG 1522
+Cleaning ch MEG 1523
+Cleaning ch MEG 1533
+Cleaning ch MEG 1532
+Cleaning ch MEG 1543
+Cleaning ch MEG 1542
+Cleaning ch MEG 1613
+Cleaning ch MEG 1612
+Cleaning ch MEG 1622
+Cleaning ch MEG 1623
+Cleaning ch MEG 1632
+Cleaning ch MEG 1633
+Cleaning ch MEG 1643
+Cleaning ch MEG 1642
+Cleaning ch MEG 1713
+Cleaning ch MEG 1712
+Cleaning ch MEG 1722
+Cleaning ch MEG 1723
+Cleaning ch MEG 1732
+Cleaning ch MEG 1733
+Cleaning ch MEG 1743
+Cleaning ch MEG 1742
+Cleaning ch MEG 1813
+Cleaning ch MEG 1812
+Cleaning ch MEG 1822
+Cleaning ch MEG 1823
+Cleaning ch MEG 1832
+Cleaning ch MEG 1833
+Cleaning ch MEG 1843
+Cleaning ch MEG 1842
+Cleaning ch MEG 1912
+Cleaning ch MEG 1913
+Cleaning ch MEG 1923
+Cleaning ch MEG 1922
+Cleaning ch MEG 1932
+Cleaning ch MEG 1933
+Cleaning ch MEG 1943
+Cleaning ch MEG 1942
+Cleaning ch MEG 2013
+Cleaning ch MEG 2012
+Cleaning ch MEG 2023
+Cleaning ch MEG 2022
+Cleaning ch MEG 2032
+Cleaning ch MEG 2033
+Cleaning ch MEG 2042
+Cleaning ch MEG 2043
+Cleaning ch MEG 2113
+Cleaning ch MEG 2112
+Cleaning ch MEG 2122
+Cleaning ch MEG 2123
+Cleaning ch MEG 2133
+Cleaning ch MEG 2132
+Cleaning ch MEG 2143
+Cleaning ch MEG 2142
+Cleaning ch MEG 2212
+Cleaning ch MEG 2213
+Cleaning ch MEG 2223
+Cleaning ch MEG 2222
+Cleaning ch MEG 2233
+Cleaning ch MEG 2232
+Cleaning ch MEG 2242
+Cleaning ch MEG 2243
+Cleaning ch MEG 2312
+Cleaning ch MEG 2313
+Cleaning ch MEG 2323
+Cleaning ch MEG 2322
+Cleaning ch MEG 2332
+Cleaning ch MEG 2333
+Cleaning ch MEG 2343
+Cleaning ch MEG 2342
+Cleaning ch MEG 2412
+Cleaning ch MEG 2413
+Cleaning ch MEG 2423
+Cleaning ch MEG 2422
+Cleaning ch MEG 2433
+Cleaning ch MEG 2432
+Cleaning ch MEG 2442
+Cleaning ch MEG 2512
+Cleaning ch MEG 2513
+Cleaning ch MEG 2522
+Cleaning ch MEG 2523
+Cleaning ch MEG 2533
+Cleaning ch MEG 2532
+Cleaning ch MEG 2543
+Cleaning ch MEG 2542
+Cleaning ch MEG 2612
+Cleaning ch MEG 2613
+Cleaning ch MEG 2623
+Cleaning ch MEG 2622
+Cleaning ch MEG 2633
+Cleaning ch MEG 2632
+Cleaning ch MEG 2642
+Cleaning ch MEG 2643
+Compute optimal thresholds for meg
+</pre></div>
+</div>
+<p>Finally, let us plot a histogram of the channel-level thresholds to verify
+that the thresholds are indeed different for different sensors.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+
+<span class="n">unit</span> <span class="o">=</span> <span class="s1">r&#39;fT/cm&#39;</span>
+<span class="n">scaling</span> <span class="o">=</span> <span class="mf">1e13</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">threshes</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Threshold (</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">unit</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of sensors&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">950</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_channel_thresholds_001.png" class="align-center" src="../_images/sphx_glr_plot_channel_thresholds_001.png" />
+<p><strong>Total running time of the script:</strong>
+(0 minutes 52.384 seconds)</p>
+<div class="sphx-glr-download container">
+<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_channel_thresholds.py"><code class="xref download docutils literal"><span class="pre">plot_channel_thresholds.py</span></code></a></div>
+<div class="sphx-glr-download container">
+<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_channel_thresholds.ipynb"><code class="xref download docutils literal"><span class="pre">plot_channel_thresholds.ipynb</span></code></a></div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

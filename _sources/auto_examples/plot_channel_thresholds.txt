@@ -1,0 +1,400 @@
+
+
+.. _sphx_glr_auto_examples_plot_channel_thresholds.py:
+
+
+=============================
+Plot channel-level thresholds
+=============================
+
+This example demonstrates how to use ``autoreject`` to find
+channel-wise thresholds.
+
+
+.. code-block:: python
+
+
+    # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
+    # License: BSD (3-clause)
+
+
+
+
+
+
+
+Let us first load the `raw` data using MNE-Python.
+
+
+.. code-block:: python
+
+
+    import mne
+    from mne import io
+    from mne.datasets import sample
+
+    data_path = sample.data_path()
+    raw_fname = data_path + '/MEG/sample/sample_audvis_filt-0-40_raw.fif'
+    raw = io.Raw(raw_fname, preload=True)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+        Read a total of 4 projection items:
+            PCA-v1 (1 x 102)  idle
+            PCA-v2 (1 x 102)  idle
+            PCA-v3 (1 x 102)  idle
+            Average EEG reference (1 x 60)  idle
+    Current compensation grade : 0
+        Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+    Ready.
+    Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+
+
+Let us apply the SSP projectors to remove ECG artifacts. This must be done
+to ensure that the channel-level thresholds are not sensitive to ECG
+artifacts.
+
+
+.. code-block:: python
+
+
+    projs, _ = mne.preprocessing.compute_proj_ecg(raw, n_eeg=1, average=True,
+                                                  verbose=False)
+    raw.add_proj(projs).apply_proj()
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      9 projection items deactivated
+    Created an SSP operator (subspace dimension = 9)
+    13 projection items activated
+    SSP projectors applied...
+
+
+We can extract the events (or triggers) for epoching our signal.
+
+
+.. code-block:: python
+
+
+    event_fname = data_path + ('/MEG/sample/sample_audvis_filt-0-40_raw-'
+                               'eve.fif')
+    event_id = {'Auditory/Left': 1}
+    tmin, tmax = -0.2, 0.5
+    events = mne.read_events(event_fname)
+
+
+
+
+
+
+
+Now that we have the events, we can extract the trials for the selection
+of channels defined by ``picks``.
+
+
+.. code-block:: python
+
+    include = []
+    picks = mne.pick_types(raw.info, meg='grad', eeg=False, stim=False,
+                           eog=False, include=include, exclude='bads')
+
+    epochs = mne.Epochs(raw, events, event_id, tmin, tmax,
+                        picks=picks, baseline=(None, 0),
+                        reject=None, verbose=False, detrend=True,
+                        preload=True)
+
+    epochs.pick_types(meg='grad', eeg=False, stim=False, eog=False,
+                      include=include, exclude='bads')
+
+
+
+
+
+
+
+Now, we can define a threshold range over which the threshold must be found
+and then compute the channel-level thresholds using
+:func:`autoreject.compute_threshes`.
+
+
+.. code-block:: python
+
+    from autoreject import compute_threshes
+    import numpy as np
+
+    thresh_range = dict(grad=(4e-13, 900e-13))
+    threshes = np.array(compute_threshes(epochs, thresh_range)['meg'])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Cleaning ch MEG 0113
+    Cleaning ch MEG 0112
+    Cleaning ch MEG 0122
+    Cleaning ch MEG 0123
+    Cleaning ch MEG 0132
+    Cleaning ch MEG 0133
+    Cleaning ch MEG 0143
+    Cleaning ch MEG 0142
+    Cleaning ch MEG 0213
+    Cleaning ch MEG 0212
+    Cleaning ch MEG 0222
+    Cleaning ch MEG 0223
+    Cleaning ch MEG 0232
+    Cleaning ch MEG 0233
+    Cleaning ch MEG 0243
+    Cleaning ch MEG 0242
+    Cleaning ch MEG 0313
+    Cleaning ch MEG 0312
+    Cleaning ch MEG 0322
+    Cleaning ch MEG 0323
+    Cleaning ch MEG 0333
+    Cleaning ch MEG 0332
+    Cleaning ch MEG 0343
+    Cleaning ch MEG 0342
+    Cleaning ch MEG 0413
+    Cleaning ch MEG 0412
+    Cleaning ch MEG 0422
+    Cleaning ch MEG 0423
+    Cleaning ch MEG 0432
+    Cleaning ch MEG 0433
+    Cleaning ch MEG 0443
+    Cleaning ch MEG 0442
+    Cleaning ch MEG 0513
+    Cleaning ch MEG 0512
+    Cleaning ch MEG 0523
+    Cleaning ch MEG 0522
+    Cleaning ch MEG 0532
+    Cleaning ch MEG 0533
+    Cleaning ch MEG 0542
+    Cleaning ch MEG 0543
+    Cleaning ch MEG 0613
+    Cleaning ch MEG 0612
+    Cleaning ch MEG 0622
+    Cleaning ch MEG 0623
+    Cleaning ch MEG 0633
+    Cleaning ch MEG 0632
+    Cleaning ch MEG 0642
+    Cleaning ch MEG 0643
+    Cleaning ch MEG 0713
+    Cleaning ch MEG 0712
+    Cleaning ch MEG 0723
+    Cleaning ch MEG 0722
+    Cleaning ch MEG 0733
+    Cleaning ch MEG 0732
+    Cleaning ch MEG 0743
+    Cleaning ch MEG 0742
+    Cleaning ch MEG 0813
+    Cleaning ch MEG 0812
+    Cleaning ch MEG 0822
+    Cleaning ch MEG 0823
+    Cleaning ch MEG 0913
+    Cleaning ch MEG 0912
+    Cleaning ch MEG 0923
+    Cleaning ch MEG 0922
+    Cleaning ch MEG 0932
+    Cleaning ch MEG 0933
+    Cleaning ch MEG 0942
+    Cleaning ch MEG 0943
+    Cleaning ch MEG 1013
+    Cleaning ch MEG 1012
+    Cleaning ch MEG 1023
+    Cleaning ch MEG 1022
+    Cleaning ch MEG 1032
+    Cleaning ch MEG 1033
+    Cleaning ch MEG 1043
+    Cleaning ch MEG 1042
+    Cleaning ch MEG 1112
+    Cleaning ch MEG 1113
+    Cleaning ch MEG 1123
+    Cleaning ch MEG 1122
+    Cleaning ch MEG 1133
+    Cleaning ch MEG 1132
+    Cleaning ch MEG 1142
+    Cleaning ch MEG 1143
+    Cleaning ch MEG 1213
+    Cleaning ch MEG 1212
+    Cleaning ch MEG 1223
+    Cleaning ch MEG 1222
+    Cleaning ch MEG 1232
+    Cleaning ch MEG 1233
+    Cleaning ch MEG 1243
+    Cleaning ch MEG 1242
+    Cleaning ch MEG 1312
+    Cleaning ch MEG 1313
+    Cleaning ch MEG 1323
+    Cleaning ch MEG 1322
+    Cleaning ch MEG 1333
+    Cleaning ch MEG 1332
+    Cleaning ch MEG 1342
+    Cleaning ch MEG 1343
+    Cleaning ch MEG 1412
+    Cleaning ch MEG 1413
+    Cleaning ch MEG 1423
+    Cleaning ch MEG 1422
+    Cleaning ch MEG 1433
+    Cleaning ch MEG 1432
+    Cleaning ch MEG 1442
+    Cleaning ch MEG 1443
+    Cleaning ch MEG 1512
+    Cleaning ch MEG 1513
+    Cleaning ch MEG 1522
+    Cleaning ch MEG 1523
+    Cleaning ch MEG 1533
+    Cleaning ch MEG 1532
+    Cleaning ch MEG 1543
+    Cleaning ch MEG 1542
+    Cleaning ch MEG 1613
+    Cleaning ch MEG 1612
+    Cleaning ch MEG 1622
+    Cleaning ch MEG 1623
+    Cleaning ch MEG 1632
+    Cleaning ch MEG 1633
+    Cleaning ch MEG 1643
+    Cleaning ch MEG 1642
+    Cleaning ch MEG 1713
+    Cleaning ch MEG 1712
+    Cleaning ch MEG 1722
+    Cleaning ch MEG 1723
+    Cleaning ch MEG 1732
+    Cleaning ch MEG 1733
+    Cleaning ch MEG 1743
+    Cleaning ch MEG 1742
+    Cleaning ch MEG 1813
+    Cleaning ch MEG 1812
+    Cleaning ch MEG 1822
+    Cleaning ch MEG 1823
+    Cleaning ch MEG 1832
+    Cleaning ch MEG 1833
+    Cleaning ch MEG 1843
+    Cleaning ch MEG 1842
+    Cleaning ch MEG 1912
+    Cleaning ch MEG 1913
+    Cleaning ch MEG 1923
+    Cleaning ch MEG 1922
+    Cleaning ch MEG 1932
+    Cleaning ch MEG 1933
+    Cleaning ch MEG 1943
+    Cleaning ch MEG 1942
+    Cleaning ch MEG 2013
+    Cleaning ch MEG 2012
+    Cleaning ch MEG 2023
+    Cleaning ch MEG 2022
+    Cleaning ch MEG 2032
+    Cleaning ch MEG 2033
+    Cleaning ch MEG 2042
+    Cleaning ch MEG 2043
+    Cleaning ch MEG 2113
+    Cleaning ch MEG 2112
+    Cleaning ch MEG 2122
+    Cleaning ch MEG 2123
+    Cleaning ch MEG 2133
+    Cleaning ch MEG 2132
+    Cleaning ch MEG 2143
+    Cleaning ch MEG 2142
+    Cleaning ch MEG 2212
+    Cleaning ch MEG 2213
+    Cleaning ch MEG 2223
+    Cleaning ch MEG 2222
+    Cleaning ch MEG 2233
+    Cleaning ch MEG 2232
+    Cleaning ch MEG 2242
+    Cleaning ch MEG 2243
+    Cleaning ch MEG 2312
+    Cleaning ch MEG 2313
+    Cleaning ch MEG 2323
+    Cleaning ch MEG 2322
+    Cleaning ch MEG 2332
+    Cleaning ch MEG 2333
+    Cleaning ch MEG 2343
+    Cleaning ch MEG 2342
+    Cleaning ch MEG 2412
+    Cleaning ch MEG 2413
+    Cleaning ch MEG 2423
+    Cleaning ch MEG 2422
+    Cleaning ch MEG 2433
+    Cleaning ch MEG 2432
+    Cleaning ch MEG 2442
+    Cleaning ch MEG 2512
+    Cleaning ch MEG 2513
+    Cleaning ch MEG 2522
+    Cleaning ch MEG 2523
+    Cleaning ch MEG 2533
+    Cleaning ch MEG 2532
+    Cleaning ch MEG 2543
+    Cleaning ch MEG 2542
+    Cleaning ch MEG 2612
+    Cleaning ch MEG 2613
+    Cleaning ch MEG 2623
+    Cleaning ch MEG 2622
+    Cleaning ch MEG 2633
+    Cleaning ch MEG 2632
+    Cleaning ch MEG 2642
+    Cleaning ch MEG 2643
+    Compute optimal thresholds for meg
+
+
+Finally, let us plot a histogram of the channel-level thresholds to verify
+that the thresholds are indeed different for different sensors.
+
+
+.. code-block:: python
+
+    import matplotlib.pyplot as plt
+    from autoreject import set_matplotlib_defaults
+    set_matplotlib_defaults(plt)
+
+    unit = r'fT/cm'
+    scaling = 1e13
+
+    plt.figure(figsize=(6, 5))
+    plt.tick_params(axis='x', which='both', bottom='off', top='off')
+    plt.tick_params(axis='y', which='both', left='off', right='off')
+
+    plt.hist(scaling * threshes, 30, color='g', alpha=0.4)
+    plt.xlabel('Threshold (%s)' % unit)
+    plt.ylabel('Number of sensors')
+    plt.xlim((100, 950))
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_channel_thresholds_001.png
+    :align: center
+
+
+
+
+**Total running time of the script:**
+(0 minutes 52.384 seconds)
+
+
+
+.. container:: sphx-glr-download
+
+    **Download Python source code:** :download:`plot_channel_thresholds.py <plot_channel_thresholds.py>`
+
+
+.. container:: sphx-glr-download
+
+    **Download IPython notebook:** :download:`plot_channel_thresholds.ipynb <plot_channel_thresholds.ipynb>`

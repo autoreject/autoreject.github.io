@@ -1,0 +1,906 @@
+
+
+.. _sphx_glr_auto_examples_plot_auto_repair.py:
+
+
+===========================
+Automatically repair epochs
+===========================
+
+This example demonstrates how to use ``autoreject`` to automatically
+repair epochs.
+
+
+.. code-block:: python
+
+
+    # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
+    # License: BSD (3-clause)
+
+
+
+
+
+
+
+Let us first define the parameters. `n_interpolates` are the :math:`\rho`
+values that we would like ``autoreject`` to try and `consensus_percs`
+are the :math:`\kappa` values that ``autoreject`` will try.
+
+Epochs with more than :math:`\kappa * N` sensors (:math:`N` total sensors)
+bad are dropped. For the rest of the epochs, the worst :math:`\rho` sensors
+are interpolated. The exact values of these parameters are not preselected
+but learned from the data.
+
+
+.. code-block:: python
+
+    import numpy as np
+
+    n_interpolates = np.array([1, 4, 32])
+    consensus_percs = np.linspace(0, 1.0, 11)
+
+
+
+
+
+
+
+For the purposes of this example, we shall use the MNE sample dataset.
+Therefore, let us make some MNE related imports.
+
+
+.. code-block:: python
+
+
+    import mne
+    from mne import io
+    from mne import Epochs
+    from mne.utils import check_random_state
+    from mne.datasets import sample
+
+
+
+
+
+
+
+Now, we can import the class required for rejecting and repairing bad
+epochs. :func:`autoreject.compute_threshes` is a callable which must be
+provided to the :class:`autoreject.LocalAutoRejectCV` class for computing
+the channel-level thresholds.
+
+
+.. code-block:: python
+
+
+    from autoreject import (LocalAutoRejectCV, compute_threshes,
+                            set_matplotlib_defaults)
+
+
+
+
+
+
+
+Let us now read in the raw `fif` file for MNE sample dataset.
+
+
+.. code-block:: python
+
+
+    check_random_state(42)
+
+    data_path = sample.data_path()
+    raw_fname = data_path + '/MEG/sample/sample_audvis_filt-0-40_raw.fif'
+    raw = io.Raw(raw_fname, preload=True)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+        Read a total of 4 projection items:
+            PCA-v1 (1 x 102)  idle
+            PCA-v2 (1 x 102)  idle
+            PCA-v3 (1 x 102)  idle
+            Average EEG reference (1 x 60)  idle
+    Current compensation grade : 0
+        Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+    Ready.
+    Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+
+
+We will remove the ECG artifacts from our signal using SSP projectors.
+
+
+.. code-block:: python
+
+
+    projs, _ = mne.preprocessing.compute_proj_ecg(raw, n_eeg=1, average=True,
+                                                  verbose=False)
+    raw.add_proj(projs).apply_proj()
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      9 projection items deactivated
+    Created an SSP operator (subspace dimension = 9)
+    13 projection items activated
+    SSP projectors applied...
+
+
+We can then read in the events
+
+
+.. code-block:: python
+
+    event_fname = data_path + ('/MEG/sample/sample_audvis_filt-0-40_raw-'
+                               'eve.fif')
+    event_id = {'Auditory/Left': 1}
+    tmin, tmax = -0.2, 0.5
+
+    events = mne.read_events(event_fname)
+
+
+
+
+
+
+
+And pick MEG channels for repairing. Currently, ``autoreject`` can repair
+only one channel type at a time.
+
+
+.. code-block:: python
+
+    raw.info['bads'] = []
+    picks = mne.pick_types(raw.info, meg=True, eeg=False, stim=False, eog=False,
+                           include=[], exclude=[])
+
+
+
+
+
+
+
+Now, we can create epochs. The reject params will be set to ``None`` because
+we do not want MNE-Python to drop any epochs.
+
+
+.. code-block:: python
+
+
+    epochs = Epochs(raw, events, event_id, tmin, tmax,
+                    picks=picks, baseline=(None, 0), reject=None,
+                    verbose=False, detrend=0, preload=True)
+
+
+
+
+
+
+
+:class:`autoreject.LocalAutoRejectCV` internally does cross-validation to
+determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
+
+
+.. code-block:: python
+
+
+    ar = LocalAutoRejectCV(n_interpolates, consensus_percs, compute_threshes)
+    epochs_clean = ar.fit_transform(epochs)
+
+    evoked = epochs.average()
+    evoked_clean = epochs_clean.average()
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 1
+    [Val fold 1] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.00,n_interp 1
+    [Val fold 2] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.00,n_interp 1
+    [Val fold 3] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.00,n_interp 1
+    [Val fold 4] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.00,n_interp 1
+    [Val fold 5] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.00,n_interp 1
+    [Val fold 6] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.00,n_interp 1
+    [Val fold 7] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.00,n_interp 1
+    [Val fold 8] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.00,n_interp 1
+    [Val fold 9] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.00,n_interp 1
+    [Val fold 10] Trying consensus perc 0.10,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.20,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.30,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.40,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.50,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.60,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.70,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.80,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.90,n_interp 1
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 1.00,n_interp 1
+    No bad epochs dropped by consensus.
+    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 4
+    [Val fold 1] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.00,n_interp 4
+    [Val fold 2] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.00,n_interp 4
+    [Val fold 3] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.00,n_interp 4
+    [Val fold 4] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.00,n_interp 4
+    [Val fold 5] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.00,n_interp 4
+    [Val fold 6] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.00,n_interp 4
+    [Val fold 7] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.00,n_interp 4
+    [Val fold 8] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.00,n_interp 4
+    [Val fold 9] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.00,n_interp 4
+    [Val fold 10] Trying consensus perc 0.10,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.20,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.30,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.40,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.50,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.60,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.70,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.80,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.90,n_interp 4
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 1.00,n_interp 4
+    No bad epochs dropped by consensus.
+    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 32
+    [Val fold 1] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 1] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.00,n_interp 32
+    [Val fold 2] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 2] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.00,n_interp 32
+    [Val fold 3] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 3] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.00,n_interp 32
+    [Val fold 4] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 4] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.00,n_interp 32
+    [Val fold 5] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 5] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.00,n_interp 32
+    [Val fold 6] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 6] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.00,n_interp 32
+    [Val fold 7] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 7] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.00,n_interp 32
+    [Val fold 8] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 8] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.00,n_interp 32
+    [Val fold 9] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 9] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.00,n_interp 32
+    [Val fold 10] Trying consensus perc 0.10,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.20,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.30,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.40,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.50,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.60,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.70,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.80,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 0.90,n_interp 32
+    No bad epochs dropped by consensus.
+    [Val fold 10] Trying consensus perc 1.00,n_interp 32
+    No bad epochs dropped by consensus.
+    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    No bad epochs dropped by consensus.
+
+
+Now, we will manually mark the bad channels just for plotting.
+
+
+.. code-block:: python
+
+
+    evoked.info['bads'] = ['MEG 2443']
+    evoked_clean.info['bads'] = ['MEG 2443']
+
+
+
+
+
+
+
+Finally, let us plot the results.
+
+
+.. code-block:: python
+
+    import matplotlib.pyplot as plt
+    set_matplotlib_defaults(plt)
+
+    fig, axes = plt.subplots(2, 1, figsize=(6, 6))
+
+    for ax in axes:
+        ax.tick_params(axis='x', which='both', bottom='off', top='off')
+        ax.tick_params(axis='y', which='both', left='off', right='off')
+
+    ylim = dict(grad=(-170, 200))
+    evoked1 = evoked.copy().pick_types(meg='grad', exclude=[])
+    evoked1.plot(exclude=[], axes=axes[0], ylim=ylim, show=False)
+    axes[0].set_title('Before')
+    evoked2 = evoked_clean.copy().pick_types(meg='grad', exclude=[])
+    evoked2.plot(exclude=[], axes=axes[1], ylim=ylim)
+    axes[1].set_title('After')
+    plt.tight_layout()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_auto_repair_001.png
+    :align: center
+
+
+
+
+**Total running time of the script:**
+(1 minutes 10.962 seconds)
+
+
+
+.. container:: sphx-glr-download
+
+    **Download Python source code:** :download:`plot_auto_repair.py <plot_auto_repair.py>`
+
+
+.. container:: sphx-glr-download
+
+    **Download IPython notebook:** :download:`plot_auto_repair.ipynb <plot_auto_repair.ipynb>`

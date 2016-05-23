@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>autoreject.LocalAutoRejectCV &mdash; autoreject 0.1.dev0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../auto_examples/index.html">Examples</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">autoreject.LocalAutoRejectCV</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/generated/autoreject.LocalAutoRejectCV.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="section" id="autoreject-localautorejectcv">
+<h1>autoreject.LocalAutoRejectCV<a class="headerlink" href="#autoreject-localautorejectcv" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="autoreject.LocalAutoRejectCV">
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficiently find n_interp and n_consensus.</p>
+<dl class="docutils">
+<dt>n_interpolates <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
+<dd>The values of <span class="math">\(\rho\)</span> to try. If None, defaults
+to <cite>np.linspace(0, 1.0, 11)</cite></dd>
+<dt>consensus_percs <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
+<dd>The values of <span class="math">\(\kappa\)</span> to try. If None, defaults to
+np.array([1, 4, 32])</dd>
+<dt>thresh_func <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span></dt>
+<dd>Function which returns the channel-level thresholds. If None,
+defaults to <code class="docutils literal"><span class="pre">autoreject.compute_threshes</span></code>.</dd>
+<dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">a scikit-learn cross-validation object</span></dt>
+<dd>Defaults to cv=10</dd>
+</dl>
+<dl class="docutils">
+<dt>local_ar <span class="classifier-delimiter">:</span> <span class="classifier">instance of LocalAutoReject</span></dt>
+<dd>The fitted LocalAutoReject object.</dd>
+</dl>
+<dl class="method">
+<dt id="autoreject.LocalAutoRejectCV.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#autoreject.LocalAutoRejectCV.__init__" title="autoreject.LocalAutoRejectCV.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([n_interpolates,&nbsp;consensus_percs,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
+<td>Fit the epochs on the LocalAutoReject object.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
+<td>Estimates the rejection params and finds bad epochs.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">LocalAutoRejectCV.plot_bad_segments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
+<td>Removes bad epochs, repairs sensors and returns clean epochs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
