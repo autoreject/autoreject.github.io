@@ -7,7 +7,7 @@
 Find global rejection threshold
 ===============================
 
-This example demonstrates how to use ``autoreject`` to
+This example demonstrates how to use :mod:`autoreject` to
 find global rejection thresholds.
 
 
@@ -40,7 +40,7 @@ Let us import the data using MNE-Python and epoch it.
     event_fname = data_path + ('/MEG/sample/sample_audvis_filt-0-40_raw-'
                                'eve.fif')
 
-    raw = io.Raw(raw_fname, preload=True)
+    raw = io.read_raw_fif(raw_fname, preload=True)
     events = mne.read_events(event_fname)
 
     include = []
@@ -54,6 +54,20 @@ Let us import the data using MNE-Python and epoch it.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+        Read a total of 4 projection items:
+            PCA-v1 (1 x 102)  idle
+            PCA-v2 (1 x 102)  idle
+            PCA-v3 (1 x 102)  idle
+            Average EEG reference (1 x 60)  idle
+    Current compensation grade : 0
+        Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+    Ready.
+    Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 
 
 Let us define a range of candidate thresholds which we would like to try.
@@ -73,7 +87,7 @@ In this particular case, we try from :math:`40{\mu}V` to :math:`200{\mu}V`
 
 Next, we can use :class:`autoreject.GlobalAutoReject` to find global
 (i.e., for all channels) peak-to-peak thresholds. It is a class which
-follows a ``scikit-learn``-like API. To compute the Root Mean Squared
+follows a :mod:`scikit-learn`-like API. To compute the Root Mean Squared
 (RMSE) values at the candidate thresholds, we will use the function
 :func:`autoreject.validation_curve`.
 
@@ -138,7 +152,7 @@ Now let us plot the RMSE values against the candidate thresholds.
 
 
 **Total running time of the script:**
-(0 minutes 2.186 seconds)
+(0 minutes 2.114 seconds)
 
 
 

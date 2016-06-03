@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>autoreject.compute_threshes &mdash; autoreject 0.1.dev0 documentation</title>
+    <title>autoreject.compute_thresholds &mdash; autoreject 0.1.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -82,7 +82,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">autoreject.compute_threshes</a></li>
+<li><a class="reference internal" href="#">autoreject.compute_thresholds</a></li>
 </ul>
 </ul>
 </li>
@@ -94,7 +94,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/autoreject.compute_threshes.txt"
+  <a href="../_sources/generated/autoreject.compute_thresholds.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -116,20 +116,24 @@
 
 <div class="container content-container">
   
-  <div class="section" id="autoreject-compute-threshes">
-<h1>autoreject.compute_threshes<a class="headerlink" href="#autoreject-compute-threshes" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="autoreject-compute-thresholds">
+<h1>autoreject.compute_thresholds<a class="headerlink" href="#autoreject-compute-thresholds" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="autoreject.compute_threshes">
-<code class="descclassname">autoreject.</code><code class="descname">compute_threshes</code><span class="sig-paren">(</span><em>epochs</em>, <em>thresh_range=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_threshes" title="Permalink to this definition">¶</a></dt>
+<dt id="autoreject.compute_thresholds">
+<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>thresh_range=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute thresholds for each channel.</p>
 <dl class="docutils">
 <dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
 <dd>The epochs objects whose thresholds must be computed.</dd>
 <dt>thresh_range <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
 <dd>Possible keys are &#8216;eeg&#8217;, &#8216;grad&#8217; and &#8216;mag&#8217;. Each entry is a tuple
-of the form (low, high) which specifies the range to try.
-Example: compute_threshes(epochs, range=dict(eeg=(20e-7, 400e-6)))</dd>
+of the form (low, high) which specifies the range to try.</dd>
 </dl>
+<p>For example, we can compute the channel-level thresholds for all the
+EEG sensors this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">(</span><span class="mf">20e-7</span><span class="p">,</span> <span class="mf">400e-6</span><span class="p">)))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

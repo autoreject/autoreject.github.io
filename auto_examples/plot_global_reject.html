@@ -118,7 +118,7 @@
   
   <div class="section" id="find-global-rejection-threshold">
 <span id="sphx-glr-auto-examples-plot-global-reject-py"></span><h1>Find global rejection threshold<a class="headerlink" href="#find-global-rejection-threshold" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrates how to use <code class="docutils literal"><span class="pre">autoreject</span></code> to
+<p>This example demonstrates how to use <code class="xref py py-mod docutils literal"><span class="pre">autoreject</span></code> to
 find global rejection thresholds.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
 <span class="c1"># License: BSD (3-clause)</span>
@@ -137,7 +137,7 @@ find global rejection thresholds.</p>
 <span class="n">event_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
                            <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
 
-<span class="n">raw</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Raw</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_events</span><span class="p">(</span><span class="n">event_fname</span><span class="p">)</span>
 
 <span class="n">include</span> <span class="o">=</span> <span class="p">[]</span>
@@ -148,6 +148,19 @@ find global rejection thresholds.</p>
                     <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Read a total of 4 projection items:
+        PCA-v1 (1 x 102)  idle
+        PCA-v2 (1 x 102)  idle
+        PCA-v3 (1 x 102)  idle
+        Average EEG reference (1 x 60)  idle
+Current compensation grade : 0
+    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+Ready.
+Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+</pre></div>
+</div>
 <p>Let us define a range of candidate thresholds which we would like to try.
 In this particular case, we try from <span class="math">\(40{\mu}V\)</span> to <span class="math">\(200{\mu}V\)</span></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -156,7 +169,7 @@ In this particular case, we try from <span class="math">\(40{\mu}V\)</span> to <
 </div>
 <p>Next, we can use <a class="reference internal" href="../generated/autoreject.GlobalAutoReject.html#autoreject.GlobalAutoReject" title="autoreject.GlobalAutoReject"><code class="xref py py-class docutils literal"><span class="pre">autoreject.GlobalAutoReject</span></code></a> to find global
 (i.e., for all channels) peak-to-peak thresholds. It is a class which
-follows a <code class="docutils literal"><span class="pre">scikit-learn</span></code>-like API. To compute the Root Mean Squared
+follows a <code class="xref py py-mod docutils literal"><span class="pre">scikit-learn</span></code>-like API. To compute the Root Mean Squared
 (RMSE) values at the candidate thresholds, we will use the function
 <a class="reference internal" href="../generated/autoreject.validation_curve.html#autoreject.validation_curve" title="autoreject.validation_curve"><code class="xref py py-func docutils literal"><span class="pre">autoreject.validation_curve()</span></code></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">GlobalAutoReject</span><span class="p">,</span> <span class="n">validation_curve</span>
@@ -202,7 +215,7 @@ follows a <code class="docutils literal"><span class="pre">scikit-learn</span></
 </div>
 <img alt="../_images/sphx_glr_plot_global_reject_001.png" class="align-center" src="../_images/sphx_glr_plot_global_reject_001.png" />
 <p><strong>Total running time of the script:</strong>
-(0 minutes 2.186 seconds)</p>
+(0 minutes 2.114 seconds)</p>
 <div class="sphx-glr-download container">
 <strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_global_reject.py"><code class="xref download docutils literal"><span class="pre">plot_global_reject.py</span></code></a></div>
 <div class="sphx-glr-download container">
