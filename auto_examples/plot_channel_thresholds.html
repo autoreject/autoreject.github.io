@@ -134,14 +134,6 @@ channel-wise thresholds.</p>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let us apply the SSP projectors to remove ECG artifacts. This must be done
-to ensure that the channel-level thresholds are not sensitive to ECG
-artifacts.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">projs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">compute_proj_ecg</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">n_eeg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                              <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">add_proj</span><span class="p">(</span><span class="n">projs</span><span class="p">)</span><span class="o">.</span><span class="n">apply_proj</span><span class="p">()</span>
-</pre></div>
-</div>
 <p>We can extract the events (or triggers) for epoching our signal.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">event_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
                            <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
@@ -158,8 +150,7 @@ of channels defined by <code class="docutils literal"><span class="pre">picks</s
 
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
                     <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                    <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                    <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                    <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="n">include</span><span class="o">=</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
@@ -171,8 +162,8 @@ and then compute the channel-level thresholds using
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">compute_thresholds</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">thresh_range</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="mf">4e-13</span><span class="p">,</span> <span class="mf">900e-13</span><span class="p">))</span>
-<span class="n">threshes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">thresh_range</span><span class="p">)[</span><span class="s1">&#39;meg&#39;</span><span class="p">])</span>
+<span class="c1"># thresh_range = dict(grad=(4e-13, 900e-13))</span>
+<span class="n">threshes</span> <span class="o">=</span> <span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">)[</span><span class="s1">&#39;meg&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -378,7 +369,211 @@ and then compute the channel-level thresholds using
 [....................................... ] 99.00990 \ Creating augmented epochs
 [....................................... ] 99.50495 | Creating augmented epochs
 [........................................] 100.00000 / Creating augmented epochs
-[........................................] 100.00000 - Creating augmented epochs   Compute optimal thresholds for meg
+[........................................] 100.00000 - Creating augmented epochs
+
+[                                        ] 1.40845 | Computing thresholds
+[.                                       ] 2.81690 / Computing thresholds
+[.                                       ] 4.22535 - Computing thresholds
+[..                                      ] 5.63380 \ Computing thresholds
+[..                                      ] 7.04225 | Computing thresholds
+[...                                     ] 8.45070 / Computing thresholds
+[...                                     ] 9.85915 - Computing thresholds
+[....                                    ] 11.26761 \ Computing thresholds
+[.....                                   ] 12.67606 | Computing thresholds
+[.....                                   ] 14.08451 / Computing thresholds
+[......                                  ] 15.49296 - Computing thresholds
+[......                                  ] 16.90141 \ Computing thresholds
+[.......                                 ] 18.30986 | Computing thresholds
+[.......                                 ] 19.71831 / Computing thresholds
+[........                                ] 21.12676 - Computing thresholds
+[.........                               ] 22.53521 \ Computing thresholds
+[.........                               ] 23.94366 | Computing thresholds
+[..........                              ] 25.35211 / Computing thresholds
+[..........                              ] 26.76056 - Computing thresholds
+[...........                             ] 28.16901 \ Computing thresholds
+[...........                             ] 29.57746 | Computing thresholds
+[............                            ] 30.98592 / Computing thresholds
+[............                            ] 32.39437 - Computing thresholds
+[.............                           ] 33.80282 \ Computing thresholds
+[..............                          ] 35.21127 | Computing thresholds
+[..............                          ] 36.61972 / Computing thresholds
+[...............                         ] 38.02817 - Computing thresholds
+[...............                         ] 39.43662 \ Computing thresholds
+[................                        ] 40.84507 | Computing thresholds
+[................                        ] 42.25352 / Computing thresholds
+[.................                       ] 43.66197 - Computing thresholds
+[..................                      ] 45.07042 \ Computing thresholds
+[..................                      ] 46.47887 | Computing thresholds
+[...................                     ] 47.88732 / Computing thresholds
+[...................                     ] 49.29577 - Computing thresholds
+[....................                    ] 50.70423 \ Computing thresholds
+[....................                    ] 52.11268 | Computing thresholds
+[.....................                   ] 53.52113 / Computing thresholds
+[.....................                   ] 54.92958 - Computing thresholds
+[......................                  ] 56.33803 \ Computing thresholds
+[.......................                 ] 57.74648 | Computing thresholds
+[.......................                 ] 59.15493 / Computing thresholds
+[........................                ] 60.56338 - Computing thresholds
+[........................                ] 61.97183 \ Computing thresholds
+[.........................               ] 63.38028 | Computing thresholds
+[.........................               ] 64.78873 / Computing thresholds
+[..........................              ] 66.19718 - Computing thresholds
+[...........................             ] 67.60563 \ Computing thresholds
+[...........................             ] 69.01408 | Computing thresholds
+[............................            ] 70.42254 / Computing thresholds
+[............................            ] 71.83099 - Computing thresholds
+[.............................           ] 73.23944 \ Computing thresholds
+[.............................           ] 74.64789 | Computing thresholds
+[..............................          ] 76.05634 / Computing thresholds
+[..............................          ] 77.46479 - Computing thresholds
+[...............................         ] 78.87324 \ Computing thresholds
+[................................        ] 80.28169 | Computing thresholds
+[................................        ] 81.69014 / Computing thresholds
+[.................................       ] 83.09859 - Computing thresholds
+[.................................       ] 84.50704 \ Computing thresholds
+[..................................      ] 85.91549 | Computing thresholds
+[..................................      ] 87.32394 / Computing thresholds
+[...................................     ] 88.73239 - Computing thresholds
+[....................................    ] 90.14085 \ Computing thresholds
+[....................................    ] 91.54930 | Computing thresholds
+[.....................................   ] 92.95775 / Computing thresholds
+[.....................................   ] 94.36620 - Computing thresholds
+[......................................  ] 95.77465 \ Computing thresholds
+[......................................  ] 97.18310 | Computing thresholds
+[....................................... ] 98.59155 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
 </pre></div>
 </div>
 <p>Finally, let us plot a histogram of the channel-level thresholds to verify
@@ -394,7 +589,7 @@ that the thresholds are indeed different for different sensors.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">threshes</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">threshes</span><span class="p">),</span> <span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Threshold (</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">unit</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of sensors&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">950</span><span class="p">))</span>
@@ -404,7 +599,7 @@ that the thresholds are indeed different for different sensors.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_channel_thresholds_001.png" class="align-center" src="../_images/sphx_glr_plot_channel_thresholds_001.png" />
 <p><strong>Total running time of the script:</strong>
-(0 minutes 51.105 seconds)</p>
+(7 minutes 19.472 seconds)</p>
 <div class="sphx-glr-download container">
 <strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_channel_thresholds.py"><code class="xref download docutils literal"><span class="pre">plot_channel_thresholds.py</span></code></a></div>
 <div class="sphx-glr-download container">

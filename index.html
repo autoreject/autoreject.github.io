@@ -85,6 +85,7 @@
 <li><a class="reference internal" href="#">autoreject</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li><a class="reference internal" href="#bug-reports">Bug reports</a></li>
 <li><a class="reference internal" href="#cite">Cite</a></li>
 </ul>
 </ul>
@@ -121,12 +122,14 @@
   
   <div class="section" id="autoreject">
 <h1>autoreject<a class="headerlink" href="#autoreject" title="Permalink to this headline">¶</a></h1>
-<p>This is a library to automatically reject bad trials and repair bad sensors in M/EEG.</p>
+<p>This is a library to automatically reject bad trials and repair bad sensors in magneto-/electroencephalography (M/EEG) data.</p>
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>We recommend the <a class="reference external" href="https://www.continuum.io/downloads">Anaconda Python distribution</a>. To install <code class="docutils literal"><span class="pre">autoreject</span></code>, you first need to install its dependencies:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ pip install numpy matplotlib scipy scikit-learn mne joblib pandas
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ pip install -e git+https://github.com/scikit-learn/scikit-learn.git#egg=scikit-learn-0.18dev
+$ pip install scikit-optimize
+$ pip install numpy matplotlib scipy mne joblib pandas
 </pre></div>
 </div>
 <p>Then clone the repository:</p>
@@ -157,6 +160,10 @@ in your script:</p>
 </div>
 <p>This will automatically clean an <cite>epochs</cite> object read in using MNE-Python. For more details check
 out the <a class="reference internal" href="auto_examples/plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span>example to automatically detect and repair bad epochs</span></a>.</p>
+</div>
+<div class="section" id="bug-reports">
+<h1>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this headline">¶</a></h1>
+<p>Use the <cite>github issue tracker &lt;https://github.com/autoreject/autoreject/issues&gt;</cite> to report bugs.</p>
 </div>
 <div class="section" id="cite">
 <h1>Cite<a class="headerlink" href="#cite" title="Permalink to this headline">¶</a></h1>

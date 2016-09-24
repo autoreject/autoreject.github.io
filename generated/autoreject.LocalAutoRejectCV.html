@@ -120,7 +120,7 @@
 <h1>autoreject.LocalAutoRejectCV<a class="headerlink" href="#autoreject-localautorejectcv" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoRejectCV">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficiently find n_interp and n_consensus.</p>
 <dl class="docutils">
 <dt>n_interpolates <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
@@ -132,6 +132,8 @@ np.array([1, 4, 32])</dd>
 <dt>thresh_func <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span></dt>
 <dd>Function which returns the channel-level thresholds. If None,
 defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</dd>
+<dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>&#8216;bayesian_optimization&#8217; or &#8216;random_search&#8217;</dd>
 <dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">a scikit-learn cross-validation object</span></dt>
 <dd>Defaults to cv=10</dd>
 </dl>
@@ -141,7 +143,7 @@ defaults to <a class="reference internal" href="autoreject.compute_thresholds.ht
 </dl>
 <dl class="method">
 <dt id="autoreject.LocalAutoRejectCV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>
@@ -172,7 +174,13 @@ defaults to <a class="reference internal" href="autoreject.compute_thresholds.ht
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_segments</span></code></td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_epochs_idx</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_segments</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fix_log</span></code></td>
 <td></td>
 </tr>
 </tbody>

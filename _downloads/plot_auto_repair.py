@@ -63,15 +63,6 @@ raw_fname = data_path + '/MEG/sample/sample_audvis_filt-0-40_raw.fif'
 raw = io.read_raw_fif(raw_fname, preload=True)
 
 ###############################################################################
-# We will remove the ECG artifacts from our signal using SSP projectors.
-
-###############################################################################
-
-projs, _ = mne.preprocessing.compute_proj_ecg(raw, n_eeg=1, average=True,
-                                              verbose=False)
-raw.add_proj(projs).apply_proj()
-
-###############################################################################
 # We can then read in the events
 
 ###############################################################################
@@ -97,7 +88,7 @@ picks = mne.pick_types(raw.info, meg=True, eeg=False, stim=False, eog=False,
 # :class:`mne.Epochs`.
 
 ###############################################################################
-
+raw.info['projs'] = list()  # remove proj, don't proj while interpolating
 epochs = Epochs(raw, events, event_id, tmin, tmax,
                 picks=picks, baseline=(None, 0), reject=None,
                 verbose=False, detrend=0, preload=True)
@@ -108,7 +99,8 @@ epochs = Epochs(raw, events, event_id, tmin, tmax,
 
 ###############################################################################
 
-ar = LocalAutoRejectCV(n_interpolates, consensus_percs, compute_thresholds)
+ar = LocalAutoRejectCV(n_interpolates, consensus_percs, compute_thresholds,
+                       method='random_search')
 epochs_clean = ar.fit_transform(epochs)
 
 evoked = epochs.average()

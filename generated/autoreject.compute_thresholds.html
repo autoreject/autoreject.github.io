@@ -120,18 +120,17 @@
 <h1>autoreject.compute_thresholds<a class="headerlink" href="#autoreject-compute-thresholds" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.compute_thresholds">
-<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>thresh_range=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute thresholds for each channel.</p>
 <dl class="docutils">
 <dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
 <dd>The epochs objects whose thresholds must be computed.</dd>
-<dt>thresh_range <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd>Possible keys are &#8216;eeg&#8217;, &#8216;grad&#8217; and &#8216;mag&#8217;. Each entry is a tuple
-of the form (low, high) which specifies the range to try.</dd>
+<dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>&#8216;bayesian_optimization&#8217; or &#8216;random_search&#8217;</dd>
 </dl>
 <p>For example, we can compute the channel-level thresholds for all the
 EEG sensors this way:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">(</span><span class="mf">20e-7</span><span class="p">,</span> <span class="mf">400e-6</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

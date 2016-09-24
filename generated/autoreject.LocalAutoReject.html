@@ -120,7 +120,7 @@
 <h1>autoreject.LocalAutoReject<a class="headerlink" href="#autoreject-localautoreject" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoReject">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to automatically reject bad epochs and repair bad trials.</p>
 <dl class="docutils">
 <dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
@@ -133,10 +133,12 @@ defaults to <a class="reference internal" href="autoreject.compute_thresholds.ht
 the total number of channels.</dd>
 <dt>n_interpolate <span class="classifier-delimiter">:</span> <span class="classifier">int (default 0)</span></dt>
 <dd>Number of channels for which to interpolate</dd>
+<dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>&#8216;bayesian_optimization&#8217; or &#8216;random_search&#8217;</dd>
 </dl>
 <dl class="method">
 <dt id="autoreject.LocalAutoReject.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>
@@ -176,7 +178,10 @@ the total number of channels.</dd>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_segments</span></code></td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_epochs_idx</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">bad_segments</span></code></td>
 <td></td>
 </tr>
 </tbody>

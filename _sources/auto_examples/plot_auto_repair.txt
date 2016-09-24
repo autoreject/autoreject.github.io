@@ -105,40 +105,16 @@ Let us now read in the raw `fif` file for MNE sample dataset.
 
  Out::
 
-      Opening raw data file /home/mainak/Desktop/projects/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+      Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
         Read a total of 4 projection items:
             PCA-v1 (1 x 102)  idle
             PCA-v2 (1 x 102)  idle
             PCA-v3 (1 x 102)  idle
             Average EEG reference (1 x 60)  idle
-    Current compensation grade : 0
         Range : 6450 ... 48149 =     42.956 ...   320.665 secs
     Ready.
+    Current compensation grade : 0
     Reading 0 ... 41699  =      0.000 ...   277.709 secs...
-
-
-We will remove the ECG artifacts from our signal using SSP projectors.
-
-
-.. code-block:: python
-
-
-    projs, _ = mne.preprocessing.compute_proj_ecg(raw, n_eeg=1, average=True,
-                                                  verbose=False)
-    raw.add_proj(projs).apply_proj()
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out::
-
-      9 projection items deactivated
-    Created an SSP operator (subspace dimension = 9)
-    13 projection items activated
-    SSP projectors applied...
 
 
 We can then read in the events
@@ -182,7 +158,7 @@ because we do not want epochs to be dropped when instantiating
 
 .. code-block:: python
 
-
+    raw.info['projs'] = list()  # remove proj, don't proj while interpolating
     epochs = Epochs(raw, events, event_id, tmin, tmax,
                     picks=picks, baseline=(None, 0), reject=None,
                     verbose=False, detrend=0, preload=True)
@@ -200,7 +176,8 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 .. code-block:: python
 
 
-    ar = LocalAutoRejectCV(n_interpolates, consensus_percs, compute_thresholds)
+    ar = LocalAutoRejectCV(n_interpolates, consensus_percs, compute_thresholds,
+                           method='random_search')
     epochs_clean = ar.fit_transform(epochs)
 
     evoked = epochs.average()
@@ -214,12 +191,10 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 
  Out::
 
-      [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 1
+      [                                        ] 1.40845 | Repairing epochs        [.                                       ] 2.81690 / Repairing epochs        [.                                       ] 4.22535 - Repairing epochs        [..                                      ] 5.63380 \ Repairing epochs        [..                                      ] 7.04225 | Repairing epochs        [...                                     ] 8.45070 / Repairing epochs        [...                                     ] 9.85915 - Repairing epochs        [....                                    ] 11.26761 \ Repairing epochs        [.....                                   ] 12.67606 | Repairing epochs        [.....                                   ] 14.08451 / Repairing epochs        [......                                  ] 15.49296 - Repairing epochs        [......                                  ] 16.90141 \ Repairing epochs        [.......                                 ] 18.30986 | Repairing epochs        [.......                                 ] 19.71831 / Repairing epochs        [........                                ] 21.12676 - Repairing epochs        [.........                               ] 22.53521 \ Repairing epochs        [.........                               ] 23.94366 | Repairing epochs        [..........                              ] 25.35211 / Repairing epochs        [..........                              ] 26.76056 - Repairing epochs        [...........                             ] 28.16901 \ Repairing epochs        [...........                             ] 29.57746 | Repairing epochs        [............                            ] 30.98592 / Repairing epochs        [............                            ] 32.39437 - Repairing epochs        [.............                           ] 33.80282 \ Repairing epochs        [..............                          ] 35.21127 | Repairing epochs        [..............                          ] 36.61972 / Repairing epochs        [...............                         ] 38.02817 - Repairing epochs        [...............                         ] 39.43662 \ Repairing epochs        [................                        ] 40.84507 | Repairing epochs        [................                        ] 42.25352 / Repairing epochs        [.................                       ] 43.66197 - Repairing epochs        [..................                      ] 45.07042 \ Repairing epochs        [..................                      ] 46.47887 | Repairing epochs        [...................                     ] 47.88732 / Repairing epochs        [...................                     ] 49.29577 - Repairing epochs        [....................                    ] 50.70423 \ Repairing epochs        [....................                    ] 52.11268 | Repairing epochs        [.....................                   ] 53.52113 / Repairing epochs        [.....................                   ] 54.92958 - Repairing epochs        [......................                  ] 56.33803 \ Repairing epochs        [.......................                 ] 57.74648 | Repairing epochs        [.......................                 ] 59.15493 / Repairing epochs        [........................                ] 60.56338 - Repairing epochs        [........................                ] 61.97183 \ Repairing epochs        [.........................               ] 63.38028 | Repairing epochs        [.........................               ] 64.78873 / Repairing epochs        [..........................              ] 66.19718 - Repairing epochs        [...........................             ] 67.60563 \ Repairing epochs        [...........................             ] 69.01408 | Repairing epochs        [............................            ] 70.42254 / Repairing epochs        [............................            ] 71.83099 - Repairing epochs        [.............................           ] 73.23944 \ Repairing epochs        [.............................           ] 74.64789 | Repairing epochs        [..............................          ] 76.05634 / Repairing epochs        [..............................          ] 77.46479 - Repairing epochs        [...............................         ] 78.87324 \ Repairing epochs        [................................        ] 80.28169 | Repairing epochs        [................................        ] 81.69014 / Repairing epochs        [.................................       ] 83.09859 - Repairing epochs        [.................................       ] 84.50704 \ Repairing epochs        [..................................      ] 85.91549 | Repairing epochs        [..................................      ] 87.32394 / Repairing epochs        [...................................     ] 88.73239 - Repairing epochs        [....................................    ] 90.14085 \ Repairing epochs        [....................................    ] 91.54930 | Repairing epochs        [.....................................   ] 92.95775 / Repairing epochs        [.....................................   ] 94.36620 - Repairing epochs        [......................................  ] 95.77465 \ Repairing epochs        [......................................  ] 97.18310 | Repairing epochs        [....................................... ] 98.59155 / Repairing epochs        [........................................] 100.00000 - Repairing epochs        [........................................] 100.00000 \ Repairing epochs    [Val fold 1] Trying consensus perc 0.00,n_interp 1
     [Val fold 1] Trying consensus perc 0.10,n_interp 1
     [Val fold 1] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.50,n_interp 1
@@ -237,9 +212,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 2] Trying consensus perc 0.00,n_interp 1
     [Val fold 2] Trying consensus perc 0.10,n_interp 1
     [Val fold 2] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.50,n_interp 1
@@ -256,7 +229,6 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.00,n_interp 1
     [Val fold 3] Trying consensus perc 0.10,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.20,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.30,n_interp 1
@@ -278,9 +250,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 4] Trying consensus perc 0.00,n_interp 1
     [Val fold 4] Trying consensus perc 0.10,n_interp 1
     [Val fold 4] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.50,n_interp 1
@@ -298,9 +268,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 5] Trying consensus perc 0.00,n_interp 1
     [Val fold 5] Trying consensus perc 0.10,n_interp 1
     [Val fold 5] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.50,n_interp 1
@@ -318,9 +286,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 6] Trying consensus perc 0.00,n_interp 1
     [Val fold 6] Trying consensus perc 0.10,n_interp 1
     [Val fold 6] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.50,n_interp 1
@@ -338,9 +304,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 7] Trying consensus perc 0.00,n_interp 1
     [Val fold 7] Trying consensus perc 0.10,n_interp 1
     [Val fold 7] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.50,n_interp 1
@@ -358,9 +322,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 8] Trying consensus perc 0.00,n_interp 1
     [Val fold 8] Trying consensus perc 0.10,n_interp 1
     [Val fold 8] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.50,n_interp 1
@@ -378,9 +340,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 9] Trying consensus perc 0.00,n_interp 1
     [Val fold 9] Trying consensus perc 0.10,n_interp 1
     [Val fold 9] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.50,n_interp 1
@@ -398,9 +358,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 10] Trying consensus perc 0.00,n_interp 1
     [Val fold 10] Trying consensus perc 0.10,n_interp 1
     [Val fold 10] Trying consensus perc 0.20,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.30,n_interp 1
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.40,n_interp 1
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.50,n_interp 1
@@ -415,12 +373,11 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 1.00,n_interp 1
     No bad epochs dropped by consensus.
-    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 4
+
+    [                                        ] 1.40845 | Repairing epochs        [.                                       ] 2.81690 / Repairing epochs        [.                                       ] 4.22535 - Repairing epochs        [..                                      ] 5.63380 \ Repairing epochs        [..                                      ] 7.04225 | Repairing epochs        [...                                     ] 8.45070 / Repairing epochs        [...                                     ] 9.85915 - Repairing epochs        [....                                    ] 11.26761 \ Repairing epochs        [.....                                   ] 12.67606 | Repairing epochs        [.....                                   ] 14.08451 / Repairing epochs        [......                                  ] 15.49296 - Repairing epochs        [......                                  ] 16.90141 \ Repairing epochs        [.......                                 ] 18.30986 | Repairing epochs        [.......                                 ] 19.71831 / Repairing epochs        [........                                ] 21.12676 - Repairing epochs        [.........                               ] 22.53521 \ Repairing epochs        [.........                               ] 23.94366 | Repairing epochs        [..........                              ] 25.35211 / Repairing epochs        [..........                              ] 26.76056 - Repairing epochs        [...........                             ] 28.16901 \ Repairing epochs        [...........                             ] 29.57746 | Repairing epochs        [............                            ] 30.98592 / Repairing epochs        [............                            ] 32.39437 - Repairing epochs        [.............                           ] 33.80282 \ Repairing epochs        [..............                          ] 35.21127 | Repairing epochs        [..............                          ] 36.61972 / Repairing epochs        [...............                         ] 38.02817 - Repairing epochs        [...............                         ] 39.43662 \ Repairing epochs        [................                        ] 40.84507 | Repairing epochs        [................                        ] 42.25352 / Repairing epochs        [.................                       ] 43.66197 - Repairing epochs        [..................                      ] 45.07042 \ Repairing epochs        [..................                      ] 46.47887 | Repairing epochs        [...................                     ] 47.88732 / Repairing epochs        [...................                     ] 49.29577 - Repairing epochs        [....................                    ] 50.70423 \ Repairing epochs        [....................                    ] 52.11268 | Repairing epochs        [.....................                   ] 53.52113 / Repairing epochs        [.....................                   ] 54.92958 - Repairing epochs        [......................                  ] 56.33803 \ Repairing epochs        [.......................                 ] 57.74648 | Repairing epochs        [.......................                 ] 59.15493 / Repairing epochs        [........................                ] 60.56338 - Repairing epochs        [........................                ] 61.97183 \ Repairing epochs        [.........................               ] 63.38028 | Repairing epochs        [.........................               ] 64.78873 / Repairing epochs        [..........................              ] 66.19718 - Repairing epochs        [...........................             ] 67.60563 \ Repairing epochs        [...........................             ] 69.01408 | Repairing epochs        [............................            ] 70.42254 / Repairing epochs        [............................            ] 71.83099 - Repairing epochs        [.............................           ] 73.23944 \ Repairing epochs        [.............................           ] 74.64789 | Repairing epochs        [..............................          ] 76.05634 / Repairing epochs        [..............................          ] 77.46479 - Repairing epochs        [...............................         ] 78.87324 \ Repairing epochs        [................................        ] 80.28169 | Repairing epochs        [................................        ] 81.69014 / Repairing epochs        [.................................       ] 83.09859 - Repairing epochs        [.................................       ] 84.50704 \ Repairing epochs        [..................................      ] 85.91549 | Repairing epochs        [..................................      ] 87.32394 / Repairing epochs        [...................................     ] 88.73239 - Repairing epochs        [....................................    ] 90.14085 \ Repairing epochs        [....................................    ] 91.54930 | Repairing epochs        [.....................................   ] 92.95775 / Repairing epochs        [.....................................   ] 94.36620 - Repairing epochs        [......................................  ] 95.77465 \ Repairing epochs        [......................................  ] 97.18310 | Repairing epochs        [....................................... ] 98.59155 / Repairing epochs        [........................................] 100.00000 - Repairing epochs        [........................................] 100.00000 \ Repairing epochs    [Val fold 1] Trying consensus perc 0.00,n_interp 4
     [Val fold 1] Trying consensus perc 0.10,n_interp 4
     [Val fold 1] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.50,n_interp 4
@@ -438,9 +395,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 2] Trying consensus perc 0.00,n_interp 4
     [Val fold 2] Trying consensus perc 0.10,n_interp 4
     [Val fold 2] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.50,n_interp 4
@@ -457,7 +412,6 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.00,n_interp 4
     [Val fold 3] Trying consensus perc 0.10,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.20,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.30,n_interp 4
@@ -479,9 +433,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 4] Trying consensus perc 0.00,n_interp 4
     [Val fold 4] Trying consensus perc 0.10,n_interp 4
     [Val fold 4] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.50,n_interp 4
@@ -499,9 +451,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 5] Trying consensus perc 0.00,n_interp 4
     [Val fold 5] Trying consensus perc 0.10,n_interp 4
     [Val fold 5] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.50,n_interp 4
@@ -519,9 +469,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 6] Trying consensus perc 0.00,n_interp 4
     [Val fold 6] Trying consensus perc 0.10,n_interp 4
     [Val fold 6] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.50,n_interp 4
@@ -539,9 +487,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 7] Trying consensus perc 0.00,n_interp 4
     [Val fold 7] Trying consensus perc 0.10,n_interp 4
     [Val fold 7] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.50,n_interp 4
@@ -559,9 +505,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 8] Trying consensus perc 0.00,n_interp 4
     [Val fold 8] Trying consensus perc 0.10,n_interp 4
     [Val fold 8] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.50,n_interp 4
@@ -579,9 +523,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 9] Trying consensus perc 0.00,n_interp 4
     [Val fold 9] Trying consensus perc 0.10,n_interp 4
     [Val fold 9] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.50,n_interp 4
@@ -599,9 +541,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 10] Trying consensus perc 0.00,n_interp 4
     [Val fold 10] Trying consensus perc 0.10,n_interp 4
     [Val fold 10] Trying consensus perc 0.20,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.30,n_interp 4
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.40,n_interp 4
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.50,n_interp 4
@@ -616,12 +556,11 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 1.00,n_interp 4
     No bad epochs dropped by consensus.
-    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:    [Val fold 1] Trying consensus perc 0.00,n_interp 32
+
+    [                                        ] 1.40845 | Repairing epochs        [.                                       ] 2.81690 / Repairing epochs        [.                                       ] 4.22535 - Repairing epochs        [..                                      ] 5.63380 \ Repairing epochs        [..                                      ] 7.04225 | Repairing epochs        [...                                     ] 8.45070 / Repairing epochs        [...                                     ] 9.85915 - Repairing epochs        [....                                    ] 11.26761 \ Repairing epochs        [.....                                   ] 12.67606 | Repairing epochs        [.....                                   ] 14.08451 / Repairing epochs        [......                                  ] 15.49296 - Repairing epochs        [......                                  ] 16.90141 \ Repairing epochs        [.......                                 ] 18.30986 | Repairing epochs        [.......                                 ] 19.71831 / Repairing epochs        [........                                ] 21.12676 - Repairing epochs        [.........                               ] 22.53521 \ Repairing epochs        [.........                               ] 23.94366 | Repairing epochs        [..........                              ] 25.35211 / Repairing epochs        [..........                              ] 26.76056 - Repairing epochs        [...........                             ] 28.16901 \ Repairing epochs        [...........                             ] 29.57746 | Repairing epochs        [............                            ] 30.98592 / Repairing epochs        [............                            ] 32.39437 - Repairing epochs        [.............                           ] 33.80282 \ Repairing epochs        [..............                          ] 35.21127 | Repairing epochs        [..............                          ] 36.61972 / Repairing epochs        [...............                         ] 38.02817 - Repairing epochs        [...............                         ] 39.43662 \ Repairing epochs        [................                        ] 40.84507 | Repairing epochs        [................                        ] 42.25352 / Repairing epochs        [.................                       ] 43.66197 - Repairing epochs        [..................                      ] 45.07042 \ Repairing epochs        [..................                      ] 46.47887 | Repairing epochs        [...................                     ] 47.88732 / Repairing epochs        [...................                     ] 49.29577 - Repairing epochs        [....................                    ] 50.70423 \ Repairing epochs        [....................                    ] 52.11268 | Repairing epochs        [.....................                   ] 53.52113 / Repairing epochs        [.....................                   ] 54.92958 - Repairing epochs        [......................                  ] 56.33803 \ Repairing epochs        [.......................                 ] 57.74648 | Repairing epochs        [.......................                 ] 59.15493 / Repairing epochs        [........................                ] 60.56338 - Repairing epochs        [........................                ] 61.97183 \ Repairing epochs        [.........................               ] 63.38028 | Repairing epochs        [.........................               ] 64.78873 / Repairing epochs        [..........................              ] 66.19718 - Repairing epochs        [...........................             ] 67.60563 \ Repairing epochs        [...........................             ] 69.01408 | Repairing epochs        [............................            ] 70.42254 / Repairing epochs        [............................            ] 71.83099 - Repairing epochs        [.............................           ] 73.23944 \ Repairing epochs        [.............................           ] 74.64789 | Repairing epochs        [..............................          ] 76.05634 / Repairing epochs        [..............................          ] 77.46479 - Repairing epochs        [...............................         ] 78.87324 \ Repairing epochs        [................................        ] 80.28169 | Repairing epochs        [................................        ] 81.69014 / Repairing epochs        [.................................       ] 83.09859 - Repairing epochs        [.................................       ] 84.50704 \ Repairing epochs        [..................................      ] 85.91549 | Repairing epochs        [..................................      ] 87.32394 / Repairing epochs        [...................................     ] 88.73239 - Repairing epochs        [....................................    ] 90.14085 \ Repairing epochs        [....................................    ] 91.54930 | Repairing epochs        [.....................................   ] 92.95775 / Repairing epochs        [.....................................   ] 94.36620 - Repairing epochs        [......................................  ] 95.77465 \ Repairing epochs        [......................................  ] 97.18310 | Repairing epochs        [....................................... ] 98.59155 / Repairing epochs        [........................................] 100.00000 - Repairing epochs        [........................................] 100.00000 \ Repairing epochs    [Val fold 1] Trying consensus perc 0.00,n_interp 32
     [Val fold 1] Trying consensus perc 0.10,n_interp 32
     [Val fold 1] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 1] Trying consensus perc 0.50,n_interp 32
@@ -639,9 +578,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 2] Trying consensus perc 0.00,n_interp 32
     [Val fold 2] Trying consensus perc 0.10,n_interp 32
     [Val fold 2] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 2] Trying consensus perc 0.50,n_interp 32
@@ -658,7 +595,6 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.00,n_interp 32
     [Val fold 3] Trying consensus perc 0.10,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.20,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 3] Trying consensus perc 0.30,n_interp 32
@@ -680,9 +616,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 4] Trying consensus perc 0.00,n_interp 32
     [Val fold 4] Trying consensus perc 0.10,n_interp 32
     [Val fold 4] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 4] Trying consensus perc 0.50,n_interp 32
@@ -700,9 +634,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 5] Trying consensus perc 0.00,n_interp 32
     [Val fold 5] Trying consensus perc 0.10,n_interp 32
     [Val fold 5] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 5] Trying consensus perc 0.50,n_interp 32
@@ -720,9 +652,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 6] Trying consensus perc 0.00,n_interp 32
     [Val fold 6] Trying consensus perc 0.10,n_interp 32
     [Val fold 6] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 6] Trying consensus perc 0.50,n_interp 32
@@ -740,9 +670,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 7] Trying consensus perc 0.00,n_interp 32
     [Val fold 7] Trying consensus perc 0.10,n_interp 32
     [Val fold 7] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 7] Trying consensus perc 0.50,n_interp 32
@@ -760,9 +688,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 8] Trying consensus perc 0.00,n_interp 32
     [Val fold 8] Trying consensus perc 0.10,n_interp 32
     [Val fold 8] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 8] Trying consensus perc 0.50,n_interp 32
@@ -780,9 +706,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 9] Trying consensus perc 0.00,n_interp 32
     [Val fold 9] Trying consensus perc 0.10,n_interp 32
     [Val fold 9] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 9] Trying consensus perc 0.50,n_interp 32
@@ -800,9 +724,7 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     [Val fold 10] Trying consensus perc 0.00,n_interp 32
     [Val fold 10] Trying consensus perc 0.10,n_interp 32
     [Val fold 10] Trying consensus perc 0.20,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.30,n_interp 32
-    No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.40,n_interp 32
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 0.50,n_interp 32
@@ -817,7 +739,8 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
     No bad epochs dropped by consensus.
     [Val fold 10] Trying consensus perc 1.00,n_interp 32
     No bad epochs dropped by consensus.
-    [                                        ] 1.40845 | Repairing epochs:        [.                                       ] 2.81690 / Repairing epochs:        [.                                       ] 4.22535 - Repairing epochs:        [..                                      ] 5.63380 \ Repairing epochs:        [..                                      ] 7.04225 | Repairing epochs:        [...                                     ] 8.45070 / Repairing epochs:        [...                                     ] 9.85915 - Repairing epochs:        [....                                    ] 11.26761 \ Repairing epochs:        [.....                                   ] 12.67606 | Repairing epochs:        [.....                                   ] 14.08451 / Repairing epochs:        [......                                  ] 15.49296 - Repairing epochs:        [......                                  ] 16.90141 \ Repairing epochs:        [.......                                 ] 18.30986 | Repairing epochs:        [.......                                 ] 19.71831 / Repairing epochs:        [........                                ] 21.12676 - Repairing epochs:        [.........                               ] 22.53521 \ Repairing epochs:        [.........                               ] 23.94366 | Repairing epochs:        [..........                              ] 25.35211 / Repairing epochs:        [..........                              ] 26.76056 - Repairing epochs:        [...........                             ] 28.16901 \ Repairing epochs:        [...........                             ] 29.57746 | Repairing epochs:        [............                            ] 30.98592 / Repairing epochs:        [............                            ] 32.39437 - Repairing epochs:        [.............                           ] 33.80282 \ Repairing epochs:        [..............                          ] 35.21127 | Repairing epochs:        [..............                          ] 36.61972 / Repairing epochs:        [...............                         ] 38.02817 - Repairing epochs:        [...............                         ] 39.43662 \ Repairing epochs:        [................                        ] 40.84507 | Repairing epochs:        [................                        ] 42.25352 / Repairing epochs:        [.................                       ] 43.66197 - Repairing epochs:        [..................                      ] 45.07042 \ Repairing epochs:        [..................                      ] 46.47887 | Repairing epochs:        [...................                     ] 47.88732 / Repairing epochs:        [...................                     ] 49.29577 - Repairing epochs:        [....................                    ] 50.70423 \ Repairing epochs:        [....................                    ] 52.11268 | Repairing epochs:        [.....................                   ] 53.52113 / Repairing epochs:        [.....................                   ] 54.92958 - Repairing epochs:        [......................                  ] 56.33803 \ Repairing epochs:        [.......................                 ] 57.74648 | Repairing epochs:        [.......................                 ] 59.15493 / Repairing epochs:        [........................                ] 60.56338 - Repairing epochs:        [........................                ] 61.97183 \ Repairing epochs:        [.........................               ] 63.38028 | Repairing epochs:        [.........................               ] 64.78873 / Repairing epochs:        [..........................              ] 66.19718 - Repairing epochs:        [...........................             ] 67.60563 \ Repairing epochs:        [...........................             ] 69.01408 | Repairing epochs:        [............................            ] 70.42254 / Repairing epochs:        [............................            ] 71.83099 - Repairing epochs:        [.............................           ] 73.23944 \ Repairing epochs:        [.............................           ] 74.64789 | Repairing epochs:        [..............................          ] 76.05634 / Repairing epochs:        [..............................          ] 77.46479 - Repairing epochs:        [...............................         ] 78.87324 \ Repairing epochs:        [................................        ] 80.28169 | Repairing epochs:        [................................        ] 81.69014 / Repairing epochs:        [.................................       ] 83.09859 - Repairing epochs:        [.................................       ] 84.50704 \ Repairing epochs:        [..................................      ] 85.91549 | Repairing epochs:        [..................................      ] 87.32394 / Repairing epochs:        [...................................     ] 88.73239 - Repairing epochs:        [....................................    ] 90.14085 \ Repairing epochs:        [....................................    ] 91.54930 | Repairing epochs:        [.....................................   ] 92.95775 / Repairing epochs:        [.....................................   ] 94.36620 - Repairing epochs:        [......................................  ] 95.77465 \ Repairing epochs:        [......................................  ] 97.18310 | Repairing epochs:        [....................................... ] 98.59155 / Repairing epochs:        [........................................] 100.00000 - Repairing epochs:        [........................................] 100.00000 \ Repairing epochs:
+
+    [                                        ] 1.40845 | Repairing epochs        [.                                       ] 2.81690 / Repairing epochs        [.                                       ] 4.22535 - Repairing epochs        [..                                      ] 5.63380 \ Repairing epochs        [..                                      ] 7.04225 | Repairing epochs        [...                                     ] 8.45070 / Repairing epochs        [...                                     ] 9.85915 - Repairing epochs        [....                                    ] 11.26761 \ Repairing epochs        [.....                                   ] 12.67606 | Repairing epochs        [.....                                   ] 14.08451 / Repairing epochs        [......                                  ] 15.49296 - Repairing epochs        [......                                  ] 16.90141 \ Repairing epochs        [.......                                 ] 18.30986 | Repairing epochs        [.......                                 ] 19.71831 / Repairing epochs        [........                                ] 21.12676 - Repairing epochs        [.........                               ] 22.53521 \ Repairing epochs        [.........                               ] 23.94366 | Repairing epochs        [..........                              ] 25.35211 / Repairing epochs        [..........                              ] 26.76056 - Repairing epochs        [...........                             ] 28.16901 \ Repairing epochs        [...........                             ] 29.57746 | Repairing epochs        [............                            ] 30.98592 / Repairing epochs        [............                            ] 32.39437 - Repairing epochs        [.............                           ] 33.80282 \ Repairing epochs        [..............                          ] 35.21127 | Repairing epochs        [..............                          ] 36.61972 / Repairing epochs        [...............                         ] 38.02817 - Repairing epochs        [...............                         ] 39.43662 \ Repairing epochs        [................                        ] 40.84507 | Repairing epochs        [................                        ] 42.25352 / Repairing epochs        [.................                       ] 43.66197 - Repairing epochs        [..................                      ] 45.07042 \ Repairing epochs        [..................                      ] 46.47887 | Repairing epochs        [...................                     ] 47.88732 / Repairing epochs        [...................                     ] 49.29577 - Repairing epochs        [....................                    ] 50.70423 \ Repairing epochs        [....................                    ] 52.11268 | Repairing epochs        [.....................                   ] 53.52113 / Repairing epochs        [.....................                   ] 54.92958 - Repairing epochs        [......................                  ] 56.33803 \ Repairing epochs        [.......................                 ] 57.74648 | Repairing epochs        [.......................                 ] 59.15493 / Repairing epochs        [........................                ] 60.56338 - Repairing epochs        [........................                ] 61.97183 \ Repairing epochs        [.........................               ] 63.38028 | Repairing epochs        [.........................               ] 64.78873 / Repairing epochs        [..........................              ] 66.19718 - Repairing epochs        [...........................             ] 67.60563 \ Repairing epochs        [...........................             ] 69.01408 | Repairing epochs        [............................            ] 70.42254 / Repairing epochs        [............................            ] 71.83099 - Repairing epochs        [.............................           ] 73.23944 \ Repairing epochs        [.............................           ] 74.64789 | Repairing epochs        [..............................          ] 76.05634 / Repairing epochs        [..............................          ] 77.46479 - Repairing epochs        [...............................         ] 78.87324 \ Repairing epochs        [................................        ] 80.28169 | Repairing epochs        [................................        ] 81.69014 / Repairing epochs        [.................................       ] 83.09859 - Repairing epochs        [.................................       ] 84.50704 \ Repairing epochs        [..................................      ] 85.91549 | Repairing epochs        [..................................      ] 87.32394 / Repairing epochs        [...................................     ] 88.73239 - Repairing epochs        [....................................    ] 90.14085 \ Repairing epochs        [....................................    ] 91.54930 | Repairing epochs        [.....................................   ] 92.95775 / Repairing epochs        [.....................................   ] 94.36620 - Repairing epochs        [......................................  ] 95.77465 \ Repairing epochs        [......................................  ] 97.18310 | Repairing epochs        [....................................... ] 98.59155 / Repairing epochs        [........................................] 100.00000 - Repairing epochs        [........................................] 100.00000 \ Repairing epochs    No bad epochs dropped by consensus.
 
 
 Now, we will manually mark the bad channels just for plotting.
@@ -895,7 +818,7 @@ To top things up, we can also visualize the bad sensors for each trial using
 
 
 **Total running time of the script:**
-(1 minutes 9.981 seconds)
+(1 minutes 9.827 seconds)
 
 
 
