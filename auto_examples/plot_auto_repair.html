@@ -135,15 +135,15 @@ the data. If the number of bad sensors for a particular trial is less than
 <span class="math">\(\rho\)</span>, all the bad sensors are interpolated.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">n_interpolates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
-<span class="n">consensus_percs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">n_interpolates</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.array.html#numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
+<span class="n">consensus_percs</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.linspace.html#numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For the purposes of this example, we shall use the MNE sample dataset.
 Therefore, let us make some MNE related imports.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">io</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">Epochs</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <a href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs"><span class="n">Epochs</span></a>
 <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
 <span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>
 </pre></div>
@@ -152,8 +152,8 @@ Therefore, let us make some MNE related imports.</p>
 epochs. <a class="reference internal" href="../generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a> is a callable which must be
 provided to the <a class="reference internal" href="../generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV" title="autoreject.LocalAutoRejectCV"><code class="xref py py-class docutils literal"><span class="pre">autoreject.LocalAutoRejectCV</span></code></a> class for computing
 the channel-level thresholds.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="p">(</span><span class="n">LocalAutoRejectCV</span><span class="p">,</span> <span class="n">compute_thresholds</span><span class="p">,</span>
-                        <span class="n">set_matplotlib_defaults</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">,</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span>
+                        <a href="http://autoreject.github.io/generated/autoreject.set_matplotlib_defaults.html#autoreject.set_matplotlib_defaults"><span class="n">set_matplotlib_defaults</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
@@ -161,7 +161,7 @@ the channel-level thresholds.</p>
 
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_path</span><span class="p">()</span>
 <span class="n">raw_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -183,13 +183,13 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
 
-<span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_events</span><span class="p">(</span><span class="n">event_fname</span><span class="p">)</span>
+<span class="n">events</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.read_events.html#mne.read_events"><span class="n">mne</span><span class="o">.</span><span class="n">read_events</span></a><span class="p">(</span><span class="n">event_fname</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>And pick MEG channels for repairing. Currently, <code class="xref py py-mod docutils literal"><span class="pre">autoreject</span></code> can repair
 only one channel type at a time.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">picks</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="n">picks</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.pick_types.html#mne.pick_types"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                        <span class="n">include</span><span class="o">=</span><span class="p">[],</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 </pre></div>
 </div>
@@ -197,14 +197,14 @@ only one channel type at a time.</p>
 because we do not want epochs to be dropped when instantiating
 <a class="reference external" href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v0.13)"><code class="xref py py-class docutils literal"><span class="pre">mne.Epochs</span></code></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;projs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
+<span class="n">epochs</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs"><span class="n">Epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
                 <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference internal" href="../generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV" title="autoreject.LocalAutoRejectCV"><code class="xref py py-class docutils literal"><span class="pre">autoreject.LocalAutoRejectCV</span></code></a> internally does cross-validation to
 determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span class="math">\(\kappa^{*}\)</span></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <span class="n">LocalAutoRejectCV</span><span class="p">(</span><span class="n">n_interpolates</span><span class="p">,</span> <span class="n">consensus_percs</span><span class="p">,</span> <span class="n">compute_thresholds</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">(</span><span class="n">n_interpolates</span><span class="p">,</span> <span class="n">consensus_percs</span><span class="p">,</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span>
                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">)</span>
 <span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 
@@ -1059,7 +1059,7 @@ No bad epochs dropped by consensus.
 </div>
 <p>Let us plot the results.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+<a href="http://autoreject.github.io/generated/autoreject.set_matplotlib_defaults.html#autoreject.set_matplotlib_defaults"><span class="n">set_matplotlib_defaults</span></a><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
@@ -1081,7 +1081,7 @@ No bad epochs dropped by consensus.
 <p>To top things up, we can also visualize the bad sensors for each trial using
 <a class="reference external" href="https://web.stanford.edu/~mwaskom/software/seaborn/generated/seaborn.heatmap.html#seaborn.heatmap" title="(in seaborn v0.7.1)"><code class="xref py py-func docutils literal"><span class="pre">seaborn.heatmap()</span></code></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+<a href="http://autoreject.github.io/generated/autoreject.set_matplotlib_defaults.html#autoreject.set_matplotlib_defaults"><span class="n">set_matplotlib_defaults</span></a><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">ar</span><span class="o">.</span><span class="n">bad_segments</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
