@@ -195,7 +195,7 @@ only one channel type at a time.</p>
 </div>
 <p>Now, we can create epochs. The <code class="docutils literal"><span class="pre">reject</span></code> params will be set to <code class="docutils literal"><span class="pre">None</span></code>
 because we do not want epochs to be dropped when instantiating
-<a class="reference external" href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v0.12.0)"><code class="xref py py-class docutils literal"><span class="pre">mne.Epochs</span></code></a>.</p>
+<a class="reference external" href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v0.13)"><code class="xref py py-class docutils literal"><span class="pre">mne.Epochs</span></code></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;projs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
 <span class="n">epochs</span> <span class="o">=</span> <span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
                 <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -1105,6 +1105,12 @@ No bad epochs dropped by consensus.
 
 
 </div>
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
+src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+alt="Fork me on GitHub"
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 <footer class="footer">
   <div class="container">
     <p class="pull-right">
