@@ -176,8 +176,8 @@ and then compute the channel-level thresholds using
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="c1"># thresh_range = dict(grad=(4e-13, 900e-13))</span>
-<span class="n">threshes</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">)[</span><span class="s1">&#39;meg&#39;</span><span class="p">]</span>
+<span class="n">threshes</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">,</span>
+                              <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)[</span><span class="s1">&#39;meg&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -613,7 +613,7 @@ that the thresholds are indeed different for different sensors.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_channel_thresholds_001.png" class="align-center" src="../_images/sphx_glr_plot_channel_thresholds_001.png" />
 <p><strong>Total running time of the script:</strong>
-(1 minutes 51.866 seconds)</p>
+(1 minutes 59.808 seconds)</p>
 <div class="sphx-glr-download container">
 <a class="reference download internal" href="../_downloads/plot_channel_thresholds.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_channel_thresholds.py</span></code></a></div>
 <div class="sphx-glr-download container">

@@ -114,8 +114,8 @@ and then compute the channel-level thresholds using
     from autoreject import compute_thresholds
     import numpy as np
 
-    # thresh_range = dict(grad=(4e-13, 900e-13))
-    threshes = compute_thresholds(epochs, method='random_search')['meg']
+    threshes = compute_thresholds(epochs, method='random_search',
+                                  random_state=42)['meg']
 
 
 
@@ -164,7 +164,7 @@ that the thresholds are indeed different for different sensors.
 
 
 **Total running time of the script:**
-(1 minutes 51.866 seconds)
+(1 minutes 59.808 seconds)
 
 
 

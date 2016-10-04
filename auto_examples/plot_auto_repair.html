@@ -203,10 +203,16 @@ because we do not want epochs to be dropped when instantiating
                 <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>First, we set up the function to compute the sensor-level thresholds.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="n">thresh_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">,</span>
+                      <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
 <p><a class="reference internal" href="../generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV" title="autoreject.LocalAutoRejectCV"><code class="xref py py-class docutils literal"><span class="pre">autoreject.LocalAutoRejectCV</span></code></a> internally does cross-validation to
 determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span class="math">\(\kappa^{*}\)</span></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">(</span><span class="n">n_interpolates</span><span class="p">,</span> <span class="n">consensus_percs</span><span class="p">,</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span>
-                       <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">(</span><span class="n">n_interpolates</span><span class="p">,</span> <span class="n">consensus_percs</span><span class="p">,</span>
+                       <span class="n">thresh_func</span><span class="o">=</span><span class="n">thresh_func</span><span class="p">)</span>
 <span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 
 <span class="n">evoked</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
@@ -214,50 +220,7 @@ determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span cl
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>________________________________________________________________________________
-[Memory] Calling autoreject.autoreject.compute_thresholds...
-compute_thresholds(&lt;Epochs  |  n_events : 72 (all good), tmin : -0.199795213158 (s), tmax : 0.499488032896 (s), baseline : (None, 0), ~21.3 MB, data loaded&gt;,
-&#39;random_search&#39;)
-
-[                                        ] 0.32787 | Creating augmented epochs   ________________________________________________________________________________
-[Memory] Calling autoreject.utils._compute_dots...
-_compute_dots(&lt;Info | 20 non-empty fields
-    bads : list | 0 items
-    buffer_size_sec : numpy.float64 | 13.3196808772
-    ch_names : list | MEG 0113, MEG 0112, MEG 0111, MEG 0122, MEG 0123, ...
-    chs : list | 306 items (GRAD: 204, MAG: 102)
-    comps : list | 0 items
-    custom_ref_applied : bool | False
-    dev_head_t : &#39;mne.transforms.Transform | 3 items
-    dig : list | 146 items
-    events : list | 0 items
-    file_id : dict | 4 items
-    filename : unicode | /tsi/docto.../sample_audvis_filt-0-40_raw.fif
-    highpass : float | 0.10000000149 Hz
-    hpi_meas : list | 1 items
-    hpi_results : list | 1 items
-    lowpass : float | 40.0 Hz
-    meas_date : numpy.ndarray | 2002-12-03 20:01:10
-    meas_id : dict | 4 items
-    nchan : int | 306
-    projs : list | 0 items
-    sfreq : float | 150.153747559 Hz
-    acq_pars : NoneType
-    acq_stim : NoneType
-    ctf_head_t : NoneType
-    description : NoneType
-    dev_ctf_t : NoneType
-    experimenter : NoneType
-    hpi_subsystem : NoneType
-    kit_system_id : NoneType
-    line_freq : NoneType
-    proj_id : NoneType
-    proj_name : NoneType
-    subject_info : NoneType
-    xplotter_layout : NoneType
-&gt;, mode=&#39;fast&#39;)
-_____________________________________________________compute_dots - 4.2s, 0.1min
-
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>[                                        ] 0.32787 | Creating augmented epochs
 [                                        ] 0.65574 / Creating augmented epochs
 [                                        ] 0.98361 - Creating augmented epochs
 [                                        ] 1.31148 \ Creating augmented epochs
@@ -869,48 +832,9 @@ _____________________________________________________compute_dots - 4.2s, 0.1min
 [........................................] 100.00000 - Computing thresholds
 [........................................] 100.00000 \ Computing thresholds
 [........................................] 100.00000 | Computing thresholds
-[........................................] 100.00000 / Computing thresholds    _____________________________________________compute_thresholds - 147.8s, 2.5min
+[........................................] 100.00000 / Computing thresholds
 
-
-[                                        ] 1.40845 | Repairing epochs    ________________________________________________________________________________
-[Memory] Calling autoreject.utils._compute_dots...
-_compute_dots(&lt;Info | 20 non-empty fields
-    bads : list | 0 items
-    buffer_size_sec : numpy.float64 | 13.3196808772
-    ch_names : list | MEG 0113, MEG 0112, MEG 0111, MEG 0122, MEG 0123, ...
-    chs : list | 306 items (GRAD: 204, MAG: 102)
-    comps : list | 0 items
-    custom_ref_applied : bool | False
-    dev_head_t : &#39;mne.transforms.Transform | 3 items
-    dig : list | 146 items
-    events : list | 0 items
-    file_id : dict | 4 items
-    filename : unicode | /tsi/docto.../sample_audvis_filt-0-40_raw.fif
-    highpass : float | 0.10000000149 Hz
-    hpi_meas : list | 1 items
-    hpi_results : list | 1 items
-    lowpass : float | 40.0 Hz
-    meas_date : numpy.ndarray | 2002-12-03 20:01:10
-    meas_id : dict | 4 items
-    nchan : int | 306
-    projs : list | 0 items
-    sfreq : float | 150.153747559 Hz
-    acq_pars : NoneType
-    acq_stim : NoneType
-    ctf_head_t : NoneType
-    description : NoneType
-    dev_ctf_t : NoneType
-    experimenter : NoneType
-    hpi_subsystem : NoneType
-    kit_system_id : NoneType
-    line_freq : NoneType
-    proj_id : NoneType
-    proj_name : NoneType
-    subject_info : NoneType
-    xplotter_layout : NoneType
-&gt;, mode=&#39;accurate&#39;)
-____________________________________________________compute_dots - 17.8s, 0.3min
-
+[                                        ] 1.40845 | Repairing epochs
 [.                                       ] 2.81690 / Repairing epochs
 [.                                       ] 4.22535 - Repairing epochs
 [..                                      ] 5.63380 \ Repairing epochs
@@ -985,6 +909,7 @@ ____________________________________________________compute_dots - 17.8s, 0.3min
 [Val fold 1] Trying consensus perc 0.10,n_interp 1
 [Val fold 1] Trying consensus perc 0.20,n_interp 1
 [Val fold 1] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 1
@@ -1003,6 +928,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.10,n_interp 1
 [Val fold 2] Trying consensus perc 0.20,n_interp 1
 [Val fold 2] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 1
@@ -1041,6 +967,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.10,n_interp 1
 [Val fold 4] Trying consensus perc 0.20,n_interp 1
 [Val fold 4] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 1
@@ -1059,6 +986,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.10,n_interp 1
 [Val fold 5] Trying consensus perc 0.20,n_interp 1
 [Val fold 5] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 1
@@ -1077,6 +1005,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.10,n_interp 1
 [Val fold 6] Trying consensus perc 0.20,n_interp 1
 [Val fold 6] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 1
@@ -1095,6 +1024,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.10,n_interp 1
 [Val fold 7] Trying consensus perc 0.20,n_interp 1
 [Val fold 7] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 1
@@ -1113,6 +1043,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.10,n_interp 1
 [Val fold 8] Trying consensus perc 0.20,n_interp 1
 [Val fold 8] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 1
@@ -1131,6 +1062,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.10,n_interp 1
 [Val fold 9] Trying consensus perc 0.20,n_interp 1
 [Val fold 9] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 1
@@ -1149,6 +1081,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.10,n_interp 1
 [Val fold 10] Trying consensus perc 0.20,n_interp 1
 [Val fold 10] Trying consensus perc 0.30,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.40,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 1
@@ -1240,6 +1173,7 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.10,n_interp 4
 [Val fold 1] Trying consensus perc 0.20,n_interp 4
 [Val fold 1] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 4
@@ -1258,6 +1192,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.10,n_interp 4
 [Val fold 2] Trying consensus perc 0.20,n_interp 4
 [Val fold 2] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 4
@@ -1296,6 +1231,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.10,n_interp 4
 [Val fold 4] Trying consensus perc 0.20,n_interp 4
 [Val fold 4] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 4
@@ -1314,6 +1250,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.10,n_interp 4
 [Val fold 5] Trying consensus perc 0.20,n_interp 4
 [Val fold 5] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 4
@@ -1332,6 +1269,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.10,n_interp 4
 [Val fold 6] Trying consensus perc 0.20,n_interp 4
 [Val fold 6] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 4
@@ -1350,6 +1288,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.10,n_interp 4
 [Val fold 7] Trying consensus perc 0.20,n_interp 4
 [Val fold 7] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 4
@@ -1368,6 +1307,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.10,n_interp 4
 [Val fold 8] Trying consensus perc 0.20,n_interp 4
 [Val fold 8] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 4
@@ -1386,6 +1326,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.10,n_interp 4
 [Val fold 9] Trying consensus perc 0.20,n_interp 4
 [Val fold 9] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 4
@@ -1404,6 +1345,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.10,n_interp 4
 [Val fold 10] Trying consensus perc 0.20,n_interp 4
 [Val fold 10] Trying consensus perc 0.30,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.40,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 4
@@ -1495,6 +1437,7 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.10,n_interp 32
 [Val fold 1] Trying consensus perc 0.20,n_interp 32
 [Val fold 1] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 32
@@ -1513,6 +1456,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.10,n_interp 32
 [Val fold 2] Trying consensus perc 0.20,n_interp 32
 [Val fold 2] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 32
@@ -1551,6 +1495,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.10,n_interp 32
 [Val fold 4] Trying consensus perc 0.20,n_interp 32
 [Val fold 4] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 32
@@ -1569,6 +1514,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.10,n_interp 32
 [Val fold 5] Trying consensus perc 0.20,n_interp 32
 [Val fold 5] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 32
@@ -1587,6 +1533,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.10,n_interp 32
 [Val fold 6] Trying consensus perc 0.20,n_interp 32
 [Val fold 6] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 32
@@ -1605,6 +1552,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.10,n_interp 32
 [Val fold 7] Trying consensus perc 0.20,n_interp 32
 [Val fold 7] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 32
@@ -1623,6 +1571,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.10,n_interp 32
 [Val fold 8] Trying consensus perc 0.20,n_interp 32
 [Val fold 8] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 32
@@ -1641,6 +1590,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.10,n_interp 32
 [Val fold 9] Trying consensus perc 0.20,n_interp 32
 [Val fold 9] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 32
@@ -1659,6 +1609,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.10,n_interp 32
 [Val fold 10] Trying consensus perc 0.20,n_interp 32
 [Val fold 10] Trying consensus perc 0.30,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.40,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 32
@@ -1746,7 +1697,7 @@ No bad epochs dropped by consensus.
 [......................................  ] 97.18310 | Repairing epochs
 [....................................... ] 98.59155 / Repairing epochs
 [........................................] 100.00000 - Repairing epochs
-[........................................] 100.00000 \ Repairing epochs    No bad epochs dropped by consensus.
+[........................................] 100.00000 \ Repairing epochs
 </pre></div>
 </div>
 <p>Now, we will manually mark the bad channels just for plotting.</p>
@@ -1789,11 +1740,12 @@ No bad epochs dropped by consensus.
 <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_auto_repair_002.png" class="align-center" src="../_images/sphx_glr_plot_auto_repair_002.png" />
 <p><strong>Total running time of the script:</strong>
-(4 minutes 18.842 seconds)</p>
+(4 minutes 59.994 seconds)</p>
 <div class="sphx-glr-download container">
 <a class="reference download internal" href="../_downloads/plot_auto_repair.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_auto_repair.py</span></code></a></div>
 <div class="sphx-glr-download container">

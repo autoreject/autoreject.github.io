@@ -253,20 +253,18 @@ Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  26
 </pre></div>
 </div>
 <p>Now, we apply autoreject</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">,</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
 <span class="n">this_epoch</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;famous&#39;</span><span class="p">]</span>
-<span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">()</span>
+<span class="n">thresh_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">(</span><span class="n">thresh_func</span><span class="o">=</span><span class="n">thresh_func</span><span class="p">)</span>
 <span class="n">epochs_ar</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">this_epoch</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>________________________________________________________________________________
-[Memory] Calling autoreject.autoreject.compute_thresholds...
-compute_thresholds(&lt;Epochs  |  n_events : 293 (all good), tmin : -0.2 (s), tmax : 0.8 (s), baseline : None, ~51.4 MB, data loaded,
- &#39;famous/first&#39;: 149, &#39;famous/immediate&#39;: 76, &#39;famous/long&#39;: 68&gt;,
-&#39;bayesian_optimization&#39;)
-
-[                                        ] 1.40845 | Creating augmented epochs
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>[                                        ] 1.40845 | Creating augmented epochs
 [.                                       ] 2.81690 / Creating augmented epochs
 [.                                       ] 4.22535 - Creating augmented epochs
 [..                                      ] 5.63380 \ Creating augmented epochs
@@ -408,8 +406,7 @@ compute_thresholds(&lt;Epochs  |  n_events : 293 (all good), tmin : -0.2 (s), tm
 [.........                               ] 22.94521 - Computing thresholds
 [.........                               ] 23.28767 \ Computing thresholds
 [.........                               ] 23.63014 | Computing thresholds
-[.........                               ] 23.97260 / Computing thresholds    _____________________________________________compute_thresholds - 221.4s, 3.7min
-
+[.........                               ] 23.97260 / Computing thresholds
 
 [                                        ] 0.34247 | Repairing epochs
 [                                        ] 0.68493 / Repairing epochs
@@ -711,7 +708,6 @@ compute_thresholds(&lt;Epochs  |  n_events : 293 (all good), tmin : -0.2 (s), tm
 [Val fold 1] Trying consensus perc 0.50,n_interp 1
 [Val fold 1] Trying consensus perc 0.60,n_interp 1
 [Val fold 1] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 1
@@ -726,7 +722,6 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 1
 [Val fold 2] Trying consensus perc 0.60,n_interp 1
 [Val fold 2] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 1
@@ -741,7 +736,6 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 1
 [Val fold 3] Trying consensus perc 0.60,n_interp 1
 [Val fold 3] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 1
@@ -756,7 +750,6 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 1
 [Val fold 4] Trying consensus perc 0.60,n_interp 1
 [Val fold 4] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 1
@@ -771,7 +764,6 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 1
 [Val fold 5] Trying consensus perc 0.60,n_interp 1
 [Val fold 5] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 1
@@ -786,7 +778,6 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 1
 [Val fold 6] Trying consensus perc 0.60,n_interp 1
 [Val fold 6] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 1
@@ -801,7 +792,6 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 1
 [Val fold 7] Trying consensus perc 0.60,n_interp 1
 [Val fold 7] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 1
@@ -816,7 +806,6 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 1
 [Val fold 8] Trying consensus perc 0.60,n_interp 1
 [Val fold 8] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 1
@@ -831,7 +820,6 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 1
 [Val fold 9] Trying consensus perc 0.60,n_interp 1
 [Val fold 9] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 1
@@ -846,7 +834,6 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 1
 [Val fold 10] Trying consensus perc 0.60,n_interp 1
 [Val fold 10] Trying consensus perc 0.70,n_interp 1
-No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 1
@@ -1155,7 +1142,6 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 4
 [Val fold 1] Trying consensus perc 0.60,n_interp 4
 [Val fold 1] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 4
@@ -1170,7 +1156,6 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 4
 [Val fold 2] Trying consensus perc 0.60,n_interp 4
 [Val fold 2] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 4
@@ -1185,7 +1170,6 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 4
 [Val fold 3] Trying consensus perc 0.60,n_interp 4
 [Val fold 3] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 4
@@ -1200,7 +1184,6 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 4
 [Val fold 4] Trying consensus perc 0.60,n_interp 4
 [Val fold 4] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 4
@@ -1215,7 +1198,6 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 4
 [Val fold 5] Trying consensus perc 0.60,n_interp 4
 [Val fold 5] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 4
@@ -1230,7 +1212,6 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 4
 [Val fold 6] Trying consensus perc 0.60,n_interp 4
 [Val fold 6] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 4
@@ -1245,7 +1226,6 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 4
 [Val fold 7] Trying consensus perc 0.60,n_interp 4
 [Val fold 7] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 4
@@ -1260,7 +1240,6 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 4
 [Val fold 8] Trying consensus perc 0.60,n_interp 4
 [Val fold 8] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 4
@@ -1275,7 +1254,6 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 4
 [Val fold 9] Trying consensus perc 0.60,n_interp 4
 [Val fold 9] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 4
@@ -1290,7 +1268,6 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 4
 [Val fold 10] Trying consensus perc 0.60,n_interp 4
 [Val fold 10] Trying consensus perc 0.70,n_interp 4
-No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 4
@@ -1599,7 +1576,6 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 32
 [Val fold 1] Trying consensus perc 0.60,n_interp 32
 [Val fold 1] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 32
@@ -1614,7 +1590,6 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 32
 [Val fold 2] Trying consensus perc 0.60,n_interp 32
 [Val fold 2] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 32
@@ -1629,7 +1604,6 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 32
 [Val fold 3] Trying consensus perc 0.60,n_interp 32
 [Val fold 3] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 32
@@ -1644,7 +1618,6 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 32
 [Val fold 4] Trying consensus perc 0.60,n_interp 32
 [Val fold 4] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 32
@@ -1659,7 +1632,6 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 32
 [Val fold 5] Trying consensus perc 0.60,n_interp 32
 [Val fold 5] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 32
@@ -1674,7 +1646,6 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 32
 [Val fold 6] Trying consensus perc 0.60,n_interp 32
 [Val fold 6] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 32
@@ -1689,7 +1660,6 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 32
 [Val fold 7] Trying consensus perc 0.60,n_interp 32
 [Val fold 7] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 32
@@ -1704,7 +1674,6 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 32
 [Val fold 8] Trying consensus perc 0.60,n_interp 32
 [Val fold 8] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 32
@@ -1719,7 +1688,6 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 32
 [Val fold 9] Trying consensus perc 0.60,n_interp 32
 [Val fold 9] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 32
@@ -1734,7 +1702,6 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 32
 [Val fold 10] Trying consensus perc 0.60,n_interp 32
 [Val fold 10] Trying consensus perc 0.70,n_interp 32
-No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 32
@@ -2049,7 +2016,7 @@ Bad trials are also in red.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" class="align-center" src="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" />
 <p><strong>Total running time of the script:</strong>
-(5 minutes 54.225 seconds)</p>
+(6 minutes 0.112 seconds)</p>
 <div class="sphx-glr-download container">
 <a class="reference download internal" href="../_downloads/plot_visualize_bad_epochs.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_visualize_bad_epochs.py</span></code></a></div>
 <div class="sphx-glr-download container">
