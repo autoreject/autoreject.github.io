@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
 <meta charset='utf-8'>
@@ -169,13 +169,14 @@ famous faces, unfamiliar faces, as well as scrambled faces.</p>
     <span class="n">run_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;ds117&#39;</span><span class="p">,</span> <span class="s1">&#39;sub</span><span class="si">%03d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">subject_id</span><span class="p">,</span> <span class="s1">&#39;MEG&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_raw.fif&#39;</span> <span class="o">%</span> <span class="n">run</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.io.Raw.html#mne.io.Raw"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">Raw</span></a><span class="p">(</span><span class="n">run_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">add_eeg_ref</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">raw</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># less memory + computation</span>
-    <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;INFO&#39;</span><span class="p">)</span>
+    <a href="http://martinos.org/mne/stable/generated/mne.set_eeg_reference.html#mne.set_eeg_reference"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">set_eeg_reference</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># less memory + computation</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">l_trans_bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;INFO&#39;</span><span class="p">)</span>
 
     <span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span><span class="p">({</span><span class="s1">&#39;EEG061&#39;</span><span class="p">:</span> <span class="s1">&#39;eog&#39;</span><span class="p">,</span> <span class="s1">&#39;EEG062&#39;</span><span class="p">:</span> <span class="s1">&#39;eog&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;EEG063&#39;</span><span class="p">:</span> <span class="s1">&#39;ecg&#39;</span><span class="p">})</span>
+                           <span class="s1">&#39;EEG063&#39;</span><span class="p">:</span> <span class="s1">&#39;ecg&#39;</span><span class="p">,</span> <span class="s1">&#39;EEG064&#39;</span><span class="p">:</span> <span class="s1">&#39;misc&#39;</span><span class="p">})</span>
     <span class="n">raw</span><span class="o">.</span><span class="n">rename_channels</span><span class="p">({</span><span class="s1">&#39;EEG061&#39;</span><span class="p">:</span> <span class="s1">&#39;EOG061&#39;</span><span class="p">,</span> <span class="s1">&#39;EEG062&#39;</span><span class="p">:</span> <span class="s1">&#39;EOG062&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;EEG063&#39;</span><span class="p">:</span> <span class="s1">&#39;ECG063&#39;</span><span class="p">})</span>
+                         <span class="s1">&#39;EEG063&#39;</span><span class="p">:</span> <span class="s1">&#39;ECG063&#39;</span><span class="p">,</span> <span class="s1">&#39;EEG064&#39;</span><span class="p">:</span> <span class="s1">&#39;MISC&#39;</span><span class="p">})</span>
 
     <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># XXX</span>
     <span class="n">picks</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.pick_types.html#mne.pick_types"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
@@ -195,196 +196,60 @@ famous faces, unfamiliar faces, as well as scrambled faces.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_01_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 214500 ... 760099 =    195.000 ...   690.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 545599  =      0.000 ...   495.999 secs...
-Band-pass filtering from 1 - 40 Hz
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 298 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  271
   273  274  275 4096 4101 4102 4103 4109 4110 4111]
-50 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_02_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 49500 ... 591799 =     45.000 ...   537.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 542299  =      0.000 ...   492.999 secs...
 Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 296 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
   273  274  275 4096 4101 4102 4103 4109 4110 4111 4113 4114 4115]
-50 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_03_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 60500 ... 598399 =     55.000 ...   543.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 537899  =      0.000 ...   488.999 secs...
 Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 294 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
   273  274  275 4096 4101 4102 4103 4109 4110 4111 4113 4114 4115]
-49 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_04_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 137500 ... 680899 =    125.000 ...   618.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 543399  =      0.000 ...   493.999 secs...
 Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 296 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
   273  274  275 4096 4101 4102 4103 4109 4110 4111 4113]
-49 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_05_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 279400 ... 820599 =    254.000 ...   745.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 541199  =      0.000 ...   491.999 secs...
 Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 295 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
   271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4115 4357 4359]
-47 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_06_raw.fif...
-    Read a total of 8 projection items:
-        mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v3 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v4 (1 x 306)  idle
-        mag_ssp_upright.fif : PCA-mags-v5 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v1 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v2 (1 x 306)  idle
-        grad_ssp_upright.fif : PCA-grad-v3 (1 x 306)  idle
-    Range : 140800 ... 680899 =    128.000 ...   618.999 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 540099  =      0.000 ...   490.999 secs...
 Band-pass filtering from 1 - 40 Hz
 Multiple deprecated filter parameters were used:
 phase in 0.13 is &quot;zero-double&quot; but will change to &quot;zero&quot; in 0.14
 fir_window in 0.13 is &quot;hann&quot; but will change to &quot;hamming&quot; in 0.14
-lower transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 upper transition bandwidth in 0.13 is 0.5 Hz but will change to &quot;auto&quot; in 0.14
 The default filter length in 0.13 is &quot;10s&quot; but will change to &quot;auto&quot; in 0.14
 296 events found
 Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
   271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4114]
-48 matching events found
-No baseline correction applied
-Adding average EEG reference projection.
-Created an SSP operator (subspace dimension = 1)
-9 projection items activated
-Loading data for 50 events and 1101 original time points ...
-0 bad epochs dropped
-Loading data for 50 events and 1101 original time points ...
-0 bad epochs dropped
-Loading data for 49 events and 1101 original time points ...
-0 bad epochs dropped
-Loading data for 49 events and 1101 original time points ...
-0 bad epochs dropped
-Loading data for 47 events and 1101 original time points ...
-0 bad epochs dropped
-Loading data for 48 events and 1101 original time points ...
-0 bad epochs dropped
-293 matching events found
-No baseline correction applied
-Created an SSP operator (subspace dimension = 1)
-0 bad epochs dropped
 </pre></div>
 </div>
 <p>Now, we apply autoreject</p>
@@ -395,7 +260,158 @@ Created an SSP operator (subspace dimension = 1)
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  [                                        ] 0.34247 | Repairing epochs
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>________________________________________________________________________________
+[Memory] Calling autoreject.autoreject.compute_thresholds...
+compute_thresholds(&lt;Epochs  |  n_events : 293 (all good), tmin : -0.2 (s), tmax : 0.8 (s), baseline : None, ~51.4 MB, data loaded,
+ &#39;famous/first&#39;: 149, &#39;famous/immediate&#39;: 76, &#39;famous/long&#39;: 68&gt;,
+&#39;bayesian_optimization&#39;)
+
+[                                        ] 1.40845 | Creating augmented epochs
+[.                                       ] 2.81690 / Creating augmented epochs
+[.                                       ] 4.22535 - Creating augmented epochs
+[..                                      ] 5.63380 \ Creating augmented epochs
+[..                                      ] 7.04225 | Creating augmented epochs
+[...                                     ] 8.45070 / Creating augmented epochs
+[...                                     ] 9.85915 - Creating augmented epochs
+[....                                    ] 11.26761 \ Creating augmented epochs
+[.....                                   ] 12.67606 | Creating augmented epochs
+[.....                                   ] 14.08451 / Creating augmented epochs
+[......                                  ] 15.49296 - Creating augmented epochs
+[......                                  ] 16.90141 \ Creating augmented epochs
+[.......                                 ] 18.30986 | Creating augmented epochs
+[.......                                 ] 19.71831 / Creating augmented epochs
+[........                                ] 21.12676 - Creating augmented epochs
+[.........                               ] 22.53521 \ Creating augmented epochs
+[.........                               ] 23.94366 | Creating augmented epochs
+[..........                              ] 25.35211 / Creating augmented epochs
+[..........                              ] 26.76056 - Creating augmented epochs
+[...........                             ] 28.16901 \ Creating augmented epochs
+[...........                             ] 29.57746 | Creating augmented epochs
+[............                            ] 30.98592 / Creating augmented epochs
+[............                            ] 32.39437 - Creating augmented epochs
+[.............                           ] 33.80282 \ Creating augmented epochs
+[..............                          ] 35.21127 | Creating augmented epochs
+[..............                          ] 36.61972 / Creating augmented epochs
+[...............                         ] 38.02817 - Creating augmented epochs
+[...............                         ] 39.43662 \ Creating augmented epochs
+[................                        ] 40.84507 | Creating augmented epochs
+[................                        ] 42.25352 / Creating augmented epochs
+[.................                       ] 43.66197 - Creating augmented epochs
+[..................                      ] 45.07042 \ Creating augmented epochs
+[..................                      ] 46.47887 | Creating augmented epochs
+[...................                     ] 47.88732 / Creating augmented epochs
+[...................                     ] 49.29577 - Creating augmented epochs
+[....................                    ] 50.70423 \ Creating augmented epochs
+[....................                    ] 52.11268 | Creating augmented epochs
+[.....................                   ] 53.52113 / Creating augmented epochs
+[.....................                   ] 54.92958 - Creating augmented epochs
+[......................                  ] 56.33803 \ Creating augmented epochs
+[.......................                 ] 57.74648 | Creating augmented epochs
+[.......................                 ] 59.15493 / Creating augmented epochs
+[........................                ] 60.56338 - Creating augmented epochs
+[........................                ] 61.97183 \ Creating augmented epochs
+[.........................               ] 63.38028 | Creating augmented epochs
+[.........................               ] 64.78873 / Creating augmented epochs
+[..........................              ] 66.19718 - Creating augmented epochs
+[...........................             ] 67.60563 \ Creating augmented epochs
+[...........................             ] 69.01408 | Creating augmented epochs
+[............................            ] 70.42254 / Creating augmented epochs
+[............................            ] 71.83099 - Creating augmented epochs
+[.............................           ] 73.23944 \ Creating augmented epochs
+[.............................           ] 74.64789 | Creating augmented epochs
+[..............................          ] 76.05634 / Creating augmented epochs
+[..............................          ] 77.46479 - Creating augmented epochs
+[...............................         ] 78.87324 \ Creating augmented epochs
+[................................        ] 80.28169 | Creating augmented epochs
+[................................        ] 81.69014 / Creating augmented epochs
+[.................................       ] 83.09859 - Creating augmented epochs
+[.................................       ] 84.50704 \ Creating augmented epochs
+[..................................      ] 85.91549 | Creating augmented epochs
+[..................................      ] 87.32394 / Creating augmented epochs
+[...................................     ] 88.73239 - Creating augmented epochs
+[....................................    ] 90.14085 \ Creating augmented epochs
+[....................................    ] 91.54930 | Creating augmented epochs
+[.....................................   ] 92.95775 / Creating augmented epochs
+[.....................................   ] 94.36620 - Creating augmented epochs
+[......................................  ] 95.77465 \ Creating augmented epochs
+[......................................  ] 97.18310 | Creating augmented epochs
+[....................................... ] 98.59155 / Creating augmented epochs
+[........................................] 100.00000 - Creating augmented epochs
+[........................................] 100.00000 \ Creating augmented epochs
+
+[                                        ] 0.34247 | Computing thresholds
+[                                        ] 0.68493 / Computing thresholds
+[                                        ] 1.02740 - Computing thresholds
+[                                        ] 1.36986 \ Computing thresholds
+[                                        ] 1.71233 | Computing thresholds
+[                                        ] 2.05479 / Computing thresholds
+[                                        ] 2.39726 - Computing thresholds
+[.                                       ] 2.73973 \ Computing thresholds
+[.                                       ] 3.08219 | Computing thresholds
+[.                                       ] 3.42466 / Computing thresholds
+[.                                       ] 3.76712 - Computing thresholds
+[.                                       ] 4.10959 \ Computing thresholds
+[.                                       ] 4.45205 | Computing thresholds
+[.                                       ] 4.79452 / Computing thresholds
+[..                                      ] 5.13699 - Computing thresholds
+[..                                      ] 5.47945 \ Computing thresholds
+[..                                      ] 5.82192 | Computing thresholds
+[..                                      ] 6.16438 / Computing thresholds
+[..                                      ] 6.50685 - Computing thresholds
+[..                                      ] 6.84932 \ Computing thresholds
+[..                                      ] 7.19178 | Computing thresholds
+[...                                     ] 7.53425 / Computing thresholds
+[...                                     ] 7.87671 - Computing thresholds
+[...                                     ] 8.21918 \ Computing thresholds
+[...                                     ] 8.56164 | Computing thresholds
+[...                                     ] 8.90411 / Computing thresholds
+[...                                     ] 9.24658 - Computing thresholds
+[...                                     ] 9.58904 \ Computing thresholds
+[...                                     ] 9.93151 | Computing thresholds
+[....                                    ] 10.27397 / Computing thresholds
+[....                                    ] 10.61644 - Computing thresholds
+[....                                    ] 10.95890 \ Computing thresholds
+[....                                    ] 11.30137 | Computing thresholds
+[....                                    ] 11.64384 / Computing thresholds
+[....                                    ] 11.98630 - Computing thresholds
+[....                                    ] 12.32877 \ Computing thresholds
+[.....                                   ] 12.67123 | Computing thresholds
+[.....                                   ] 13.01370 / Computing thresholds
+[.....                                   ] 13.35616 - Computing thresholds
+[.....                                   ] 13.69863 \ Computing thresholds
+[.....                                   ] 14.04110 | Computing thresholds
+[.....                                   ] 14.38356 / Computing thresholds
+[.....                                   ] 14.72603 - Computing thresholds
+[......                                  ] 15.06849 \ Computing thresholds
+[......                                  ] 15.41096 | Computing thresholds
+[......                                  ] 15.75342 / Computing thresholds
+[......                                  ] 16.09589 - Computing thresholds
+[......                                  ] 16.43836 \ Computing thresholds
+[......                                  ] 16.78082 | Computing thresholds
+[......                                  ] 17.12329 / Computing thresholds
+[......                                  ] 17.46575 - Computing thresholds
+[.......                                 ] 17.80822 \ Computing thresholds
+[.......                                 ] 18.15068 | Computing thresholds
+[.......                                 ] 18.49315 / Computing thresholds
+[.......                                 ] 18.83562 - Computing thresholds
+[.......                                 ] 19.17808 \ Computing thresholds
+[.......                                 ] 19.52055 | Computing thresholds
+[.......                                 ] 19.86301 / Computing thresholds
+[........                                ] 20.20548 - Computing thresholds
+[........                                ] 20.54795 \ Computing thresholds
+[........                                ] 20.89041 | Computing thresholds
+[........                                ] 21.23288 / Computing thresholds
+[........                                ] 21.57534 - Computing thresholds
+[........                                ] 21.91781 \ Computing thresholds
+[........                                ] 22.26027 | Computing thresholds
+[.........                               ] 22.60274 / Computing thresholds
+[.........                               ] 22.94521 - Computing thresholds
+[.........                               ] 23.28767 \ Computing thresholds
+[.........                               ] 23.63014 | Computing thresholds
+[.........                               ] 23.97260 / Computing thresholds    _____________________________________________compute_thresholds - 221.4s, 3.7min
+
+
+[                                        ] 0.34247 | Repairing epochs
 [                                        ] 0.68493 / Repairing epochs
 [                                        ] 1.02740 - Repairing epochs
 [                                        ] 1.36986 \ Repairing epochs
@@ -695,6 +711,7 @@ Created an SSP operator (subspace dimension = 1)
 [Val fold 1] Trying consensus perc 0.50,n_interp 1
 [Val fold 1] Trying consensus perc 0.60,n_interp 1
 [Val fold 1] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 1
@@ -709,6 +726,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 1
 [Val fold 2] Trying consensus perc 0.60,n_interp 1
 [Val fold 2] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 1
@@ -723,6 +741,7 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 1
 [Val fold 3] Trying consensus perc 0.60,n_interp 1
 [Val fold 3] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 1
@@ -737,6 +756,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 1
 [Val fold 4] Trying consensus perc 0.60,n_interp 1
 [Val fold 4] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 1
@@ -751,6 +771,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 1
 [Val fold 5] Trying consensus perc 0.60,n_interp 1
 [Val fold 5] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 1
@@ -765,6 +786,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 1
 [Val fold 6] Trying consensus perc 0.60,n_interp 1
 [Val fold 6] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 1
@@ -779,6 +801,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 1
 [Val fold 7] Trying consensus perc 0.60,n_interp 1
 [Val fold 7] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 1
@@ -793,6 +816,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 1
 [Val fold 8] Trying consensus perc 0.60,n_interp 1
 [Val fold 8] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 1
@@ -807,6 +831,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 1
 [Val fold 9] Trying consensus perc 0.60,n_interp 1
 [Val fold 9] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 1
@@ -821,6 +846,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 1
 [Val fold 10] Trying consensus perc 0.60,n_interp 1
 [Val fold 10] Trying consensus perc 0.70,n_interp 1
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 1
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 1
@@ -1129,6 +1155,7 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 4
 [Val fold 1] Trying consensus perc 0.60,n_interp 4
 [Val fold 1] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 4
@@ -1143,6 +1170,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 4
 [Val fold 2] Trying consensus perc 0.60,n_interp 4
 [Val fold 2] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 4
@@ -1157,6 +1185,7 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 4
 [Val fold 3] Trying consensus perc 0.60,n_interp 4
 [Val fold 3] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 4
@@ -1171,6 +1200,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 4
 [Val fold 4] Trying consensus perc 0.60,n_interp 4
 [Val fold 4] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 4
@@ -1185,6 +1215,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 4
 [Val fold 5] Trying consensus perc 0.60,n_interp 4
 [Val fold 5] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 4
@@ -1199,6 +1230,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 4
 [Val fold 6] Trying consensus perc 0.60,n_interp 4
 [Val fold 6] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 4
@@ -1213,6 +1245,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 4
 [Val fold 7] Trying consensus perc 0.60,n_interp 4
 [Val fold 7] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 4
@@ -1227,6 +1260,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 4
 [Val fold 8] Trying consensus perc 0.60,n_interp 4
 [Val fold 8] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 4
@@ -1241,6 +1275,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 4
 [Val fold 9] Trying consensus perc 0.60,n_interp 4
 [Val fold 9] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 4
@@ -1255,6 +1290,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 4
 [Val fold 10] Trying consensus perc 0.60,n_interp 4
 [Val fold 10] Trying consensus perc 0.70,n_interp 4
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 4
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 4
@@ -1563,6 +1599,7 @@ No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.50,n_interp 32
 [Val fold 1] Trying consensus perc 0.60,n_interp 32
 [Val fold 1] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 1] Trying consensus perc 0.90,n_interp 32
@@ -1577,6 +1614,7 @@ No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.50,n_interp 32
 [Val fold 2] Trying consensus perc 0.60,n_interp 32
 [Val fold 2] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 2] Trying consensus perc 0.90,n_interp 32
@@ -1591,6 +1629,7 @@ No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.50,n_interp 32
 [Val fold 3] Trying consensus perc 0.60,n_interp 32
 [Val fold 3] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 3] Trying consensus perc 0.90,n_interp 32
@@ -1605,6 +1644,7 @@ No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.50,n_interp 32
 [Val fold 4] Trying consensus perc 0.60,n_interp 32
 [Val fold 4] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 4] Trying consensus perc 0.90,n_interp 32
@@ -1619,6 +1659,7 @@ No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.50,n_interp 32
 [Val fold 5] Trying consensus perc 0.60,n_interp 32
 [Val fold 5] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 5] Trying consensus perc 0.90,n_interp 32
@@ -1633,6 +1674,7 @@ No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.50,n_interp 32
 [Val fold 6] Trying consensus perc 0.60,n_interp 32
 [Val fold 6] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 6] Trying consensus perc 0.90,n_interp 32
@@ -1647,6 +1689,7 @@ No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.50,n_interp 32
 [Val fold 7] Trying consensus perc 0.60,n_interp 32
 [Val fold 7] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 7] Trying consensus perc 0.90,n_interp 32
@@ -1661,6 +1704,7 @@ No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.50,n_interp 32
 [Val fold 8] Trying consensus perc 0.60,n_interp 32
 [Val fold 8] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 8] Trying consensus perc 0.90,n_interp 32
@@ -1675,6 +1719,7 @@ No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.50,n_interp 32
 [Val fold 9] Trying consensus perc 0.60,n_interp 32
 [Val fold 9] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 9] Trying consensus perc 0.90,n_interp 32
@@ -1689,6 +1734,7 @@ No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.50,n_interp 32
 [Val fold 10] Trying consensus perc 0.60,n_interp 32
 [Val fold 10] Trying consensus perc 0.70,n_interp 32
+No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.80,n_interp 32
 No bad epochs dropped by consensus.
 [Val fold 10] Trying consensus perc 0.90,n_interp 32
@@ -2003,11 +2049,12 @@ Bad trials are also in red.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" class="align-center" src="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" />
 <p><strong>Total running time of the script:</strong>
-(1 minutes 37.728 seconds)</p>
+(5 minutes 54.225 seconds)</p>
 <div class="sphx-glr-download container">
-<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_visualize_bad_epochs.py"><code class="xref download docutils literal"><span class="pre">plot_visualize_bad_epochs.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_visualize_bad_epochs.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_visualize_bad_epochs.py</span></code></a></div>
 <div class="sphx-glr-download container">
-<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_visualize_bad_epochs.ipynb"><code class="xref download docutils literal"><span class="pre">plot_visualize_bad_epochs.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_visualize_bad_epochs.ipynb"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">IPython</span> <span class="pre">notebook:</span> <span class="pre">plot_visualize_bad_epochs.ipynb</span></code></a></div>
+<p class="sphx-glr-signature"><a class="reference external" href="http://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
 </div>
 
 

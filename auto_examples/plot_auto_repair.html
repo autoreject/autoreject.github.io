@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
 <meta charset='utf-8'>
@@ -165,7 +165,7 @@ the channel-level thresholds.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>Opening raw data file /tsi/doctorants/mainak/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
     Read a total of 4 projection items:
         PCA-v1 (1 x 102)  idle
         PCA-v2 (1 x 102)  idle
@@ -174,6 +174,7 @@ the channel-level thresholds.</p>
     Range : 6450 ... 48149 =     42.956 ...   320.665 secs
 Ready.
 Current compensation grade : 0
+add_eeg_ref defaults to True in 0.13, will default to False in 0.14, and will be removed in 0.15. We recommend to use add_eeg_ref=False and set_eeg_reference() instead.
 Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 </pre></div>
 </div>
@@ -213,7 +214,703 @@ determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span cl
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  [                                        ] 1.40845 | Repairing epochs
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>________________________________________________________________________________
+[Memory] Calling autoreject.autoreject.compute_thresholds...
+compute_thresholds(&lt;Epochs  |  n_events : 72 (all good), tmin : -0.199795213158 (s), tmax : 0.499488032896 (s), baseline : (None, 0), ~21.3 MB, data loaded&gt;,
+&#39;random_search&#39;)
+
+[                                        ] 0.32787 | Creating augmented epochs   ________________________________________________________________________________
+[Memory] Calling autoreject.utils._compute_dots...
+_compute_dots(&lt;Info | 20 non-empty fields
+    bads : list | 0 items
+    buffer_size_sec : numpy.float64 | 13.3196808772
+    ch_names : list | MEG 0113, MEG 0112, MEG 0111, MEG 0122, MEG 0123, ...
+    chs : list | 306 items (GRAD: 204, MAG: 102)
+    comps : list | 0 items
+    custom_ref_applied : bool | False
+    dev_head_t : &#39;mne.transforms.Transform | 3 items
+    dig : list | 146 items
+    events : list | 0 items
+    file_id : dict | 4 items
+    filename : unicode | /tsi/docto.../sample_audvis_filt-0-40_raw.fif
+    highpass : float | 0.10000000149 Hz
+    hpi_meas : list | 1 items
+    hpi_results : list | 1 items
+    lowpass : float | 40.0 Hz
+    meas_date : numpy.ndarray | 2002-12-03 20:01:10
+    meas_id : dict | 4 items
+    nchan : int | 306
+    projs : list | 0 items
+    sfreq : float | 150.153747559 Hz
+    acq_pars : NoneType
+    acq_stim : NoneType
+    ctf_head_t : NoneType
+    description : NoneType
+    dev_ctf_t : NoneType
+    experimenter : NoneType
+    hpi_subsystem : NoneType
+    kit_system_id : NoneType
+    line_freq : NoneType
+    proj_id : NoneType
+    proj_name : NoneType
+    subject_info : NoneType
+    xplotter_layout : NoneType
+&gt;, mode=&#39;fast&#39;)
+_____________________________________________________compute_dots - 4.2s, 0.1min
+
+[                                        ] 0.65574 / Creating augmented epochs
+[                                        ] 0.98361 - Creating augmented epochs
+[                                        ] 1.31148 \ Creating augmented epochs
+[                                        ] 1.63934 | Creating augmented epochs
+[                                        ] 1.96721 / Creating augmented epochs
+[                                        ] 2.29508 - Creating augmented epochs
+[.                                       ] 2.62295 \ Creating augmented epochs
+[.                                       ] 2.95082 | Creating augmented epochs
+[.                                       ] 3.27869 / Creating augmented epochs
+[.                                       ] 3.60656 - Creating augmented epochs
+[.                                       ] 3.93443 \ Creating augmented epochs
+[.                                       ] 4.26230 | Creating augmented epochs
+[.                                       ] 4.59016 / Creating augmented epochs
+[.                                       ] 4.91803 - Creating augmented epochs
+[..                                      ] 5.24590 \ Creating augmented epochs
+[..                                      ] 5.57377 | Creating augmented epochs
+[..                                      ] 5.90164 / Creating augmented epochs
+[..                                      ] 6.22951 - Creating augmented epochs
+[..                                      ] 6.55738 \ Creating augmented epochs
+[..                                      ] 6.88525 | Creating augmented epochs
+[..                                      ] 7.21311 / Creating augmented epochs
+[...                                     ] 7.54098 - Creating augmented epochs
+[...                                     ] 7.86885 \ Creating augmented epochs
+[...                                     ] 8.19672 | Creating augmented epochs
+[...                                     ] 8.52459 / Creating augmented epochs
+[...                                     ] 8.85246 - Creating augmented epochs
+[...                                     ] 9.18033 \ Creating augmented epochs
+[...                                     ] 9.50820 | Creating augmented epochs
+[...                                     ] 9.83607 / Creating augmented epochs
+[....                                    ] 10.16393 - Creating augmented epochs
+[....                                    ] 10.49180 \ Creating augmented epochs
+[....                                    ] 10.81967 | Creating augmented epochs
+[....                                    ] 11.14754 / Creating augmented epochs
+[....                                    ] 11.47541 - Creating augmented epochs
+[....                                    ] 11.80328 \ Creating augmented epochs
+[....                                    ] 12.13115 | Creating augmented epochs
+[....                                    ] 12.45902 / Creating augmented epochs
+[.....                                   ] 12.78689 - Creating augmented epochs
+[.....                                   ] 13.11475 \ Creating augmented epochs
+[.....                                   ] 13.44262 | Creating augmented epochs
+[.....                                   ] 13.77049 / Creating augmented epochs
+[.....                                   ] 14.09836 - Creating augmented epochs
+[.....                                   ] 14.42623 \ Creating augmented epochs
+[.....                                   ] 14.75410 | Creating augmented epochs
+[......                                  ] 15.08197 / Creating augmented epochs
+[......                                  ] 15.40984 - Creating augmented epochs
+[......                                  ] 15.73770 \ Creating augmented epochs
+[......                                  ] 16.06557 | Creating augmented epochs
+[......                                  ] 16.39344 / Creating augmented epochs
+[......                                  ] 16.72131 - Creating augmented epochs
+[......                                  ] 17.04918 \ Creating augmented epochs
+[......                                  ] 17.37705 | Creating augmented epochs
+[.......                                 ] 17.70492 / Creating augmented epochs
+[.......                                 ] 18.03279 - Creating augmented epochs
+[.......                                 ] 18.36066 \ Creating augmented epochs
+[.......                                 ] 18.68852 | Creating augmented epochs
+[.......                                 ] 19.01639 / Creating augmented epochs
+[.......                                 ] 19.34426 - Creating augmented epochs
+[.......                                 ] 19.67213 \ Creating augmented epochs
+[........                                ] 20.00000 | Creating augmented epochs
+[........                                ] 20.32787 / Creating augmented epochs
+[........                                ] 20.65574 - Creating augmented epochs
+[........                                ] 20.98361 \ Creating augmented epochs
+[........                                ] 21.31148 | Creating augmented epochs
+[........                                ] 21.63934 / Creating augmented epochs
+[........                                ] 21.96721 - Creating augmented epochs
+[........                                ] 22.29508 \ Creating augmented epochs
+[.........                               ] 22.62295 | Creating augmented epochs
+[.........                               ] 22.95082 / Creating augmented epochs
+[.........                               ] 23.27869 - Creating augmented epochs
+[.........                               ] 23.60656 \ Creating augmented epochs
+[.........                               ] 23.93443 | Creating augmented epochs
+[.........                               ] 24.26230 / Creating augmented epochs
+[.........                               ] 24.59016 - Creating augmented epochs
+[.........                               ] 24.91803 \ Creating augmented epochs
+[..........                              ] 25.24590 | Creating augmented epochs
+[..........                              ] 25.57377 / Creating augmented epochs
+[..........                              ] 25.90164 - Creating augmented epochs
+[..........                              ] 26.22951 \ Creating augmented epochs
+[..........                              ] 26.55738 | Creating augmented epochs
+[..........                              ] 26.88525 / Creating augmented epochs
+[..........                              ] 27.21311 - Creating augmented epochs
+[...........                             ] 27.54098 \ Creating augmented epochs
+[...........                             ] 27.86885 | Creating augmented epochs
+[...........                             ] 28.19672 / Creating augmented epochs
+[...........                             ] 28.52459 - Creating augmented epochs
+[...........                             ] 28.85246 \ Creating augmented epochs
+[...........                             ] 29.18033 | Creating augmented epochs
+[...........                             ] 29.50820 / Creating augmented epochs
+[...........                             ] 29.83607 - Creating augmented epochs
+[............                            ] 30.16393 \ Creating augmented epochs
+[............                            ] 30.49180 | Creating augmented epochs
+[............                            ] 30.81967 / Creating augmented epochs
+[............                            ] 31.14754 - Creating augmented epochs
+[............                            ] 31.47541 \ Creating augmented epochs
+[............                            ] 31.80328 | Creating augmented epochs
+[............                            ] 32.13115 / Creating augmented epochs
+[............                            ] 32.45902 - Creating augmented epochs
+[.............                           ] 32.78689 \ Creating augmented epochs
+[.............                           ] 33.11475 | Creating augmented epochs
+[.............                           ] 33.44262 / Creating augmented epochs
+[.............                           ] 33.77049 - Creating augmented epochs
+[.............                           ] 34.09836 \ Creating augmented epochs
+[.............                           ] 34.42623 | Creating augmented epochs
+[.............                           ] 34.75410 / Creating augmented epochs
+[..............                          ] 35.08197 - Creating augmented epochs
+[..............                          ] 35.40984 \ Creating augmented epochs
+[..............                          ] 35.73770 | Creating augmented epochs
+[..............                          ] 36.06557 / Creating augmented epochs
+[..............                          ] 36.39344 - Creating augmented epochs
+[..............                          ] 36.72131 \ Creating augmented epochs
+[..............                          ] 37.04918 | Creating augmented epochs
+[..............                          ] 37.37705 / Creating augmented epochs
+[...............                         ] 37.70492 - Creating augmented epochs
+[...............                         ] 38.03279 \ Creating augmented epochs
+[...............                         ] 38.36066 | Creating augmented epochs
+[...............                         ] 38.68852 / Creating augmented epochs
+[...............                         ] 39.01639 - Creating augmented epochs
+[...............                         ] 39.34426 \ Creating augmented epochs
+[...............                         ] 39.67213 | Creating augmented epochs
+[................                        ] 40.00000 / Creating augmented epochs
+[................                        ] 40.32787 - Creating augmented epochs
+[................                        ] 40.65574 \ Creating augmented epochs
+[................                        ] 40.98361 | Creating augmented epochs
+[................                        ] 41.31148 / Creating augmented epochs
+[................                        ] 41.63934 - Creating augmented epochs
+[................                        ] 41.96721 \ Creating augmented epochs
+[................                        ] 42.29508 | Creating augmented epochs
+[.................                       ] 42.62295 / Creating augmented epochs
+[.................                       ] 42.95082 - Creating augmented epochs
+[.................                       ] 43.27869 \ Creating augmented epochs
+[.................                       ] 43.60656 | Creating augmented epochs
+[.................                       ] 43.93443 / Creating augmented epochs
+[.................                       ] 44.26230 - Creating augmented epochs
+[.................                       ] 44.59016 \ Creating augmented epochs
+[.................                       ] 44.91803 | Creating augmented epochs
+[..................                      ] 45.24590 / Creating augmented epochs
+[..................                      ] 45.57377 - Creating augmented epochs
+[..................                      ] 45.90164 \ Creating augmented epochs
+[..................                      ] 46.22951 | Creating augmented epochs
+[..................                      ] 46.55738 / Creating augmented epochs
+[..................                      ] 46.88525 - Creating augmented epochs
+[..................                      ] 47.21311 \ Creating augmented epochs
+[...................                     ] 47.54098 | Creating augmented epochs
+[...................                     ] 47.86885 / Creating augmented epochs
+[...................                     ] 48.19672 - Creating augmented epochs
+[...................                     ] 48.52459 \ Creating augmented epochs
+[...................                     ] 48.85246 | Creating augmented epochs
+[...................                     ] 49.18033 / Creating augmented epochs
+[...................                     ] 49.50820 - Creating augmented epochs
+[...................                     ] 49.83607 \ Creating augmented epochs
+[....................                    ] 50.16393 | Creating augmented epochs
+[....................                    ] 50.49180 / Creating augmented epochs
+[....................                    ] 50.81967 - Creating augmented epochs
+[....................                    ] 51.14754 \ Creating augmented epochs
+[....................                    ] 51.47541 | Creating augmented epochs
+[....................                    ] 51.80328 / Creating augmented epochs
+[....................                    ] 52.13115 - Creating augmented epochs
+[....................                    ] 52.45902 \ Creating augmented epochs
+[.....................                   ] 52.78689 | Creating augmented epochs
+[.....................                   ] 53.11475 / Creating augmented epochs
+[.....................                   ] 53.44262 - Creating augmented epochs
+[.....................                   ] 53.77049 \ Creating augmented epochs
+[.....................                   ] 54.09836 | Creating augmented epochs
+[.....................                   ] 54.42623 / Creating augmented epochs
+[.....................                   ] 54.75410 - Creating augmented epochs
+[......................                  ] 55.08197 \ Creating augmented epochs
+[......................                  ] 55.40984 | Creating augmented epochs
+[......................                  ] 55.73770 / Creating augmented epochs
+[......................                  ] 56.06557 - Creating augmented epochs
+[......................                  ] 56.39344 \ Creating augmented epochs
+[......................                  ] 56.72131 | Creating augmented epochs
+[......................                  ] 57.04918 / Creating augmented epochs
+[......................                  ] 57.37705 - Creating augmented epochs
+[.......................                 ] 57.70492 \ Creating augmented epochs
+[.......................                 ] 58.03279 | Creating augmented epochs
+[.......................                 ] 58.36066 / Creating augmented epochs
+[.......................                 ] 58.68852 - Creating augmented epochs
+[.......................                 ] 59.01639 \ Creating augmented epochs
+[.......................                 ] 59.34426 | Creating augmented epochs
+[.......................                 ] 59.67213 / Creating augmented epochs
+[........................                ] 60.00000 - Creating augmented epochs
+[........................                ] 60.32787 \ Creating augmented epochs
+[........................                ] 60.65574 | Creating augmented epochs
+[........................                ] 60.98361 / Creating augmented epochs
+[........................                ] 61.31148 - Creating augmented epochs
+[........................                ] 61.63934 \ Creating augmented epochs
+[........................                ] 61.96721 | Creating augmented epochs
+[........................                ] 62.29508 / Creating augmented epochs
+[.........................               ] 62.62295 - Creating augmented epochs
+[.........................               ] 62.95082 \ Creating augmented epochs
+[.........................               ] 63.27869 | Creating augmented epochs
+[.........................               ] 63.60656 / Creating augmented epochs
+[.........................               ] 63.93443 - Creating augmented epochs
+[.........................               ] 64.26230 \ Creating augmented epochs
+[.........................               ] 64.59016 | Creating augmented epochs
+[.........................               ] 64.91803 / Creating augmented epochs
+[..........................              ] 65.24590 - Creating augmented epochs
+[..........................              ] 65.57377 \ Creating augmented epochs
+[..........................              ] 65.90164 | Creating augmented epochs
+[..........................              ] 66.22951 / Creating augmented epochs
+[..........................              ] 66.55738 - Creating augmented epochs
+[..........................              ] 66.88525 \ Creating augmented epochs
+[..........................              ] 67.21311 | Creating augmented epochs
+[...........................             ] 67.54098 / Creating augmented epochs
+[...........................             ] 67.86885 - Creating augmented epochs
+[...........................             ] 68.19672 \ Creating augmented epochs
+[...........................             ] 68.52459 | Creating augmented epochs
+[...........................             ] 68.85246 / Creating augmented epochs
+[...........................             ] 69.18033 - Creating augmented epochs
+[...........................             ] 69.50820 \ Creating augmented epochs
+[...........................             ] 69.83607 | Creating augmented epochs
+[............................            ] 70.16393 / Creating augmented epochs
+[............................            ] 70.49180 - Creating augmented epochs
+[............................            ] 70.81967 \ Creating augmented epochs
+[............................            ] 71.14754 | Creating augmented epochs
+[............................            ] 71.47541 / Creating augmented epochs
+[............................            ] 71.80328 - Creating augmented epochs
+[............................            ] 72.13115 \ Creating augmented epochs
+[............................            ] 72.45902 | Creating augmented epochs
+[.............................           ] 72.78689 / Creating augmented epochs
+[.............................           ] 73.11475 - Creating augmented epochs
+[.............................           ] 73.44262 \ Creating augmented epochs
+[.............................           ] 73.77049 | Creating augmented epochs
+[.............................           ] 74.09836 / Creating augmented epochs
+[.............................           ] 74.42623 - Creating augmented epochs
+[.............................           ] 74.75410 \ Creating augmented epochs
+[..............................          ] 75.08197 | Creating augmented epochs
+[..............................          ] 75.40984 / Creating augmented epochs
+[..............................          ] 75.73770 - Creating augmented epochs
+[..............................          ] 76.06557 \ Creating augmented epochs
+[..............................          ] 76.39344 | Creating augmented epochs
+[..............................          ] 76.72131 / Creating augmented epochs
+[..............................          ] 77.04918 - Creating augmented epochs
+[..............................          ] 77.37705 \ Creating augmented epochs
+[...............................         ] 77.70492 | Creating augmented epochs
+[...............................         ] 78.03279 / Creating augmented epochs
+[...............................         ] 78.36066 - Creating augmented epochs
+[...............................         ] 78.68852 \ Creating augmented epochs
+[...............................         ] 79.01639 | Creating augmented epochs
+[...............................         ] 79.34426 / Creating augmented epochs
+[...............................         ] 79.67213 - Creating augmented epochs
+[................................        ] 80.00000 \ Creating augmented epochs
+[................................        ] 80.32787 | Creating augmented epochs
+[................................        ] 80.65574 / Creating augmented epochs
+[................................        ] 80.98361 - Creating augmented epochs
+[................................        ] 81.31148 \ Creating augmented epochs
+[................................        ] 81.63934 | Creating augmented epochs
+[................................        ] 81.96721 / Creating augmented epochs
+[................................        ] 82.29508 - Creating augmented epochs
+[.................................       ] 82.62295 \ Creating augmented epochs
+[.................................       ] 82.95082 | Creating augmented epochs
+[.................................       ] 83.27869 / Creating augmented epochs
+[.................................       ] 83.60656 - Creating augmented epochs
+[.................................       ] 83.93443 \ Creating augmented epochs
+[.................................       ] 84.26230 | Creating augmented epochs
+[.................................       ] 84.59016 / Creating augmented epochs
+[.................................       ] 84.91803 - Creating augmented epochs
+[..................................      ] 85.24590 \ Creating augmented epochs
+[..................................      ] 85.57377 | Creating augmented epochs
+[..................................      ] 85.90164 / Creating augmented epochs
+[..................................      ] 86.22951 - Creating augmented epochs
+[..................................      ] 86.55738 \ Creating augmented epochs
+[..................................      ] 86.88525 | Creating augmented epochs
+[..................................      ] 87.21311 / Creating augmented epochs
+[...................................     ] 87.54098 - Creating augmented epochs
+[...................................     ] 87.86885 \ Creating augmented epochs
+[...................................     ] 88.19672 | Creating augmented epochs
+[...................................     ] 88.52459 / Creating augmented epochs
+[...................................     ] 88.85246 - Creating augmented epochs
+[...................................     ] 89.18033 \ Creating augmented epochs
+[...................................     ] 89.50820 | Creating augmented epochs
+[...................................     ] 89.83607 / Creating augmented epochs
+[....................................    ] 90.16393 - Creating augmented epochs
+[....................................    ] 90.49180 \ Creating augmented epochs
+[....................................    ] 90.81967 | Creating augmented epochs
+[....................................    ] 91.14754 / Creating augmented epochs
+[....................................    ] 91.47541 - Creating augmented epochs
+[....................................    ] 91.80328 \ Creating augmented epochs
+[....................................    ] 92.13115 | Creating augmented epochs
+[....................................    ] 92.45902 / Creating augmented epochs
+[.....................................   ] 92.78689 - Creating augmented epochs
+[.....................................   ] 93.11475 \ Creating augmented epochs
+[.....................................   ] 93.44262 | Creating augmented epochs
+[.....................................   ] 93.77049 / Creating augmented epochs
+[.....................................   ] 94.09836 - Creating augmented epochs
+[.....................................   ] 94.42623 \ Creating augmented epochs
+[.....................................   ] 94.75410 | Creating augmented epochs
+[......................................  ] 95.08197 / Creating augmented epochs
+[......................................  ] 95.40984 - Creating augmented epochs
+[......................................  ] 95.73770 \ Creating augmented epochs
+[......................................  ] 96.06557 | Creating augmented epochs
+[......................................  ] 96.39344 / Creating augmented epochs
+[......................................  ] 96.72131 - Creating augmented epochs
+[......................................  ] 97.04918 \ Creating augmented epochs
+[......................................  ] 97.37705 | Creating augmented epochs
+[....................................... ] 97.70492 / Creating augmented epochs
+[....................................... ] 98.03279 - Creating augmented epochs
+[....................................... ] 98.36066 \ Creating augmented epochs
+[....................................... ] 98.68852 | Creating augmented epochs
+[....................................... ] 99.01639 / Creating augmented epochs
+[....................................... ] 99.34426 - Creating augmented epochs
+[....................................... ] 99.67213 \ Creating augmented epochs
+[........................................] 100.00000 | Creating augmented epochs
+[........................................] 100.00000 / Creating augmented epochs
+
+[                                        ] 1.40845 | Computing thresholds
+[.                                       ] 2.81690 / Computing thresholds
+[.                                       ] 4.22535 - Computing thresholds
+[..                                      ] 5.63380 \ Computing thresholds
+[..                                      ] 7.04225 | Computing thresholds
+[...                                     ] 8.45070 / Computing thresholds
+[...                                     ] 9.85915 - Computing thresholds
+[....                                    ] 11.26761 \ Computing thresholds
+[.....                                   ] 12.67606 | Computing thresholds
+[.....                                   ] 14.08451 / Computing thresholds
+[......                                  ] 15.49296 - Computing thresholds
+[......                                  ] 16.90141 \ Computing thresholds
+[.......                                 ] 18.30986 | Computing thresholds
+[.......                                 ] 19.71831 / Computing thresholds
+[........                                ] 21.12676 - Computing thresholds
+[.........                               ] 22.53521 \ Computing thresholds
+[.........                               ] 23.94366 | Computing thresholds
+[..........                              ] 25.35211 / Computing thresholds
+[..........                              ] 26.76056 - Computing thresholds
+[...........                             ] 28.16901 \ Computing thresholds
+[...........                             ] 29.57746 | Computing thresholds
+[............                            ] 30.98592 / Computing thresholds
+[............                            ] 32.39437 - Computing thresholds
+[.............                           ] 33.80282 \ Computing thresholds
+[..............                          ] 35.21127 | Computing thresholds
+[..............                          ] 36.61972 / Computing thresholds
+[...............                         ] 38.02817 - Computing thresholds
+[...............                         ] 39.43662 \ Computing thresholds
+[................                        ] 40.84507 | Computing thresholds
+[................                        ] 42.25352 / Computing thresholds
+[.................                       ] 43.66197 - Computing thresholds
+[..................                      ] 45.07042 \ Computing thresholds
+[..................                      ] 46.47887 | Computing thresholds
+[...................                     ] 47.88732 / Computing thresholds
+[...................                     ] 49.29577 - Computing thresholds
+[....................                    ] 50.70423 \ Computing thresholds
+[....................                    ] 52.11268 | Computing thresholds
+[.....................                   ] 53.52113 / Computing thresholds
+[.....................                   ] 54.92958 - Computing thresholds
+[......................                  ] 56.33803 \ Computing thresholds
+[.......................                 ] 57.74648 | Computing thresholds
+[.......................                 ] 59.15493 / Computing thresholds
+[........................                ] 60.56338 - Computing thresholds
+[........................                ] 61.97183 \ Computing thresholds
+[.........................               ] 63.38028 | Computing thresholds
+[.........................               ] 64.78873 / Computing thresholds
+[..........................              ] 66.19718 - Computing thresholds
+[...........................             ] 67.60563 \ Computing thresholds
+[...........................             ] 69.01408 | Computing thresholds
+[............................            ] 70.42254 / Computing thresholds
+[............................            ] 71.83099 - Computing thresholds
+[.............................           ] 73.23944 \ Computing thresholds
+[.............................           ] 74.64789 | Computing thresholds
+[..............................          ] 76.05634 / Computing thresholds
+[..............................          ] 77.46479 - Computing thresholds
+[...............................         ] 78.87324 \ Computing thresholds
+[................................        ] 80.28169 | Computing thresholds
+[................................        ] 81.69014 / Computing thresholds
+[.................................       ] 83.09859 - Computing thresholds
+[.................................       ] 84.50704 \ Computing thresholds
+[..................................      ] 85.91549 | Computing thresholds
+[..................................      ] 87.32394 / Computing thresholds
+[...................................     ] 88.73239 - Computing thresholds
+[....................................    ] 90.14085 \ Computing thresholds
+[....................................    ] 91.54930 | Computing thresholds
+[.....................................   ] 92.95775 / Computing thresholds
+[.....................................   ] 94.36620 - Computing thresholds
+[......................................  ] 95.77465 \ Computing thresholds
+[......................................  ] 97.18310 | Computing thresholds
+[....................................... ] 98.59155 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds
+[........................................] 100.00000 - Computing thresholds
+[........................................] 100.00000 \ Computing thresholds
+[........................................] 100.00000 | Computing thresholds
+[........................................] 100.00000 / Computing thresholds    _____________________________________________compute_thresholds - 147.8s, 2.5min
+
+
+[                                        ] 1.40845 | Repairing epochs    ________________________________________________________________________________
+[Memory] Calling autoreject.utils._compute_dots...
+_compute_dots(&lt;Info | 20 non-empty fields
+    bads : list | 0 items
+    buffer_size_sec : numpy.float64 | 13.3196808772
+    ch_names : list | MEG 0113, MEG 0112, MEG 0111, MEG 0122, MEG 0123, ...
+    chs : list | 306 items (GRAD: 204, MAG: 102)
+    comps : list | 0 items
+    custom_ref_applied : bool | False
+    dev_head_t : &#39;mne.transforms.Transform | 3 items
+    dig : list | 146 items
+    events : list | 0 items
+    file_id : dict | 4 items
+    filename : unicode | /tsi/docto.../sample_audvis_filt-0-40_raw.fif
+    highpass : float | 0.10000000149 Hz
+    hpi_meas : list | 1 items
+    hpi_results : list | 1 items
+    lowpass : float | 40.0 Hz
+    meas_date : numpy.ndarray | 2002-12-03 20:01:10
+    meas_id : dict | 4 items
+    nchan : int | 306
+    projs : list | 0 items
+    sfreq : float | 150.153747559 Hz
+    acq_pars : NoneType
+    acq_stim : NoneType
+    ctf_head_t : NoneType
+    description : NoneType
+    dev_ctf_t : NoneType
+    experimenter : NoneType
+    hpi_subsystem : NoneType
+    kit_system_id : NoneType
+    line_freq : NoneType
+    proj_id : NoneType
+    proj_name : NoneType
+    subject_info : NoneType
+    xplotter_layout : NoneType
+&gt;, mode=&#39;accurate&#39;)
+____________________________________________________compute_dots - 17.8s, 0.3min
+
 [.                                       ] 2.81690 / Repairing epochs
 [.                                       ] 4.22535 - Repairing epochs
 [..                                      ] 5.63380 \ Repairing epochs
@@ -1096,11 +1793,12 @@ No bad epochs dropped by consensus.
 </div>
 <img alt="../_images/sphx_glr_plot_auto_repair_002.png" class="align-center" src="../_images/sphx_glr_plot_auto_repair_002.png" />
 <p><strong>Total running time of the script:</strong>
-(1 minutes 9.827 seconds)</p>
+(4 minutes 18.842 seconds)</p>
 <div class="sphx-glr-download container">
-<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.py"><code class="xref download docutils literal"><span class="pre">plot_auto_repair.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_auto_repair.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_auto_repair.py</span></code></a></div>
 <div class="sphx-glr-download container">
-<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.ipynb"><code class="xref download docutils literal"><span class="pre">plot_auto_repair.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_auto_repair.ipynb"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">IPython</span> <span class="pre">notebook:</span> <span class="pre">plot_auto_repair.ipynb</span></code></a></div>
+<p class="sphx-glr-signature"><a class="reference external" href="http://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
 </div>
 
 
