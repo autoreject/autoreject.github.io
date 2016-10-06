@@ -71,7 +71,7 @@ for run in range(1, 7):
 
     exclude = []  # XXX
     picks = mne.pick_types(raw.info, meg=False, eeg=True, stim=False,
-                           eog=True, exclude=exclude)
+                           eog=False, exclude=exclude)
     events = mne.find_events(raw, stim_channel='STI101',
                              consecutive='increasing',
                              min_duration=0.003, verbose=True)
@@ -108,3 +108,9 @@ from autoreject import plot_epochs
 plot_epochs(this_epoch, bad_epochs_idx=ar.bad_epochs_idx,
             fix_log=ar.fix_log, scalings=dict(eeg=40e-6),
             title='')
+
+###############################################################################
+# ... and the epochs after cleaning with autoreject
+
+###############################################################################
+epochs_ar.plot(scalings=dict(eeg=40e-6))
