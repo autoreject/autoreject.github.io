@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
 <meta charset='utf-8'>
@@ -148,11 +148,6 @@ find global rejection thresholds.</p>
                     <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>add_eeg_ref defaults to True in 0.13, will default to False in 0.14, and will be removed in 0.15. We recommend to use add_eeg_ref=False and set_eeg_reference() instead.
-add_eeg_ref defaults to True in 0.13, will default to False in 0.14, and will be removed in 0.15. We recommend to use add_eeg_ref=False and set_eeg_reference() instead.
-</pre></div>
-</div>
 <p>Let us define a range of candidate thresholds which we would like to try.
 In this particular case, we try from <span class="math">\(40{\mu}V\)</span> to <span class="math">\(200{\mu}V\)</span></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -168,7 +163,7 @@ follows a <code class="xref py py-mod docutils literal"><span class="pre">scikit
 
 <span class="n">_</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.validation_curve.html#autoreject.validation_curve"><span class="n">validation_curve</span></a><span class="p">(</span>
     <a href="http://autoreject.github.io/generated/autoreject.GlobalAutoReject.html#autoreject.GlobalAutoReject"><span class="n">GlobalAutoReject</span></a><span class="p">(),</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-    <span class="n">param_name</span><span class="o">=</span><span class="s2">&quot;thresh&quot;</span><span class="p">,</span> <span class="n">param_range</span><span class="o">=</span><span class="n">param_range</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">param_name</span><span class="o">=</span><span class="s2">&quot;thresh&quot;</span><span class="p">,</span> <span class="n">param_range</span><span class="o">=</span><span class="n">param_range</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="n">test_scores</span> <span class="o">=</span> <span class="o">-</span><span class="n">test_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">best_thresh</span> <span class="o">=</span> <span class="n">param_range</span><span class="p">[</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.argmin.html#numpy.argmin"><span class="n">np</span><span class="o">.</span><span class="n">argmin</span></a><span class="p">(</span><span class="n">test_scores</span><span class="p">)]</span>
@@ -176,8 +171,8 @@ follows a <code class="xref py py-mod docutils literal"><span class="pre">scikit
 </div>
 <p>Now let us plot the RMSE values against the candidate thresholds.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="http://autoreject.github.io/generated/autoreject.set_matplotlib_defaults.html#autoreject.set_matplotlib_defaults"><span class="n">set_matplotlib_defaults</span></a>
-<a href="http://autoreject.github.io/generated/autoreject.set_matplotlib_defaults.html#autoreject.set_matplotlib_defaults"><span class="n">set_matplotlib_defaults</span></a><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
 
 <span class="n">human_thresh</span> <span class="o">=</span> <span class="mf">80e-6</span>
 <span class="n">unit</span> <span class="o">=</span> <span class="s1">r&#39;$\mu$V&#39;</span>
@@ -207,12 +202,11 @@ follows a <code class="xref py py-mod docutils literal"><span class="pre">scikit
 </div>
 <img alt="../_images/sphx_glr_plot_global_reject_001.png" class="align-center" src="../_images/sphx_glr_plot_global_reject_001.png" />
 <p><strong>Total running time of the script:</strong>
-(0 minutes 2.653 seconds)</p>
+(0 minutes 2.265 seconds)</p>
 <div class="sphx-glr-download container">
-<a class="reference download internal" href="../_downloads/plot_global_reject.py"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_global_reject.py</span></code></a></div>
+<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_global_reject.py"><code class="xref download docutils literal"><span class="pre">plot_global_reject.py</span></code></a></div>
 <div class="sphx-glr-download container">
-<a class="reference download internal" href="../_downloads/plot_global_reject.ipynb"><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">IPython</span> <span class="pre">notebook:</span> <span class="pre">plot_global_reject.ipynb</span></code></a></div>
-<p class="sphx-glr-signature"><a class="reference external" href="http://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
+<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_global_reject.ipynb"><code class="xref download docutils literal"><span class="pre">plot_global_reject.ipynb</span></code></a></div>
 </div>
 
 

@@ -107,8 +107,7 @@ thresh_func = partial(compute_thresholds, method='random_search',
 
 ###############################################################################
 
-ar = LocalAutoRejectCV(n_interpolates, consensus_percs,
-                       thresh_func=thresh_func)
+ar = LocalAutoRejectCV(n_interpolates, consensus_percs, verbose='progressbar')
 epochs_clean = ar.fit_transform(epochs)
 
 evoked = epochs.average()

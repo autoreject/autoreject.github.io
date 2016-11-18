@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
 <meta charset='utf-8'>
@@ -120,7 +120,7 @@
 <h1>autoreject.validation_curve<a class="headerlink" href="#autoreject-validation-curve" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.validation_curve">
-<code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>estimator</em>, <em>epochs</em>, <em>y</em>, <em>param_name</em>, <em>param_range</em>, <em>cv=None</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>estimator</em>, <em>epochs</em>, <em>y</em>, <em>param_name</em>, <em>param_range</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation curve on epochs.</p>
 <dl class="docutils">
 <dt>estimator <span class="classifier-delimiter">:</span> <span class="classifier">object that implements &#8220;fit&#8221; and &#8220;predict&#8221; method.</span></dt>
@@ -133,6 +133,8 @@
 <dd>Name of the parameter that will be varied.</dd>
 <dt>param_range <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
 <dd>The values of the parameter that will be evaluated.</dd>
+<dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">int, cross-validation generator or an iterable, optional</span></dt>
+<dd>Determines the cross-validation strategy.</dd>
 </dl>
 </dd></dl>
 
