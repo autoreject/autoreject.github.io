@@ -124,11 +124,11 @@
 <dd><p>Efficiently find n_interp and n_consensus.</p>
 <dl class="docutils">
 <dt>n_interpolates <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
-<dd>The values of <span class="math">\(\rho\)</span> to try. If None, defaults
-to <cite>np.linspace(0, 1.0, 11)</cite></dd>
-<dt>consensus_percs <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
-<dd>The values of <span class="math">\(\kappa\)</span> to try. If None, defaults to
+<dd>The values of <span class="math">\(\rho\)</span> to try. If None, defaults to
 np.array([1, 4, 32])</dd>
+<dt>consensus_percs <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
+<dd>The values of <span class="math">\(\kappa/Q\)</span> to try. If None, defaults
+to <cite>np.linspace(0, 1.0, 11)</cite></dd>
 <dt>thresh_func <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span></dt>
 <dd>Function which returns the channel-level thresholds. If None,
 defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</dd>

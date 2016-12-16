@@ -191,7 +191,8 @@ determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 .. code-block:: python
 
 
-    ar = LocalAutoRejectCV(n_interpolates, consensus_percs, verbose='progressbar')
+    ar = LocalAutoRejectCV(n_interpolates, consensus_percs,
+                           thresh_func=thresh_func)
     epochs_clean = ar.fit_transform(epochs)
 
     evoked = epochs.average()
@@ -285,7 +286,7 @@ To top things up, we can also visualize the bad sensors for each trial using
 
 
 **Total running time of the script:**
-(8 minutes 7.699 seconds)
+(2 minutes 17.501 seconds)
 
 
 
