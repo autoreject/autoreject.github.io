@@ -153,8 +153,14 @@ in your script:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>  
 </pre></div>
 </div>
-<p>This will automatically clean an <cite>epochs</cite> object read in using MNE-Python. For more details check
-out the <a class="reference internal" href="auto_examples/plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span>example to automatically detect and repair bad epochs</span></a>.</p>
+<p>This will automatically clean an <cite>epochs</cite> object read in using MNE-Python. We also implement RANSAC from the PREP pipeline.
+The API is the same:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">Ransac</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsc</span> <span class="o">=</span> <span class="n">Ransac</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">rsc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>For more details check out the <a class="reference internal" href="auto_examples/plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span>example to automatically detect and repair bad epochs</span></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Fow now, we do not guarantee if autoreject will work for more than one channel type. We intend to support multiple channel

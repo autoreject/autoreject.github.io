@@ -186,18 +186,12 @@ because we do not want epochs to be dropped when instantiating
                 <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>First, we set up the function to compute the sensor-level thresholds.</p>
+<p>We import <code class="docutils literal"><span class="pre">Ransac</span></code> and run the familiar <code class="docutils literal"><span class="pre">fit_transform</span></code> method.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">Ransac</span>
 <span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">interpolate_bads</span>
 
 <span class="n">ransac</span> <span class="o">=</span> <span class="n">Ransac</span><span class="p">(</span><span class="n">ch_type</span><span class="o">=</span><span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;tqdm&#39;</span><span class="p">)</span>
-<span class="n">ransac</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">epochs_clean</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ransac</span><span class="o">.</span><span class="n">bad_chs_</span>
-<span class="n">epochs_clean</span><span class="o">.</span><span class="n">interpolate_bads</span><span class="p">(</span><span class="n">reset_bads</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="n">evoked</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
-<span class="n">evoked_clean</span> <span class="o">=</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ransac</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -207,7 +201,40 @@ because we do not want epochs to be dropped when instantiating
   [Truncate at 77 missing 0.0001]
 </pre></div>
 </div>
-<p>Now, we will manually mark the bad channels just for plotting.</p>
+<p>We can also get the list of bad channels computed by <code class="docutils literal"><span class="pre">Ransac</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ransac</span><span class="o">.</span><span class="n">bad_chs_</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  MEG 0512
+MEG 0523
+MEG 0613
+MEG 0722
+MEG 0813
+MEG 0823
+MEG 0912
+MEG 0942
+MEG 0943
+MEG 1013
+MEG 1023
+MEG 1032
+MEG 1033
+MEG 1832
+MEG 1842
+MEG 2023
+MEG 2242
+MEG 2312
+MEG 2432
+MEG 2443
+MEG 2523
+</pre></div>
+</div>
+<p>Then we compute the <code class="docutils literal"><span class="pre">evoked</span></code> before and after interpolation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">evoked</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+<span class="n">evoked_clean</span> <span class="o">=</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We will manually mark the bad channels just for plotting.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">evoked</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
 <span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
 </pre></div>
@@ -226,10 +253,10 @@ because we do not want epochs to be dropped when instantiating
 <span class="n">ylim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
 <span class="n">evoked</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 <span class="n">evoked</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Before autoreject&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Before RANSAC&#39;</span><span class="p">)</span>
 <span class="n">evoked_clean</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 <span class="n">evoked_clean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;After autoreject&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;After RANSAC&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -253,7 +280,7 @@ because we do not want epochs to be dropped when instantiating
 </div>
 <img alt="../_images/sphx_glr_plot_ransac_002.png" class="align-center" src="../_images/sphx_glr_plot_ransac_002.png" />
 <p><strong>Total running time of the script:</strong>
-(8 minutes 30.771 seconds)</p>
+(0 minutes 13.384 seconds)</p>
 <div class="sphx-glr-download container">
 <strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_ransac.py"><code class="xref download docutils literal"><span class="pre">plot_ransac.py</span></code></a></div>
 <div class="sphx-glr-download container">
