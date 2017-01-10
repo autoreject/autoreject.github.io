@@ -134,6 +134,19 @@ channel-wise thresholds.</p>
 <span class="n">raw</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Read a total of 4 projection items:
+        PCA-v1 (1 x 102)  idle
+        PCA-v2 (1 x 102)  idle
+        PCA-v3 (1 x 102)  idle
+        Average EEG reference (1 x 60)  idle
+    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+Ready.
+Current compensation grade : 0
+Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+</pre></div>
+</div>
 <p>We can extract the events (or triggers) for epoching our signal.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">event_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
                            <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
@@ -189,7 +202,7 @@ that the thresholds are indeed different for different sensors.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_channel_thresholds_001.png" class="align-center" src="../_images/sphx_glr_plot_channel_thresholds_001.png" />
 <p><strong>Total running time of the script:</strong>
-(1 minutes 25.404 seconds)</p>
+(1 minutes 22.663 seconds)</p>
 <div class="sphx-glr-download container">
 <strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_channel_thresholds.py"><code class="xref download docutils literal"><span class="pre">plot_channel_thresholds.py</span></code></a></div>
 <div class="sphx-glr-download container">
