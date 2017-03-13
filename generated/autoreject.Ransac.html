@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>autoreject.Ransac &mdash; autoreject 0.1.dev0 documentation</title>
+    <title>autoreject.Ransac &#8212; autoreject 0.1.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,7 +20,8 @@
         VERSION:     '0.1.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -31,7 +32,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -94,7 +96,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/autoreject.Ransac.txt"
+  <a href="../_sources/generated/autoreject.Ransac.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -120,26 +122,28 @@
 <h1>autoreject.Ransac<a class="headerlink" href="#autoreject-ransac" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.Ransac">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">Ransac</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">Ransac</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac" title="Permalink to this definition">¶</a></dt>
 <dd><p>RANSAC algorithm to find bad sensors and repair them.</p>
 <dl class="method">
 <dt id="autoreject.Ransac.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements RAndom SAmple Consensus (RANSAC) method to detect bad sensors.</p>
 <dl class="docutils">
-<dt>n_resample <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>Number of times the sensors are resampled.</dd>
-<dt>min_channels <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Fraction of sensors for robust reconstruction.</dd>
-<dt>min_corr <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Cut-off correlation for abnormal wrt neighbours.</dd>
-<dt>unbroken_time <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Cut-off fraction of time sensor can have poor RANSAC
+<dt>n_resample</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of times the sensors are resampled.</dd>
+<dt>min_channels</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Fraction of sensors for robust reconstruction.</dd>
+<dt>min_corr</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Cut-off correlation for abnormal wrt neighbours.</dd>
+<dt>unbroken_time</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">float</span><dd>Cut-off fraction of time sensor can have poor RANSAC
 predictability.</dd>
-<dt>n_jobs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>Number of parallel jobs.</dd>
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
-<dd>The verbosity of progress messages.
+<dt>n_jobs</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>Number of parallel jobs.</dd>
+<dt>random_state</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">None | int</span><dd>To seed or not the random number generator.</dd>
+<dt>verbose</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span><dd>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
 If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
 If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
@@ -197,7 +201,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

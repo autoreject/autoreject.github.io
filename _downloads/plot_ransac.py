@@ -14,7 +14,7 @@ works for MEG sensors as well.
 [2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and Alexandre Gramfort,
     "Autoreject: Automated artifact rejection for MEG and EEG." arXiv preprint
     arXiv:1612.08194, 2016.
-"""
+"""  # noqa
 
 # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
 # License: BSD (3-clause)
@@ -65,10 +65,10 @@ epochs = Epochs(raw, events, event_id, tmin, tmax,
 
 ###############################################################################
 # We import ``Ransac`` and run the familiar ``fit_transform`` method.
-from autoreject import Ransac
-from autoreject.utils import interpolate_bads
+from autoreject import Ransac  # noqa
+from autoreject.utils import interpolate_bads  # noqa
 
-ransac = Ransac(verbose='tqdm')
+ransac = Ransac(verbose='progressbar', n_jobs=1)
 epochs_clean = ransac.fit_transform(epochs)
 
 ###############################################################################
@@ -91,8 +91,8 @@ evoked_clean.info['bads'] = ['MEG 2443']
 ###############################################################################
 # Let us plot the results.
 
-from autoreject.utils import set_matplotlib_defaults
-import matplotlib.pyplot as plt
+from autoreject.utils import set_matplotlib_defaults  # noqa
+import matplotlib.pyplot as plt  # noqa
 set_matplotlib_defaults(plt)
 
 fig, axes = plt.subplots(2, 1, figsize=(6, 6))
@@ -108,16 +108,14 @@ axes[0].set_title('Before RANSAC')
 evoked_clean.pick_types(meg='grad', exclude=[])
 evoked_clean.plot(exclude=[], axes=axes[1], ylim=ylim)
 axes[1].set_title('After RANSAC')
-plt.tight_layout()
+fig.tight_layout()
 
 ###############################################################################
 # To top things up, we can also visualize the bad sensors for each trial using
 # a heatmap.
-set_matplotlib_defaults(plt)
 
-plt.figure(figsize=(12, 6))
-im = plt.imshow(ransac.bad_log, cmap='Reds', interpolation='nearest')
-ax = im.get_axes()
+fig, ax = plt.subplots(1, 1, figsize=(12, 6))
+ax.imshow(ransac.bad_log, cmap='Reds', interpolation='nearest')
 ax.grid(False)
 ax.set_xlabel('Sensors')
 ax.set_ylabel('Trials')
@@ -126,5 +124,5 @@ plt.setp(ax, xticks=range(7, epochs.info['nchan'], 10),
 plt.setp(ax.get_yticklabels(), rotation=0)
 plt.setp(ax.get_xticklabels(), rotation=90)
 ax.tick_params(axis=u'both', which=u'both', length=0)
-plt.tight_layout(rect=[None, None, None, 1.1])
+fig.tight_layout(rect=[None, None, None, 1.1])
 plt.show()

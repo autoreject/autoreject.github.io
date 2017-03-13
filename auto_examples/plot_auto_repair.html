@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Automatically repair epochs &mdash; autoreject 0.1.dev0 documentation</title>
+    <title>Automatically repair epochs &#8212; autoreject 0.1.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,7 +20,8 @@
         VERSION:     '0.1.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -31,7 +32,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="autoreject 0.1.dev0 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -94,7 +96,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_auto_repair.txt"
+  <a href="../_sources/auto_examples/plot_auto_repair.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -141,11 +143,9 @@ the data. If the number of bad sensors for a particular trial is less than
 </div>
 <p>For the purposes of this example, we shall use the MNE sample dataset.
 Therefore, let us make some MNE related imports.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">io</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <a href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs"><span class="n">Epochs</span></a>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
-<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>  <span class="c1"># noqa</span>
 </pre></div>
 </div>
 <p>Now, we can import the class required for rejecting and repairing bad
@@ -153,28 +153,28 @@ epochs. <a class="reference internal" href="../generated/autoreject.compute_thre
 provided to the <a class="reference internal" href="../generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV" title="autoreject.LocalAutoRejectCV"><code class="xref py py-class docutils literal"><span class="pre">autoreject.LocalAutoRejectCV</span></code></a> class for computing
 the channel-level thresholds.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.LocalAutoRejectCV.html#autoreject.LocalAutoRejectCV"><span class="n">LocalAutoRejectCV</span></a><span class="p">,</span> <a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span>
-                        <span class="n">set_matplotlib_defaults</span><span class="p">)</span>
+                        <span class="n">set_matplotlib_defaults</span><span class="p">)</span>  <span class="c1"># noqa</span>
 </pre></div>
 </div>
 <p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">check_random_state</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">data_path</span><span class="p">()</span>
+<span class="n">data_path</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
 <span class="n">raw_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;</span>
-<span class="n">raw</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
-    Read a total of 4 projection items:
-        PCA-v1 (1 x 102)  idle
-        PCA-v2 (1 x 102)  idle
-        PCA-v3 (1 x 102)  idle
-        Average EEG reference (1 x 60)  idle
-    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
-Ready.
-Current compensation grade : 0
-Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span>  <span class="n">Opening</span> <span class="n">raw</span> <span class="n">data</span> <span class="n">file</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">mainak</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">github_repos</span><span class="o">/</span><span class="n">mne</span><span class="o">-</span><span class="n">python</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">MNE</span><span class="o">-</span><span class="n">sample</span><span class="o">-</span><span class="n">data</span><span class="o">/</span><span class="n">MEG</span><span class="o">/</span><span class="n">sample</span><span class="o">/</span><span class="n">sample_audvis_filt</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="mi">40</span><span class="n">_raw</span><span class="o">.</span><span class="n">fif</span><span class="o">...</span>
+    <span class="n">Read</span> <span class="n">a</span> <span class="n">total</span> <span class="n">of</span> <span class="mi">4</span> <span class="n">projection</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">PCA</span><span class="o">-</span><span class="n">v1</span> <span class="p">(</span><span class="mi">1</span> <span class="n">x</span> <span class="mi">102</span><span class="p">)</span>  <span class="n">idle</span>
+        <span class="n">PCA</span><span class="o">-</span><span class="n">v2</span> <span class="p">(</span><span class="mi">1</span> <span class="n">x</span> <span class="mi">102</span><span class="p">)</span>  <span class="n">idle</span>
+        <span class="n">PCA</span><span class="o">-</span><span class="n">v3</span> <span class="p">(</span><span class="mi">1</span> <span class="n">x</span> <span class="mi">102</span><span class="p">)</span>  <span class="n">idle</span>
+        <span class="n">Average</span> <span class="n">EEG</span> <span class="n">reference</span> <span class="p">(</span><span class="mi">1</span> <span class="n">x</span> <span class="mi">60</span><span class="p">)</span>  <span class="n">idle</span>
+    <span class="n">Range</span> <span class="p">:</span> <span class="mi">6450</span> <span class="o">...</span> <span class="mi">48149</span> <span class="o">=</span>     <span class="mf">42.956</span> <span class="o">...</span>   <span class="mf">320.665</span> <span class="n">secs</span>
+<span class="n">Ready</span><span class="o">.</span>
+<span class="n">Current</span> <span class="n">compensation</span> <span class="n">grade</span> <span class="p">:</span> <span class="mi">0</span>
+<span class="n">Reading</span> <span class="mi">0</span> <span class="o">...</span> <span class="mi">41699</span>  <span class="o">=</span>      <span class="mf">0.000</span> <span class="o">...</span>   <span class="mf">277.709</span> <span class="n">secs</span><span class="o">...</span>
 </pre></div>
 </div>
 <p>We can then read in the events</p>
@@ -197,13 +197,13 @@ only one channel type at a time.</p>
 because we do not want epochs to be dropped when instantiating
 <a class="reference external" href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v0.13.1)"><code class="xref py py-class docutils literal"><span class="pre">mne.Epochs</span></code></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;projs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
-<span class="n">epochs</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs"><span class="n">Epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
-                <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">epochs</span> <span class="o">=</span> <a href="http://martinos.org/mne/stable/generated/mne.Epochs.html#mne.Epochs"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
+                    <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>First, we set up the function to compute the sensor-level thresholds.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  <span class="c1"># noqa</span>
 <span class="n">thresh_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds"><span class="n">compute_thresholds</span></a><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">,</span>
                       <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
@@ -219,736 +219,17 @@ determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span cl
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-python"><div class="highlight"><pre><span></span>  [                                        ] 0.49020 | Creating augmented epochs
-[                                        ] 0.98039 / Creating augmented epochs
-[                                        ] 1.47059 - Creating augmented epochs
-[                                        ] 1.96078 \ Creating augmented epochs
-[                                        ] 2.45098 | Creating augmented epochs
-[.                                       ] 2.94118 / Creating augmented epochs
-[.                                       ] 3.43137 - Creating augmented epochs
-[.                                       ] 3.92157 \ Creating augmented epochs
-[.                                       ] 4.41176 | Creating augmented epochs
-[.                                       ] 4.90196 / Creating augmented epochs
-[..                                      ] 5.39216 - Creating augmented epochs
-[..                                      ] 5.88235 \ Creating augmented epochs
-[..                                      ] 6.37255 | Creating augmented epochs
-[..                                      ] 6.86275 / Creating augmented epochs
-[..                                      ] 7.35294 - Creating augmented epochs
-[...                                     ] 7.84314 \ Creating augmented epochs
-[...                                     ] 8.33333 | Creating augmented epochs
-[...                                     ] 8.82353 / Creating augmented epochs
-[...                                     ] 9.31373 - Creating augmented epochs
-[...                                     ] 9.80392 \ Creating augmented epochs
-[....                                    ] 10.29412 | Creating augmented epochs
-[....                                    ] 10.78431 / Creating augmented epochs
-[....                                    ] 11.27451 - Creating augmented epochs
-[....                                    ] 11.76471 \ Creating augmented epochs
-[....                                    ] 12.25490 | Creating augmented epochs
-[.....                                   ] 12.74510 / Creating augmented epochs
-[.....                                   ] 13.23529 - Creating augmented epochs
-[.....                                   ] 13.72549 \ Creating augmented epochs
-[.....                                   ] 14.21569 | Creating augmented epochs
-[.....                                   ] 14.70588 / Creating augmented epochs
-[......                                  ] 15.19608 - Creating augmented epochs
-[......                                  ] 15.68627 \ Creating augmented epochs
-[......                                  ] 16.17647 | Creating augmented epochs
-[......                                  ] 16.66667 / Creating augmented epochs
-[......                                  ] 17.15686 - Creating augmented epochs
-[.......                                 ] 17.64706 \ Creating augmented epochs
-[.......                                 ] 18.13725 | Creating augmented epochs
-[.......                                 ] 18.62745 / Creating augmented epochs
-[.......                                 ] 19.11765 - Creating augmented epochs
-[.......                                 ] 19.60784 \ Creating augmented epochs
-[........                                ] 20.09804 | Creating augmented epochs
-[........                                ] 20.58824 / Creating augmented epochs
-[........                                ] 21.07843 - Creating augmented epochs
-[........                                ] 21.56863 \ Creating augmented epochs
-[........                                ] 22.05882 | Creating augmented epochs
-[.........                               ] 22.54902 / Creating augmented epochs
-[.........                               ] 23.03922 - Creating augmented epochs
-[.........                               ] 23.52941 \ Creating augmented epochs
-[.........                               ] 24.01961 | Creating augmented epochs
-[.........                               ] 24.50980 / Creating augmented epochs
-[..........                              ] 25.00000 - Creating augmented epochs
-[..........                              ] 25.49020 \ Creating augmented epochs
-[..........                              ] 25.98039 | Creating augmented epochs
-[..........                              ] 26.47059 / Creating augmented epochs
-[..........                              ] 26.96078 - Creating augmented epochs
-[..........                              ] 27.45098 \ Creating augmented epochs
-[...........                             ] 27.94118 | Creating augmented epochs
-[...........                             ] 28.43137 / Creating augmented epochs
-[...........                             ] 28.92157 - Creating augmented epochs
-[...........                             ] 29.41176 \ Creating augmented epochs
-[...........                             ] 29.90196 | Creating augmented epochs
-[............                            ] 30.39216 / Creating augmented epochs
-[............                            ] 30.88235 - Creating augmented epochs
-[............                            ] 31.37255 \ Creating augmented epochs
-[............                            ] 31.86275 | Creating augmented epochs
-[............                            ] 32.35294 / Creating augmented epochs
-[.............                           ] 32.84314 - Creating augmented epochs
-[.............                           ] 33.33333 \ Creating augmented epochs
-[.............                           ] 33.82353 | Creating augmented epochs
-[.............                           ] 34.31373 / Creating augmented epochs
-[.............                           ] 34.80392 - Creating augmented epochs
-[..............                          ] 35.29412 \ Creating augmented epochs
-[..............                          ] 35.78431 | Creating augmented epochs
-[..............                          ] 36.27451 / Creating augmented epochs
-[..............                          ] 36.76471 - Creating augmented epochs
-[..............                          ] 37.25490 \ Creating augmented epochs
-[...............                         ] 37.74510 | Creating augmented epochs
-[...............                         ] 38.23529 / Creating augmented epochs
-[...............                         ] 38.72549 - Creating augmented epochs
-[...............                         ] 39.21569 \ Creating augmented epochs
-[...............                         ] 39.70588 | Creating augmented epochs
-[................                        ] 40.19608 / Creating augmented epochs
-[................                        ] 40.68627 - Creating augmented epochs
-[................                        ] 41.17647 \ Creating augmented epochs
-[................                        ] 41.66667 | Creating augmented epochs
-[................                        ] 42.15686 / Creating augmented epochs
-[.................                       ] 42.64706 - Creating augmented epochs
-[.................                       ] 43.13725 \ Creating augmented epochs
-[.................                       ] 43.62745 | Creating augmented epochs
-[.................                       ] 44.11765 / Creating augmented epochs
-[.................                       ] 44.60784 - Creating augmented epochs
-[..................                      ] 45.09804 \ Creating augmented epochs
-[..................                      ] 45.58824 | Creating augmented epochs
-[..................                      ] 46.07843 / Creating augmented epochs
-[..................                      ] 46.56863 - Creating augmented epochs
-[..................                      ] 47.05882 \ Creating augmented epochs
-[...................                     ] 47.54902 | Creating augmented epochs
-[...................                     ] 48.03922 / Creating augmented epochs
-[...................                     ] 48.52941 - Creating augmented epochs
-[...................                     ] 49.01961 \ Creating augmented epochs
-[...................                     ] 49.50980 | Creating augmented epochs
-[....................                    ] 50.00000 / Creating augmented epochs
-[....................                    ] 50.49020 - Creating augmented epochs
-[....................                    ] 50.98039 \ Creating augmented epochs
-[....................                    ] 51.47059 | Creating augmented epochs
-[....................                    ] 51.96078 / Creating augmented epochs
-[....................                    ] 52.45098 - Creating augmented epochs
-[.....................                   ] 52.94118 \ Creating augmented epochs
-[.....................                   ] 53.43137 | Creating augmented epochs
-[.....................                   ] 53.92157 / Creating augmented epochs
-[.....................                   ] 54.41176 - Creating augmented epochs
-[.....................                   ] 54.90196 \ Creating augmented epochs
-[......................                  ] 55.39216 | Creating augmented epochs
-[......................                  ] 55.88235 / Creating augmented epochs
-[......................                  ] 56.37255 - Creating augmented epochs
-[......................                  ] 56.86275 \ Creating augmented epochs
-[......................                  ] 57.35294 | Creating augmented epochs
-[.......................                 ] 57.84314 / Creating augmented epochs
-[.......................                 ] 58.33333 - Creating augmented epochs
-[.......................                 ] 58.82353 \ Creating augmented epochs
-[.......................                 ] 59.31373 | Creating augmented epochs
-[.......................                 ] 59.80392 / Creating augmented epochs
-[........................                ] 60.29412 - Creating augmented epochs
-[........................                ] 60.78431 \ Creating augmented epochs
-[........................                ] 61.27451 | Creating augmented epochs
-[........................                ] 61.76471 / Creating augmented epochs
-[........................                ] 62.25490 - Creating augmented epochs
-[.........................               ] 62.74510 \ Creating augmented epochs
-[.........................               ] 63.23529 | Creating augmented epochs
-[.........................               ] 63.72549 / Creating augmented epochs
-[.........................               ] 64.21569 - Creating augmented epochs
-[.........................               ] 64.70588 \ Creating augmented epochs
-[..........................              ] 65.19608 | Creating augmented epochs
-[..........................              ] 65.68627 / Creating augmented epochs
-[..........................              ] 66.17647 - Creating augmented epochs
-[..........................              ] 66.66667 \ Creating augmented epochs
-[..........................              ] 67.15686 | Creating augmented epochs
-[...........................             ] 67.64706 / Creating augmented epochs
-[...........................             ] 68.13725 - Creating augmented epochs
-[...........................             ] 68.62745 \ Creating augmented epochs
-[...........................             ] 69.11765 | Creating augmented epochs
-[...........................             ] 69.60784 / Creating augmented epochs
-[............................            ] 70.09804 - Creating augmented epochs
-[............................            ] 70.58824 \ Creating augmented epochs
-[............................            ] 71.07843 | Creating augmented epochs
-[............................            ] 71.56863 / Creating augmented epochs
-[............................            ] 72.05882 - Creating augmented epochs
-[.............................           ] 72.54902 \ Creating augmented epochs
-[.............................           ] 73.03922 | Creating augmented epochs
-[.............................           ] 73.52941 / Creating augmented epochs
-[.............................           ] 74.01961 - Creating augmented epochs
-[.............................           ] 74.50980 \ Creating augmented epochs
-[..............................          ] 75.00000 | Creating augmented epochs
-[..............................          ] 75.49020 / Creating augmented epochs
-[..............................          ] 75.98039 - Creating augmented epochs
-[..............................          ] 76.47059 \ Creating augmented epochs
-[..............................          ] 76.96078 | Creating augmented epochs
-[..............................          ] 77.45098 / Creating augmented epochs
-[...............................         ] 77.94118 - Creating augmented epochs
-[...............................         ] 78.43137 \ Creating augmented epochs
-[...............................         ] 78.92157 | Creating augmented epochs
-[...............................         ] 79.41176 / Creating augmented epochs
-[...............................         ] 79.90196 - Creating augmented epochs
-[................................        ] 80.39216 \ Creating augmented epochs
-[................................        ] 80.88235 | Creating augmented epochs
-[................................        ] 81.37255 / Creating augmented epochs
-[................................        ] 81.86275 - Creating augmented epochs
-[................................        ] 82.35294 \ Creating augmented epochs
-[.................................       ] 82.84314 | Creating augmented epochs
-[.................................       ] 83.33333 / Creating augmented epochs
-[.................................       ] 83.82353 - Creating augmented epochs
-[.................................       ] 84.31373 \ Creating augmented epochs
-[.................................       ] 84.80392 | Creating augmented epochs
-[..................................      ] 85.29412 / Creating augmented epochs
-[..................................      ] 85.78431 - Creating augmented epochs
-[..................................      ] 86.27451 \ Creating augmented epochs
-[..................................      ] 86.76471 | Creating augmented epochs
-[..................................      ] 87.25490 / Creating augmented epochs
-[...................................     ] 87.74510 - Creating augmented epochs
-[...................................     ] 88.23529 \ Creating augmented epochs
-[...................................     ] 88.72549 | Creating augmented epochs
-[...................................     ] 89.21569 / Creating augmented epochs
-[...................................     ] 89.70588 - Creating augmented epochs
-[....................................    ] 90.19608 \ Creating augmented epochs
-[....................................    ] 90.68627 | Creating augmented epochs
-[....................................    ] 91.17647 / Creating augmented epochs
-[....................................    ] 91.66667 - Creating augmented epochs
-[....................................    ] 92.15686 \ Creating augmented epochs
-[.....................................   ] 92.64706 | Creating augmented epochs
-[.....................................   ] 93.13725 / Creating augmented epochs
-[.....................................   ] 93.62745 - Creating augmented epochs
-[.....................................   ] 94.11765 \ Creating augmented epochs
-[.....................................   ] 94.60784 | Creating augmented epochs
-[......................................  ] 95.09804 / Creating augmented epochs
-[......................................  ] 95.58824 - Creating augmented epochs
-[......................................  ] 96.07843 \ Creating augmented epochs
-[......................................  ] 96.56863 | Creating augmented epochs
-[......................................  ] 97.05882 / Creating augmented epochs
-[....................................... ] 97.54902 - Creating augmented epochs
-[....................................... ] 98.03922 \ Creating augmented epochs
-[....................................... ] 98.52941 | Creating augmented epochs
-[....................................... ] 99.01961 / Creating augmented epochs
-[....................................... ] 99.50980 - Creating augmented epochs
-[........................................] 100.00000 \ Creating augmented epochs
-[                                        ] 0.49020 | Computing thresholds
-[                                        ] 0.98039 / Computing thresholds
-[                                        ] 1.47059 - Computing thresholds
-[                                        ] 1.96078 \ Computing thresholds
-[                                        ] 2.45098 | Computing thresholds
-[.                                       ] 2.94118 / Computing thresholds
-[.                                       ] 3.43137 - Computing thresholds
-[.                                       ] 3.92157 \ Computing thresholds
-[.                                       ] 4.41176 | Computing thresholds
-[.                                       ] 4.90196 / Computing thresholds
-[..                                      ] 5.39216 - Computing thresholds
-[..                                      ] 5.88235 \ Computing thresholds
-[..                                      ] 6.37255 | Computing thresholds
-[..                                      ] 6.86275 / Computing thresholds
-[..                                      ] 7.35294 - Computing thresholds
-[...                                     ] 7.84314 \ Computing thresholds
-[...                                     ] 8.33333 | Computing thresholds
-[...                                     ] 8.82353 / Computing thresholds
-[...                                     ] 9.31373 - Computing thresholds
-[...                                     ] 9.80392 \ Computing thresholds
-[....                                    ] 10.29412 | Computing thresholds
-[....                                    ] 10.78431 / Computing thresholds
-[....                                    ] 11.27451 - Computing thresholds
-[....                                    ] 11.76471 \ Computing thresholds
-[....                                    ] 12.25490 | Computing thresholds
-[.....                                   ] 12.74510 / Computing thresholds
-[.....                                   ] 13.23529 - Computing thresholds
-[.....                                   ] 13.72549 \ Computing thresholds
-[.....                                   ] 14.21569 | Computing thresholds
-[.....                                   ] 14.70588 / Computing thresholds
-[......                                  ] 15.19608 - Computing thresholds
-[......                                  ] 15.68627 \ Computing thresholds
-[......                                  ] 16.17647 | Computing thresholds
-[......                                  ] 16.66667 / Computing thresholds
-[......                                  ] 17.15686 - Computing thresholds
-[.......                                 ] 17.64706 \ Computing thresholds
-[.......                                 ] 18.13725 | Computing thresholds
-[.......                                 ] 18.62745 / Computing thresholds
-[.......                                 ] 19.11765 - Computing thresholds
-[.......                                 ] 19.60784 \ Computing thresholds
-[........                                ] 20.09804 | Computing thresholds
-[........                                ] 20.58824 / Computing thresholds
-[........                                ] 21.07843 - Computing thresholds
-[........                                ] 21.56863 \ Computing thresholds
-[........                                ] 22.05882 | Computing thresholds
-[.........                               ] 22.54902 / Computing thresholds
-[.........                               ] 23.03922 - Computing thresholds
-[.........                               ] 23.52941 \ Computing thresholds
-[.........                               ] 24.01961 | Computing thresholds
-[.........                               ] 24.50980 / Computing thresholds
-[..........                              ] 25.00000 - Computing thresholds
-[..........                              ] 25.49020 \ Computing thresholds
-[..........                              ] 25.98039 | Computing thresholds
-[..........                              ] 26.47059 / Computing thresholds
-[..........                              ] 26.96078 - Computing thresholds
-[..........                              ] 27.45098 \ Computing thresholds
-[...........                             ] 27.94118 | Computing thresholds
-[...........                             ] 28.43137 / Computing thresholds
-[...........                             ] 28.92157 - Computing thresholds
-[...........                             ] 29.41176 \ Computing thresholds
-[...........                             ] 29.90196 | Computing thresholds
-[............                            ] 30.39216 / Computing thresholds
-[............                            ] 30.88235 - Computing thresholds
-[............                            ] 31.37255 \ Computing thresholds
-[............                            ] 31.86275 | Computing thresholds
-[............                            ] 32.35294 / Computing thresholds
-[.............                           ] 32.84314 - Computing thresholds
-[.............                           ] 33.33333 \ Computing thresholds
-[.............                           ] 33.82353 | Computing thresholds
-[.............                           ] 34.31373 / Computing thresholds
-[.............                           ] 34.80392 - Computing thresholds
-[..............                          ] 35.29412 \ Computing thresholds
-[..............                          ] 35.78431 | Computing thresholds
-[..............                          ] 36.27451 / Computing thresholds
-[..............                          ] 36.76471 - Computing thresholds
-[..............                          ] 37.25490 \ Computing thresholds
-[...............                         ] 37.74510 | Computing thresholds
-[...............                         ] 38.23529 / Computing thresholds
-[...............                         ] 38.72549 - Computing thresholds
-[...............                         ] 39.21569 \ Computing thresholds
-[...............                         ] 39.70588 | Computing thresholds
-[................                        ] 40.19608 / Computing thresholds
-[................                        ] 40.68627 - Computing thresholds
-[................                        ] 41.17647 \ Computing thresholds
-[................                        ] 41.66667 | Computing thresholds
-[................                        ] 42.15686 / Computing thresholds
-[.................                       ] 42.64706 - Computing thresholds
-[.................                       ] 43.13725 \ Computing thresholds
-[.................                       ] 43.62745 | Computing thresholds
-[.................                       ] 44.11765 / Computing thresholds
-[.................                       ] 44.60784 - Computing thresholds
-[..................                      ] 45.09804 \ Computing thresholds
-[..................                      ] 45.58824 | Computing thresholds
-[..................                      ] 46.07843 / Computing thresholds
-[..................                      ] 46.56863 - Computing thresholds
-[..................                      ] 47.05882 \ Computing thresholds
-[...................                     ] 47.54902 | Computing thresholds
-[...................                     ] 48.03922 / Computing thresholds
-[...................                     ] 48.52941 - Computing thresholds
-[...................                     ] 49.01961 \ Computing thresholds
-[...................                     ] 49.50980 | Computing thresholds
-[....................                    ] 50.00000 / Computing thresholds
-[....................                    ] 50.49020 - Computing thresholds
-[....................                    ] 50.98039 \ Computing thresholds
-[....................                    ] 51.47059 | Computing thresholds
-[....................                    ] 51.96078 / Computing thresholds
-[....................                    ] 52.45098 - Computing thresholds
-[.....................                   ] 52.94118 \ Computing thresholds
-[.....................                   ] 53.43137 | Computing thresholds
-[.....................                   ] 53.92157 / Computing thresholds
-[.....................                   ] 54.41176 - Computing thresholds
-[.....................                   ] 54.90196 \ Computing thresholds
-[......................                  ] 55.39216 | Computing thresholds
-[......................                  ] 55.88235 / Computing thresholds
-[......................                  ] 56.37255 - Computing thresholds
-[......................                  ] 56.86275 \ Computing thresholds
-[......................                  ] 57.35294 | Computing thresholds
-[.......................                 ] 57.84314 / Computing thresholds
-[.......................                 ] 58.33333 - Computing thresholds
-[.......................                 ] 58.82353 \ Computing thresholds
-[.......................                 ] 59.31373 | Computing thresholds
-[.......................                 ] 59.80392 / Computing thresholds
-[........................                ] 60.29412 - Computing thresholds
-[........................                ] 60.78431 \ Computing thresholds
-[........................                ] 61.27451 | Computing thresholds
-[........................                ] 61.76471 / Computing thresholds
-[........................                ] 62.25490 - Computing thresholds
-[.........................               ] 62.74510 \ Computing thresholds
-[.........................               ] 63.23529 | Computing thresholds
-[.........................               ] 63.72549 / Computing thresholds
-[.........................               ] 64.21569 - Computing thresholds
-[.........................               ] 64.70588 \ Computing thresholds
-[..........................              ] 65.19608 | Computing thresholds
-[..........................              ] 65.68627 / Computing thresholds
-[..........................              ] 66.17647 - Computing thresholds
-[..........................              ] 66.66667 \ Computing thresholds
-[..........................              ] 67.15686 | Computing thresholds
-[...........................             ] 67.64706 / Computing thresholds
-[...........................             ] 68.13725 - Computing thresholds
-[...........................             ] 68.62745 \ Computing thresholds
-[...........................             ] 69.11765 | Computing thresholds
-[...........................             ] 69.60784 / Computing thresholds
-[............................            ] 70.09804 - Computing thresholds
-[............................            ] 70.58824 \ Computing thresholds
-[............................            ] 71.07843 | Computing thresholds
-[............................            ] 71.56863 / Computing thresholds
-[............................            ] 72.05882 - Computing thresholds
-[.............................           ] 72.54902 \ Computing thresholds
-[.............................           ] 73.03922 | Computing thresholds
-[.............................           ] 73.52941 / Computing thresholds
-[.............................           ] 74.01961 - Computing thresholds
-[.............................           ] 74.50980 \ Computing thresholds
-[..............................          ] 75.00000 | Computing thresholds
-[..............................          ] 75.49020 / Computing thresholds
-[..............................          ] 75.98039 - Computing thresholds
-[..............................          ] 76.47059 \ Computing thresholds
-[..............................          ] 76.96078 | Computing thresholds
-[..............................          ] 77.45098 / Computing thresholds
-[...............................         ] 77.94118 - Computing thresholds
-[...............................         ] 78.43137 \ Computing thresholds
-[...............................         ] 78.92157 | Computing thresholds
-[...............................         ] 79.41176 / Computing thresholds
-[...............................         ] 79.90196 - Computing thresholds
-[................................        ] 80.39216 \ Computing thresholds
-[................................        ] 80.88235 | Computing thresholds
-[................................        ] 81.37255 / Computing thresholds
-[................................        ] 81.86275 - Computing thresholds
-[................................        ] 82.35294 \ Computing thresholds
-[.................................       ] 82.84314 | Computing thresholds
-[.................................       ] 83.33333 / Computing thresholds
-[.................................       ] 83.82353 - Computing thresholds
-[.................................       ] 84.31373 \ Computing thresholds
-[.................................       ] 84.80392 | Computing thresholds
-[..................................      ] 85.29412 / Computing thresholds
-[..................................      ] 85.78431 - Computing thresholds
-[..................................      ] 86.27451 \ Computing thresholds
-[..................................      ] 86.76471 | Computing thresholds
-[..................................      ] 87.25490 / Computing thresholds
-[...................................     ] 87.74510 - Computing thresholds
-[...................................     ] 88.23529 \ Computing thresholds
-[...................................     ] 88.72549 | Computing thresholds
-[...................................     ] 89.21569 / Computing thresholds
-[...................................     ] 89.70588 - Computing thresholds
-[....................................    ] 90.19608 \ Computing thresholds
-[....................................    ] 90.68627 | Computing thresholds
-[....................................    ] 91.17647 / Computing thresholds
-[....................................    ] 91.66667 - Computing thresholds
-[....................................    ] 92.15686 \ Computing thresholds
-[.....................................   ] 92.64706 | Computing thresholds
-[.....................................   ] 93.13725 / Computing thresholds
-[.....................................   ] 93.62745 - Computing thresholds
-[.....................................   ] 94.11765 \ Computing thresholds
-[.....................................   ] 94.60784 | Computing thresholds
-[......................................  ] 95.09804 / Computing thresholds
-[......................................  ] 95.58824 - Computing thresholds
-[......................................  ] 96.07843 \ Computing thresholds
-[......................................  ] 96.56863 | Computing thresholds
-[......................................  ] 97.05882 / Computing thresholds
-[....................................... ] 97.54902 - Computing thresholds
-[....................................... ] 98.03922 \ Computing thresholds
-[....................................... ] 98.52941 | Computing thresholds
-[....................................... ] 99.01961 / Computing thresholds
-[....................................... ] 99.50980 - Computing thresholds
-[........................................] 100.00000 \ Computing thresholds
-[                                        ] 1.38889 | Repairing epochs
-[.                                       ] 2.77778 / Repairing epochs
-[.                                       ] 4.16667 - Repairing epochs
-[..                                      ] 5.55556 \ Repairing epochs
-[..                                      ] 6.94444 | Repairing epochs
-[...                                     ] 8.33333 / Repairing epochs
-[...                                     ] 9.72222 - Repairing epochs
-[....                                    ] 11.11111 \ Repairing epochs
-[.....                                   ] 12.50000 | Repairing epochs
-[.....                                   ] 13.88889 / Repairing epochs
-[......                                  ] 15.27778 - Repairing epochs
-[......                                  ] 16.66667 \ Repairing epochs
-[.......                                 ] 18.05556 | Repairing epochs
-[.......                                 ] 19.44444 / Repairing epochs
-[........                                ] 20.83333 - Repairing epochs
-[........                                ] 22.22222 \ Repairing epochs
-[.........                               ] 23.61111 | Repairing epochs
-[..........                              ] 25.00000 / Repairing epochs
-[..........                              ] 26.38889 - Repairing epochs
-[...........                             ] 27.77778 \ Repairing epochs
-[...........                             ] 29.16667 | Repairing epochs
-[............                            ] 30.55556 / Repairing epochs
-[............                            ] 31.94444 - Repairing epochs
-[.............                           ] 33.33333 \ Repairing epochs
-[.............                           ] 34.72222 | Repairing epochs
-[..............                          ] 36.11111 / Repairing epochs
-[...............                         ] 37.50000 - Repairing epochs
-[...............                         ] 38.88889 \ Repairing epochs
-[................                        ] 40.27778 | Repairing epochs
-[................                        ] 41.66667 / Repairing epochs
-[.................                       ] 43.05556 - Repairing epochs
-[.................                       ] 44.44444 \ Repairing epochs
-[..................                      ] 45.83333 | Repairing epochs
-[..................                      ] 47.22222 / Repairing epochs
-[...................                     ] 48.61111 - Repairing epochs
-[....................                    ] 50.00000 \ Repairing epochs
-[....................                    ] 51.38889 | Repairing epochs
-[.....................                   ] 52.77778 / Repairing epochs
-[.....................                   ] 54.16667 - Repairing epochs
-[......................                  ] 55.55556 \ Repairing epochs
-[......................                  ] 56.94444 | Repairing epochs
-[.......................                 ] 58.33333 / Repairing epochs
-[.......................                 ] 59.72222 - Repairing epochs
-[........................                ] 61.11111 \ Repairing epochs
-[.........................               ] 62.50000 | Repairing epochs
-[.........................               ] 63.88889 / Repairing epochs
-[..........................              ] 65.27778 - Repairing epochs
-[..........................              ] 66.66667 \ Repairing epochs
-[...........................             ] 68.05556 | Repairing epochs
-[...........................             ] 69.44444 / Repairing epochs
-[............................            ] 70.83333 - Repairing epochs
-[............................            ] 72.22222 \ Repairing epochs
-[.............................           ] 73.61111 | Repairing epochs
-[..............................          ] 75.00000 / Repairing epochs
-[..............................          ] 76.38889 - Repairing epochs
-[...............................         ] 77.77778 \ Repairing epochs
-[...............................         ] 79.16667 | Repairing epochs
-[................................        ] 80.55556 / Repairing epochs
-[................................        ] 81.94444 - Repairing epochs
-[.................................       ] 83.33333 \ Repairing epochs
-[.................................       ] 84.72222 | Repairing epochs
-[..................................      ] 86.11111 / Repairing epochs
-[...................................     ] 87.50000 - Repairing epochs
-[...................................     ] 88.88889 \ Repairing epochs
-[....................................    ] 90.27778 | Repairing epochs
-[....................................    ] 91.66667 / Repairing epochs
-[.....................................   ] 93.05556 - Repairing epochs
-[.....................................   ] 94.44444 \ Repairing epochs
-[......................................  ] 95.83333 | Repairing epochs
-[......................................  ] 97.22222 / Repairing epochs
-[....................................... ] 98.61111 - Repairing epochs
-[........................................] 100.00000 \ Repairing epochs
-[....                                    ] 10.00000 | Fold
-[........                                ] 20.00000 / Fold
-[............                            ] 30.00000 - Fold
-[................                        ] 40.00000 \ Fold
-[....................                    ] 50.00000 | Fold
-[........................                ] 60.00000 / Fold
-[............................            ] 70.00000 - Fold
-[................................        ] 80.00000 \ Fold
-[....................................    ] 90.00000 | Fold
-[........................................] 100.00000 / Fold
-[.............                           ] 33.33333 | n_interp
-[                                        ] 1.38889 | Repairing epochs
-[.                                       ] 2.77778 / Repairing epochs
-[.                                       ] 4.16667 - Repairing epochs
-[..                                      ] 5.55556 \ Repairing epochs
-[..                                      ] 6.94444 | Repairing epochs
-[...                                     ] 8.33333 / Repairing epochs
-[...                                     ] 9.72222 - Repairing epochs
-[....                                    ] 11.11111 \ Repairing epochs
-[.....                                   ] 12.50000 | Repairing epochs
-[.....                                   ] 13.88889 / Repairing epochs
-[......                                  ] 15.27778 - Repairing epochs
-[......                                  ] 16.66667 \ Repairing epochs
-[.......                                 ] 18.05556 | Repairing epochs
-[.......                                 ] 19.44444 / Repairing epochs
-[........                                ] 20.83333 - Repairing epochs
-[........                                ] 22.22222 \ Repairing epochs
-[.........                               ] 23.61111 | Repairing epochs
-[..........                              ] 25.00000 / Repairing epochs
-[..........                              ] 26.38889 - Repairing epochs
-[...........                             ] 27.77778 \ Repairing epochs
-[...........                             ] 29.16667 | Repairing epochs
-[............                            ] 30.55556 / Repairing epochs
-[............                            ] 31.94444 - Repairing epochs
-[.............                           ] 33.33333 \ Repairing epochs
-[.............                           ] 34.72222 | Repairing epochs
-[..............                          ] 36.11111 / Repairing epochs
-[...............                         ] 37.50000 - Repairing epochs
-[...............                         ] 38.88889 \ Repairing epochs
-[................                        ] 40.27778 | Repairing epochs
-[................                        ] 41.66667 / Repairing epochs
-[.................                       ] 43.05556 - Repairing epochs
-[.................                       ] 44.44444 \ Repairing epochs
-[..................                      ] 45.83333 | Repairing epochs
-[..................                      ] 47.22222 / Repairing epochs
-[...................                     ] 48.61111 - Repairing epochs
-[....................                    ] 50.00000 \ Repairing epochs
-[....................                    ] 51.38889 | Repairing epochs
-[.....................                   ] 52.77778 / Repairing epochs
-[.....................                   ] 54.16667 - Repairing epochs
-[......................                  ] 55.55556 \ Repairing epochs
-[......................                  ] 56.94444 | Repairing epochs
-[.......................                 ] 58.33333 / Repairing epochs
-[.......................                 ] 59.72222 - Repairing epochs
-[........................                ] 61.11111 \ Repairing epochs
-[.........................               ] 62.50000 | Repairing epochs
-[.........................               ] 63.88889 / Repairing epochs
-[..........................              ] 65.27778 - Repairing epochs
-[..........................              ] 66.66667 \ Repairing epochs
-[...........................             ] 68.05556 | Repairing epochs
-[...........................             ] 69.44444 / Repairing epochs
-[............................            ] 70.83333 - Repairing epochs
-[............................            ] 72.22222 \ Repairing epochs
-[.............................           ] 73.61111 | Repairing epochs
-[..............................          ] 75.00000 / Repairing epochs
-[..............................          ] 76.38889 - Repairing epochs
-[...............................         ] 77.77778 \ Repairing epochs
-[...............................         ] 79.16667 | Repairing epochs
-[................................        ] 80.55556 / Repairing epochs
-[................................        ] 81.94444 - Repairing epochs
-[.................................       ] 83.33333 \ Repairing epochs
-[.................................       ] 84.72222 | Repairing epochs
-[..................................      ] 86.11111 / Repairing epochs
-[...................................     ] 87.50000 - Repairing epochs
-[...................................     ] 88.88889 \ Repairing epochs
-[....................................    ] 90.27778 | Repairing epochs
-[....................................    ] 91.66667 / Repairing epochs
-[.....................................   ] 93.05556 - Repairing epochs
-[.....................................   ] 94.44444 \ Repairing epochs
-[......................................  ] 95.83333 | Repairing epochs
-[......................................  ] 97.22222 / Repairing epochs
-[....................................... ] 98.61111 - Repairing epochs
-[........................................] 100.00000 \ Repairing epochs
-[....                                    ] 10.00000 | Fold
-[........                                ] 20.00000 / Fold
-[............                            ] 30.00000 - Fold
-[................                        ] 40.00000 \ Fold
-[....................                    ] 50.00000 | Fold
-[........................                ] 60.00000 / Fold
-[............................            ] 70.00000 - Fold
-[................................        ] 80.00000 \ Fold
-[....................................    ] 90.00000 | Fold
-[........................................] 100.00000 / Fold
-[..........................              ] 66.66667 / n_interp
-[                                        ] 1.38889 | Repairing epochs
-[.                                       ] 2.77778 / Repairing epochs
-[.                                       ] 4.16667 - Repairing epochs
-[..                                      ] 5.55556 \ Repairing epochs
-[..                                      ] 6.94444 | Repairing epochs
-[...                                     ] 8.33333 / Repairing epochs
-[...                                     ] 9.72222 - Repairing epochs
-[....                                    ] 11.11111 \ Repairing epochs
-[.....                                   ] 12.50000 | Repairing epochs
-[.....                                   ] 13.88889 / Repairing epochs
-[......                                  ] 15.27778 - Repairing epochs
-[......                                  ] 16.66667 \ Repairing epochs
-[.......                                 ] 18.05556 | Repairing epochs
-[.......                                 ] 19.44444 / Repairing epochs
-[........                                ] 20.83333 - Repairing epochs
-[........                                ] 22.22222 \ Repairing epochs
-[.........                               ] 23.61111 | Repairing epochs
-[..........                              ] 25.00000 / Repairing epochs
-[..........                              ] 26.38889 - Repairing epochs
-[...........                             ] 27.77778 \ Repairing epochs
-[...........                             ] 29.16667 | Repairing epochs
-[............                            ] 30.55556 / Repairing epochs
-[............                            ] 31.94444 - Repairing epochs
-[.............                           ] 33.33333 \ Repairing epochs
-[.............                           ] 34.72222 | Repairing epochs
-[..............                          ] 36.11111 / Repairing epochs
-[...............                         ] 37.50000 - Repairing epochs
-[...............                         ] 38.88889 \ Repairing epochs
-[................                        ] 40.27778 | Repairing epochs
-[................                        ] 41.66667 / Repairing epochs
-[.................                       ] 43.05556 - Repairing epochs
-[.................                       ] 44.44444 \ Repairing epochs
-[..................                      ] 45.83333 | Repairing epochs
-[..................                      ] 47.22222 / Repairing epochs
-[...................                     ] 48.61111 - Repairing epochs
-[....................                    ] 50.00000 \ Repairing epochs
-[....................                    ] 51.38889 | Repairing epochs
-[.....................                   ] 52.77778 / Repairing epochs
-[.....................                   ] 54.16667 - Repairing epochs
-[......................                  ] 55.55556 \ Repairing epochs
-[......................                  ] 56.94444 | Repairing epochs
-[.......................                 ] 58.33333 / Repairing epochs
-[.......................                 ] 59.72222 - Repairing epochs
-[........................                ] 61.11111 \ Repairing epochs
-[.........................               ] 62.50000 | Repairing epochs
-[.........................               ] 63.88889 / Repairing epochs
-[..........................              ] 65.27778 - Repairing epochs
-[..........................              ] 66.66667 \ Repairing epochs
-[...........................             ] 68.05556 | Repairing epochs
-[...........................             ] 69.44444 / Repairing epochs
-[............................            ] 70.83333 - Repairing epochs
-[............................            ] 72.22222 \ Repairing epochs
-[.............................           ] 73.61111 | Repairing epochs
-[..............................          ] 75.00000 / Repairing epochs
-[..............................          ] 76.38889 - Repairing epochs
-[...............................         ] 77.77778 \ Repairing epochs
-[...............................         ] 79.16667 | Repairing epochs
-[................................        ] 80.55556 / Repairing epochs
-[................................        ] 81.94444 - Repairing epochs
-[.................................       ] 83.33333 \ Repairing epochs
-[.................................       ] 84.72222 | Repairing epochs
-[..................................      ] 86.11111 / Repairing epochs
-[...................................     ] 87.50000 - Repairing epochs
-[...................................     ] 88.88889 \ Repairing epochs
-[....................................    ] 90.27778 | Repairing epochs
-[....................................    ] 91.66667 / Repairing epochs
-[.....................................   ] 93.05556 - Repairing epochs
-[.....................................   ] 94.44444 \ Repairing epochs
-[......................................  ] 95.83333 | Repairing epochs
-[......................................  ] 97.22222 / Repairing epochs
-[....................................... ] 98.61111 - Repairing epochs
-[........................................] 100.00000 \ Repairing epochs
-[....                                    ] 10.00000 | Fold
-[........                                ] 20.00000 / Fold
-[............                            ] 30.00000 - Fold
-[................                        ] 40.00000 \ Fold
-[....................                    ] 50.00000 | Fold
-[........................                ] 60.00000 / Fold
-[............................            ] 70.00000 - Fold
-[................................        ] 80.00000 \ Fold
-[....................................    ] 90.00000 | Fold
-[........................................] 100.00000 / Fold
-[........................................] 100.00000 - n_interp   Estimated consensus_perc=0.30 and n_interpolate=32
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span>  <span class="p">[</span>                                        <span class="p">]</span> <span class="mf">0.49020</span> <span class="o">|</span> <span class="n">Creating</span> <span class="n">augmented</span> <span class="n">epochs</span>
+<span class="p">[</span>                                        <span class="p">]</span> <span class="mf">0.49020</span> <span class="o">|</span> <span class="n">Computing</span> <span class="n">thresholds</span>
+<span class="p">[</span>                                        <span class="p">]</span> <span class="mf">1.38889</span> <span class="o">|</span> <span class="n">Repairing</span> <span class="n">epochs</span>
+<span class="p">[</span><span class="o">....</span>                                    <span class="p">]</span> <span class="mf">10.00000</span> <span class="o">|</span> <span class="n">Fold</span>
+<span class="p">[</span>                                        <span class="p">]</span> <span class="mf">1.38889</span> <span class="o">|</span> <span class="n">Repairing</span> <span class="n">epochs</span>
+<span class="p">[</span><span class="o">....</span>                                    <span class="p">]</span> <span class="mf">10.00000</span> <span class="o">|</span> <span class="n">Fold</span>
+<span class="p">[</span>                                        <span class="p">]</span> <span class="mf">1.38889</span> <span class="o">|</span> <span class="n">Repairing</span> <span class="n">epochs</span>
+<span class="p">[</span><span class="o">....</span>                                    <span class="p">]</span> <span class="mf">10.00000</span> <span class="o">|</span> <span class="n">Fold</span>
+<span class="p">[</span><span class="o">.............</span>                           <span class="p">]</span> <span class="mf">33.33333</span> <span class="o">|</span> <span class="n">n_interp</span>   <span class="n">Estimated</span> <span class="n">consensus_perc</span><span class="o">=</span><span class="mf">0.30</span> <span class="ow">and</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="mi">32</span>
 
-[                                        ] 1.38889 | Repairing epochs
-[.                                       ] 2.77778 / Repairing epochs
-[.                                       ] 4.16667 - Repairing epochs
-[..                                      ] 5.55556 \ Repairing epochs
-[..                                      ] 6.94444 | Repairing epochs
-[...                                     ] 8.33333 / Repairing epochs
-[...                                     ] 9.72222 - Repairing epochs
-[....                                    ] 11.11111 \ Repairing epochs
-[.....                                   ] 12.50000 | Repairing epochs
-[.....                                   ] 13.88889 / Repairing epochs
-[......                                  ] 15.27778 - Repairing epochs
-[......                                  ] 16.66667 \ Repairing epochs
-[.......                                 ] 18.05556 | Repairing epochs
-[.......                                 ] 19.44444 / Repairing epochs
-[........                                ] 20.83333 - Repairing epochs
-[........                                ] 22.22222 \ Repairing epochs
-[.........                               ] 23.61111 | Repairing epochs
-[..........                              ] 25.00000 / Repairing epochs
-[..........                              ] 26.38889 - Repairing epochs
-[...........                             ] 27.77778 \ Repairing epochs
-[...........                             ] 29.16667 | Repairing epochs
-[............                            ] 30.55556 / Repairing epochs
-[............                            ] 31.94444 - Repairing epochs
-[.............                           ] 33.33333 \ Repairing epochs
-[.............                           ] 34.72222 | Repairing epochs
-[..............                          ] 36.11111 / Repairing epochs
-[...............                         ] 37.50000 - Repairing epochs
-[...............                         ] 38.88889 \ Repairing epochs
-[................                        ] 40.27778 | Repairing epochs
-[................                        ] 41.66667 / Repairing epochs
-[.................                       ] 43.05556 - Repairing epochs
-[.................                       ] 44.44444 \ Repairing epochs
-[..................                      ] 45.83333 | Repairing epochs
-[..................                      ] 47.22222 / Repairing epochs
-[...................                     ] 48.61111 - Repairing epochs
-[....................                    ] 50.00000 \ Repairing epochs
-[....................                    ] 51.38889 | Repairing epochs
-[.....................                   ] 52.77778 / Repairing epochs
-[.....................                   ] 54.16667 - Repairing epochs
-[......................                  ] 55.55556 \ Repairing epochs
-[......................                  ] 56.94444 | Repairing epochs
-[.......................                 ] 58.33333 / Repairing epochs
-[.......................                 ] 59.72222 - Repairing epochs
-[........................                ] 61.11111 \ Repairing epochs
-[.........................               ] 62.50000 | Repairing epochs
-[.........................               ] 63.88889 / Repairing epochs
-[..........................              ] 65.27778 - Repairing epochs
-[..........................              ] 66.66667 \ Repairing epochs
-[...........................             ] 68.05556 | Repairing epochs
-[...........................             ] 69.44444 / Repairing epochs
-[............................            ] 70.83333 - Repairing epochs
-[............................            ] 72.22222 \ Repairing epochs
-[.............................           ] 73.61111 | Repairing epochs
-[..............................          ] 75.00000 / Repairing epochs
-[..............................          ] 76.38889 - Repairing epochs
-[...............................         ] 77.77778 \ Repairing epochs
-[...............................         ] 79.16667 | Repairing epochs
-[................................        ] 80.55556 / Repairing epochs
-[................................        ] 81.94444 - Repairing epochs
-[.................................       ] 83.33333 \ Repairing epochs
-[.................................       ] 84.72222 | Repairing epochs
-[..................................      ] 86.11111 / Repairing epochs
-[...................................     ] 87.50000 - Repairing epochs
-[...................................     ] 88.88889 \ Repairing epochs
-[....................................    ] 90.27778 | Repairing epochs
-[....................................    ] 91.66667 / Repairing epochs
-[.....................................   ] 93.05556 - Repairing epochs
-[.....................................   ] 94.44444 \ Repairing epochs
-[......................................  ] 95.83333 | Repairing epochs
-[......................................  ] 97.22222 / Repairing epochs
-[....................................... ] 98.61111 - Repairing epochs
-[........................................] 100.00000 \ Repairing epochs
+<span class="p">[</span>                                        <span class="p">]</span> <span class="mf">1.38889</span> <span class="o">|</span> <span class="n">Repairing</span> <span class="n">epochs</span>
 </pre></div>
 </div>
 <p>Now, we will manually mark the bad channels just for plotting.</p>
@@ -957,7 +238,7 @@ determine the optimal values <span class="math">\(\rho^{*}\)</span> and <span cl
 </pre></div>
 </div>
 <p>Let us plot the results.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
 <span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -998,11 +279,11 @@ a heatmap.</p>
 </div>
 <img alt="../_images/sphx_glr_plot_auto_repair_002.png" class="align-center" src="../_images/sphx_glr_plot_auto_repair_002.png" />
 <p><strong>Total running time of the script:</strong>
-(2 minutes 15.138 seconds)</p>
-<div class="sphx-glr-download container">
-<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.py"><code class="xref download docutils literal"><span class="pre">plot_auto_repair.py</span></code></a></div>
-<div class="sphx-glr-download container">
-<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.ipynb"><code class="xref download docutils literal"><span class="pre">plot_auto_repair.ipynb</span></code></a></div>
+(2 minutes 15.781 seconds)</p>
+<div class="sphx-glr-download docutils container">
+<strong>Download Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.py" download=""><code class="xref download docutils literal"><span class="pre">plot_auto_repair.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<strong>Download IPython notebook:</strong> <a class="reference download internal" href="../_downloads/plot_auto_repair.ipynb" download=""><code class="xref download docutils literal"><span class="pre">plot_auto_repair.ipynb</span></code></a></div>
 </div>
 
 
@@ -1021,7 +302,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>
