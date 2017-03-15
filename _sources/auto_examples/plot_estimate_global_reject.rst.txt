@@ -1,0 +1,127 @@
+
+
+.. _sphx_glr_auto_examples_plot_estimate_global_reject.py:
+
+
+===============================
+Find global rejection threshold
+===============================
+
+This example demonstrates how to use :mod:`autoreject` to
+find global rejection thresholds.
+
+
+.. code-block:: python
+
+
+    # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
+    # License: BSD (3-clause)
+
+
+
+
+
+
+
+Let us import the data using MNE-Python and epoch it.
+
+
+.. code-block:: python
+
+
+    import mne
+    from mne import io
+    from mne.datasets import sample
+
+    event_id = {'Visual/Left': 3}
+    tmin, tmax = -0.2, 0.5
+
+    data_path = sample.data_path()
+    raw_fname = data_path + '/MEG/sample/sample_audvis_filt-0-40_raw.fif'
+    event_fname = data_path + ('/MEG/sample/sample_audvis_filt-0-40_raw-'
+                               'eve.fif')
+
+    raw = io.read_raw_fif(raw_fname, preload=True)
+    events = mne.read_events(event_fname)
+
+    include = []
+    picks = mne.pick_types(raw.info, meg=True, eeg=True, stim=False,
+                           eog=True, include=include, exclude='bads')
+    epochs = mne.Epochs(raw, events, event_id, tmin, tmax,
+                        picks=picks, baseline=(None, 0),
+                        reject=None, verbose=False, detrend=1)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+        Read a total of 4 projection items:
+            PCA-v1 (1 x 102)  idle
+            PCA-v2 (1 x 102)  idle
+            PCA-v3 (1 x 102)  idle
+            Average EEG reference (1 x 60)  idle
+        Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+    Ready.
+    Current compensation grade : 0
+    Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+
+
+Now we get the rejection dictionary
+
+
+.. code-block:: python
+
+
+    from autoreject import get_rejection_threshold  # noqa
+    reject = get_rejection_threshold(epochs)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      Estimating rejection dictionary for mag with 73 candidate thresholds
+    Estimating rejection dictionary for grad with 73 candidate thresholds
+    Estimating rejection dictionary for eeg with 73 candidate thresholds
+    Estimating rejection dictionary for eog with 73 candidate thresholds
+
+
+and print it
+
+
+.. code-block:: python
+
+
+    print('The rejection dictionary is %s' % reject)
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+      The rejection dictionary is {'eog': 6.5597820032270958e-05, 'eeg': 6.6741382744238379e-05, 'grad': 3.9468601180690814e-11, 'mag': 1.123921842576036e-12}
+
+
+**Total running time of the script:**
+(0 minutes 39.560 seconds)
+
+
+
+.. container:: sphx-glr-download
+
+    **Download Python source code:** :download:`plot_estimate_global_reject.py <plot_estimate_global_reject.py>`
+
+
+.. container:: sphx-glr-download
+
+    **Download IPython notebook:** :download:`plot_estimate_global_reject.ipynb <plot_estimate_global_reject.ipynb>`

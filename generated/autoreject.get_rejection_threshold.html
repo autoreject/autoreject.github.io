@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>autoreject.validation_curve &#8212; autoreject 0.1.dev0 documentation</title>
+    <title>autoreject.get_rejection_threshold &#8212; autoreject 0.1.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -84,7 +84,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">autoreject.validation_curve</a></li>
+<li><a class="reference internal" href="#">autoreject.get_rejection_threshold</a></li>
 </ul>
 </ul>
 </li>
@@ -96,7 +96,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/autoreject.validation_curve.rst.txt"
+  <a href="../_sources/generated/autoreject.get_rejection_threshold.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -118,32 +118,23 @@
 
 <div class="container content-container">
   
-  <div class="section" id="autoreject-validation-curve">
-<h1>autoreject.validation_curve<a class="headerlink" href="#autoreject-validation-curve" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="autoreject-get-rejection-threshold">
+<h1>autoreject.get_rejection_threshold<a class="headerlink" href="#autoreject-get-rejection-threshold" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="autoreject.validation_curve">
-<code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>estimator</em>, <em>epochs</em>, <em>y</em>, <em>param_name</em>, <em>param_range</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validation curve on epochs.</p>
+<dt id="autoreject.get_rejection_threshold">
+<code class="descclassname">autoreject.</code><code class="descname">get_rejection_threshold</code><span class="sig-paren">(</span><em>epochs</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.get_rejection_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute global rejection thresholds.</p>
 <dl class="docutils">
-<dt>estimator</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">object that implements &#8220;fit&#8221; and &#8220;predict&#8221; method.</span><dd>the estimator whose Validation curve must be found</dd>
 <dt>epochs</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs.</span><dd>The epochs.</dd>
-<dt>y</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array</span><dd>The labels.</dd>
-<dt>param_name</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Name of the parameter that will be varied.</dd>
-<dt>param_range</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array</span><dd>The values of the parameter that will be evaluated.</dd>
-<dt>cv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int, cross-validation generator or an iterable, optional</span><dd>Determines the cross-validation strategy.</dd>
+ <span class="classifier-delimiter">:</span> <span class="classifier">mne.Epochs object</span><dd>The epochs from which to estimate the epochs dictionary</dd>
 </dl>
 <dl class="docutils">
-<dt>train_scores</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array</span><dd>The scores in the training set</dd>
-<dt>test_scores</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array</span><dd>The scores in the test set</dd>
+<dt>reject</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">dict</span><dd>The rejection dictionary with keys &#8216;mag&#8217;, &#8216;grad&#8217;, &#8216;eeg&#8217;, &#8216;eog&#8217;
+and &#8216;ecg&#8217;.</dd>
 </dl>
+<p>Sensors marked as bad by user will be excluded when estimating the
+rejection dictionary.</p>
 </dd></dl>
 
 </div>
