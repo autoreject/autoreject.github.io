@@ -129,44 +129,44 @@ channels can be selected by clicking the channel name on the left side of
 the main axes. Calling this function drops all the selected bad epochs as
 well as bad epochs marked beforehand with rejection parameters.</p>
 <dl class="docutils">
-<dt>epochs</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">instance of Epochs</span><dd>The epochs object</dd>
-<dt>picks</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array-like of int | None</span><dd>Channels to be included. If None only good data channels are used.
+<dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of Epochs</span></dt>
+<dd>The epochs object</dd>
+<dt>picks <span class="classifier-delimiter">:</span> <span class="classifier">array-like of int | None</span></dt>
+<dd>Channels to be included. If None only good data channels are used.
 Defaults to None</dd>
-<dt>scalings</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">dict | &#8216;auto&#8217; | None</span><dd><p class="first">Scaling factors for the traces. If any fields in scalings are &#8216;auto&#8217;,
+<dt>scalings <span class="classifier-delimiter">:</span> <span class="classifier">dict | &#8216;auto&#8217; | None</span></dt>
+<dd><p class="first">Scaling factors for the traces. If any fields in scalings are &#8216;auto&#8217;,
 the scaling factor is set to match the 99.5th percentile of a subset of
 the corresponding data. If scalings == &#8216;auto&#8217;, all scalings fields are
 set to &#8216;auto&#8217;. If any fields are &#8216;auto&#8217; and data is not preloaded,
 a subset of epochs up to 100mb will be loaded. If None, defaults to:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="n">grad</span><span class="o">=</span><span class="mi">4</span><span class="n">e</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="mi">20</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="mi">150</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">ecg</span><span class="o">=</span><span class="mi">5</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span>
-     <span class="n">emg</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">ref_meg</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="n">misc</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">resp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">chpi</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">grad</span><span class="o">=</span><span class="mf">4e-11</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="mf">20e-6</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="mf">150e-6</span><span class="p">,</span> <span class="n">ecg</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">,</span>
+     <span class="n">emg</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">ref_meg</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">misc</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">resp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">chpi</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
-<dt>n_epochs</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>The number of epochs per view. Defaults to 20.</dd>
-<dt>n_channels</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">int</span><dd>The number of channels per view. Defaults to 20.</dd>
-<dt>title</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">str | None</span><dd>The title of the window. If None, epochs name will be displayed.
+<dt>n_epochs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of epochs per view. Defaults to 20.</dd>
+<dt>n_channels <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of channels per view. Defaults to 20.</dd>
+<dt>title <span class="classifier-delimiter">:</span> <span class="classifier">str | None</span></dt>
+<dd>The title of the window. If None, epochs name will be displayed.
 Defaults to None.</dd>
-<dt>show</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Show figure if True. Defaults to True</dd>
-<dt>block</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">bool</span><dd>Whether to halt program execution until the figure is closed.
+<dt>show <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>Show figure if True. Defaults to True</dd>
+<dt>block <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>Whether to halt program execution until the figure is closed.
 Useful for rejecting bad trials on the fly by clicking on an epoch.
 Defaults to False.</dd>
-<dt>bad_epochs_idx</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array-like | None</span><dd>Indices of bad epochs to show. No bad epochs to visualize if None.</dd>
-<dt>fix_log</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array, shape (n_channels, n_epochs) | None</span><dd>The bad segments to show in red and the interpolated segments
+<dt>bad_epochs_idx <span class="classifier-delimiter">:</span> <span class="classifier">array-like | None</span></dt>
+<dd>Indices of bad epochs to show. No bad epochs to visualize if None.</dd>
+<dt>fix_log <span class="classifier-delimiter">:</span> <span class="classifier">array, shape (n_channels, n_epochs) | None</span></dt>
+<dd>The bad segments to show in red and the interpolated segments
 to show in gray.</dd>
 </dl>
 <dl class="docutils">
-<dt>fig</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">Instance of matplotlib.figure.Figure</span><dd>The figure.</dd>
+<dt>fig <span class="classifier-delimiter">:</span> <span class="classifier">Instance of matplotlib.figure.Figure</span></dt>
+<dd>The figure.</dd>
 </dl>
 <p>The arrow keys (up/down/left/right) can be used to navigate between
 channels and epochs and the scaling can be adjusted with - and + (or =)
@@ -195,7 +195,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
     </p>
   </div>
 </footer>

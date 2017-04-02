@@ -55,8 +55,7 @@ epochs = list()
 for run in range(3, 7):
     run_fname = os.path.join(base_path, 'ds117', 'sub%03d' % subject_id, 'MEG',
                              'run_%02d_raw.fif' % run)
-    raw = mne.io.read_raw_fif(run_fname, preload=True, add_eeg_ref=False)
-    mne.io.set_eeg_reference(raw, [])
+    raw = mne.io.read_raw_fif(run_fname, preload=True)
     raw.pick_types(eeg=True, meg=False, stim=True)  # less memory + computation
     raw.filter(1., 40., l_trans_bandwidth=0.5, n_jobs=1, verbose='INFO')
 
@@ -72,8 +71,9 @@ for run in range(3, 7):
                              consecutive='increasing',
                              min_duration=0.003, verbose=True)
     # Read epochs
+    mne.io.set_eeg_reference(raw)
     epoch = mne.Epochs(raw, events, events_id, tmin, tmax, proj=True,
-                       add_eeg_ref=True, picks=picks, baseline=None,
+                       picks=picks, baseline=None,
                        preload=False, reject=None, decim=4)
     epochs.append(epoch)
 
@@ -91,7 +91,7 @@ from functools import partial  # noqa
 this_epoch = epochs['famous']
 thresh_func = partial(compute_thresholds, random_state=42)
 
-ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='progressbar')
+ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm')
 epochs_ar = ar.fit_transform(this_epoch.copy())
 
 ###############################################################################

@@ -125,27 +125,27 @@
 <em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficiently find n_interp and n_consensus.</p>
 <dl class="docutils">
-<dt>n_interpolates</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span><dd>The values of <span class="math">\(\rho\)</span> to try. If None, defaults to
+<dt>n_interpolates <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
+<dd>The values of <span class="math">\(\rho\)</span> to try. If None, defaults to
 np.array([1, 4, 32])</dd>
-<dt>consensus_percs</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span><dd>The values of <span class="math">\(\kappa/Q\)</span> to try. If None, defaults
+<dt>consensus_percs <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
+<dd>The values of <span class="math">\(\kappa/Q\)</span> to try. If None, defaults
 to <cite>np.linspace(0, 1.0, 11)</cite></dd>
-<dt>thresh_func</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span><dd>Function which returns the channel-level thresholds. If None,
+<dt>thresh_func <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span></dt>
+<dd>Function which returns the channel-level thresholds. If None,
 defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</dd>
-<dt>cv</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">a scikit-learn cross-validation object</span><dd>Defaults to cv=10</dd>
-<dt>verbose</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span><dd>The verbosity of progress messages.
+<dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">a scikit-learn cross-validation object</span></dt>
+<dd>Defaults to cv=10</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
+<dd>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
 If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
 If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
 If False, suppress all output messages.</dd>
 </dl>
 <dl class="docutils">
-<dt>local_ar</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">instance of LocalAutoReject</span><dd>The fitted LocalAutoReject object.</dd>
+<dt>local_ar <span class="classifier-delimiter">:</span> <span class="classifier">instance of LocalAutoReject</span></dt>
+<dd>The fitted LocalAutoReject object.</dd>
 </dl>
 <dl class="method">
 <dt id="autoreject.LocalAutoRejectCV.__init__">
@@ -211,7 +211,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
     </p>
   </div>
 </footer>
