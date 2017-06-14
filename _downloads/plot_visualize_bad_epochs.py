@@ -66,7 +66,7 @@ for run in range(3, 7):
 
     exclude = []  # XXX
     picks = mne.pick_types(raw.info, meg=False, eeg=True, stim=False,
-                           eog=False, exclude=exclude)
+                           eog=True, exclude=exclude)
     events = mne.find_events(raw, stim_channel='STI101',
                              consecutive='increasing',
                              min_duration=0.003, verbose=True)
@@ -89,10 +89,37 @@ from autoreject import LocalAutoRejectCV, compute_thresholds  # noqa
 from functools import partial  # noqa
 
 this_epoch = epochs['famous']
-thresh_func = partial(compute_thresholds, random_state=42)
+thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 
-ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm')
-epochs_ar = ar.fit_transform(this_epoch.copy())
+ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=None)
+epochs_ar = ar.fit_transform(this_epoch)
+
+###############################################################################
+# We can visualize the cross validation curve over two variables
+
+import numpy as np # noqa
+import matplotlib.pyplot as plt # noqa
+import matplotlib.patches as patches # noqa
+from autoreject import set_matplotlib_defaults # noqa
+
+set_matplotlib_defaults(plt, style='seaborn-white')
+loss = ar.loss.mean(axis=-1)
+
+plt.matshow(loss.T * 1e6, cmap=plt.get_cmap('viridis'))
+plt.xticks(range(len(ar.consensus_percs)), ar.consensus_percs)
+plt.yticks(range(len(ar.n_interpolates)), ar.n_interpolates)
+
+# Draw rectangle at location of best parameters
+ax = plt.gca()
+idx, jdx = np.unravel_index(loss.argmin(), loss.shape)
+rect = patches.Rectangle((idx - 0.5, jdx - 0.5), 1, 1, linewidth=2,
+                         edgecolor='r', facecolor='none')
+ax.add_patch(rect)
+ax.xaxis.set_ticks_position('bottom')
+plt.xlabel(r'Consensus percentage $\kappa$')
+plt.ylabel(r'Max sensors interpolated $\rho$')
+plt.title('Mean cross validation error (x 1e6)')
+plt.colorbar()
 
 ###############################################################################
 # ... and visualize the bad epochs and sensors. Bad sensors which have been

@@ -122,7 +122,7 @@
 <h1>autoreject.LocalAutoRejectCV<a class="headerlink" href="#autoreject-localautorejectcv" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoRejectCV">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficiently find n_interp and n_consensus.</p>
 <dl class="docutils">
 <dt>n_interpolates <span class="classifier-delimiter">:</span> <span class="classifier">array | None</span></dt>
@@ -136,6 +136,9 @@ to <cite>np.linspace(0, 1.0, 11)</cite></dd>
 defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</dd>
 <dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">a scikit-learn cross-validation object</span></dt>
 <dd>Defaults to cv=10</dd>
+<dt>picks <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape(n_channels) | None</span></dt>
+<dd>The channels to be considered for autoreject. If None, defaults
+to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</dd>
 <dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
 <dd>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
@@ -149,7 +152,7 @@ If False, suppress all output messages.</dd>
 </dl>
 <dl class="method">
 <dt id="autoreject.LocalAutoRejectCV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>

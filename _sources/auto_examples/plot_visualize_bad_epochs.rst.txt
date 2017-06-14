@@ -105,7 +105,7 @@ Let us now load all the epochs into memory and concatenate them
 
         exclude = []  # XXX
         picks = mne.pick_types(raw.info, meg=False, eeg=True, stim=False,
-                               eog=False, exclude=exclude)
+                               eog=True, exclude=exclude)
         events = mne.find_events(raw, stim_channel='STI101',
                                  consecutive='increasing',
                                  min_duration=0.003, verbose=True)
@@ -144,6 +144,7 @@ Let us now load all the epochs into memory and concatenate them
     Current compensation grade : 0
     Reading 0 ... 537899  =      0.000 ...   488.999 secs...
     Setting up band-pass filter from 1 - 40 Hz
+    fir_design defaults to "firwin2" in 0.15 but will change to "firwin" in 0.16, set it explicitly to avoid this warning.
     h_trans_bandwidth chosen to be 10.0 Hz
     Filter length of 14520 samples (13.200 sec) selected
     294 events found
@@ -170,6 +171,7 @@ Let us now load all the epochs into memory and concatenate them
     Current compensation grade : 0
     Reading 0 ... 543399  =      0.000 ...   493.999 secs...
     Setting up band-pass filter from 1 - 40 Hz
+    fir_design defaults to "firwin2" in 0.15 but will change to "firwin" in 0.16, set it explicitly to avoid this warning.
     h_trans_bandwidth chosen to be 10.0 Hz
     Filter length of 14520 samples (13.200 sec) selected
     296 events found
@@ -196,6 +198,7 @@ Let us now load all the epochs into memory and concatenate them
     Current compensation grade : 0
     Reading 0 ... 541199  =      0.000 ...   491.999 secs...
     Setting up band-pass filter from 1 - 40 Hz
+    fir_design defaults to "firwin2" in 0.15 but will change to "firwin" in 0.16, set it explicitly to avoid this warning.
     h_trans_bandwidth chosen to be 10.0 Hz
     Filter length of 14520 samples (13.200 sec) selected
     295 events found
@@ -222,6 +225,7 @@ Let us now load all the epochs into memory and concatenate them
     Current compensation grade : 0
     Reading 0 ... 540099  =      0.000 ...   490.999 secs...
     Setting up band-pass filter from 1 - 40 Hz
+    fir_design defaults to "firwin2" in 0.15 but will change to "firwin" in 0.16, set it explicitly to avoid this warning.
     h_trans_bandwidth chosen to be 10.0 Hz
     Filter length of 14520 samples (13.200 sec) selected
     296 events found
@@ -256,10 +260,10 @@ Now, we apply autoreject
     from functools import partial  # noqa
 
     this_epoch = epochs['famous']
-    thresh_func = partial(compute_thresholds, random_state=42)
+    thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 
-    ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm')
-    epochs_ar = ar.fit_transform(this_epoch.copy())
+    ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=None)
+    epochs_ar = ar.fit_transform(this_epoch)
 
 
 
@@ -269,7 +273,97 @@ Now, we apply autoreject
 
  Out::
 
-      Estimated consensus_perc=0.70 and n_interpolate=4
+      [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    1.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    2.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    3.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    5.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    6.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    8.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    9.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:   10.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:   12.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:   13.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:   14.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:   15.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   17.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   18.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   19.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   20.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   21.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   22.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   24.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   25.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   26.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   27.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   28.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   29.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   30.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   32.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   33.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   34.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   36.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   37.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   38.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   40.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   41.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   43.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   44.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   46.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   47.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   48.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   49.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   51.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   52.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   53.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   55.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   57.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   58.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   59.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:  1.0min remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:  1.0min remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:  1.0min remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:  1.1min remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  70 out of  70 | elapsed:  1.5min finished
+    Estimated consensus_perc=0.80 and n_interpolate=32
+
+
+We can visualize the cross validation curve over two variables
+
+
+.. code-block:: python
+
+
+    import numpy as np # noqa
+    import matplotlib.pyplot as plt # noqa
+    import matplotlib.patches as patches # noqa
+    from autoreject import set_matplotlib_defaults # noqa
+
+    set_matplotlib_defaults(plt, style='seaborn-white')
+    loss = ar.loss.mean(axis=-1)
+
+    plt.matshow(loss.T * 1e6, cmap=plt.get_cmap('viridis'))
+    plt.xticks(range(len(ar.consensus_percs)), ar.consensus_percs)
+    plt.yticks(range(len(ar.n_interpolates)), ar.n_interpolates)
+
+    # Draw rectangle at location of best parameters
+    ax = plt.gca()
+    idx, jdx = np.unravel_index(loss.argmin(), loss.shape)
+    rect = patches.Rectangle((idx - 0.5, jdx - 0.5), 1, 1, linewidth=2,
+                             edgecolor='r', facecolor='none')
+    ax.add_patch(rect)
+    ax.xaxis.set_ticks_position('bottom')
+    plt.xlabel(r'Consensus percentage $\kappa$')
+    plt.ylabel(r'Max sensors interpolated $\rho$')
+    plt.title('Mean cross validation error (x 1e6)')
+    plt.colorbar()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_001.png
+    :align: center
+
+
 
 
 ... and visualize the bad epochs and sensors. Bad sensors which have been
@@ -288,7 +382,7 @@ Bad trials are also in red.
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_001.png
+.. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_002.png
     :align: center
 
 
@@ -305,7 +399,7 @@ Bad trials are also in red.
 
 
 
-.. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_002.png
+.. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_003.png
     :align: center
 
 
@@ -331,19 +425,19 @@ repaired.
 
     *
 
-      .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_003.png
+      .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_004.png
             :scale: 47
 
     *
 
-      .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_004.png
+      .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_005.png
             :scale: 47
 
 
 
 
 **Total running time of the script:**
-(3 minutes 18.689 seconds)
+(2 minutes 38.762 seconds)
 
 
 

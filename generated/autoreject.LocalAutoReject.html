@@ -122,7 +122,7 @@
 <h1>autoreject.LocalAutoReject<a class="headerlink" href="#autoreject-localautoreject" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoReject">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to automatically reject bad epochs and repair bad trials.</p>
 <dl class="docutils">
 <dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
@@ -135,6 +135,9 @@ defaults to <a class="reference internal" href="autoreject.compute_thresholds.ht
 the total number of channels.</dd>
 <dt>n_interpolate <span class="classifier-delimiter">:</span> <span class="classifier">int (default 0)</span></dt>
 <dd>Number of channels for which to interpolate</dd>
+<dt>picks <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape(n_channels,) | None</span></dt>
+<dd>The channels to be considered for autoreject. If None, defaults
+to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</dd>
 <dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
 <dd>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
@@ -144,7 +147,7 @@ If False, suppress all output messages.</dd>
 </dl>
 <dl class="method">
 <dt id="autoreject.LocalAutoReject.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p class="rubric">Methods</p>

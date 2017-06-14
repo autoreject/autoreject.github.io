@@ -122,7 +122,7 @@
 <h1>autoreject.compute_thresholds<a class="headerlink" href="#autoreject-compute-thresholds" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.compute_thresholds">
-<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute thresholds for each channel.</p>
 <dl class="docutils">
 <dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
@@ -131,12 +131,17 @@
 <dd>&#8216;bayesian_optimization&#8217; or &#8216;random_search&#8217;</dd>
 <dt>random_state <span class="classifier-delimiter">:</span> <span class="classifier">int seed, RandomState instance, or None (default)</span></dt>
 <dd>The seed of the pseudo random number generator to use</dd>
+<dt>picks <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape(n_channels,) | None</span></dt>
+<dd>The channels to be considered for autoreject. If None, defaults
+to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</dd>
 <dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
 <dd>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
 If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
 If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
 If False, suppress all output messages.</dd>
+<dt>n_jobs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of jobs.</dd>
 </dl>
 <p>For example, we can compute the channel-level thresholds for all the
 EEG sensors this way:</p>
