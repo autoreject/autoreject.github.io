@@ -124,27 +124,93 @@
 <dt id="autoreject.LocalAutoReject">
 <em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to automatically reject bad epochs and repair bad trials.</p>
-<dl class="docutils">
-<dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs</span></dt>
-<dd>The epochs object</dd>
-<dt>thresh_func <span class="classifier-delimiter">:</span> <span class="classifier">callable | None</span></dt>
-<dd>Function which returns the channel-level thresholds. If None,
-defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</dd>
-<dt>consensus_perc <span class="classifier-delimiter">:</span> <span class="classifier">float (0 to 1.0)</span></dt>
-<dd>percentage of channels that must agree as a fraction of
-the total number of channels.</dd>
-<dt>n_interpolate <span class="classifier-delimiter">:</span> <span class="classifier">int (default 0)</span></dt>
-<dd>Number of channels for which to interpolate</dd>
-<dt>picks <span class="classifier-delimiter">:</span> <span class="classifier">ndarray, shape(n_channels,) | None</span></dt>
-<dd>The channels to be considered for autoreject. If None, defaults
-to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</dd>
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
-<dd>The verbosity of progress messages.
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>epochs</strong> : instance of mne.Epochs</p>
+<blockquote>
+<div><p>The epochs object</p>
+</div></blockquote>
+<p><strong>thresh_func</strong> : callable | None</p>
+<blockquote>
+<div><p>Function which returns the channel-level thresholds. If None,
+defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</p>
+</div></blockquote>
+<p><strong>consensus_perc</strong> : float (0 to 1.0)</p>
+<blockquote>
+<div><p>percentage of channels that must agree as a fraction of
+the total number of channels.</p>
+</div></blockquote>
+<p><strong>n_interpolate</strong> : int (default 0)</p>
+<blockquote>
+<div><p>Number of channels for which to interpolate</p>
+</div></blockquote>
+<p><strong>picks</strong> : ndarray, shape(n_channels,) | None</p>
+<blockquote>
+<div><p>The channels to be considered for autoreject. If None, defaults
+to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</p>
+</div></blockquote>
+<p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
+<blockquote class="last">
+<div><p>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
 If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
 If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
-If False, suppress all output messages.</dd>
-</dl>
+If False, suppress all output messages.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>bad_segments</td>
+<td>(array, shape (n_epochs, n_channels)) A boolean matrix where 1 denotes a bad data segment according to the sensor thresholds.</td>
+</tr>
+<tr class="row-even"><td>fix_log</td>
+<td>(array, shape (n_epochs, n_channels)) Similar to bad_segments, but with entries 0, 1, and 2. 0 : good data segment 1 : bad data segment not interpolated 2 : bad data segment interpolated</td>
+</tr>
+<tr class="row-odd"><td>bad_epochs_idx</td>
+<td>(array) The indices of bad epochs.</td>
+</tr>
+<tr class="row-even"><td><a href="#id1"><span class="problematic" id="id2">threshes_</span></a></td>
+<td>(dict) The sensor-level thresholds with channel names as keys and the peak-to-peak thresholds as the values.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
+<td>Compute the thresholds.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
+<td>Estimates the rejection params and finds bad epochs.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
+<td>Set the parameters of this estimator.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
+<td>Fixes and finds the bad epochs.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="autoreject.LocalAutoReject.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>

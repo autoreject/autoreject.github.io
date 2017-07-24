@@ -124,14 +124,50 @@
 <dt id="autoreject.GlobalAutoReject">
 <em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">GlobalAutoReject</code><span class="sig-paren">(</span><em>n_channels=None</em>, <em>n_times=None</em>, <em>thresh=4e-05</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.GlobalAutoReject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to compute global rejection thresholds.</p>
-<dl class="docutils">
-<dt>n_channels <span class="classifier-delimiter">:</span> <span class="classifier">int | None</span></dt>
-<dd>The number of channels in the epochs. Defaults to None.</dd>
-<dt>n_times <span class="classifier-delimiter">:</span> <span class="classifier">int | None</span></dt>
-<dd>The number of time points in the epochs. Defaults to None.</dd>
-<dt>thresh <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Boilerplate API. The rejection threshold.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_channels</strong> : int | None</p>
+<blockquote>
+<div><p>The number of channels in the epochs. Defaults to None.</p>
+</div></blockquote>
+<p><strong>n_times</strong> : int | None</p>
+<blockquote>
+<div><p>The number of time points in the epochs. Defaults to None.</p>
+</div></blockquote>
+<p><strong>thresh</strong> : float</p>
+<blockquote class="last">
+<div><p>Boilerplate API. The rejection threshold.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(X[,&nbsp;y])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
+<td>Estimates the rejection params and finds bad epochs.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
+<td>Set the parameters of this estimator.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="autoreject.GlobalAutoReject.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>n_channels=None</em>, <em>n_times=None</em>, <em>thresh=4e-05</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.GlobalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>

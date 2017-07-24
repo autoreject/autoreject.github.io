@@ -124,26 +124,48 @@
 <dt id="autoreject.validation_curve">
 <code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>estimator</em>, <em>epochs</em>, <em>y</em>, <em>param_name</em>, <em>param_range</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation curve on epochs.</p>
-<dl class="docutils">
-<dt>estimator <span class="classifier-delimiter">:</span> <span class="classifier">object that implements &#8220;fit&#8221; and &#8220;predict&#8221; method.</span></dt>
-<dd>the estimator whose Validation curve must be found</dd>
-<dt>epochs <span class="classifier-delimiter">:</span> <span class="classifier">instance of mne.Epochs.</span></dt>
-<dd>The epochs.</dd>
-<dt>y <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
-<dd>The labels.</dd>
-<dt>param_name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Name of the parameter that will be varied.</dd>
-<dt>param_range <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
-<dd>The values of the parameter that will be evaluated.</dd>
-<dt>cv <span class="classifier-delimiter">:</span> <span class="classifier">int, cross-validation generator or an iterable, optional</span></dt>
-<dd>Determines the cross-validation strategy.</dd>
-</dl>
-<dl class="docutils">
-<dt>train_scores <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
-<dd>The scores in the training set</dd>
-<dt>test_scores <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
-<dd>The scores in the test set</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>estimator</strong> : object that implements &#8220;fit&#8221; and &#8220;predict&#8221; method.</p>
+<blockquote>
+<div><p>the estimator whose Validation curve must be found</p>
+</div></blockquote>
+<p><strong>epochs</strong> : instance of mne.Epochs.</p>
+<blockquote>
+<div><p>The epochs.</p>
+</div></blockquote>
+<p><strong>y</strong> : array</p>
+<blockquote>
+<div><p>The labels.</p>
+</div></blockquote>
+<p><strong>param_name</strong> : str</p>
+<blockquote>
+<div><p>Name of the parameter that will be varied.</p>
+</div></blockquote>
+<p><strong>param_range</strong> : array</p>
+<blockquote>
+<div><p>The values of the parameter that will be evaluated.</p>
+</div></blockquote>
+<p><strong>cv</strong> : int, cross-validation generator or an iterable, optional</p>
+<blockquote>
+<div><p>Determines the cross-validation strategy.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>train_scores</strong> : array</p>
+<blockquote>
+<div><p>The scores in the training set</p>
+</div></blockquote>
+<p><strong>test_scores</strong> : array</p>
+<blockquote class="last">
+<div><p>The scores in the test set</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

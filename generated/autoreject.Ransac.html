@@ -124,32 +124,72 @@
 <dt id="autoreject.Ransac">
 <em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">Ransac</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac" title="Permalink to this definition">¶</a></dt>
 <dd><p>RANSAC algorithm to find bad sensors and repair them.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="autoreject.Ransac.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>ch_type='eeg'</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements RAndom SAmple Consensus (RANSAC) method to detect bad sensors.</p>
-<dl class="docutils">
-<dt>n_resample <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>Number of times the sensors are resampled.</dd>
-<dt>min_channels <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Fraction of sensors for robust reconstruction.</dd>
-<dt>min_corr <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Cut-off correlation for abnormal wrt neighbours.</dd>
-<dt>unbroken_time <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd>Cut-off fraction of time sensor can have poor RANSAC
-predictability.</dd>
-<dt>n_jobs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>Number of parallel jobs.</dd>
-<dt>random_state <span class="classifier-delimiter">:</span> <span class="classifier">None | int</span></dt>
-<dd>To seed or not the random number generator.</dd>
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</span></dt>
-<dd>The verbosity of progress messages.
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_resample</strong> : int</p>
+<blockquote>
+<div><p>Number of times the sensors are resampled.</p>
+</div></blockquote>
+<p><strong>min_channels</strong> : float</p>
+<blockquote>
+<div><p>Fraction of sensors for robust reconstruction.</p>
+</div></blockquote>
+<p><strong>min_corr</strong> : float</p>
+<blockquote>
+<div><p>Cut-off correlation for abnormal wrt neighbours.</p>
+</div></blockquote>
+<p><strong>unbroken_time</strong> : float</p>
+<blockquote>
+<div><p>Cut-off fraction of time sensor can have poor RANSAC
+predictability.</p>
+</div></blockquote>
+<p><strong>n_jobs</strong> : int</p>
+<blockquote>
+<div><p>Number of parallel jobs.</p>
+</div></blockquote>
+<p><strong>random_state</strong> : None | int</p>
+<blockquote>
+<div><p>To seed or not the random number generator.</p>
+</div></blockquote>
+<p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
+<blockquote class="last">
+<div><p>The verbosity of progress messages.
 If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
 If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
 If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
-If False, suppress all output messages.</dd>
-</dl>
+If False, suppress all output messages.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
 <p>The window_size is automatically set to the epoch length.</p>
+<p class="rubric">References</p>
 <dl class="docutils">
 <dt>[1] Bigdely-Shamlo, Nima, et al.</dt>
 <dd>&#8220;The PREP pipeline: standardized preprocessing for large-scale EEG
