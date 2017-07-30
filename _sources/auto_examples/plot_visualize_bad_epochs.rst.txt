@@ -103,24 +103,22 @@ Let us now load all the epochs into memory and concatenate them
         raw.rename_channels({'EEG061': 'EOG061', 'EEG062': 'EOG062',
                              'EEG063': 'ECG063', 'EEG064': 'MISC'})
 
-        exclude = []  # XXX
-        picks = mne.pick_types(raw.info, meg=False, eeg=True, stim=False,
-                               eog=True, exclude=exclude)
         events = mne.find_events(raw, stim_channel='STI101',
                                  consecutive='increasing',
                                  min_duration=0.003, verbose=True)
         # Read epochs
         mne.io.set_eeg_reference(raw)
+
         epoch = mne.Epochs(raw, events, events_id, tmin, tmax, proj=True,
-                           picks=picks, baseline=None,
+                           baseline=None,
                            preload=False, reject=None, decim=4)
         epochs.append(epoch)
 
         # Same `dev_head_t` for all runs so that we can concatenate them.
         epoch.info['dev_head_t'] = epochs[0].info['dev_head_t']
 
-    epochs = mne.epochs.concatenate_epochs(epochs)
 
+    epochs = mne.epochs.concatenate_epochs(epochs)
 
 
 
@@ -260,9 +258,14 @@ Now, we apply autoreject
     from functools import partial  # noqa
 
     this_epoch = epochs['famous']
+
+    exclude = []  # XXX
+    picks = mne.pick_types(epochs.info, meg=False, eeg=True, stim=False,
+                           eog=False, exclude=exclude)
+
     thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 
-    ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=None)
+    ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=picks)
     epochs_ar = ar.fit_transform(this_epoch)
 
 
@@ -273,57 +276,57 @@ Now, we apply autoreject
 
  Out::
 
-      [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    1.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    2.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    3.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    4.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    5.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    5.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    6.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:    7.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:    8.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:    9.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:    9.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   10.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   11.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   12.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   13.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   14.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   15.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   15.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   16.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   17.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   18.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   19.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   19.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   20.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   21.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   22.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   23.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   24.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   24.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   26.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   27.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   28.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   29.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   30.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   31.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   31.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   32.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   33.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   34.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   35.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   35.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   36.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   37.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   38.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   39.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   40.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   40.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:   41.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:   42.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  70 out of  70 | elapsed:  1.0min finished
+      [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    1.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    3.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    3.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    5.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    6.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    7.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    8.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:    9.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:   10.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:   11.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:   12.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   13.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   14.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   15.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   16.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   17.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   18.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   19.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   20.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   20.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   21.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   23.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   24.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   25.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   26.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   27.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   28.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   29.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   30.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   31.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   32.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   33.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   34.2s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   35.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   36.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   37.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   38.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   39.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   40.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   41.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   43.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   43.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   45.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   45.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   46.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   47.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   48.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:   49.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:   50.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  70 out of  70 | elapsed:  1.2min finished
     Estimated consensus_perc=0.50 and n_interpolate=32
 
 
@@ -333,10 +336,10 @@ We can visualize the cross validation curve over two variables
 .. code-block:: python
 
 
-    import numpy as np # noqa
-    import matplotlib.pyplot as plt # noqa
-    import matplotlib.patches as patches # noqa
-    from autoreject import set_matplotlib_defaults # noqa
+    import numpy as np  # noqa
+    import matplotlib.pyplot as plt  # noqa
+    import matplotlib.patches as patches  # noqa
+    from autoreject import set_matplotlib_defaults  # noqa
 
     set_matplotlib_defaults(plt, style='seaborn-white')
     loss = ar.loss.mean(axis=-1)
@@ -455,7 +458,7 @@ repaired.
 
 
 **Total running time of the script:**
-(2 minutes 11.922 seconds)
+(3 minutes 8.900 seconds)
 
 
 

@@ -76,29 +76,31 @@ picks = mne.pick_types(raw.info, meg='grad', eeg=False, stim=False, eog=False,
 # Now, we can create epochs. The ``reject`` params will be set to ``None``
 # because we do not want epochs to be dropped when instantiating
 # :class:`mne.Epochs`.
-
 raw.info['projs'] = list()  # remove proj, don't proj while interpolating
 epochs = mne.Epochs(raw, events, event_id, tmin, tmax,
-                    picks=picks, baseline=(None, 0), reject=None,
+                    baseline=(None, 0), reject=None,
                     verbose=False, detrend=0, preload=True)
 
 ###############################################################################
 # First, we set up the function to compute the sensor-level thresholds.
 
 from functools import partial  # noqa
-thresh_func = partial(compute_thresholds, method='random_search',
+thresh_func = partial(compute_thresholds, picks=picks, method='random_search',
                       random_state=42)
 
 ###############################################################################
 # :class:`autoreject.LocalAutoRejectCV` internally does cross-validation to
 # determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 
-ar = LocalAutoRejectCV(n_interpolates, consensus_percs,
+
+epochs.ch_names
+ar = LocalAutoRejectCV(n_interpolates, consensus_percs, picks=picks,
                        thresh_func=thresh_func)
 epochs_clean = ar.fit_transform(epochs['Auditory/Left'])
 
 evoked = epochs.average()
 evoked_clean = epochs_clean.average()
+
 
 ###############################################################################
 # Now, we will manually mark the bad channels just for plotting.
@@ -134,13 +136,16 @@ plt.tight_layout()
 set_matplotlib_defaults(plt)
 
 plt.figure(figsize=(12, 6))
-im = plt.imshow(ar.bad_segments, cmap='Reds', interpolation='nearest')
+im = plt.imshow(ar.bad_segments[:, picks], cmap='Reds',
+                interpolation='nearest')
+
+ch_names = [epochs.ch_names[pp] for pp in picks][7::10]
 ax = im.get_axes()
 ax.grid(False)
 ax.set_xlabel('Sensors')
 ax.set_ylabel('Trials')
-plt.setp(ax, xticks=range(7, epochs.info['nchan'], 10),
-         xticklabels=epochs.info['ch_names'][7::10])
+plt.setp(ax, xticks=range(7, len(picks), 10),
+         xticklabels=ch_names)
 plt.setp(ax.get_yticklabels(), rotation=0)
 plt.setp(ax.get_xticklabels(), rotation=90)
 ax.tick_params(axis=u'both', which=u'both', length=0)
