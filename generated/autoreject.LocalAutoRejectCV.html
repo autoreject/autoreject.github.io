@@ -122,21 +122,30 @@
 <h1>autoreject.LocalAutoRejectCV<a class="headerlink" href="#autoreject-localautorejectcv" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoRejectCV">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoRejectCV</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficiently find n_interp and n_consensus.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">LocalAutoRejectCV by design supports multiple channels.
+If no picks are passed separate solutions will be computed for each
+channel type and internally combines. This then readily supports
+cleaning unseen epochs from the different channel types used during fit.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_interpolates</strong> : array | None</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>consensus_percs</strong> : array | None</p>
 <blockquote>
-<div><p>The values of <span class="math">\(\rho\)</span> to try. If None, defaults to
-np.array([1, 4, 32])</p>
+<div><p>The values to try for percentage of channels that must agree as a
+fraction of the total number of channels. This sets <span class="math">\(\\kappa/Q\)</span>.
+If None, defaults to <cite>np.linspace(0, 1.0, 11)</cite></p>
 </div></blockquote>
-<p><strong>consensus_percs</strong> : array | None</p>
+<p><strong>n_interpolates</strong> : array | None</p>
 <blockquote>
-<div><p>The values of <span class="math">\(\kappa/Q\)</span> to try. If None, defaults
-to <cite>np.linspace(0, 1.0, 11)</cite></p>
+<div><p>The values to try for the number of channels for which to interpolate.
+This is <span class="math">\(\\rho\)</span>.If None, defaults to
+np.array([1, 4, 32])</p>
 </div></blockquote>
 <p><strong>thresh_func</strong> : callable | None</p>
 <blockquote>
@@ -150,7 +159,8 @@ defaults to <a class="reference internal" href="autoreject.compute_thresholds.ht
 <p><strong>picks</strong> : ndarray, shape(n_channels) | None</p>
 <blockquote>
 <div><p>The channels to be considered for autoreject. If None, defaults
-to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</p>
+to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}, which will lead fitting and combining
+autoreject solutions across these channel types.</p>
 </div></blockquote>
 <p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
 <blockquote class="last">
@@ -167,8 +177,8 @@ If False, suppress all output messages.</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="8%" />
-<col width="92%" />
+<col width="7%" />
+<col width="93%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>bad_segments</td>
@@ -186,10 +196,10 @@ If False, suppress all output messages.</p>
 <tr class="row-odd"><td>loss</td>
 <td>(array, shape (len(n_interpolates), len(consensus_percs))) The cross validation error for different parameter values.</td>
 </tr>
-<tr class="row-even"><td><a href="#id3"><span class="problematic" id="id4">consensus_percs_</span></a></td>
+<tr class="row-even"><td><a href="#id3"><span class="problematic" id="id4">consensus_perc_</span></a></td>
 <td>(float) The estimated consensus_perc.</td>
 </tr>
-<tr class="row-odd"><td><a href="#id5"><span class="problematic" id="id6">n_interpolates_</span></a></td>
+<tr class="row-odd"><td><a href="#id5"><span class="problematic" id="id6">n_interpolate_</span></a></td>
 <td>(int) The estimated n_interpolated.</td>
 </tr>
 </tbody>
@@ -205,17 +215,18 @@ If False, suppress all output messages.</p>
 <td>Fit the epochs on the LocalAutoReject object.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimates the rejection params and finds bad epochs.</td>
+<td>Estimate the rejection params and finds bad epochs.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
-<td>Removes bad epochs, repairs sensors and returns clean epochs.</td>
+<td>Remove bad epochs, repairs sensors and returns clean epochs.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="autoreject.LocalAutoRejectCV.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolates=None</em>, <em>consensus_percs=None</em>, <em>thresh_func=None</em>, <em>cv=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoRejectCV.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init it.</p>
+</dd></dl>
 
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -225,16 +236,16 @@ If False, suppress all output messages.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#autoreject.LocalAutoRejectCV.__init__" title="autoreject.LocalAutoRejectCV.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([n_interpolates,&nbsp;consensus_percs,&nbsp;...])</td>
-<td></td>
+<td>Init it.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
 <td>Fit the epochs on the LocalAutoReject object.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimates the rejection params and finds bad epochs.</td>
+<td>Estimate the rejection params and finds bad epochs.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
-<td>Removes bad epochs, repairs sensors and returns clean epochs.</td>
+<td>Remove bad epochs, repairs sensors and returns clean epochs.</td>
 </tr>
 </tbody>
 </table>

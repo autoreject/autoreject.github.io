@@ -8,6 +8,7 @@ repair epochs.
 """
 
 # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
+#         Denis A. Engemann <denis.engemann@gmail.com>
 # License: BSD (3-clause)
 
 ###############################################################################
@@ -92,15 +93,23 @@ thresh_func = partial(compute_thresholds, picks=picks, method='random_search',
 # :class:`autoreject.LocalAutoRejectCV` internally does cross-validation to
 # determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 
+###############################################################################
+# Note that:class:`autoreject.LocalAutoRejectCV` by design supports
+# multiple channels.
+# If no picks are passed separate solutions will be computed for each channel
+# type and internally combines. This then readily supports cleaning
+# unseen epochs from the different channel types used during fit.
+# Here we only use a subset of channels to save time.
 
-epochs.ch_names
 ar = LocalAutoRejectCV(n_interpolates, consensus_percs, picks=picks,
                        thresh_func=thresh_func)
-epochs_clean = ar.fit_transform(epochs['Auditory/Left'])
 
-evoked = epochs.average()
+# Not that fitting and transforming can be done on different compatible
+# portions of data if needed.
+ar.fit(epochs['Auditory/Left'])
+epochs_clean = ar.transform(epochs['Auditory/Left'])
 evoked_clean = epochs_clean.average()
-
+evoked = epochs['Auditory/Left'].average()
 
 ###############################################################################
 # Now, we will manually mark the bad channels just for plotting.

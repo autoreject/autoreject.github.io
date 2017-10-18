@@ -122,8 +122,8 @@
 <h1>autoreject.LocalAutoReject<a class="headerlink" href="#autoreject-localautoreject" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.LocalAutoReject">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to automatically reject bad epochs and repair bad trials.</p>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">LocalAutoReject</code><span class="sig-paren">(</span><em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically reject bad epochs and repair bad trials.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -132,19 +132,19 @@
 <blockquote>
 <div><p>The epochs object</p>
 </div></blockquote>
+<p><strong>consensus_perc</strong> : float (0 to 1.0)</p>
+<blockquote>
+<div><p>Percentage of channels that must agree as a fraction of
+the total number of channels. This sets <span class="math">\(\\kappa/Q\)</span>.</p>
+</div></blockquote>
+<p><strong>n_interpolate</strong> : int (default 0)</p>
+<blockquote>
+<div><p>Number of channels for which to interpolate. This is <span class="math">\(\\rho\)</span>.</p>
+</div></blockquote>
 <p><strong>thresh_func</strong> : callable | None</p>
 <blockquote>
 <div><p>Function which returns the channel-level thresholds. If None,
 defaults to <a class="reference internal" href="autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal"><span class="pre">autoreject.compute_thresholds()</span></code></a>.</p>
-</div></blockquote>
-<p><strong>consensus_perc</strong> : float (0 to 1.0)</p>
-<blockquote>
-<div><p>percentage of channels that must agree as a fraction of
-the total number of channels.</p>
-</div></blockquote>
-<p><strong>n_interpolate</strong> : int (default 0)</p>
-<blockquote>
-<div><p>Number of channels for which to interpolate</p>
 </div></blockquote>
 <p><strong>picks</strong> : ndarray, shape(n_channels,) | None</p>
 <blockquote>
@@ -195,26 +195,27 @@ If False, suppress all output messages.</p>
 <td>Compute the thresholds.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimates the rejection params and finds bad epochs.</td>
+<td>Estimate rejection params and find bad epochs.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
 <td>Get parameters for this estimator.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
-<td></td>
+<td>Score it.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
 <td>Set the parameters of this estimator.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
-<td>Fixes and finds the bad epochs.</td>
+<td>Fix and find the bad epochs.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="autoreject.LocalAutoReject.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>thresh_func=None</em>, <em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>consensus_perc=0.1</em>, <em>n_interpolate=0</em>, <em>thresh_func=None</em>, <em>method='bayesian_optimization'</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.LocalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init it.</p>
+</dd></dl>
 
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -223,26 +224,26 @@ If False, suppress all output messages.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#autoreject.LocalAutoReject.__init__" title="autoreject.LocalAutoReject.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([thresh_func,&nbsp;consensus_perc,&nbsp;...])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#autoreject.LocalAutoReject.__init__" title="autoreject.LocalAutoReject.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([consensus_perc,&nbsp;n_interpolate,&nbsp;...])</td>
+<td>Init it.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
 <td>Compute the thresholds.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimates the rejection params and finds bad epochs.</td>
+<td>Estimate rejection params and find bad epochs.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
 <td>Get parameters for this estimator.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
-<td></td>
+<td>Score it.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
 <td>Set the parameters of this estimator.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
-<td>Fixes and finds the bad epochs.</td>
+<td>Fix and find the bad epochs.</td>
 </tr>
 </tbody>
 </table>

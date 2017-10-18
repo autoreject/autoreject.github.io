@@ -11,10 +11,12 @@ This example demonstrates how to use :mod:`autoreject` to
 visualize the bad sensors in each trial
 
 
+
 .. code-block:: python
 
 
     # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
+    #         Denis A. Engemann <denis.engemann@gmail.com>
     # License: BSD (3-clause)
 
 
@@ -25,6 +27,7 @@ visualize the bad sensors in each trial
 
 First, we download the data from OpenfMRI. We will download the tarfile,
 extract the necessary files and delete the tar from the disk
+
 
 
 .. code-block:: python
@@ -62,12 +65,13 @@ extract the necessary files and delete the tar from the disk
 
  Out::
 
-      processing subject: sub016
+    processing subject: sub016
 
 
 We will create epochs with data starting 200 ms before trigger onset
 and continuing up to 800 ms after that. The data contains visual stimuli for
 famous faces, unfamiliar faces, as well as scrambled faces.
+
 
 
 .. code-block:: python
@@ -83,6 +87,7 @@ famous faces, unfamiliar faces, as well as scrambled faces.
 
 
 Let us now load all the epochs into memory and concatenate them
+
 
 
 .. code-block:: python
@@ -127,7 +132,7 @@ Let us now load all the epochs into memory and concatenate them
 
  Out::
 
-      Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_03_raw.fif...
+    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_03_raw.fif...
         Read a total of 8 projection items:
             mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
             mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
@@ -148,9 +153,10 @@ Let us now load all the epochs into memory and concatenate them
     294 events found
     Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
       273  274  275 4096 4101 4102 4103 4109 4110 4111 4113 4114 4115]
+    The behavior of set_eeg_reference will change in 0.16 when ref_channels="average". Currently, a projection is computed, which has to be applied manually with the apply_proj method. In 0.16, the average reference will be directly applied. Set projection=True if you want to retain the old behavior, or set projection=False if you want the new behavior.
     Adding average EEG reference projection.
     1 projection items deactivated
-    Average reference projection was added, but hasn't been applied yet. Use the .apply_proj() method function to apply projections.
+    Average reference projection was added, but has not been applied yet. Use the apply_proj method to apply it.
     49 matching events found
     Created an SSP operator (subspace dimension = 1)
     9 projection items activated
@@ -175,9 +181,10 @@ Let us now load all the epochs into memory and concatenate them
     296 events found
     Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
       273  274  275 4096 4101 4102 4103 4109 4110 4111 4113]
+    The behavior of set_eeg_reference will change in 0.16 when ref_channels="average". Currently, a projection is computed, which has to be applied manually with the apply_proj method. In 0.16, the average reference will be directly applied. Set projection=True if you want to retain the old behavior, or set projection=False if you want the new behavior.
     Adding average EEG reference projection.
     1 projection items deactivated
-    Average reference projection was added, but hasn't been applied yet. Use the .apply_proj() method function to apply projections.
+    Average reference projection was added, but has not been applied yet. Use the apply_proj method to apply it.
     49 matching events found
     Created an SSP operator (subspace dimension = 1)
     9 projection items activated
@@ -202,9 +209,10 @@ Let us now load all the epochs into memory and concatenate them
     295 events found
     Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
       271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4115 4357 4359]
+    The behavior of set_eeg_reference will change in 0.16 when ref_channels="average". Currently, a projection is computed, which has to be applied manually with the apply_proj method. In 0.16, the average reference will be directly applied. Set projection=True if you want to retain the old behavior, or set projection=False if you want the new behavior.
     Adding average EEG reference projection.
     1 projection items deactivated
-    Average reference projection was added, but hasn't been applied yet. Use the .apply_proj() method function to apply projections.
+    Average reference projection was added, but has not been applied yet. Use the apply_proj method to apply it.
     47 matching events found
     Created an SSP operator (subspace dimension = 1)
     9 projection items activated
@@ -229,9 +237,10 @@ Let us now load all the epochs into memory and concatenate them
     296 events found
     Events id: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
       271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4114]
+    The behavior of set_eeg_reference will change in 0.16 when ref_channels="average". Currently, a projection is computed, which has to be applied manually with the apply_proj method. In 0.16, the average reference will be directly applied. Set projection=True if you want to retain the old behavior, or set projection=False if you want the new behavior.
     Adding average EEG reference projection.
     1 projection items deactivated
-    Average reference projection was added, but hasn't been applied yet. Use the .apply_proj() method function to apply projections.
+    Average reference projection was added, but has not been applied yet. Use the apply_proj method to apply it.
     48 matching events found
     Created an SSP operator (subspace dimension = 1)
     9 projection items activated
@@ -251,6 +260,7 @@ Let us now load all the epochs into memory and concatenate them
 Now, we apply autoreject
 
 
+
 .. code-block:: python
 
 
@@ -258,15 +268,40 @@ Now, we apply autoreject
     from functools import partial  # noqa
 
     this_epoch = epochs['famous']
-
     exclude = []  # XXX
     picks = mne.pick_types(epochs.info, meg=False, eeg=True, stim=False,
                            eog=False, exclude=exclude)
 
     thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 
+
+
+
+
+
+
+Note that :class:`autoreject.LocalAutoRejectCV` by design supports multiple
+channels. If no picks are passed separate solutions will be computed for each
+channel type and internally combines. This then readily supports cleaning
+unseen epochs from the different channel types used during fit.
+Here we only use a subset of channels to save time.
+
+
+Also note that once the parameters are learned, any data can be repaired
+that contains channels that were used during fit. This also means that time
+may be saved by fitting :class:`autoreject.LocalAutoRejectCV` on a
+representative subsample of the data.
+
+
+
+.. code-block:: python
+
+
+
     ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=picks)
-    epochs_ar = ar.fit_transform(this_epoch)
+
+    ar.fit(this_epoch)
+    epochs_ar = ar.transform(this_epoch)
 
 
 
@@ -276,61 +311,62 @@ Now, we apply autoreject
 
  Out::
 
-      [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    1.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    3.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    3.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    5.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    6.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    7.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    8.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:    9.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:   10.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:   11.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:   12.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   13.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   14.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   15.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   16.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   17.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   18.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   19.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   20.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   20.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   21.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   23.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   24.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   25.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   26.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   27.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   28.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   29.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   30.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   31.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   32.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   33.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   34.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   35.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   36.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   37.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   38.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   39.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   40.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   41.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   43.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   43.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   45.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   45.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   46.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   47.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   48.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:   49.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:   50.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    1.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    2.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    3.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    4.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    6.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    7.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    8.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:    9.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:   10.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:   10.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:   11.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   12.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   13.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   14.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   15.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   16.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   17.9s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   18.8s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   19.7s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   20.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   21.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   22.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   23.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   24.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   25.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   26.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   27.4s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   28.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   29.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   30.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   31.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   32.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   33.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   34.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   35.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   36.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   37.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   38.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   39.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   40.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   41.6s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   42.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   43.5s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   44.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   45.3s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   46.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   47.1s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:   48.0s remaining:    0.0s
+    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:   49.1s remaining:    0.0s
     [Parallel(n_jobs=1)]: Done  70 out of  70 | elapsed:  1.2min finished
     Estimated consensus_perc=0.50 and n_interpolate=32
 
 
 We can visualize the cross validation curve over two variables
+
 
 
 .. code-block:: python
@@ -342,7 +378,7 @@ We can visualize the cross validation curve over two variables
     from autoreject import set_matplotlib_defaults  # noqa
 
     set_matplotlib_defaults(plt, style='seaborn-white')
-    loss = ar.loss.mean(axis=-1)
+    loss = ar.loss_['eeg'].mean(axis=-1)  # losses are stored by channel type.
 
     plt.matshow(loss.T * 1e6, cmap=plt.get_cmap('viridis'))
     plt.xticks(range(len(ar.consensus_percs)), ar.consensus_percs)
@@ -359,6 +395,7 @@ We can visualize the cross validation curve over two variables
     plt.ylabel(r'Max sensors interpolated $\rho$')
     plt.title('Mean cross validation error (x 1e6)')
     plt.colorbar()
+    plt.show()
 
 
 
@@ -372,6 +409,7 @@ We can visualize the cross validation curve over two variables
 ... and visualize the bad epochs and sensors. Bad sensors which have been
 interpolated are in blue. Bad sensors which are not interpolated are in red.
 Bad trials are also in red.
+
 
 
 .. code-block:: python
@@ -394,6 +432,7 @@ Bad trials are also in red.
 ... and the epochs after cleaning with autoreject
 
 
+
 .. code-block:: python
 
 
@@ -410,6 +449,7 @@ Bad trials are also in red.
 
 
 The epochs dropped by autoreject are also stored in epochs.drop_log
+
 
 
 .. code-block:: python
@@ -430,6 +470,7 @@ Finally, the evoked before and after autoreject, for sanity check. We use
 the ``spatial_colors`` argument from MNE as it allows us to see that
 the eyeblinks have not yet been cleaned but the bad channels have been
 repaired.
+
 
 
 .. code-block:: python
@@ -457,16 +498,23 @@ repaired.
 
 
 
-**Total running time of the script:**
-(3 minutes 8.900 seconds)
+**Total running time of the script:** ( 3 minutes  10.493 seconds)
 
 
 
-.. container:: sphx-glr-download
-
-    **Download Python source code:** :download:`plot_visualize_bad_epochs.py <plot_visualize_bad_epochs.py>`
+.. container:: sphx-glr-footer
 
 
-.. container:: sphx-glr-download
+  .. container:: sphx-glr-download
 
-    **Download IPython notebook:** :download:`plot_visualize_bad_epochs.ipynb <plot_visualize_bad_epochs.ipynb>`
+     :download:`Download Python source code: plot_visualize_bad_epochs.py <plot_visualize_bad_epochs.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_visualize_bad_epochs.ipynb <plot_visualize_bad_epochs.ipynb>`
+
+.. rst-class:: sphx-glr-signature
+
+    `Generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
