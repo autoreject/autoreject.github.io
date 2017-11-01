@@ -122,7 +122,7 @@
 <h1>autoreject.compute_thresholds<a class="headerlink" href="#autoreject-compute-thresholds" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.compute_thresholds">
-<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>picks=None</em>, <em>verbose='progressbar'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>picks=None</em>, <em>augment=True</em>, <em>verbose='progressbar'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute thresholds for each channel.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -144,6 +144,11 @@
 <blockquote>
 <div><p>The channels to be considered for autoreject. If None, defaults
 to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</p>
+</div></blockquote>
+<p><strong>augment</strong> : boolean</p>
+<blockquote>
+<div><p>Whether to augment the data or not. By default it is True, but
+set it to False, if the channel locations are not available.</p>
 </div></blockquote>
 <p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
 <blockquote>
