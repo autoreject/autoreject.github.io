@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>autoreject.GlobalAutoReject &#8212; autoreject 0.1.dev0 documentation</title>
+    <title>autoreject.RejectLog &#8212; autoreject 0.1.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -84,7 +84,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">autoreject.GlobalAutoReject</a></li>
+<li><a class="reference internal" href="#">autoreject.RejectLog</a></li>
 </ul>
 </ul>
 </li>
@@ -96,7 +96,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/autoreject.GlobalAutoReject.rst.txt"
+  <a href="../_sources/generated/autoreject.RejectLog.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -118,27 +118,29 @@
 
 <div class="container content-container">
   
-  <div class="section" id="autoreject-globalautoreject">
-<h1>autoreject.GlobalAutoReject<a class="headerlink" href="#autoreject-globalautoreject" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="autoreject-rejectlog">
+<h1>autoreject.RejectLog<a class="headerlink" href="#autoreject-rejectlog" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="autoreject.GlobalAutoReject">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">GlobalAutoReject</code><span class="sig-paren">(</span><em>n_channels=None</em>, <em>n_times=None</em>, <em>thresh=4e-05</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.GlobalAutoReject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to compute global rejection thresholds.</p>
+<dt id="autoreject.RejectLog">
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">RejectLog</code><span class="sig-paren">(</span><em>bad_epochs</em>, <em>labels</em>, <em>ch_names</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.RejectLog" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Rejection Log.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_channels</strong> : int | None</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>bad_epochs</strong> : array-like, shape (n_epochs,)</p>
 <blockquote>
-<div><p>The number of channels in the epochs. Defaults to None.</p>
+<div><p>The boolean array with entries True for epochs that
+are marked as bad.</p>
 </div></blockquote>
-<p><strong>n_times</strong> : int | None</p>
+<p><strong>labels</strong> : array, shape (n_channels, n_epochs)</p>
 <blockquote>
-<div><p>The number of time points in the epochs. Defaults to None.</p>
+<div><p>It contains integers that encode if a channel in a given
+epoch is good (value 0), bad (1), or bad and interpolated (2).</p>
 </div></blockquote>
-<p><strong>thresh</strong> : float</p>
+<p><strong>ch_names</strong> : list of str</p>
 <blockquote class="last">
-<div><p>Boilerplate API. The rejection threshold.</p>
+<div><p>The list of channels corresponding to the rows of the labels.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -151,28 +153,18 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(X[,&nbsp;y])</td>
-<td>Fit it.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code>()</td>
+<td>Plot.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimate rejection params and find bad epochs.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
-<td>Get parameters for this estimator.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
-<td>Score it.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
-<td>Set the parameters of this estimator.</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">plot_epochs</span></code>(epochs[,&nbsp;scalings,&nbsp;title])</td>
+<td>Plot interpolated and dropped epochs.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="autoreject.GlobalAutoReject.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_channels=None</em>, <em>n_times=None</em>, <em>thresh=4e-05</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.GlobalAutoReject.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Init it.</p>
-</dd></dl>
+<dt id="autoreject.RejectLog.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>bad_epochs</em>, <em>labels</em>, <em>ch_names</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.RejectLog.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -181,23 +173,14 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#autoreject.GlobalAutoReject.__init__" title="autoreject.GlobalAutoReject.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([n_channels,&nbsp;n_times,&nbsp;thresh])</td>
-<td>Init it.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#autoreject.RejectLog.__init__" title="autoreject.RejectLog.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(bad_epochs,&nbsp;labels,&nbsp;ch_names)</td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(X[,&nbsp;y])</td>
-<td>Fit it.</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code>()</td>
+<td>Plot.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td>Estimate rejection params and find bad epochs.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_params</span></code>([deep])</td>
-<td>Get parameters for this estimator.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">score</span></code>(X)</td>
-<td>Score it.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code>(**params)</td>
-<td>Set the parameters of this estimator.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">plot_epochs</span></code>(epochs[,&nbsp;scalings,&nbsp;title])</td>
+<td>Plot interpolated and dropped epochs.</td>
 </tr>
 </tbody>
 </table>

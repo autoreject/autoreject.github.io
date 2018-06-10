@@ -102,11 +102,10 @@ follows a :mod:`scikit-learn`-like API. To compute the Root Mean Squared
 .. code-block:: python
 
 
-    from autoreject import GlobalAutoReject, validation_curve  # noqa
+    from autoreject import validation_curve  # noqa
 
     _, test_scores = validation_curve(
-        GlobalAutoReject(), epochs, y=None,
-        param_name="thresh", param_range=param_range, cv=5)
+        epochs, y=None, param_name="thresh", param_range=param_range, cv=5)
 
     test_scores = -test_scores.mean(axis=1)
     best_thresh = param_range[np.argmin(test_scores)]
@@ -161,7 +160,7 @@ Now let us plot the RMSE values against the candidate thresholds.
 
 
 
-**Total running time of the script:** ( 0 minutes  2.203 seconds)
+**Total running time of the script:** ( 0 minutes  2.440 seconds)
 
 
 

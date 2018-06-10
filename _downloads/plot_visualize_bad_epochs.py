@@ -84,7 +84,7 @@ epochs = mne.epochs.concatenate_epochs(epochs)
 ###############################################################################
 # Now, we apply autoreject
 
-from autoreject import LocalAutoRejectCV, compute_thresholds  # noqa
+from autoreject import AutoReject, compute_thresholds  # noqa
 from functools import partial  # noqa
 
 this_epoch = epochs['famous']
@@ -95,7 +95,7 @@ picks = mne.pick_types(epochs.info, meg=False, eeg=True, stim=False,
 thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 
 ###############################################################################
-# Note that :class:`autoreject.LocalAutoRejectCV` by design supports multiple
+# Note that :class:`autoreject.AutoReject` by design supports multiple
 # channels. If no picks are passed separate solutions will be computed for each
 # channel type and internally combines. This then readily supports cleaning
 # unseen epochs from the different channel types used during fit.
@@ -104,14 +104,13 @@ thresh_func = partial(compute_thresholds, random_state=42, n_jobs=1)
 ###############################################################################
 # Also note that once the parameters are learned, any data can be repaired
 # that contains channels that were used during fit. This also means that time
-# may be saved by fitting :class:`autoreject.LocalAutoRejectCV` on a
+# may be saved by fitting :class:`autoreject.AutoReject` on a
 # representative subsample of the data.
 
 
-ar = LocalAutoRejectCV(thresh_func=thresh_func, verbose='tqdm', picks=picks)
+ar = AutoReject(thresh_func=thresh_func, picks=picks, verbose='tqdm')
 
-ar.fit(this_epoch)
-epochs_ar = ar.transform(this_epoch)
+epochs_ar, reject_log = ar.fit_transform(this_epoch, return_log=True)
 
 ###############################################################################
 # We can visualize the cross validation curve over two variables
@@ -125,8 +124,8 @@ set_matplotlib_defaults(plt, style='seaborn-white')
 loss = ar.loss_['eeg'].mean(axis=-1)  # losses are stored by channel type.
 
 plt.matshow(loss.T * 1e6, cmap=plt.get_cmap('viridis'))
-plt.xticks(range(len(ar.consensus_percs)), ar.consensus_percs)
-plt.yticks(range(len(ar.n_interpolates)), ar.n_interpolates)
+plt.xticks(range(len(ar.consensus)), ar.consensus)
+plt.yticks(range(len(ar.n_interpolate)), ar.n_interpolate)
 
 # Draw rectangle at location of best parameters
 ax = plt.gca()
@@ -146,16 +145,13 @@ plt.show()
 # interpolated are in blue. Bad sensors which are not interpolated are in red.
 # Bad trials are also in red.
 
-from autoreject import plot_epochs  # noqa
-plot_epochs(this_epoch, bad_epochs_idx=ar.bad_epochs_idx,
-            fix_log=ar.fix_log, scalings=dict(eeg=40e-6),
-            title='')
+scalings = dict(eeg=40e-6)
+reject_log.plot_epochs(this_epoch, scalings=scalings)
 
 ###############################################################################
 # ... and the epochs after cleaning with autoreject
 
-epochs_ar.plot(scalings=dict(eeg=40e-6))
-
+epochs_ar.plot(scalings=scalings)
 
 ###############################################################################
 # The epochs dropped by autoreject are also stored in epochs.drop_log

@@ -40,10 +40,10 @@ from mne.datasets import sample  # noqa
 ###############################################################################
 # Now, we can import the class required for rejecting and repairing bad
 # epochs. :func:`autoreject.compute_thresholds` is a callable which must be
-# provided to the :class:`autoreject.LocalAutoRejectCV` class for computing
+# provided to the :class:`autoreject.AutoReject` class for computing
 # the channel-level thresholds.
 
-from autoreject import (LocalAutoRejectCV, compute_thresholds,
+from autoreject import (AutoReject, compute_thresholds,
                         set_matplotlib_defaults)  # noqa
 
 ###############################################################################
@@ -90,19 +90,19 @@ thresh_func = partial(compute_thresholds, picks=picks, method='random_search',
                       random_state=42)
 
 ###############################################################################
-# :class:`autoreject.LocalAutoRejectCV` internally does cross-validation to
+# :class:`autoreject.AutoReject` internally does cross-validation to
 # determine the optimal values :math:`\rho^{*}` and :math:`\kappa^{*}`
 
 ###############################################################################
-# Note that:class:`autoreject.LocalAutoRejectCV` by design supports
+# Note that:class:`autoreject.AutoReject` by design supports
 # multiple channels.
 # If no picks are passed separate solutions will be computed for each channel
 # type and internally combines. This then readily supports cleaning
 # unseen epochs from the different channel types used during fit.
 # Here we only use a subset of channels to save time.
 
-ar = LocalAutoRejectCV(n_interpolates, consensus_percs, picks=picks,
-                       thresh_func=thresh_func)
+ar = AutoReject(n_interpolates, consensus_percs, picks=picks,
+                thresh_func=thresh_func)
 
 # Not that fitting and transforming can be done on different compatible
 # portions of data if needed.
@@ -142,21 +142,4 @@ plt.tight_layout()
 # To top things up, we can also visualize the bad sensors for each trial using
 # a heatmap.
 
-set_matplotlib_defaults(plt)
-
-plt.figure(figsize=(12, 6))
-im = plt.imshow(ar.bad_segments[:, picks], cmap='Reds',
-                interpolation='nearest')
-
-ch_names = [epochs.ch_names[pp] for pp in picks][7::10]
-ax = plt.gca()
-ax.grid(False)
-ax.set_xlabel('Sensors')
-ax.set_ylabel('Trials')
-plt.setp(ax, xticks=range(7, len(picks), 10),
-         xticklabels=ch_names)
-plt.setp(ax.get_yticklabels(), rotation=0)
-plt.setp(ax.get_xticklabels(), rotation=90)
-ax.tick_params(axis=u'both', which=u'both', length=0)
-plt.tight_layout(rect=[None, None, None, 1.1])
-plt.show()
+ar.get_reject_log(epochs['Auditory/Left']).plot()
