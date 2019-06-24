@@ -1,36 +1,22 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>autoreject.utils.fetch_file &#8212; autoreject 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>autoreject.utils.fetch_file &#8212; autoreject 0.2 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -39,8 +25,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,15 +38,17 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
                 <li><a href="../auto_examples/index.html">Examples</a></li>
-                <li><a href="../api.html">API</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
                 <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
                 <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
             
             
@@ -123,32 +110,22 @@
 <h1>autoreject.utils.fetch_file<a class="headerlink" href="#autoreject-utils-fetch-file" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.utils.fetch_file">
-<code class="descclassname">autoreject.utils.</code><code class="descname">fetch_file</code><span class="sig-paren">(</span><em>url</em>, <em>file_name</em>, <em>resume=True</em>, <em>timeout=10.0</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.utils.fetch_file" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.utils.</code><code class="descname">fetch_file</code><span class="sig-paren">(</span><em>url</em>, <em>file_name</em>, <em>resume=True</em>, <em>timeout=10.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/utils.html#fetch_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.utils.fetch_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load requested file, downloading it if needed or requested.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>url: string</strong></p>
-<blockquote>
-<div><p>The url of file to be downloaded.</p>
-</div></blockquote>
-<p><strong>file_name: string</strong></p>
-<blockquote>
-<div><p>Name, along with the path, of where downloaded file will be saved.</p>
-</div></blockquote>
-<p><strong>resume: bool, optional</strong></p>
-<blockquote>
-<div><p>If true, try to resume partially downloaded files.</p>
-</div></blockquote>
-<p><strong>timeout</strong> : float</p>
-<blockquote class="last">
-<div><p>The URL open timeout.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>url: string</strong></dt><dd><p>The url of file to be downloaded.</p>
+</dd>
+<dt><strong>file_name: string</strong></dt><dd><p>Name, along with the path, of where downloaded file will be saved.</p>
+</dd>
+<dt><strong>resume: bool, optional</strong></dt><dd><p>If true, try to resume partially downloaded files.</p>
+</dd>
+<dt><strong>timeout</strong><span class="classifier">float</span></dt><dd><p>The URL open timeout.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -169,7 +146,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

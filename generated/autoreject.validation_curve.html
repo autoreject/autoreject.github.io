@@ -1,36 +1,22 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>autoreject.validation_curve &#8212; autoreject 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>autoreject.validation_curve &#8212; autoreject 0.2 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -39,8 +25,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,15 +38,17 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
                 <li><a href="../auto_examples/index.html">Examples</a></li>
-                <li><a href="../api.html">API</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
                 <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
                 <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
             
             
@@ -123,46 +110,43 @@
 <h1>autoreject.validation_curve<a class="headerlink" href="#autoreject-validation-curve" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.validation_curve">
-<code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>epochs</em>, <em>y</em>, <em>param_name</em>, <em>param_range</em>, <em>cv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">validation_curve</code><span class="sig-paren">(</span><em>epochs</em>, <em>y=None</em>, <em>param_name='thresh'</em>, <em>param_range=None</em>, <em>cv=None</em>, <em>return_param_range=False</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#validation_curve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation curve on epochs for global autoreject.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>epochs</strong> : instance of mne.Epochs.</p>
-<blockquote>
-<div><p>The epochs.</p>
-</div></blockquote>
-<p><strong>y</strong> : array</p>
-<blockquote>
-<div><p>The labels.</p>
-</div></blockquote>
-<p><strong>param_name</strong> : str</p>
-<blockquote>
-<div><p>Name of the parameter that will be varied.</p>
-</div></blockquote>
-<p><strong>param_range</strong> : array</p>
-<blockquote>
-<div><p>The values of the parameter that will be evaluated.</p>
-</div></blockquote>
-<p><strong>cv</strong> : int, cross-validation generator or an iterable, optional</p>
-<blockquote>
-<div><p>Determines the cross-validation strategy.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>train_scores</strong> : array</p>
-<blockquote>
-<div><p>The scores in the training set</p>
-</div></blockquote>
-<p><strong>test_scores</strong> : array</p>
-<blockquote class="last">
-<div><p>The scores in the test set</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>epochs</strong><span class="classifier">instance of mne.Epochs.</span></dt><dd><p>The epochs.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array | None</span></dt><dd><p>The labels.</p>
+</dd>
+<dt><strong>param_name</strong><span class="classifier">str</span></dt><dd><p>Name of the parameter that will be varied.
+Defaults to ‘thresh’.</p>
+</dd>
+<dt><strong>param_range</strong><span class="classifier">array | None</span></dt><dd><p>The values of the parameter that will be evaluated.
+If None, 15 values between the min and the max threshold
+will be tested.</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">int, cross-validation generator or an iterable, optional</span></dt><dd><p>Determines the cross-validation strategy.</p>
+</dd>
+<dt><strong>return_param_range</strong><span class="classifier">bool</span></dt><dd><p>If True the used param_range is returned.
+Defaults to False.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of thresholds to compute in parallel.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>train_scores</strong><span class="classifier">array</span></dt><dd><p>The scores in the training set</p>
+</dd>
+<dt><strong>test_scores</strong><span class="classifier">array</span></dt><dd><p>The scores in the test set</p>
+</dd>
+<dt><strong>param_range</strong><span class="classifier">array</span></dt><dd><p>The thresholds used to build the validation curve.
+Only returned if <cite>return_param_range</cite> is True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -183,7 +167,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

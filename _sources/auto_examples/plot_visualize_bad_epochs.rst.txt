@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_visualize_bad_epochs.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_examples_plot_visualize_bad_epochs.py:
 
@@ -11,13 +15,14 @@ This example demonstrates how to use :mod:`autoreject` to
 visualize the bad sensors in each trial
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
     #         Denis A. Engemann <denis.engemann@gmail.com>
     # License: BSD (3-clause)
+
+    # sphinx_gallery_thumbnail_number = 2
 
 
 
@@ -29,8 +34,7 @@ First, we download the data from OpenfMRI. We will download the tarfile,
 extract the necessary files and delete the tar from the disk
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import os
@@ -63,7 +67,9 @@ extract the necessary files and delete the tar from the disk
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     processing subject: sub016
 
@@ -73,8 +79,7 @@ and continuing up to 800 ms after that. The data contains visual stimuli for
 famous faces, unfamiliar faces, as well as scrambled faces.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     tmin, tmax = -0.2, 0.8
@@ -89,8 +94,7 @@ famous faces, unfamiliar faces, as well as scrambled faces.
 Let us now load all the epochs into memory and concatenate them
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import mne  # noqa
@@ -130,9 +134,11 @@ Let us now load all the epochs into memory and concatenate them
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_03_raw.fif...
+ .. code-block:: none
+
+    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/autoreject/../examples/ds117/sub016/MEG/run_03_raw.fif...
         Read a total of 8 projection items:
             mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
             mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
@@ -146,19 +152,30 @@ Let us now load all the epochs into memory and concatenate them
     Ready.
     Current compensation grade : 0
     Reading 0 ... 537899  =      0.000 ...   488.999 secs...
+    Filtering raw data in 1 contiguous segment
     Setting up band-pass filter from 1 - 40 Hz
-    h_trans_bandwidth chosen to be 10.0 Hz
-    Filter length of 7261 samples (6.601 sec) selected
+
+    FIR filter parameters
+    ---------------------
+    Designing a one-pass, zero-phase, non-causal bandpass filter:
+    - Windowed time-domain design (firwin) method
+    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+    - Lower passband edge: 1.00
+    - Lower transition bandwidth: 0.50 Hz (-6 dB cutoff frequency: 0.75 Hz)
+    - Upper passband edge: 40.00 Hz
+    - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
+    - Filter length: 7261 samples (6.601 sec)
+
     294 events found
-    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
-      273  274  275 4096 4101 4102 4103 4109 4110 4111 4113 4114 4115]
+    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
+      270  273  274  275 4096 4101 4102 4103 4109 4110 4111 4113 4114 4115]
     Applying average reference.
     Applying a custom EEG reference.
     49 matching events found
     No baseline correction applied
     Not setting metadata
     8 projection items activated
-    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_04_raw.fif...
+    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/autoreject/../examples/ds117/sub016/MEG/run_04_raw.fif...
         Read a total of 8 projection items:
             mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
             mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
@@ -172,19 +189,30 @@ Let us now load all the epochs into memory and concatenate them
     Ready.
     Current compensation grade : 0
     Reading 0 ... 543399  =      0.000 ...   493.999 secs...
+    Filtering raw data in 1 contiguous segment
     Setting up band-pass filter from 1 - 40 Hz
-    h_trans_bandwidth chosen to be 10.0 Hz
-    Filter length of 7261 samples (6.601 sec) selected
+
+    FIR filter parameters
+    ---------------------
+    Designing a one-pass, zero-phase, non-causal bandpass filter:
+    - Windowed time-domain design (firwin) method
+    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+    - Lower passband edge: 1.00
+    - Lower transition bandwidth: 0.50 Hz (-6 dB cutoff frequency: 0.75 Hz)
+    - Upper passband edge: 40.00 Hz
+    - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
+    - Filter length: 7261 samples (6.601 sec)
+
     296 events found
-    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
-      273  274  275 4096 4101 4102 4103 4109 4110 4111 4113]
+    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
+      270  273  274  275 4096 4101 4102 4103 4109 4110 4111 4113]
     Applying average reference.
     Applying a custom EEG reference.
     49 matching events found
     No baseline correction applied
     Not setting metadata
     8 projection items activated
-    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_05_raw.fif...
+    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/autoreject/../examples/ds117/sub016/MEG/run_05_raw.fif...
         Read a total of 8 projection items:
             mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
             mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
@@ -198,19 +226,31 @@ Let us now load all the epochs into memory and concatenate them
     Ready.
     Current compensation grade : 0
     Reading 0 ... 541199  =      0.000 ...   491.999 secs...
+    Filtering raw data in 1 contiguous segment
     Setting up band-pass filter from 1 - 40 Hz
-    h_trans_bandwidth chosen to be 10.0 Hz
-    Filter length of 7261 samples (6.601 sec) selected
+
+    FIR filter parameters
+    ---------------------
+    Designing a one-pass, zero-phase, non-causal bandpass filter:
+    - Windowed time-domain design (firwin) method
+    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+    - Lower passband edge: 1.00
+    - Lower transition bandwidth: 0.50 Hz (-6 dB cutoff frequency: 0.75 Hz)
+    - Upper passband edge: 40.00 Hz
+    - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
+    - Filter length: 7261 samples (6.601 sec)
+
     295 events found
-    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
-      271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4115 4357 4359]
+    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
+      270  271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4115 4357
+     4359]
     Applying average reference.
     Applying a custom EEG reference.
     47 matching events found
     No baseline correction applied
     Not setting metadata
     8 projection items activated
-    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/examples/ds117/sub016/MEG/run_06_raw.fif...
+    Opening raw data file /home/mainak/Desktop/projects/github_repos/autoreject/autoreject/../examples/ds117/sub016/MEG/run_06_raw.fif...
         Read a total of 8 projection items:
             mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
             mag_ssp_upright.fif : PCA-mags-v2 (1 x 306)  idle
@@ -224,12 +264,23 @@ Let us now load all the epochs into memory and concatenate them
     Ready.
     Current compensation grade : 0
     Reading 0 ... 540099  =      0.000 ...   490.999 secs...
+    Filtering raw data in 1 contiguous segment
     Setting up band-pass filter from 1 - 40 Hz
-    h_trans_bandwidth chosen to be 10.0 Hz
-    Filter length of 7261 samples (6.601 sec) selected
+
+    FIR filter parameters
+    ---------------------
+    Designing a one-pass, zero-phase, non-causal bandpass filter:
+    - Windowed time-domain design (firwin) method
+    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+    - Lower passband edge: 1.00
+    - Lower transition bandwidth: 0.50 Hz (-6 dB cutoff frequency: 0.75 Hz)
+    - Upper passband edge: 40.00 Hz
+    - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
+    - Filter length: 7261 samples (6.601 sec)
+
     296 events found
-    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269  270
-      271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4114]
+    Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
+      270  271  273  274  275 4096 4101 4102 4103 4109 4110 4111 4114]
     Applying average reference.
     Applying a custom EEG reference.
     48 matching events found
@@ -253,8 +304,7 @@ Let us now load all the epochs into memory and concatenate them
 Now, we apply autoreject
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from autoreject import AutoReject, compute_thresholds  # noqa
@@ -276,15 +326,13 @@ channel type and internally combines. This then readily supports cleaning
 unseen epochs from the different channel types used during fit.
 Here we only use a subset of channels to save time.
 
-
 Also note that once the parameters are learned, any data can be repaired
 that contains channels that were used during fit. This also means that time
 may be saved by fitting :class:`autoreject.AutoReject` on a
 representative subsample of the data.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     ar = AutoReject(picks=picks, random_state=42, n_jobs=1, verbose='tqdm')
@@ -297,74 +345,23 @@ representative subsample of the data.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Running autoreject on ch_type=eeg
-    Computing thresholds ...
-    [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    1.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    2.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    4.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    5.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    6.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    7.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    8.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    9.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:   11.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:   12.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:   13.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:   14.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:   15.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:   16.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:   17.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:   18.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:   19.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:   21.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:   22.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:   23.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:   24.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:   25.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:   27.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:   28.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:   29.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:   30.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:   31.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:   33.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:   34.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:   36.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:   37.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:   39.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:   40.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:   41.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:   42.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:   44.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:   45.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   46.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   47.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   49.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   50.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   51.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   52.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   53.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   55.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   56.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   57.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   59.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:  1.0min remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:  1.0min remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  70 out of  70 | elapsed:  1.4min finished
 
 
 
 
     Estimated consensus=0.10 and n_interpolate=4
-    Dropped 56 epochs
+    Dropped 55 epochs
 
 
 We can visualize the cross validation curve over two variables
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import numpy as np  # noqa
@@ -376,7 +373,7 @@ We can visualize the cross validation curve over two variables
     loss = ar.loss_['eeg'].mean(axis=-1)  # losses are stored by channel type.
 
     plt.matshow(loss.T * 1e6, cmap=plt.get_cmap('viridis'))
-    plt.xticks(range(len(ar.consensus)), ar.consensus)
+    plt.xticks(range(len(ar.consensus)), ['%.1f' % c for c in ar.consensus])
     plt.yticks(range(len(ar.n_interpolate)), ar.n_interpolate)
 
     # Draw rectangle at location of best parameters
@@ -396,7 +393,7 @@ We can visualize the cross validation curve over two variables
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_001.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
@@ -406,8 +403,7 @@ interpolated are in blue. Bad sensors which are not interpolated are in red.
 Bad trials are also in red.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     scalings = dict(eeg=40e-6)
@@ -417,7 +413,7 @@ Bad trials are also in red.
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_002.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
@@ -425,8 +421,7 @@ Bad trials are also in red.
 ... and the epochs after cleaning with autoreject
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     epochs_ar.plot(scalings=scalings)
@@ -435,7 +430,7 @@ Bad trials are also in red.
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_003.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
@@ -443,8 +438,7 @@ Bad trials are also in red.
 The epochs dropped by autoreject are also stored in epochs.drop_log
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     epochs_ar.plot_drop_log()
@@ -453,7 +447,7 @@ The epochs dropped by autoreject are also stored in epochs.drop_log
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_004.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
@@ -464,8 +458,7 @@ the eyeblinks have not yet been cleaned but the bad channels have been
 repaired.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     ylim = dict(eeg=(-15, 15))
@@ -480,21 +473,30 @@ repaired.
     *
 
       .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_005.png
-            :scale: 47
+            :class: sphx-glr-multi-img
 
     *
 
       .. image:: /auto_examples/images/sphx_glr_plot_visualize_bad_epochs_006.png
-            :scale: 47
+            :class: sphx-glr-multi-img
 
 
 
 
-**Total running time of the script:** ( 3 minutes  13.754 seconds)
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 2 minutes  8.151 seconds)
 
 
+.. _sphx_glr_download_auto_examples_plot_visualize_bad_epochs.py:
 
-.. container:: sphx-glr-footer
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download
@@ -507,6 +509,9 @@ repaired.
 
      :download:`Download Jupyter notebook: plot_visualize_bad_epochs.ipynb <plot_visualize_bad_epochs.ipynb>`
 
-.. rst-class:: sphx-glr-signature
 
-    `Generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

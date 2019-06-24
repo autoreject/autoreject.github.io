@@ -1,36 +1,22 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Frequently asked questions &#8212; autoreject 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>Frequently asked questions &#8212; autoreject 0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -39,8 +25,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,15 +38,17 @@
         </button>
         <a class="navbar-brand" href="index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
                 <li><a href="auto_examples/index.html">Examples</a></li>
-                <li><a href="api.html">API</a></li>
+                <li><a href="explanation.html">Explanation</a></li>
                 <li><a href="#">FAQ</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="whats_new.html">What's new</a></li>
                 <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
             
             
@@ -87,6 +74,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Frequently asked questions</a><ul>
 <li><a class="reference internal" href="#should-i-apply-ica-first-or-autoreject-first">Should I apply ICA first or autoreject first?</a></li>
+<li><a class="reference internal" href="#is-it-dangerous-to-do-source-estimation-with-interpolated-channels">Is it dangerous to do source estimation with interpolated channels?</a></li>
 <li><a class="reference internal" href="#how-do-i-manually-set-the-n-interpolate-and-consensus-parameter">How do I manually set the <cite>n_interpolate</cite> and <cite>consensus</cite> parameter?</a></li>
 <li><a class="reference internal" href="#is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate">Is it possible to get only bad sensor annotations and not interpolate?</a></li>
 </ul>
@@ -126,41 +114,50 @@
   
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<p>This section of the documentation provides a <em>discussion-like</em> format, answering
+“How-to” questions.</p>
 <div class="section" id="should-i-apply-ica-first-or-autoreject-first">
 <h2>Should I apply ICA first or autoreject first?<a class="headerlink" href="#should-i-apply-ica-first-or-autoreject-first" title="Permalink to this headline">¶</a></h2>
 <p>ICA solutions can be affected by high amplitude artifacts, therefore
 we recommend first using autoreject to detect the bad segments, then applying
 ICA, and finally interpolating the bad data.</p>
 <p>To ignore bad segments using autoreject (local), we could do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="p">,</span> <span class="n">reject_log</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="o">~</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>or use autoreject (global):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This option can be more preferred if we would like to fit ICA on the raw
 data, and not on the epochs. After this, we can apply ICA:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>  <span class="c1"># exclude EOG components</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>  <span class="c1"># exclude EOG components</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, autoreject could be applied to clean the data:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Autoreject is not meant for eyeblink artifacts since it affects neighboring
 sensors. Indeed, a spatial filtering method like ICA is better suited for this.</p>
 </div>
+<div class="section" id="is-it-dangerous-to-do-source-estimation-with-interpolated-channels">
+<h2>Is it dangerous to do source estimation with interpolated channels?<a class="headerlink" href="#is-it-dangerous-to-do-source-estimation-with-interpolated-channels" title="Permalink to this headline">¶</a></h2>
+<p>Interpolated data is no different from measured data. It’s what you would expect
+to see if there were no artifacts in the data. Interpolation is nothing magical.
+It simply takes a weighted average of the data in the neighboring good channels. Indeed, if the artifact was left in the data, it will bias the source estimate
+far more than any potential harm that interpolation may pose.</p>
+</div>
 <div class="section" id="how-do-i-manually-set-the-n-interpolate-and-consensus-parameter">
 <h2>How do I manually set the <cite>n_interpolate</cite> and <cite>consensus</cite> parameter?<a class="headerlink" href="#how-do-i-manually-set-the-n-interpolate-and-consensus-parameter" title="Permalink to this headline">¶</a></h2>
 <p>If you do not want autoreject to select a parameter for you, simply pass it
 as a list of a single element:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">consensus_percs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">consensus_percs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Note this will still run a cross-validation loop to generate the
@@ -169,7 +166,7 @@ validation score.</p>
 <div class="section" id="is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate">
 <h2>Is it possible to get only bad sensor annotations and not interpolate?<a class="headerlink" href="#is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate" title="Permalink to this headline">¶</a></h2>
 <p>Yes! Simply do:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reject_log</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -193,7 +190,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

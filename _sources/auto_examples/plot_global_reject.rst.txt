@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_global_reject.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_examples_plot_global_reject.py:
 
@@ -12,8 +16,7 @@ plot the cross-validation curve that is used to estimate the
 global rejection thresholds.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
@@ -28,8 +31,7 @@ global rejection thresholds.
 Let us import the data using MNE-Python and epoch it.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import mne
@@ -60,7 +62,9 @@ Let us import the data using MNE-Python and epoch it.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
         Read a total of 4 projection items:
@@ -78,8 +82,7 @@ Let us define a range of candidate thresholds which we would like to try.
 In this particular case, we try from :math:`40{\mu}V` to :math:`200{\mu}V`
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import numpy as np  # noqa
@@ -91,21 +94,20 @@ In this particular case, we try from :math:`40{\mu}V` to :math:`200{\mu}V`
 
 
 
-Next, we can use :class:`autoreject.GlobalAutoReject` to find global
-(i.e., for all channels) peak-to-peak thresholds. It is a class which
-follows a :mod:`scikit-learn`-like API. To compute the Root Mean Squared
-(RMSE) values at the candidate thresholds, we will use the function
-:func:`autoreject.validation_curve`.
+Next, we can use :func:`autoreject.validation_curve` to compute the Root Mean
+Squared (RMSE) values at the candidate thresholds. Under the hood, this is
+using  :class:`autoreject._GlobalAutoReject` to find global (i.e., for all
+channels) peak-to-peak thresholds.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from autoreject import validation_curve  # noqa
+    from autoreject import get_rejection_threshold  # noqa
 
-    _, test_scores = validation_curve(
-        epochs, y=None, param_name="thresh", param_range=param_range, cv=5)
+    _, test_scores, param_range = validation_curve(
+        epochs, param_range=param_range, cv=5, return_param_range=True, n_jobs=1)
 
     test_scores = -test_scores.mean(axis=1)
     best_thresh = param_range[np.argmin(test_scores)]
@@ -116,18 +118,38 @@ follows a :mod:`scikit-learn`-like API. To compute the Root Mean Squared
 
 
 
+We can also get the best threshold more efficiently using Bayesian
+optimization
+
+
+.. code-block:: default
+
+    reject2 = get_rejection_threshold(epochs, random_state=0, cv=5)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    Estimating rejection dictionary for eeg
+
+
 Now let us plot the RMSE values against the candidate thresholds.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import matplotlib.pyplot as plt  # noqa
     from autoreject import set_matplotlib_defaults  # noqa
     set_matplotlib_defaults(plt)
 
-    human_thresh = 80e-6
+    human_thresh = 80e-6  # this is a threshold determined visually by a human
     unit = r'$\mu$V'
     scaling = 1e6
 
@@ -135,7 +157,7 @@ Now let us plot the RMSE values against the candidate thresholds.
     plt.tick_params(axis='x', which='both', bottom='off', top='off')
     plt.tick_params(axis='y', which='both', left='off', right='off')
 
-    colors = ['#E24A33', '#348ABD', '#988ED5']
+    colors = ['#E24A33', '#348ABD', '#988ED5', 'k']
 
     plt.plot(scaling * param_range, scaling * test_scores,
              'o-', markerfacecolor='w',
@@ -143,8 +165,10 @@ Now let us plot the RMSE values against the candidate thresholds.
              markeredgecolor=colors[0], markersize=8, label='CV scores')
     plt.ylabel('RMSE (%s)' % unit)
     plt.xlabel('Threshold (%s)' % unit)
-    plt.xlim((scaling * param_range[0] - 10, scaling * param_range[-1] + 10))
+    plt.xlim((scaling * param_range[0] * 0.9, scaling * param_range[-1] * 1.1))
     plt.axvline(scaling * best_thresh, label='auto global', color=colors[2],
+                linewidth=2, linestyle='--')
+    plt.axvline(scaling * reject2['eeg'], label='bayes opt', color=colors[3],
                 linewidth=2, linestyle='--')
     plt.axvline(scaling * human_thresh, label='manual', color=colors[1],
                 linewidth=2, linestyle=':')
@@ -155,16 +179,25 @@ Now let us plot the RMSE values against the candidate thresholds.
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_global_reject_001.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
 
-**Total running time of the script:** ( 0 minutes  2.265 seconds)
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  2.952 seconds)
 
 
+.. _sphx_glr_download_auto_examples_plot_global_reject.py:
 
-.. container:: sphx-glr-footer
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download
@@ -177,6 +210,9 @@ Now let us plot the RMSE values against the candidate thresholds.
 
      :download:`Download Jupyter notebook: plot_global_reject.ipynb <plot_global_reject.ipynb>`
 
-.. rst-class:: sphx-glr-signature
 
-    `Generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

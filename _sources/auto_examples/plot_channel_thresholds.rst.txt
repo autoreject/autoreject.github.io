@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_channel_thresholds.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_examples_plot_channel_thresholds.py:
 
@@ -11,8 +15,7 @@ This example demonstrates how to use :mod:`autoreject` to find
 channel-wise thresholds.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     # Author: Mainak Jas <mainak.jas@telecom-paristech.fr>
@@ -27,8 +30,7 @@ channel-wise thresholds.
 Let us first load the `raw` data using :func:`mne.io.read_raw_fif`.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import mne
@@ -45,7 +47,9 @@ Let us first load the `raw` data using :func:`mne.io.read_raw_fif`.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
         Read a total of 4 projection items:
@@ -62,8 +66,7 @@ Let us first load the `raw` data using :func:`mne.io.read_raw_fif`.
 We can extract the events (or triggers) for epoching our signal.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     event_fname = data_path + ('/MEG/sample/sample_audvis_filt-0-40_raw-'
@@ -82,8 +85,7 @@ Now that we have the events, we can extract the trials for the selection
 of channels defined by ``picks``.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     epochs = mne.Epochs(raw, events, event_id, tmin, tmax,
@@ -100,18 +102,18 @@ of channels defined by ``picks``.
 
 
 
-Now, we can define a threshold range over which the threshold must be found
-and then compute the channel-level thresholds using
-:func:`autoreject.compute_thresholds`.
+Now, we compute the channel-level thresholds using
+:func:`autoreject.compute_thresholds`. The `method` parameter will determine
+how we will search for thresholds over a range of potential candidates.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import numpy as np  # noqa
     from autoreject import compute_thresholds  # noqa
 
+    # Get a dictionary of rejection thresholds
     threshes = compute_thresholds(epochs, picks=picks, method='random_search',
                                   random_state=42, augment=False,
                                   verbose='progressbar')
@@ -122,68 +124,18 @@ and then compute the channel-level thresholds using
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    Computing thresholds ...
-    [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    0.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    0.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   3 out of   3 | elapsed:    0.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   4 out of   4 | elapsed:    1.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   5 out of   5 | elapsed:    1.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   6 out of   6 | elapsed:    1.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   7 out of   7 | elapsed:    1.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   8 out of   8 | elapsed:    2.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done   9 out of   9 | elapsed:    2.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  10 out of  10 | elapsed:    2.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  11 out of  11 | elapsed:    2.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  12 out of  12 | elapsed:    3.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  13 out of  13 | elapsed:    3.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  14 out of  14 | elapsed:    3.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed:    4.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  16 out of  16 | elapsed:    4.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  17 out of  17 | elapsed:    4.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  18 out of  18 | elapsed:    4.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  19 out of  19 | elapsed:    5.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  20 out of  20 | elapsed:    5.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  21 out of  21 | elapsed:    5.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  22 out of  22 | elapsed:    5.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  23 out of  23 | elapsed:    6.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  24 out of  24 | elapsed:    6.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  25 out of  25 | elapsed:    6.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  26 out of  26 | elapsed:    6.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  27 out of  27 | elapsed:    7.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  28 out of  28 | elapsed:    7.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  29 out of  29 | elapsed:    7.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  30 out of  30 | elapsed:    7.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  31 out of  31 | elapsed:    8.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  32 out of  32 | elapsed:    8.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  33 out of  33 | elapsed:    8.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  34 out of  34 | elapsed:    8.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  35 out of  35 | elapsed:    9.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  36 out of  36 | elapsed:    9.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  37 out of  37 | elapsed:    9.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  38 out of  38 | elapsed:   10.1s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  39 out of  39 | elapsed:   10.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  40 out of  40 | elapsed:   10.6s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  41 out of  41 | elapsed:   10.9s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  42 out of  42 | elapsed:   11.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  43 out of  43 | elapsed:   11.4s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  44 out of  44 | elapsed:   11.7s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  45 out of  45 | elapsed:   12.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  46 out of  46 | elapsed:   12.2s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  47 out of  47 | elapsed:   12.5s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  48 out of  48 | elapsed:   12.8s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  49 out of  49 | elapsed:   13.0s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done  50 out of  50 | elapsed:   13.3s remaining:    0.0s
-    [Parallel(n_jobs=1)]: Done 203 out of 203 | elapsed:   51.0s finished
+ .. code-block:: none
+
+    [                                                            ]   0.00% Computing thresholds ... |       [                                                            ]   0.49% Computing thresholds ... /       [                                                            ]   0.99% Computing thresholds ... -       [                                                            ]   1.48% Computing thresholds ... \       [.                                                           ]   1.97% Computing thresholds ... |       [.                                                           ]   2.46% Computing thresholds ... /       [.                                                           ]   2.96% Computing thresholds ... -       [..                                                          ]   3.45% Computing thresholds ... \       [..                                                          ]   3.94% Computing thresholds ... |       [..                                                          ]   4.43% Computing thresholds ... /       [..                                                          ]   4.93% Computing thresholds ... -       [...                                                         ]   5.42% Computing thresholds ... \       [...                                                         ]   5.91% Computing thresholds ... |       [...                                                         ]   6.40% Computing thresholds ... /       [....                                                        ]   6.90% Computing thresholds ... -       [....                                                        ]   7.39% Computing thresholds ... \       [....                                                        ]   7.88% Computing thresholds ... |       [.....                                                       ]   8.37% Computing thresholds ... /       [.....                                                       ]   8.87% Computing thresholds ... -       [.....                                                       ]   9.36% Computing thresholds ... \       [.....                                                       ]   9.85% Computing thresholds ... |       [......                                                      ]  10.34% Computing thresholds ... /       [......                                                      ]  10.84% Computing thresholds ... -       [......                                                      ]  11.33% Computing thresholds ... \       [.......                                                     ]  11.82% Computing thresholds ... |       [.......                                                     ]  12.32% Computing thresholds ... /       [.......                                                     ]  12.81% Computing thresholds ... -       [.......                                                     ]  13.30% Computing thresholds ... \       [........                                                    ]  13.79% Computing thresholds ... |       [........                                                    ]  14.29% Computing thresholds ... /       [........                                                    ]  14.78% Computing thresholds ... -       [.........                                                   ]  15.27% Computing thresholds ... \       [.........                                                   ]  15.76% Computing thresholds ... |       [.........                                                   ]  16.26% Computing thresholds ... /       [..........                                                  ]  16.75% Computing thresholds ... -       [..........                                                  ]  17.24% Computing thresholds ... \       [..........                                                  ]  17.73% Computing thresholds ... |       [..........                                                  ]  18.23% Computing thresholds ... /       [...........                                                 ]  18.72% Computing thresholds ... -       [...........                                                 ]  19.21% Computing thresholds ... \       [...........                                                 ]  19.70% Computing thresholds ... |       [............                                                ]  20.20% Computing thresholds ... /       [............                                                ]  20.69% Computing thresholds ... -       [............                                                ]  21.18% Computing thresholds ... \       [.............                                               ]  21.67% Computing thresholds ... |       [.............                                               ]  22.17% Computing thresholds ... /       [.............                                               ]  22.66% Computing thresholds ... -       [.............                                               ]  23.15% Computing thresholds ... \       [..............                                              ]  23.65% Computing thresholds ... |       [..............                                              ]  24.14% Computing thresholds ... /       [..............                                              ]  24.63% Computing thresholds ... -       [...............                                             ]  25.12% Computing thresholds ... \       [...............                                             ]  25.62% Computing thresholds ... |       [...............                                             ]  26.11% Computing thresholds ... /       [...............                                             ]  26.60% Computing thresholds ... -       [................                                            ]  27.09% Computing thresholds ... \       [................                                            ]  27.59% Computing thresholds ... |       [................                                            ]  28.08% Computing thresholds ... /       [.................                                           ]  28.57% Computing thresholds ... -       [.................                                           ]  29.06% Computing thresholds ... \       [.................                                           ]  29.56% Computing thresholds ... |       [..................                                          ]  30.05% Computing thresholds ... /       [..................                                          ]  30.54% Computing thresholds ... -       [..................                                          ]  31.03% Computing thresholds ... \       [..................                                          ]  31.53% Computing thresholds ... |       [...................                                         ]  32.02% Computing thresholds ... /       [...................                                         ]  32.51% Computing thresholds ... -       [...................                                         ]  33.00% Computing thresholds ... \       [....................                                        ]  33.50% Computing thresholds ... |       [....................                                        ]  33.99% Computing thresholds ... /       [....................                                        ]  34.48% Computing thresholds ... -       [....................                                        ]  34.98% Computing thresholds ... \       [.....................                                       ]  35.47% Computing thresholds ... |       [.....................                                       ]  35.96% Computing thresholds ... /       [.....................                                       ]  36.45% Computing thresholds ... -       [......................                                      ]  36.95% Computing thresholds ... \       [......................                                      ]  37.44% Computing thresholds ... |       [......................                                      ]  37.93% Computing thresholds ... /       [.......................                                     ]  38.42% Computing thresholds ... -       [.......................                                     ]  38.92% Computing thresholds ... \       [.......................                                     ]  39.41% Computing thresholds ... |       [.......................                                     ]  39.90% Computing thresholds ... /       [........................                                    ]  40.39% Computing thresholds ... -       [........................                                    ]  40.89% Computing thresholds ... \       [........................                                    ]  41.38% Computing thresholds ... |       [.........................                                   ]  41.87% Computing thresholds ... /       [.........................                                   ]  42.36% Computing thresholds ... -       [.........................                                   ]  42.86% Computing thresholds ... \       [..........................                                  ]  43.35% Computing thresholds ... |       [..........................                                  ]  43.84% Computing thresholds ... /       [..........................                                  ]  44.33% Computing thresholds ... -       [..........................                                  ]  44.83% Computing thresholds ... \       [...........................                                 ]  45.32% Computing thresholds ... |       [...........................                                 ]  45.81% Computing thresholds ... /       [...........................                                 ]  46.31% Computing thresholds ... -       [............................                                ]  46.80% Computing thresholds ... \       [............................                                ]  47.29% Computing thresholds ... |       [............................                                ]  47.78% Computing thresholds ... /       [............................                                ]  48.28% Computing thresholds ... -       [.............................                               ]  48.77% Computing thresholds ... \       [.............................                               ]  49.26% Computing thresholds ... |       [.............................                               ]  49.75% Computing thresholds ... /       [..............................                              ]  50.25% Computing thresholds ... -       [..............................                              ]  50.74% Computing thresholds ... \       [..............................                              ]  51.23% Computing thresholds ... |       [...............................                             ]  51.72% Computing thresholds ... /       [...............................                             ]  52.22% Computing thresholds ... -       [...............................                             ]  52.71% Computing thresholds ... \       [...............................                             ]  53.20% Computing thresholds ... |       [................................                            ]  53.69% Computing thresholds ... /       [................................                            ]  54.19% Computing thresholds ... -       [................................                            ]  54.68% Computing thresholds ... \       [.................................                           ]  55.17% Computing thresholds ... |       [.................................                           ]  55.67% Computing thresholds ... /       [.................................                           ]  56.16% Computing thresholds ... -       [.................................                           ]  56.65% Computing thresholds ... \       [..................................                          ]  57.14% Computing thresholds ... |       [..................................                          ]  57.64% Computing thresholds ... /       [..................................                          ]  58.13% Computing thresholds ... -       [...................................                         ]  58.62% Computing thresholds ... \       [...................................                         ]  59.11% Computing thresholds ... |       [...................................                         ]  59.61% Computing thresholds ... /       [....................................                        ]  60.10% Computing thresholds ... -       [....................................                        ]  60.59% Computing thresholds ... \       [....................................                        ]  61.08% Computing thresholds ... |       [....................................                        ]  61.58% Computing thresholds ... /       [.....................................                       ]  62.07% Computing thresholds ... -       [.....................................                       ]  62.56% Computing thresholds ... \       [.....................................                       ]  63.05% Computing thresholds ... |       [......................................                      ]  63.55% Computing thresholds ... /       [......................................                      ]  64.04% Computing thresholds ... -       [......................................                      ]  64.53% Computing thresholds ... \       [.......................................                     ]  65.02% Computing thresholds ... |       [.......................................                     ]  65.52% Computing thresholds ... /       [.......................................                     ]  66.01% Computing thresholds ... -       [.......................................                     ]  66.50% Computing thresholds ... \       [........................................                    ]  67.00% Computing thresholds ... |       [........................................                    ]  67.49% Computing thresholds ... /       [........................................                    ]  67.98% Computing thresholds ... -       [.........................................                   ]  68.47% Computing thresholds ... \       [.........................................                   ]  68.97% Computing thresholds ... |       [.........................................                   ]  69.46% Computing thresholds ... /       [.........................................                   ]  69.95% Computing thresholds ... -       [..........................................                  ]  70.44% Computing thresholds ... \       [..........................................                  ]  70.94% Computing thresholds ... |       [..........................................                  ]  71.43% Computing thresholds ... /       [...........................................                 ]  71.92% Computing thresholds ... -       [...........................................                 ]  72.41% Computing thresholds ... \       [...........................................                 ]  72.91% Computing thresholds ... |       [............................................                ]  73.40% Computing thresholds ... /       [............................................                ]  73.89% Computing thresholds ... -       [............................................                ]  74.38% Computing thresholds ... \       [............................................                ]  74.88% Computing thresholds ... |       [.............................................               ]  75.37% Computing thresholds ... /       [.............................................               ]  75.86% Computing thresholds ... -       [.............................................               ]  76.35% Computing thresholds ... \       [..............................................              ]  76.85% Computing thresholds ... |       [..............................................              ]  77.34% Computing thresholds ... /       [..............................................              ]  77.83% Computing thresholds ... -       [..............................................              ]  78.33% Computing thresholds ... \       [...............................................             ]  78.82% Computing thresholds ... |       [...............................................             ]  79.31% Computing thresholds ... /       [...............................................             ]  79.80% Computing thresholds ... -       [................................................            ]  80.30% Computing thresholds ... \       [................................................            ]  80.79% Computing thresholds ... |       [................................................            ]  81.28% Computing thresholds ... /       [.................................................           ]  81.77% Computing thresholds ... -       [.................................................           ]  82.27% Computing thresholds ... \       [.................................................           ]  82.76% Computing thresholds ... |       [.................................................           ]  83.25% Computing thresholds ... /       [..................................................          ]  83.74% Computing thresholds ... -       [..................................................          ]  84.24% Computing thresholds ... \       [..................................................          ]  84.73% Computing thresholds ... |       [...................................................         ]  85.22% Computing thresholds ... /       [...................................................         ]  85.71% Computing thresholds ... -       [...................................................         ]  86.21% Computing thresholds ... \       [....................................................        ]  86.70% Computing thresholds ... |       [....................................................        ]  87.19% Computing thresholds ... /       [....................................................        ]  87.68% Computing thresholds ... -       [....................................................        ]  88.18% Computing thresholds ... \       [.....................................................       ]  88.67% Computing thresholds ... |       [.....................................................       ]  89.16% Computing thresholds ... /       [.....................................................       ]  89.66% Computing thresholds ... -       [......................................................      ]  90.15% Computing thresholds ... \       [......................................................      ]  90.64% Computing thresholds ... |       [......................................................      ]  91.13% Computing thresholds ... /       [......................................................      ]  91.63% Computing thresholds ... -       [.......................................................     ]  92.12% Computing thresholds ... \       [.......................................................     ]  92.61% Computing thresholds ... |       [.......................................................     ]  93.10% Computing thresholds ... /       [........................................................    ]  93.60% Computing thresholds ... -       [........................................................    ]  94.09% Computing thresholds ... \       [........................................................    ]  94.58% Computing thresholds ... |       [.........................................................   ]  95.07% Computing thresholds ... /       [.........................................................   ]  95.57% Computing thresholds ... -       [.........................................................   ]  96.06% Computing thresholds ... \       [.........................................................   ]  96.55% Computing thresholds ... |       [..........................................................  ]  97.04% Computing thresholds ... /       [..........................................................  ]  97.54% Computing thresholds ... -       [..........................................................  ]  98.03% Computing thresholds ... \       [........................................................... ]  98.52% Computing thresholds ... |       [........................................................... ]  99.01% Computing thresholds ... /       [........................................................... ]  99.51% Computing thresholds ... -       [............................................................] 100.00% Computing thresholds ... \
 
 
 Finally, let us plot a histogram of the channel-level thresholds to verify
 that the thresholds are indeed different for different sensors.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     import matplotlib.pyplot as plt  # noqa
@@ -208,16 +160,25 @@ that the thresholds are indeed different for different sensors.
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_channel_thresholds_001.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
 
-**Total running time of the script:** ( 0 minutes  51.922 seconds)
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  25.654 seconds)
 
 
+.. _sphx_glr_download_auto_examples_plot_channel_thresholds.py:
 
-.. container:: sphx-glr-footer
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download
@@ -230,6 +191,9 @@ that the thresholds are indeed different for different sensors.
 
      :download:`Download Jupyter notebook: plot_channel_thresholds.ipynb <plot_channel_thresholds.ipynb>`
 
-.. rst-class:: sphx-glr-signature
 
-    `Generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

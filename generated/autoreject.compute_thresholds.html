@@ -1,36 +1,22 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>autoreject.compute_thresholds &#8212; autoreject 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>autoreject.compute_thresholds &#8212; autoreject 0.2 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -39,8 +25,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,15 +38,17 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
                 <li><a href="../auto_examples/index.html">Examples</a></li>
-                <li><a href="../api.html">API</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
                 <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
                 <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
             
             
@@ -123,50 +110,44 @@
 <h1>autoreject.compute_thresholds<a class="headerlink" href="#autoreject-compute-thresholds" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="autoreject.compute_thresholds">
-<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>picks=None</em>, <em>augment=True</em>, <em>verbose='progressbar'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autoreject.</code><code class="descname">compute_thresholds</code><span class="sig-paren">(</span><em>epochs</em>, <em>method='bayesian_optimization'</em>, <em>random_state=None</em>, <em>picks=None</em>, <em>augment=True</em>, <em>verbose='progressbar'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#compute_thresholds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.compute_thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute thresholds for each channel.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>epochs</strong> : instance of mne.Epochs</p>
-<blockquote>
-<div><p>The epochs objects whose thresholds must be computed.</p>
-</div></blockquote>
-<p><strong>method</strong> : str</p>
-<blockquote>
-<div><p>&#8216;bayesian_optimization&#8217; or &#8216;random_search&#8217;</p>
-</div></blockquote>
-<p><strong>random_state</strong> : int seed, RandomState instance, or None (default)</p>
-<blockquote>
-<div><p>The seed of the pseudo random number generator to use</p>
-</div></blockquote>
-<p><strong>picks</strong> : ndarray, shape(n_channels,) | None</p>
-<blockquote>
-<div><p>The channels to be considered for autoreject. If None, defaults
-to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</p>
-</div></blockquote>
-<p><strong>augment</strong> : boolean</p>
-<blockquote>
-<div><p>Whether to augment the data or not. By default it is True, but
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>epochs</strong><span class="classifier">instance of mne.Epochs</span></dt><dd><p>The epochs objects whose thresholds must be computed.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>‘bayesian_optimization’ or ‘random_search’</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int seed, RandomState instance, or None (default)</span></dt><dd><p>The seed of the pseudo random number generator to use</p>
+</dd>
+<dt><strong>picks</strong><span class="classifier">ndarray, shape(n_channels,) | None</span></dt><dd><p>The channels to be considered for autoreject. If None, defaults
+to data channels {‘meg’, ‘eeg’}.</p>
+</dd>
+<dt><strong>augment</strong><span class="classifier">boolean</span></dt><dd><p>Whether to augment the data or not. By default it is True, but
 set it to False, if the channel locations are not available.</p>
-</div></blockquote>
-<p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
-<blockquote class="last">
-<div><p>The verbosity of progress messages.
-If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
-If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
-If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
+</dd>
+<dt><strong>verbose</strong><span class="classifier">‘tqdm’, ‘tqdm_notebook’, ‘progressbar’ or False</span></dt><dd><p>The verbosity of progress messages.
+If <cite>‘progressbar’</cite>, use <cite>mne.utils.ProgressBar</cite>.
+If <cite>‘tqdm’</cite>, use <cite>tqdm.tqdm</cite>.
+If <cite>‘tqdm_notebook’</cite>, use <cite>tqdm.tqdm_notebook</cite>.
 If False, suppress all output messages.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>Number of jobs to run in parallel</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>threshes</strong><span class="classifier">dict</span></dt><dd><p>The channel-level rejection thresholds</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>For example, we can compute the channel-level thresholds for all the
 EEG sensors this way:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -189,7 +170,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>

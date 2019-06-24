@@ -1,36 +1,22 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>autoreject.Ransac &#8212; autoreject 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootswatch-3.3.4/united/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <title>autoreject.Ransac &#8212; autoreject 0.2 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -39,8 +25,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,15 +38,17 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
                 <li><a href="../auto_examples/index.html">Examples</a></li>
-                <li><a href="../api.html">API</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
                 <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
                 <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
             
             
@@ -123,107 +110,89 @@
 <h1>autoreject.Ransac<a class="headerlink" href="#autoreject-ransac" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.Ransac">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">Ransac</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">Ransac</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/ransac.html#Ransac"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.Ransac" title="Permalink to this definition">¶</a></dt>
 <dd><p>RANSAC algorithm to find bad sensors and repair them.</p>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 63%" />
+<col style="width: 37%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
+<tbody>
+<tr class="row-odd"><td><p><strong>fit</strong></p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
+<tr class="row-even"><td><p><strong>fit_transform</strong></p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
+<tr class="row-odd"><td><p><strong>transform</strong></p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="autoreject.Ransac.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="headerlink" href="#autoreject.Ransac.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_resample=50</em>, <em>min_channels=0.25</em>, <em>min_corr=0.75</em>, <em>unbroken_time=0.4</em>, <em>n_jobs=1</em>, <em>random_state=435656</em>, <em>picks=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/ransac.html#Ransac.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.Ransac.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements RAndom SAmple Consensus (RANSAC) method to detect bad sensors.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_resample</strong> : int</p>
-<blockquote>
-<div><p>Number of times the sensors are resampled.</p>
-</div></blockquote>
-<p><strong>min_channels</strong> : float</p>
-<blockquote>
-<div><p>Fraction of sensors for robust reconstruction.</p>
-</div></blockquote>
-<p><strong>min_corr</strong> : float</p>
-<blockquote>
-<div><p>Cut-off correlation for abnormal wrt neighbours.</p>
-</div></blockquote>
-<p><strong>unbroken_time</strong> : float</p>
-<blockquote>
-<div><p>Cut-off fraction of time sensor can have poor RANSAC
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_resample</strong><span class="classifier">int</span></dt><dd><p>Number of times the sensors are resampled.</p>
+</dd>
+<dt><strong>min_channels</strong><span class="classifier">float</span></dt><dd><p>Fraction of sensors for robust reconstruction.</p>
+</dd>
+<dt><strong>min_corr</strong><span class="classifier">float</span></dt><dd><p>Cut-off correlation for abnormal wrt neighbours.</p>
+</dd>
+<dt><strong>unbroken_time</strong><span class="classifier">float</span></dt><dd><p>Cut-off fraction of time sensor can have poor RANSAC
 predictability.</p>
-</div></blockquote>
-<p><strong>n_jobs</strong> : int</p>
-<blockquote>
-<div><p>Number of parallel jobs.</p>
-</div></blockquote>
-<p><strong>random_state</strong> : None | int</p>
-<blockquote>
-<div><p>To seed or not the random number generator.</p>
-</div></blockquote>
-<p><strong>picks</strong> : ndarray, shape(n_channels) | None</p>
-<blockquote>
-<div><p>The channels to be considered for autoreject. If None, defaults
-to data channels {&#8216;meg&#8217;, &#8216;eeg&#8217;}.</p>
-</div></blockquote>
-<p><strong>verbose</strong> : &#8216;tqdm&#8217;, &#8216;tqdm_notebook&#8217;, &#8216;progressbar&#8217; or False</p>
-<blockquote class="last">
-<div><p>The verbosity of progress messages.
-If <cite>&#8216;progressbar&#8217;</cite>, use <cite>mne.utils.ProgressBar</cite>.
-If <cite>&#8216;tqdm&#8217;</cite>, use <cite>tqdm.tqdm</cite>.
-If <cite>&#8216;tqdm_notebook&#8217;</cite>, use <cite>tqdm.tqdm_notebook</cite>.
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>Number of parallel jobs.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">None | int</span></dt><dd><p>To seed or not the random number generator.</p>
+</dd>
+<dt><strong>picks</strong><span class="classifier">ndarray, shape(n_channels) | None</span></dt><dd><p>The channels to be considered for autoreject. If None, defaults
+to data channels {‘meg’, ‘eeg’}.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">‘tqdm’, ‘tqdm_notebook’, ‘progressbar’ or False</span></dt><dd><p>The verbosity of progress messages.
+If <cite>‘progressbar’</cite>, use <cite>mne.utils.ProgressBar</cite>.
+If <cite>‘tqdm’</cite>, use <cite>tqdm.tqdm</cite>.
+If <cite>‘tqdm_notebook’</cite>, use <cite>tqdm.tqdm_notebook</cite>.
 If False, suppress all output messages.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>The window_size is automatically set to the epoch length.</p>
 <p class="rubric">References</p>
-<dl class="docutils">
-<dt>[1] Bigdely-Shamlo, Nima, et al.</dt>
-<dd>&#8220;The PREP pipeline: standardized preprocessing for large-scale EEG
-analysis.&#8221; Frontiers in neuroinformatics 9 (2015).</dd>
-<dt>[2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and</dt>
-<dd>Alexandre Gramfort, &#8220;Autoreject: Automated artifact rejection for
-MEG and EEG.&#8221; arXiv preprint arXiv:1612.08194, 2016.</dd>
+<dl class="simple">
+<dt>[1] Bigdely-Shamlo, Nima, et al.</dt><dd><p>“The PREP pipeline: standardized preprocessing for large-scale EEG
+analysis.” Frontiers in neuroinformatics 9 (2015).</p>
+</dd>
+<dt>[2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and</dt><dd><p>Alexandre Gramfort, “Autoreject: Automated artifact rejection for
+MEG and EEG.” arXiv preprint arXiv:1612.08194, 2016.</p>
+</dd>
 </dl>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-center">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#autoreject.Ransac.__init__" title="autoreject.Ransac.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>([n_resample,&nbsp;min_channels,&nbsp;...])</td>
-<td>Implements RAndom SAmple Consensus (RANSAC) method to detect bad sensors.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#autoreject.Ransac.__init__" title="autoreject.Ransac.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([n_resample, min_channels, …])</p></td>
+<td><p>Implements RAndom SAmple Consensus (RANSAC) method to detect bad sensors.</p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(epochs)</td>
-<td></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(epochs)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_transform</span></code>(epochs)</td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(epochs)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(epochs)</td>
-<td></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(epochs)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -247,7 +216,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
     </p>
   </div>
 </footer>
