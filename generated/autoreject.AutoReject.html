@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>autoreject.AutoReject &#8212; autoreject 0.2 documentation</title>
+    <title>autoreject.AutoReject &#8212; autoreject 0.2.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -14,16 +14,16 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -110,7 +110,7 @@
 <h1>autoreject.AutoReject<a class="headerlink" href="#autoreject-autoreject" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="autoreject.AutoReject">
-<em class="property">class </em><code class="descclassname">autoreject.</code><code class="descname">AutoReject</code><span class="sig-paren">(</span><em>n_interpolate=None</em>, <em>consensus=None</em>, <em>thresh_func=None</em>, <em>cv=10</em>, <em>picks=None</em>, <em>thresh_method='bayesian_optimization'</em>, <em>n_jobs=1</em>, <em>random_state=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">autoreject.</code><code class="sig-name descname">AutoReject</code><span class="sig-paren">(</span><em class="sig-param">n_interpolate=None</em>, <em class="sig-param">consensus=None</em>, <em class="sig-param">thresh_func=None</em>, <em class="sig-param">cv=10</em>, <em class="sig-param">picks=None</em>, <em class="sig-param">thresh_method='bayesian_optimization'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficiently find n_interpolate and consensus.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -170,58 +170,58 @@ only data channels, not already marked as bads are considered.</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(epochs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, epochs)</p></td>
 <td><p>Fit the epochs on the AutoReject object.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(epochs[, return_log])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(self, epochs[, return_log])</p></td>
 <td><p>Estimate the rejection params and finds bad epochs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(epochs[, picks])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(self, epochs[, picks])</p></td>
 <td><p>Get rejection logs of epochs.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(fname[, overwrite])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self, fname[, overwrite])</p></td>
 <td><p>Save autoreject object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(epochs[, return_log])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(self, epochs[, return_log])</p></td>
 <td><p>Remove bad epochs, repairs sensors and returns clean epochs.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="autoreject.AutoReject.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>n_interpolate=None</em>, <em>consensus=None</em>, <em>thresh_func=None</em>, <em>cv=10</em>, <em>picks=None</em>, <em>thresh_method='bayesian_optimization'</em>, <em>n_jobs=1</em>, <em>random_state=None</em>, <em>verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n_interpolate=None</em>, <em class="sig-param">consensus=None</em>, <em class="sig-param">thresh_func=None</em>, <em class="sig-param">cv=10</em>, <em class="sig-param">picks=None</em>, <em class="sig-param">thresh_method='bayesian_optimization'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Init it.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-center">
+<table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#autoreject.AutoReject.__init__" title="autoreject.AutoReject.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([n_interpolate, consensus, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#autoreject.AutoReject.__init__" title="autoreject.AutoReject.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, n_interpolate, consensus, …])</p></td>
 <td><p>Init it.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(epochs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, epochs)</p></td>
 <td><p>Fit the epochs on the AutoReject object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(epochs[, return_log])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(self, epochs[, return_log])</p></td>
 <td><p>Estimate the rejection params and finds bad epochs.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(epochs[, picks])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(self, epochs[, picks])</p></td>
 <td><p>Get rejection logs of epochs.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(fname[, overwrite])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self, fname[, overwrite])</p></td>
 <td><p>Save autoreject object.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(epochs[, return_log])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(self, epochs[, return_log])</p></td>
 <td><p>Remove bad epochs, repairs sensors and returns clean epochs.</p></td>
 </tr>
 </tbody>
@@ -246,7 +246,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>
 </footer>

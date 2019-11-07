@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Frequently asked questions &#8212; autoreject 0.2 documentation</title>
+    <title>Frequently asked questions &#8212; autoreject 0.2.1 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -14,16 +14,16 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -119,32 +119,45 @@
 <div class="section" id="should-i-apply-ica-first-or-autoreject-first">
 <h2>Should I apply ICA first or autoreject first?<a class="headerlink" href="#should-i-apply-ica-first-or-autoreject-first" title="Permalink to this headline">¶</a></h2>
 <p>ICA solutions can be affected by high amplitude artifacts, therefore
-we recommend first using autoreject to detect the bad segments, then applying
-ICA, and finally interpolating the bad data.</p>
+we recommend to determine a reasonable rejection threshold on which data
+segments to ignore in the ICA. autoreject (global) can be used exactly for this
+purpose:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In case you want to fit your ICA on the raw data, you will need an intermediate
+step, because autoreject only works on epoched data. ICA is ignoring the time
+domain of the data, so we can simply turn the raw data into equally spaced
+“fixed length” epochs using ::func::<cite>mne.make_fixed_length_events</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tstep</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">make_fixed_length_events</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">,</span> <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the estimation step and all other processing that happened on the
+components, the ICA results can be applied to the raw data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>  <span class="c1"># exclude EOG components</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clean_raw</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After obtaining the ICA cleaned raw data, you may consider making your own
+specific epochs, and applying autoreject (local).</p>
+<p>As an alternative to using autoreject (global) before the ICA, and autoreject
+(local) as a second step later on, you can use autoreject (local) directly
+on your epochs to detect the bad segments, then applying ICA, and finally
+interpolating the bad data.</p>
 <p>To ignore bad segments using autoreject (local), we could do:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="p">,</span> <span class="n">reject_log</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="o">~</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>or use autoreject (global):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This option can be more preferred if we would like to fit ICA on the raw
-data, and not on the epochs. After this, we can apply ICA:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>  <span class="c1"># exclude EOG components</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Finally, autoreject could be applied to clean the data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Autoreject is not meant for eyeblink artifacts since it affects neighboring
-sensors. Indeed, a spatial filtering method like ICA is better suited for this.</p>
+<p>As a final note, consider that autoreject is not meant to “clean” eyeblink
+artifacts since it affects neighboring sensors. Indeed, a spatial filtering
+method like ICA is better suited for this.</p>
 </div>
 <div class="section" id="is-it-dangerous-to-do-source-estimation-with-interpolated-channels">
 <h2>Is it dangerous to do source estimation with interpolated channels?<a class="headerlink" href="#is-it-dangerous-to-do-source-estimation-with-interpolated-channels" title="Permalink to this headline">¶</a></h2>
@@ -190,7 +203,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>
 </footer>

@@ -66,7 +66,7 @@ Let us import the data using MNE-Python and epoch it.
 
  .. code-block:: none
 
-    Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Opening raw data file /Users/mainak/mne_data/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
         Read a total of 4 projection items:
             PCA-v1 (1 x 102)  idle
             PCA-v2 (1 x 102)  idle
@@ -76,6 +76,7 @@ Let us import the data using MNE-Python and epoch it.
     Ready.
     Current compensation grade : 0
     Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+
 
 
 Let us define a range of candidate thresholds which we would like to try.
@@ -139,6 +140,7 @@ optimization
     Estimating rejection dictionary for eeg
 
 
+
 Now let us plot the RMSE values against the candidate thresholds.
 
 
@@ -182,12 +184,21 @@ Now let us plot the RMSE values against the candidate thresholds.
     :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    /Users/mainak/Documents/github_repos/autoreject/examples/plot_global_reject.py:98: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+      plt.show()
+
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.952 seconds)
+   **Total running time of the script:** ( 0 minutes  4.933 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_global_reject.py:

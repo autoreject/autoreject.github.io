@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Find global rejection threshold &#8212; autoreject 0.2 documentation</title>
+    <title>Find global rejection threshold &#8212; autoreject 0.2.1 documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -14,16 +14,16 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -143,7 +143,7 @@ find global rejection thresholds.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Opening raw data file /home/mainak/Desktop/projects/github_repos/mne-python/examples/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Opening raw data file /Users/mainak/mne_data/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
     Read a total of 4 projection items:
         PCA-v1 (1 x 102)  idle
         PCA-v2 (1 x 102)  idle
@@ -167,7 +167,9 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Estimating rejection dictionary for mag
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/mainak/Documents/github_repos/autoreject/autoreject/autoreject.py:219: RuntimeWarning: The measurement information indicates a low-pass frequency of 40 Hz. The decim=2 parameter will result in a sampling frequency of 75.0769 Hz, which can cause aliasing artifacts.
+  epochs.decimate(decim=decim)
+Estimating rejection dictionary for mag
 Estimating rejection dictionary for grad
 Estimating rejection dictionary for eeg
 Estimating rejection dictionary for eog
@@ -178,7 +180,7 @@ Estimating rejection dictionary for eog
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The rejection dictionary is {&#39;mag&#39;: 3.2845860018518954e-12, &#39;grad&#39;: 1.0357642173052411e-10, &#39;eeg&#39;: 7.148642710452097e-05, &#39;eog&#39;: 4.4772763304005286e-05}
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The rejection dictionary is {&#39;mag&#39;: 3.2845860018518954e-12, &#39;grad&#39;: 1.0357642173052411e-10, &#39;eeg&#39;: 5.740583629141964e-05, &#39;eog&#39;: 4.4772763304005286e-05}
 </pre></div>
 </div>
 <p>Finally, the cleaned epochs</p>
@@ -187,13 +189,13 @@ Estimating rejection dictionary for eog
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_estimate_global_reject_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_estimate_global_reject_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  13.378 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.259 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-estimate-global-reject-py">
 <div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/1b9285c912b89238349543e57c5db4db/plot_estimate_global_reject.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_estimate_global_reject.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/041d91ad2abcd9c510118a8e019c8141/plot_estimate_global_reject.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_estimate_global_reject.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/ce434fa591ab8b30d3c9c478d0e13f25/plot_estimate_global_reject.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_estimate_global_reject.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/93665e8c85b397b7dc9a0c78217ad3d2/plot_estimate_global_reject.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_estimate_global_reject.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -215,7 +217,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
     </p>
     <p>
         &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
     </p>
   </div>
 </footer>
