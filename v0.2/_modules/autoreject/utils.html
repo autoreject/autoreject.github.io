@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>autoreject.utils &#8212; autoreject 0.2.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../auto_examples/index.html">Examples</a></li>
+                <li><a href="../../explanation.html">Explanation</a></li>
+                <li><a href="../../faq.html">FAQ</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="../../whats_new.html">What's new</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <h1>Source code for autoreject.utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Utility functions for autoreject.&quot;&quot;&quot;</span>
+
+<span class="c1"># Authors: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">pick_types</span><span class="p">,</span> <span class="n">pick_info</span>
+<span class="kn">from</span> <span class="nn">mne.channels.interpolation</span> <span class="k">import</span> <span class="n">_do_interp_dots</span>
+
+
+<span class="k">def</span> <span class="nf">_get_ch_type_from_picks</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the channel types from picks.&quot;&quot;&quot;</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">channel_type</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">pp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">keys</span>
+
+
+<span class="k">def</span> <span class="nf">_check_ch_locs</span><span class="p">(</span><span class="n">chs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check if channel locations exist.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    chs : dict</span>
+<span class="sd">        The channels from info[&#39;chs&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">locs3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ch</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">][:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">chs</span><span class="p">])</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="p">((</span><span class="n">locs3d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">locs3d</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">or</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">locs3d</span><span class="p">,</span> <span class="mf">0.</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">&#39;data_channels&#39;</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;progressbar&#39;</span><span class="p">):</span>
+    <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">_get_epochs_type</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">BaseEpochs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only accepts MNE epochs objects.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">epochs</span><span class="o">.</span><span class="n">preload</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Data must be preloaded.&#39;</span><span class="p">)</span>
+    <span class="n">n_bads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_ch_locs</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Valid channel positions are needed&#39;</span>
+                           <span class="s1">&#39;for autoreject to work&#39;</span><span class="p">)</span>
+
+    <span class="n">picked_info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">pick_info</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">)</span>
+    <span class="n">ch_types_picked</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">meas_info</span><span class="o">.</span><span class="n">channel_type</span><span class="p">(</span><span class="n">picked_info</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">))}</span>
+
+    <span class="c1"># XXX : ch_constraint -&gt; allow_many_types=True | False</span>
+    <span class="k">if</span> <span class="n">ch_constraint</span> <span class="o">==</span> <span class="s1">&#39;data_channels&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;AutoReject only supports mag, grad, and eeg &#39;</span>
+                             <span class="s1">&#39;at this point.&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ch_constraint</span> <span class="o">==</span> <span class="s1">&#39;single_channel_type&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;AutoReject only supports mag, grad, and eeg &#39;</span>
+                             <span class="s1">&#39;at this point.&#39;</span><span class="p">)</span>  <span class="c1"># XXX: to check</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad value for ch_constraint.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n_bads</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;</span><span class="si">%i</span><span class="s1"> channels are marked as bad. These will be ignored. &#39;</span>
+                <span class="s1">&#39;If you want them to be considered by autoreject please &#39;</span>
+                <span class="s1">&#39;remove them from epochs.info[&quot;bads&quot;].&#39;</span> <span class="o">%</span> <span class="n">n_bads</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pick the data channls or return picks.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">picks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span>
+            <span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ref_meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">picks</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">_get_picks_by_type</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the picks grouped by channel type.&quot;&quot;&quot;</span>
+    <span class="c1"># do magic here</span>
+    <span class="n">sub_picks_</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">channel_type</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">pp</span><span class="p">)</span>
+        <span class="n">sub_picks_</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">picks_by_type</span> <span class="o">=</span> <span class="p">[(</span><span class="n">kk</span><span class="p">,</span> <span class="n">sub_picks_</span><span class="p">[</span><span class="n">kk</span><span class="p">])</span> <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">picks_by_type</span>
+
+
+<div class="viewcode-block" id="set_matplotlib_defaults"><a class="viewcode-back" href="../../generated/autoreject.utils.set_matplotlib_defaults.html#autoreject.utils.set_matplotlib_defaults">[docs]</a><span class="k">def</span> <span class="nf">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ggplot&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set publication quality defaults for matplotlib.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    plt : instance of matplotlib.pyplot</span>
+<span class="sd">        The plt instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+
+    <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">17</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">,</span>
+              <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">,</span>
+              <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">,</span>
+              <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="n">fontsize</span> <span class="o">+</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_pprint</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">printer</span><span class="o">=</span><span class="nb">repr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pretty print the dictionary &#39;params&#39; (copied from sklearn)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params : dict</span>
+<span class="sd">        The dictionary to pretty print</span>
+<span class="sd">    offset : int</span>
+<span class="sd">        The offset in characters to add at the begin of each line.</span>
+<span class="sd">    printer : callable</span>
+<span class="sd">        The function to convert entries to strings, typically</span>
+<span class="sd">        the builtin str or repr</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    lines : str</span>
+<span class="sd">        The pretty print of the dictionary as a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Do a multi-line justified repr:</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">get_printoptions</span><span class="p">()</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">edgeitems</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">params_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">this_line_length</span> <span class="o">=</span> <span class="n">offset</span>
+    <span class="n">line_sep</span> <span class="o">=</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="c1"># use str for representing floating point numbers</span>
+            <span class="c1"># this way we get consistent representation across</span>
+            <span class="c1"># architectures and versions.</span>
+            <span class="n">this_repr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># use repr of the rest</span>
+            <span class="n">this_repr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">printer</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">this_repr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="n">this_repr</span> <span class="o">=</span> <span class="n">this_repr</span><span class="p">[:</span><span class="mi">300</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">this_repr</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">this_line_length</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">this_repr</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">75</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">this_repr</span><span class="p">):</span>
+                <span class="n">params_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_sep</span><span class="p">)</span>
+                <span class="n">this_line_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_sep</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">params_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+                <span class="n">this_line_length</span> <span class="o">+=</span> <span class="mi">2</span>
+        <span class="n">params_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_repr</span><span class="p">)</span>
+        <span class="n">this_line_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">this_repr</span><span class="p">)</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params_list</span><span class="p">)</span>
+    <span class="c1"># Strip trailing space to avoid nightmare in doctests</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">lines</span>
+
+
+<span class="k">def</span> <span class="nf">_pbar</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;progressbar&#39;</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span> <span class="ow">and</span> \
+            <span class="n">verbose</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;progressbar&#39;</span><span class="p">,</span> <span class="s1">&#39;tqdm&#39;</span><span class="p">,</span> <span class="s1">&#39;tqdm_notebook&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;verbose must be one of {progressbar,&#39;</span>
+                         <span class="s1">&#39;tqdm, tqdm_notebook, False}. Got </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span> <span class="o">==</span> <span class="s1">&#39;progressbar&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="k">import</span> <span class="n">ProgressBar</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">mesg</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">spinner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">verbose</span> <span class="o">==</span> <span class="s1">&#39;tqdm&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="n">leave</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                    <span class="n">dynamic_ncols</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">verbose</span> <span class="o">==</span> <span class="s1">&#39;tqdm_notebook&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm_notebook</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm_notebook</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="n">leave</span><span class="p">,</span>
+                             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="n">dynamic_ncols</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">iterable</span>
+    <span class="k">return</span> <span class="n">pbar</span>
+
+
+<span class="k">def</span> <span class="nf">_get_epochs_type</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span> <span class="s1">&#39;_BaseEpochs&#39;</span><span class="p">):</span>
+        <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">_BaseEpochs</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">BaseEpochs</span>
+    <span class="k">return</span> <span class="n">BaseEpochs</span>
+
+
+<span class="k">def</span> <span class="nf">clean_by_interp</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;progressbar&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Clean epochs/evoked by LOOCV.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    inst : instance of mne.Evoked or mne.Epochs</span>
+<span class="sd">        The evoked or epochs object.</span>
+<span class="sd">    picks : ndarray, shape(n_channels,) | None</span>
+<span class="sd">        The channels to be considered for autoreject. If None, defaults</span>
+<span class="sd">        to data channels {&#39;meg&#39;, &#39;eeg&#39;}.</span>
+<span class="sd">    verbose : &#39;tqdm&#39;, &#39;tqdm_notebook&#39;, &#39;progressbar&#39; or False</span>
+<span class="sd">        The verbosity of progress messages.</span>
+<span class="sd">        If `&#39;progressbar&#39;`, use `mne.utils.ProgressBar`.</span>
+<span class="sd">        If `&#39;tqdm&#39;`, use `tqdm.tqdm`.</span>
+<span class="sd">        If `&#39;tqdm_notebook&#39;`, use `tqdm.tqdm_notebook`.</span>
+<span class="sd">        If False, suppress all output messages.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    inst_clean : instance of mne.Evoked or mne.Epochs</span>
+<span class="sd">        Instance after interpolation of bad channels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_clean_by_interp</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_clean_by_interp</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;progressbar&#39;</span><span class="p">):</span>
+    <span class="n">inst_interp</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">mesg</span> <span class="o">=</span> <span class="s1">&#39;Creating augmented epochs&#39;</span>
+    <span class="n">picks</span> <span class="o">=</span> <span class="n">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">inst_interp</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
+
+    <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">_get_epochs_type</span><span class="p">()</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">pick</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_pbar</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">)),</span>
+                                        <span class="n">desc</span><span class="o">=</span><span class="n">mesg</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)):</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span><span class="p">]</span>
+        <span class="n">pick_interp</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_channels</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">ch</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">data_orig</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">interpolate_bads</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span>
+                         <span class="n">reset_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">mne</span><span class="o">.</span><span class="n">Evoked</span><span class="p">):</span>
+            <span class="n">inst_interp</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pick</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pick_interp</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">BaseEpochs</span><span class="p">):</span>
+            <span class="n">inst_interp</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized type for inst&#39;</span><span class="p">)</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_orig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">inst_interp</span>
+
+
+<div class="viewcode-block" id="fetch_file"><a class="viewcode-back" href="../../generated/autoreject.utils.fetch_file.html#autoreject.utils.fetch_file">[docs]</a><span class="k">def</span> <span class="nf">fetch_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load requested file, downloading it if needed or requested.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    url: string</span>
+<span class="sd">        The url of file to be downloaded.</span>
+<span class="sd">    file_name: string</span>
+<span class="sd">        Name, along with the path, of where downloaded file will be saved.</span>
+<span class="sd">    resume: bool, optional</span>
+<span class="sd">        If true, try to resume partially downloaded files.</span>
+<span class="sd">    timeout : float</span>
+<span class="sd">        The URL open timeout.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="k">import</span> <span class="n">_fetch_file</span>
+    <span class="n">_fetch_file</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">print_destination</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">hash_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">interpolate_bads</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;accurate&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interpolate bad MEG and EEG channels.&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">mne</span>
+    <span class="c1"># to prevent cobyla printf error</span>
+    <span class="c1"># XXX putting to critical for now unless better solution</span>
+    <span class="c1"># emerges</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;CRITICAL&#39;</span><span class="p">,</span> <span class="n">return_old_level</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">eeg_picks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pick_types</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[]))</span>
+    <span class="n">eeg_picks_interp</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">eeg_picks</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eeg_picks_interp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">_interpolate_bads_eeg</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">eeg_picks_interp</span><span class="p">)</span>
+
+    <span class="n">meg_picks</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pick_types</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[]))</span>
+    <span class="n">meg_picks_interp</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">meg_picks</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">meg_picks_interp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">_interpolate_bads_meg_fast</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">meg_picks_interp</span><span class="p">,</span>
+                                   <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">reset_bads</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">inst</span>
+
+
+<span class="k">def</span> <span class="nf">_interpolate_bads_eeg</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Interpolate bad EEG channels.</span>
+
+<span class="sd">    Operates in place.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    inst : mne.io.Raw, mne.Epochs or mne.Evoked</span>
+<span class="sd">        The data to interpolate. Must be preloaded.</span>
+<span class="sd">    picks: np.ndarray, shape(n_channels, ) | list | None</span>
+<span class="sd">        The channel indices to be used for interpolation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">mne.bem</span> <span class="k">import</span> <span class="n">_fit_sphere</span>
+    <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="k">import</span> <span class="n">logger</span><span class="p">,</span> <span class="n">warn</span>
+    <span class="kn">from</span> <span class="nn">mne.channels.interpolation</span> <span class="k">import</span> <span class="n">_do_interp_dots</span>
+    <span class="kn">from</span> <span class="nn">mne.channels.interpolation</span> <span class="k">import</span> <span class="n">_make_interpolation_matrix</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">if</span> <span class="n">picks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">picks</span> <span class="o">=</span> <span class="n">pick_types</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+
+    <span class="n">bads_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">ch_names</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">goods_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">ch_names</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+
+    <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">_check_consistency</span><span class="p">()</span>
+    <span class="n">bads_idx</span><span class="p">[</span><span class="n">picks</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">ch_names</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="ow">in</span> <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">bads_idx</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">goods_idx</span><span class="p">[</span><span class="n">picks</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">goods_idx</span><span class="p">[</span><span class="n">bads_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">_get_channel_positions</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span>
+
+    <span class="c1"># Make sure only good EEG are used</span>
+    <span class="n">bads_idx_pos</span> <span class="o">=</span> <span class="n">bads_idx</span><span class="p">[</span><span class="n">picks</span><span class="p">]</span>
+    <span class="n">goods_idx_pos</span> <span class="o">=</span> <span class="n">goods_idx</span><span class="p">[</span><span class="n">picks</span><span class="p">]</span>
+    <span class="n">pos_good</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">goods_idx_pos</span><span class="p">]</span>
+    <span class="n">pos_bad</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">bads_idx_pos</span><span class="p">]</span>
+
+    <span class="c1"># test spherical fit</span>
+    <span class="n">radius</span><span class="p">,</span> <span class="n">center</span> <span class="o">=</span> <span class="n">_fit_sphere</span><span class="p">(</span><span class="n">pos_good</span><span class="p">)</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pos_good</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">distance</span> <span class="o">/</span> <span class="n">radius</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">distance</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Your spherical fit is poor, interpolation results are &#39;</span>
+             <span class="s1">&#39;likely to be inaccurate.&#39;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Computing interpolation matrix from </span><span class="si">{0}</span><span class="s1"> sensor &#39;</span>
+                <span class="s1">&#39;positions&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pos_good</span><span class="p">)))</span>
+
+    <span class="n">interpolation</span> <span class="o">=</span> <span class="n">_make_interpolation_matrix</span><span class="p">(</span><span class="n">pos_good</span><span class="p">,</span> <span class="n">pos_bad</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Interpolating </span><span class="si">{0}</span><span class="s1"> sensors&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pos_bad</span><span class="p">)))</span>
+    <span class="n">_do_interp_dots</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">,</span> <span class="n">goods_idx</span><span class="p">,</span> <span class="n">bads_idx</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_interpolate_bads_meg_fast</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;accurate&#39;</span><span class="p">,</span>
+                               <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interpolate bad channels from data in good channels.&quot;&quot;&quot;</span>
+    <span class="c1"># We can have pre-picked instances or not.</span>
+    <span class="c1"># And we need to handle it.</span>
+
+    <span class="n">inst_picked</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">):</span>
+        <span class="n">picked_info</span> <span class="o">=</span> <span class="n">pick_info</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">)</span>
+        <span class="n">dots</span> <span class="o">=</span> <span class="n">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">picks</span><span class="p">)</span>
+        <span class="n">inst_picked</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">picked_info</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_picks_bad_good</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks_meg</span><span class="p">):</span>
+        <span class="n">picks_good</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks_meg</span>
+                      <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]]</span>
+
+        <span class="c1"># select the bad meg channel to be interpolated</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">picks_bad</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">picks_bad</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks_meg</span>
+                         <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">picks_meg</span><span class="p">,</span> <span class="n">picks_good</span><span class="p">,</span> <span class="n">picks_bad</span>
+
+    <span class="n">picks_meg</span><span class="p">,</span> <span class="n">picks_good</span><span class="p">,</span> <span class="n">picks_bad</span> <span class="o">=</span> <span class="n">get_picks_bad_good</span><span class="p">(</span>
+        <span class="n">picked_info</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;nchan&#39;</span><span class="p">]))</span>
+    <span class="c1"># return without doing anything if there are no meg channels</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks_meg</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks_bad</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># we need to make sure that only meg channels are passed here</span>
+    <span class="c1"># as the MNE interpolation code is not fogriving.</span>
+    <span class="c1"># This is why we picked the info.</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">_fast_map_meg_channels</span><span class="p">(</span>
+        <span class="n">picked_info</span><span class="p">,</span> <span class="n">pick_from</span><span class="o">=</span><span class="n">picks_good</span><span class="p">,</span> <span class="n">pick_to</span><span class="o">=</span><span class="n">picks_bad</span><span class="p">,</span>
+        <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+    <span class="c1"># the downside is that the mapping matrix now does not match</span>
+    <span class="c1"># the unpicked info of the data.</span>
+    <span class="c1"># Since we may have picked the info, we need to double map</span>
+    <span class="c1"># the indices.</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">picks_good_</span><span class="p">,</span> <span class="n">picks_bad_orig</span> <span class="o">=</span> <span class="n">get_picks_bad_good</span><span class="p">(</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">)</span>
+    <span class="n">ch_names_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">pp</span><span class="p">]</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks_bad</span><span class="p">]</span>
+    <span class="n">ch_names_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">pp</span><span class="p">]</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks_bad_orig</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">ch_names_a</span> <span class="o">==</span> <span class="n">ch_names_b</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inst_picked</span><span class="p">:</span>
+        <span class="n">picks_good_</span> <span class="o">=</span> <span class="p">[</span><span class="n">pp</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks</span> <span class="k">if</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks_good_</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks_good_</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks_good</span><span class="p">)</span>
+    <span class="n">ch_names_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">pp</span><span class="p">]</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks_good</span><span class="p">]</span>
+    <span class="n">ch_names_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">pp</span><span class="p">]</span> <span class="k">for</span> <span class="n">pp</span> <span class="ow">in</span> <span class="n">picks_good_</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">ch_names_a</span> <span class="o">==</span> <span class="n">ch_names_b</span>
+    <span class="n">_do_interp_dots</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">picks_good_</span><span class="p">,</span> <span class="n">picks_bad_orig</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_compute_dots</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute all-to-all dots.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._field_interpolation</span> <span class="k">import</span> <span class="n">_setup_dots</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._lead_dots</span> <span class="k">import</span> <span class="n">_do_self_dots</span><span class="p">,</span> <span class="n">_do_cross_dots</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._make_forward</span> <span class="k">import</span> <span class="n">_create_meg_coils</span><span class="p">,</span> <span class="n">_read_coil_defs</span>
+    <span class="kn">from</span> <span class="nn">mne.bem</span> <span class="k">import</span> <span class="n">_check_origin</span>
+
+    <span class="n">templates</span> <span class="o">=</span> <span class="n">_read_coil_defs</span><span class="p">()</span>
+    <span class="n">coils</span> <span class="o">=</span> <span class="n">_create_meg_coils</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">],</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;dev_head_t&#39;</span><span class="p">],</span>
+                              <span class="n">templates</span><span class="p">)</span>
+    <span class="n">my_origin</span> <span class="o">=</span> <span class="n">_check_origin</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">),</span> <span class="n">info</span><span class="p">)</span>
+    <span class="n">int_rad</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span> <span class="o">=</span> <span class="n">_setup_dots</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="s1">&#39;meg&#39;</span><span class="p">)</span>
+    <span class="n">self_dots</span> <span class="o">=</span> <span class="n">_do_self_dots</span><span class="p">(</span><span class="n">int_rad</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="n">my_origin</span><span class="p">,</span> <span class="s1">&#39;meg&#39;</span><span class="p">,</span>
+                              <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_do_cross_dots</span><span class="p">(</span><span class="n">int_rad</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span>
+                                <span class="n">my_origin</span><span class="p">,</span> <span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span>
+
+
+<span class="k">def</span> <span class="nf">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">dots</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dots</span>
+    <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">dots</span>
+    <span class="n">self_dots</span> <span class="o">=</span> <span class="n">self_dots</span><span class="p">[</span><span class="n">pick_from</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">pick_from</span><span class="p">]</span>
+    <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">cross_dots</span><span class="p">[</span><span class="n">pick_to</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">pick_from</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_fast_map_meg_channels</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">,</span>
+                           <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">mne.io.pick</span> <span class="k">import</span> <span class="n">pick_info</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._field_interpolation</span> <span class="k">import</span> <span class="n">_setup_dots</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._field_interpolation</span> <span class="k">import</span> <span class="n">_compute_mapping_matrix</span>
+    <span class="kn">from</span> <span class="nn">mne.forward._make_forward</span> <span class="k">import</span> <span class="n">_create_meg_coils</span><span class="p">,</span> <span class="n">_read_coil_defs</span>
+    <span class="kn">from</span> <span class="nn">mne.bem</span> <span class="k">import</span> <span class="n">_check_origin</span>
+
+    <span class="n">miss</span> <span class="o">=</span> <span class="mf">1e-4</span>  <span class="c1"># Smoothing criterion for MEG</span>
+
+    <span class="c1"># XXX: hack to silence _compute_mapping_matrix</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">get_config</span><span class="p">(</span><span class="s1">&#39;MNE_LOGGING_LEVEL&#39;</span><span class="p">,</span> <span class="s1">&#39;INFO&#39;</span><span class="p">)</span>
+    <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;WARNING&#39;</span><span class="p">)</span>
+
+    <span class="n">info_from</span> <span class="o">=</span> <span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">templates</span> <span class="o">=</span> <span class="n">_read_coil_defs</span><span class="p">()</span>
+    <span class="n">coils_from</span> <span class="o">=</span> <span class="n">_create_meg_coils</span><span class="p">(</span><span class="n">info_from</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">],</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+                                   <span class="n">info_from</span><span class="p">[</span><span class="s1">&#39;dev_head_t&#39;</span><span class="p">],</span> <span class="n">templates</span><span class="p">)</span>
+    <span class="n">my_origin</span> <span class="o">=</span> <span class="n">_check_origin</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">),</span> <span class="n">info_from</span><span class="p">)</span>
+    <span class="n">int_rad</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span> <span class="o">=</span> <span class="n">_setup_dots</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">coils_from</span><span class="p">,</span> <span class="s1">&#39;meg&#39;</span><span class="p">)</span>
+
+    <span class="c1"># This function needs a clean input. It hates the presence of other</span>
+    <span class="c1"># channels than MEG channels. Make sure all is picked.</span>
+    <span class="k">if</span> <span class="n">dots</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dots</span> <span class="o">=</span> <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">dots</span>
+
+    <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">)</span>
+
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ch_name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">info_from</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">]]</span>
+    <span class="n">fmd</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span>
+               <span class="n">origin</span><span class="o">=</span><span class="n">my_origin</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">self_dots</span><span class="o">=</span><span class="n">self_dots</span><span class="p">,</span>
+               <span class="n">surface_dots</span><span class="o">=</span><span class="n">cross_dots</span><span class="p">,</span> <span class="n">int_rad</span><span class="o">=</span><span class="n">int_rad</span><span class="p">,</span> <span class="n">miss</span><span class="o">=</span><span class="n">miss</span><span class="p">)</span>
+
+    <span class="n">fmd</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_compute_mapping_matrix</span><span class="p">(</span><span class="n">fmd</span><span class="p">,</span> <span class="n">info_from</span><span class="p">)</span>
+    <span class="n">mne</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fmd</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
+src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+alt="Fork me on GitHub"
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
