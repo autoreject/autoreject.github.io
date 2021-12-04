@@ -1,0 +1,1122 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Automatically repair epochs &#8212; autoreject 0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="index.html">Examples</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Automatically repair epochs</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/auto_examples/plot_auto_repair.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-auto-repair-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="automatically-repair-epochs">
+<span id="sphx-glr-auto-examples-plot-auto-repair-py"></span><h1>Automatically repair epochs<a class="headerlink" href="#automatically-repair-epochs" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to use <code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code> to automatically
+repair epochs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#         Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
+<span class="c1"># License: BSD (3-clause)</span>
+</pre></div>
+</div>
+<p>Let us first define the parameters. <cite>n_interpolates</cite> are the <span class="math notranslate nohighlight">\(\rho\)</span>
+values that we would like <code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code> to try and <cite>consensus_percs</cite>
+are the <span class="math notranslate nohighlight">\(\kappa\)</span> values that <code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code> will try (see the
+<a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2017.06.030">autoreject paper</a>) for
+more information on these parameters).</p>
+<p>Epochs with more than <span class="math notranslate nohighlight">\(\kappa * N\)</span> sensors (<span class="math notranslate nohighlight">\(N\)</span> total sensors)
+bad are dropped. For the rest of the epochs, the worst <span class="math notranslate nohighlight">\(\rho\)</span>
+bad sensors (as determined by channel-level thresholds) are interpolated.
+The exact values of these parameters are not preselected but learned from
+the data. If the number of bad sensors for a particular trial is less than
+<span class="math notranslate nohighlight">\(\rho\)</span>, all the bad sensors are interpolated.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">n_interpolates</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
+<span class="n">consensus_percs</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the purposes of this example, we shall use the MNE sample dataset.
+Therefore, let us make some MNE related imports.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="k">import</span> <span class="n">check_random_state</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="k">import</span> <span class="n">sample</span>  <span class="c1"># noqa</span>
+</pre></div>
+</div>
+<p>Now, we can import the class required for rejecting and repairing bad
+epochs. <a class="reference internal" href="../generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> is a callable which must be
+provided to the <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> class for computing
+the channel-level thresholds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="k">import</span> <span class="p">(</span><a href="http://autoreject.github.io/generated/autoreject.AutoReject.html#autoreject.AutoReject" title="View documentation for autoreject.AutoReject"><span class="n">AutoReject</span></a><span class="p">,</span> <span class="n">set_matplotlib_defaults</span><span class="p">)</span>  <span class="c1"># noqa</span>
+</pre></div>
+</div>
+<p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">check_random_state</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <a href="http://mne-tools.github.io/stable/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path" title="View documentation for mne.datasets.sample.data_path"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
+<span class="n">raw_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;</span>
+<span class="n">raw</span> <span class="o">=</span> <a href="http://mne-tools.github.io/stable/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Opening raw data file /Users/mainak/mne_data/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Read a total of 4 projection items:
+        PCA-v1 (1 x 102)  idle
+        PCA-v2 (1 x 102)  idle
+        PCA-v3 (1 x 102)  idle
+        Average EEG reference (1 x 60)  idle
+    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+Ready.
+Current compensation grade : 0
+Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+</pre></div>
+</div>
+<p>We can then read in the events</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">event_fname</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
+                           <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
+<span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Auditory/Right&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
+
+<span class="n">events</span> <span class="o">=</span> <a href="http://mne-tools.github.io/stable/generated/mne.read_events.html#mne.read_events" title="View documentation for mne.read_events"><span class="n">mne</span><span class="o">.</span><span class="n">read_events</span></a><span class="p">(</span><span class="n">event_fname</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And pick MEG channels for repairing. Currently, <code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code> can repair
+only one channel type at a time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">picks</span> <span class="o">=</span> <a href="http://mne-tools.github.io/stable/generated/mne.pick_types.html#mne.pick_types" title="View documentation for mne.pick_types"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">include</span><span class="o">=</span><span class="p">[],</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+</pre></div>
+</div>
+<p>Now, we can create epochs. The <code class="docutils literal notranslate"><span class="pre">reject</span></code> params will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
+because we do not want epochs to be dropped when instantiating
+<a class="reference external" href="https://mne.tools/stable/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v0.19.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;projs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
+<span class="n">epochs</span> <span class="o">=</span> <a href="http://mne-tools.github.io/stable/generated/mne.Epochs.html#mne.Epochs" title="View documentation for mne.Epochs"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
+                    <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> internally does cross-validation to
+determine the optimal values <span class="math notranslate nohighlight">\(\rho^{*}\)</span> and <span class="math notranslate nohighlight">\(\kappa^{*}\)</span></p>
+<p>Note that <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> by design supports
+multiple channels.
+If no picks are passed, separate solutions will be computed for each channel
+type and internally combined. This then readily supports cleaning
+unseen epochs from the different channel types used during fit.
+Here we only use a subset of channels to save time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ar</span> <span class="o">=</span> <a href="http://autoreject.github.io/generated/autoreject.AutoReject.html#autoreject.AutoReject" title="View documentation for autoreject.AutoReject"><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolates</span><span class="p">,</span> <span class="n">consensus_percs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
+                <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Note that fitting and transforming can be done on different compatible</span>
+<span class="c1"># portions of data if needed.</span>
+<span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span>
+<span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span>
+<span class="n">evoked_clean</span> <span class="o">=</span> <span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+<span class="n">evoked</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>86 coil definitions read
+Running autoreject on ch_type=grad
+
+
+[                                        ]   0.00% Creating augmented epochs |
+[                                        ]   0.49% Creating augmented epochs /
+[                                        ]   0.98% Creating augmented epochs -
+[                                        ]   1.47% Creating augmented epochs \
+[                                        ]   1.96% Creating augmented epochs |
+[                                        ]   2.45% Creating augmented epochs /
+[.                                       ]   2.94% Creating augmented epochs -
+[.                                       ]   3.43% Creating augmented epochs \
+[.                                       ]   3.92% Creating augmented epochs |
+[.                                       ]   4.41% Creating augmented epochs /
+[.                                       ]   4.90% Creating augmented epochs -
+[..                                      ]   5.39% Creating augmented epochs \
+[..                                      ]   5.88% Creating augmented epochs |
+[..                                      ]   6.37% Creating augmented epochs /
+[..                                      ]   6.86% Creating augmented epochs -
+[..                                      ]   7.35% Creating augmented epochs \
+[...                                     ]   7.84% Creating augmented epochs |
+[...                                     ]   8.33% Creating augmented epochs /
+[...                                     ]   8.82% Creating augmented epochs -
+[...                                     ]   9.31% Creating augmented epochs \
+[...                                     ]   9.80% Creating augmented epochs |
+[....                                    ]  10.29% Creating augmented epochs /
+[....                                    ]  10.78% Creating augmented epochs -
+[....                                    ]  11.27% Creating augmented epochs \
+[....                                    ]  11.76% Creating augmented epochs |
+[....                                    ]  12.25% Creating augmented epochs /
+[.....                                   ]  12.75% Creating augmented epochs -
+[.....                                   ]  13.24% Creating augmented epochs \
+[.....                                   ]  13.73% Creating augmented epochs |
+[.....                                   ]  14.22% Creating augmented epochs /
+[.....                                   ]  14.71% Creating augmented epochs -
+[......                                  ]  15.20% Creating augmented epochs \
+[......                                  ]  15.69% Creating augmented epochs |
+[......                                  ]  16.18% Creating augmented epochs /
+[......                                  ]  16.67% Creating augmented epochs -
+[......                                  ]  17.16% Creating augmented epochs \
+[.......                                 ]  17.65% Creating augmented epochs |
+[.......                                 ]  18.14% Creating augmented epochs /
+[.......                                 ]  18.63% Creating augmented epochs -
+[.......                                 ]  19.12% Creating augmented epochs \
+[.......                                 ]  19.61% Creating augmented epochs |
+[........                                ]  20.10% Creating augmented epochs /
+[........                                ]  20.59% Creating augmented epochs -
+[........                                ]  21.08% Creating augmented epochs \
+[........                                ]  21.57% Creating augmented epochs |
+[........                                ]  22.06% Creating augmented epochs /
+[.........                               ]  22.55% Creating augmented epochs -
+[.........                               ]  23.04% Creating augmented epochs \
+[.........                               ]  23.53% Creating augmented epochs |
+[.........                               ]  24.02% Creating augmented epochs /
+[.........                               ]  24.51% Creating augmented epochs -
+[..........                              ]  25.00% Creating augmented epochs \
+[..........                              ]  25.49% Creating augmented epochs |
+[..........                              ]  25.98% Creating augmented epochs /
+[..........                              ]  26.47% Creating augmented epochs -
+[..........                              ]  26.96% Creating augmented epochs \
+[..........                              ]  27.45% Creating augmented epochs |
+[...........                             ]  27.94% Creating augmented epochs /
+[...........                             ]  28.43% Creating augmented epochs -
+[...........                             ]  28.92% Creating augmented epochs \
+[...........                             ]  29.41% Creating augmented epochs |
+[...........                             ]  29.90% Creating augmented epochs /
+[............                            ]  30.39% Creating augmented epochs -
+[............                            ]  30.88% Creating augmented epochs \
+[............                            ]  31.37% Creating augmented epochs |
+[............                            ]  31.86% Creating augmented epochs /
+[............                            ]  32.35% Creating augmented epochs -
+[.............                           ]  32.84% Creating augmented epochs \
+[.............                           ]  33.33% Creating augmented epochs |
+[.............                           ]  33.82% Creating augmented epochs /
+[.............                           ]  34.31% Creating augmented epochs -
+[.............                           ]  34.80% Creating augmented epochs \
+[..............                          ]  35.29% Creating augmented epochs |
+[..............                          ]  35.78% Creating augmented epochs /
+[..............                          ]  36.27% Creating augmented epochs -
+[..............                          ]  36.76% Creating augmented epochs \
+[..............                          ]  37.25% Creating augmented epochs |
+[...............                         ]  37.75% Creating augmented epochs /
+[...............                         ]  38.24% Creating augmented epochs -
+[...............                         ]  38.73% Creating augmented epochs \
+[...............                         ]  39.22% Creating augmented epochs |
+[...............                         ]  39.71% Creating augmented epochs /
+[................                        ]  40.20% Creating augmented epochs -
+[................                        ]  40.69% Creating augmented epochs \
+[................                        ]  41.18% Creating augmented epochs |
+[................                        ]  41.67% Creating augmented epochs /
+[................                        ]  42.16% Creating augmented epochs -
+[.................                       ]  42.65% Creating augmented epochs \
+[.................                       ]  43.14% Creating augmented epochs |
+[.................                       ]  43.63% Creating augmented epochs /
+[.................                       ]  44.12% Creating augmented epochs -
+[.................                       ]  44.61% Creating augmented epochs \
+[..................                      ]  45.10% Creating augmented epochs |
+[..................                      ]  45.59% Creating augmented epochs /
+[..................                      ]  46.08% Creating augmented epochs -
+[..................                      ]  46.57% Creating augmented epochs \
+[..................                      ]  47.06% Creating augmented epochs |
+[...................                     ]  47.55% Creating augmented epochs /
+[...................                     ]  48.04% Creating augmented epochs -
+[...................                     ]  48.53% Creating augmented epochs \
+[...................                     ]  49.02% Creating augmented epochs |
+[...................                     ]  49.51% Creating augmented epochs /
+[....................                    ]  50.00% Creating augmented epochs -
+[....................                    ]  50.49% Creating augmented epochs \
+[....................                    ]  50.98% Creating augmented epochs |
+[....................                    ]  51.47% Creating augmented epochs /
+[....................                    ]  51.96% Creating augmented epochs -
+[....................                    ]  52.45% Creating augmented epochs \
+[.....................                   ]  52.94% Creating augmented epochs |
+[.....................                   ]  53.43% Creating augmented epochs /
+[.....................                   ]  53.92% Creating augmented epochs -
+[.....................                   ]  54.41% Creating augmented epochs \
+[.....................                   ]  54.90% Creating augmented epochs |
+[......................                  ]  55.39% Creating augmented epochs /
+[......................                  ]  55.88% Creating augmented epochs -
+[......................                  ]  56.37% Creating augmented epochs \
+[......................                  ]  56.86% Creating augmented epochs |
+[......................                  ]  57.35% Creating augmented epochs /
+[.......................                 ]  57.84% Creating augmented epochs -
+[.......................                 ]  58.33% Creating augmented epochs \
+[.......................                 ]  58.82% Creating augmented epochs |
+[.......................                 ]  59.31% Creating augmented epochs /
+[.......................                 ]  59.80% Creating augmented epochs -
+[........................                ]  60.29% Creating augmented epochs \
+[........................                ]  60.78% Creating augmented epochs |
+[........................                ]  61.27% Creating augmented epochs /
+[........................                ]  61.76% Creating augmented epochs -
+[........................                ]  62.25% Creating augmented epochs \
+[.........................               ]  62.75% Creating augmented epochs |
+[.........................               ]  63.24% Creating augmented epochs /
+[.........................               ]  63.73% Creating augmented epochs -
+[.........................               ]  64.22% Creating augmented epochs \
+[.........................               ]  64.71% Creating augmented epochs |
+[..........................              ]  65.20% Creating augmented epochs /
+[..........................              ]  65.69% Creating augmented epochs -
+[..........................              ]  66.18% Creating augmented epochs \
+[..........................              ]  66.67% Creating augmented epochs |
+[..........................              ]  67.16% Creating augmented epochs /
+[...........................             ]  67.65% Creating augmented epochs -
+[...........................             ]  68.14% Creating augmented epochs \
+[...........................             ]  68.63% Creating augmented epochs |
+[...........................             ]  69.12% Creating augmented epochs /
+[...........................             ]  69.61% Creating augmented epochs -
+[............................            ]  70.10% Creating augmented epochs \
+[............................            ]  70.59% Creating augmented epochs |
+[............................            ]  71.08% Creating augmented epochs /
+[............................            ]  71.57% Creating augmented epochs -
+[............................            ]  72.06% Creating augmented epochs \
+[.............................           ]  72.55% Creating augmented epochs |
+[.............................           ]  73.04% Creating augmented epochs /
+[.............................           ]  73.53% Creating augmented epochs -
+[.............................           ]  74.02% Creating augmented epochs \
+[.............................           ]  74.51% Creating augmented epochs |
+[..............................          ]  75.00% Creating augmented epochs /
+[..............................          ]  75.49% Creating augmented epochs -
+[..............................          ]  75.98% Creating augmented epochs \
+[..............................          ]  76.47% Creating augmented epochs |
+[..............................          ]  76.96% Creating augmented epochs /
+[..............................          ]  77.45% Creating augmented epochs -
+[...............................         ]  77.94% Creating augmented epochs \
+[...............................         ]  78.43% Creating augmented epochs |
+[...............................         ]  78.92% Creating augmented epochs /
+[...............................         ]  79.41% Creating augmented epochs -
+[...............................         ]  79.90% Creating augmented epochs \
+[................................        ]  80.39% Creating augmented epochs |
+[................................        ]  80.88% Creating augmented epochs /
+[................................        ]  81.37% Creating augmented epochs -
+[................................        ]  81.86% Creating augmented epochs \
+[................................        ]  82.35% Creating augmented epochs |
+[.................................       ]  82.84% Creating augmented epochs /
+[.................................       ]  83.33% Creating augmented epochs -
+[.................................       ]  83.82% Creating augmented epochs \
+[.................................       ]  84.31% Creating augmented epochs |
+[.................................       ]  84.80% Creating augmented epochs /
+[..................................      ]  85.29% Creating augmented epochs -
+[..................................      ]  85.78% Creating augmented epochs \
+[..................................      ]  86.27% Creating augmented epochs |
+[..................................      ]  86.76% Creating augmented epochs /
+[..................................      ]  87.25% Creating augmented epochs -
+[...................................     ]  87.75% Creating augmented epochs \
+[...................................     ]  88.24% Creating augmented epochs |
+[...................................     ]  88.73% Creating augmented epochs /
+[...................................     ]  89.22% Creating augmented epochs -
+[...................................     ]  89.71% Creating augmented epochs \
+[....................................    ]  90.20% Creating augmented epochs |
+[....................................    ]  90.69% Creating augmented epochs /
+[....................................    ]  91.18% Creating augmented epochs -
+[....................................    ]  91.67% Creating augmented epochs \
+[....................................    ]  92.16% Creating augmented epochs |
+[.....................................   ]  92.65% Creating augmented epochs /
+[.....................................   ]  93.14% Creating augmented epochs -
+[.....................................   ]  93.63% Creating augmented epochs \
+[.....................................   ]  94.12% Creating augmented epochs |
+[.....................................   ]  94.61% Creating augmented epochs /
+[......................................  ]  95.10% Creating augmented epochs -
+[......................................  ]  95.59% Creating augmented epochs \
+[......................................  ]  96.08% Creating augmented epochs |
+[......................................  ]  96.57% Creating augmented epochs /
+[......................................  ]  97.06% Creating augmented epochs -
+[....................................... ]  97.55% Creating augmented epochs \
+[....................................... ]  98.04% Creating augmented epochs |
+[....................................... ]  98.53% Creating augmented epochs /
+[....................................... ]  99.02% Creating augmented epochs -
+[....................................... ]  99.51% Creating augmented epochs \
+[........................................] 100.00% Creating augmented epochs |
+
+[                                        ]   0.00% Computing thresholds ... |
+[                                        ]   0.49% Computing thresholds ... /
+[                                        ]   0.98% Computing thresholds ... -
+[                                        ]   1.47% Computing thresholds ... \
+[                                        ]   1.96% Computing thresholds ... |
+[                                        ]   2.45% Computing thresholds ... /
+[.                                       ]   2.94% Computing thresholds ... -
+[.                                       ]   3.43% Computing thresholds ... \
+[.                                       ]   3.92% Computing thresholds ... |
+[.                                       ]   4.41% Computing thresholds ... /
+[.                                       ]   4.90% Computing thresholds ... -
+[..                                      ]   5.39% Computing thresholds ... \
+[..                                      ]   5.88% Computing thresholds ... |
+[..                                      ]   6.37% Computing thresholds ... /
+[..                                      ]   6.86% Computing thresholds ... -
+[..                                      ]   7.35% Computing thresholds ... \
+[...                                     ]   7.84% Computing thresholds ... |
+[...                                     ]   8.33% Computing thresholds ... /
+[...                                     ]   8.82% Computing thresholds ... -
+[...                                     ]   9.31% Computing thresholds ... \
+[...                                     ]   9.80% Computing thresholds ... |
+[....                                    ]  10.29% Computing thresholds ... /
+[....                                    ]  10.78% Computing thresholds ... -
+[....                                    ]  11.27% Computing thresholds ... \
+[....                                    ]  11.76% Computing thresholds ... |
+[....                                    ]  12.25% Computing thresholds ... /
+[.....                                   ]  12.75% Computing thresholds ... -
+[.....                                   ]  13.24% Computing thresholds ... \
+[.....                                   ]  13.73% Computing thresholds ... |
+[.....                                   ]  14.22% Computing thresholds ... /
+[.....                                   ]  14.71% Computing thresholds ... -
+[......                                  ]  15.20% Computing thresholds ... \
+[......                                  ]  15.69% Computing thresholds ... |
+[......                                  ]  16.18% Computing thresholds ... /
+[......                                  ]  16.67% Computing thresholds ... -
+[......                                  ]  17.16% Computing thresholds ... \
+[.......                                 ]  17.65% Computing thresholds ... |
+[.......                                 ]  18.14% Computing thresholds ... /
+[.......                                 ]  18.63% Computing thresholds ... -
+[.......                                 ]  19.12% Computing thresholds ... \
+[.......                                 ]  19.61% Computing thresholds ... |
+[........                                ]  20.10% Computing thresholds ... /
+[........                                ]  20.59% Computing thresholds ... -
+[........                                ]  21.08% Computing thresholds ... \
+[........                                ]  21.57% Computing thresholds ... |
+[........                                ]  22.06% Computing thresholds ... /
+[.........                               ]  22.55% Computing thresholds ... -
+[.........                               ]  23.04% Computing thresholds ... \
+[.........                               ]  23.53% Computing thresholds ... |
+[.........                               ]  24.02% Computing thresholds ... /
+[.........                               ]  24.51% Computing thresholds ... -
+[..........                              ]  25.00% Computing thresholds ... \
+[..........                              ]  25.49% Computing thresholds ... |
+[..........                              ]  25.98% Computing thresholds ... /
+[..........                              ]  26.47% Computing thresholds ... -
+[..........                              ]  26.96% Computing thresholds ... \
+[..........                              ]  27.45% Computing thresholds ... |
+[...........                             ]  27.94% Computing thresholds ... /
+[...........                             ]  28.43% Computing thresholds ... -
+[...........                             ]  28.92% Computing thresholds ... \
+[...........                             ]  29.41% Computing thresholds ... |
+[...........                             ]  29.90% Computing thresholds ... /
+[............                            ]  30.39% Computing thresholds ... -
+[............                            ]  30.88% Computing thresholds ... \
+[............                            ]  31.37% Computing thresholds ... |
+[............                            ]  31.86% Computing thresholds ... /
+[............                            ]  32.35% Computing thresholds ... -
+[.............                           ]  32.84% Computing thresholds ... \
+[.............                           ]  33.33% Computing thresholds ... |
+[.............                           ]  33.82% Computing thresholds ... /
+[.............                           ]  34.31% Computing thresholds ... -
+[.............                           ]  34.80% Computing thresholds ... \
+[..............                          ]  35.29% Computing thresholds ... |
+[..............                          ]  35.78% Computing thresholds ... /
+[..............                          ]  36.27% Computing thresholds ... -
+[..............                          ]  36.76% Computing thresholds ... \
+[..............                          ]  37.25% Computing thresholds ... |
+[...............                         ]  37.75% Computing thresholds ... /
+[...............                         ]  38.24% Computing thresholds ... -
+[...............                         ]  38.73% Computing thresholds ... \
+[...............                         ]  39.22% Computing thresholds ... |
+[...............                         ]  39.71% Computing thresholds ... /
+[................                        ]  40.20% Computing thresholds ... -
+[................                        ]  40.69% Computing thresholds ... \
+[................                        ]  41.18% Computing thresholds ... |
+[................                        ]  41.67% Computing thresholds ... /
+[................                        ]  42.16% Computing thresholds ... -
+[.................                       ]  42.65% Computing thresholds ... \
+[.................                       ]  43.14% Computing thresholds ... |
+[.................                       ]  43.63% Computing thresholds ... /
+[.................                       ]  44.12% Computing thresholds ... -
+[.................                       ]  44.61% Computing thresholds ... \
+[..................                      ]  45.10% Computing thresholds ... |
+[..................                      ]  45.59% Computing thresholds ... /
+[..................                      ]  46.08% Computing thresholds ... -
+[..................                      ]  46.57% Computing thresholds ... \
+[..................                      ]  47.06% Computing thresholds ... |
+[...................                     ]  47.55% Computing thresholds ... /
+[...................                     ]  48.04% Computing thresholds ... -
+[...................                     ]  48.53% Computing thresholds ... \
+[...................                     ]  49.02% Computing thresholds ... |
+[...................                     ]  49.51% Computing thresholds ... /
+[....................                    ]  50.00% Computing thresholds ... -
+[....................                    ]  50.49% Computing thresholds ... \
+[....................                    ]  50.98% Computing thresholds ... |
+[....................                    ]  51.47% Computing thresholds ... /
+[....................                    ]  51.96% Computing thresholds ... -
+[....................                    ]  52.45% Computing thresholds ... \
+[.....................                   ]  52.94% Computing thresholds ... |
+[.....................                   ]  53.43% Computing thresholds ... /
+[.....................                   ]  53.92% Computing thresholds ... -
+[.....................                   ]  54.41% Computing thresholds ... \
+[.....................                   ]  54.90% Computing thresholds ... |
+[......................                  ]  55.39% Computing thresholds ... /
+[......................                  ]  55.88% Computing thresholds ... -
+[......................                  ]  56.37% Computing thresholds ... \
+[......................                  ]  56.86% Computing thresholds ... |
+[......................                  ]  57.35% Computing thresholds ... /
+[.......................                 ]  57.84% Computing thresholds ... -
+[.......................                 ]  58.33% Computing thresholds ... \
+[.......................                 ]  58.82% Computing thresholds ... |
+[.......................                 ]  59.31% Computing thresholds ... /
+[.......................                 ]  59.80% Computing thresholds ... -
+[........................                ]  60.29% Computing thresholds ... \
+[........................                ]  60.78% Computing thresholds ... |
+[........................                ]  61.27% Computing thresholds ... /
+[........................                ]  61.76% Computing thresholds ... -
+[........................                ]  62.25% Computing thresholds ... \
+[.........................               ]  62.75% Computing thresholds ... |
+[.........................               ]  63.24% Computing thresholds ... /
+[.........................               ]  63.73% Computing thresholds ... -
+[.........................               ]  64.22% Computing thresholds ... \
+[.........................               ]  64.71% Computing thresholds ... |
+[..........................              ]  65.20% Computing thresholds ... /
+[..........................              ]  65.69% Computing thresholds ... -
+[..........................              ]  66.18% Computing thresholds ... \
+[..........................              ]  66.67% Computing thresholds ... |
+[..........................              ]  67.16% Computing thresholds ... /
+[...........................             ]  67.65% Computing thresholds ... -
+[...........................             ]  68.14% Computing thresholds ... \
+[...........................             ]  68.63% Computing thresholds ... |
+[...........................             ]  69.12% Computing thresholds ... /
+[...........................             ]  69.61% Computing thresholds ... -
+[............................            ]  70.10% Computing thresholds ... \
+[............................            ]  70.59% Computing thresholds ... |
+[............................            ]  71.08% Computing thresholds ... /
+[............................            ]  71.57% Computing thresholds ... -
+[............................            ]  72.06% Computing thresholds ... \
+[.............................           ]  72.55% Computing thresholds ... |
+[.............................           ]  73.04% Computing thresholds ... /
+[.............................           ]  73.53% Computing thresholds ... -
+[.............................           ]  74.02% Computing thresholds ... \
+[.............................           ]  74.51% Computing thresholds ... |
+[..............................          ]  75.00% Computing thresholds ... /
+[..............................          ]  75.49% Computing thresholds ... -
+[..............................          ]  75.98% Computing thresholds ... \
+[..............................          ]  76.47% Computing thresholds ... |
+[..............................          ]  76.96% Computing thresholds ... /
+[..............................          ]  77.45% Computing thresholds ... -
+[...............................         ]  77.94% Computing thresholds ... \
+[...............................         ]  78.43% Computing thresholds ... |
+[...............................         ]  78.92% Computing thresholds ... /
+[...............................         ]  79.41% Computing thresholds ... -
+[...............................         ]  79.90% Computing thresholds ... \
+[................................        ]  80.39% Computing thresholds ... |
+[................................        ]  80.88% Computing thresholds ... /
+[................................        ]  81.37% Computing thresholds ... -
+[................................        ]  81.86% Computing thresholds ... \
+[................................        ]  82.35% Computing thresholds ... |
+[.................................       ]  82.84% Computing thresholds ... /
+[.................................       ]  83.33% Computing thresholds ... -
+[.................................       ]  83.82% Computing thresholds ... \
+[.................................       ]  84.31% Computing thresholds ... |
+[.................................       ]  84.80% Computing thresholds ... /
+[..................................      ]  85.29% Computing thresholds ... -
+[..................................      ]  85.78% Computing thresholds ... \
+[..................................      ]  86.27% Computing thresholds ... |
+[..................................      ]  86.76% Computing thresholds ... /
+[..................................      ]  87.25% Computing thresholds ... -
+[...................................     ]  87.75% Computing thresholds ... \
+[...................................     ]  88.24% Computing thresholds ... |
+[...................................     ]  88.73% Computing thresholds ... /
+[...................................     ]  89.22% Computing thresholds ... -
+[...................................     ]  89.71% Computing thresholds ... \
+[....................................    ]  90.20% Computing thresholds ... |
+[....................................    ]  90.69% Computing thresholds ... /
+[....................................    ]  91.18% Computing thresholds ... -
+[....................................    ]  91.67% Computing thresholds ... \
+[....................................    ]  92.16% Computing thresholds ... |
+[.....................................   ]  92.65% Computing thresholds ... /
+[.....................................   ]  93.14% Computing thresholds ... -
+[.....................................   ]  93.63% Computing thresholds ... \
+[.....................................   ]  94.12% Computing thresholds ... |
+[.....................................   ]  94.61% Computing thresholds ... /
+[......................................  ]  95.10% Computing thresholds ... -
+[......................................  ]  95.59% Computing thresholds ... \
+[......................................  ]  96.08% Computing thresholds ... |
+[......................................  ]  96.57% Computing thresholds ... /
+[......................................  ]  97.06% Computing thresholds ... -
+[....................................... ]  97.55% Computing thresholds ... \
+[....................................... ]  98.04% Computing thresholds ... |
+[....................................... ]  98.53% Computing thresholds ... /
+[....................................... ]  99.02% Computing thresholds ... -
+[....................................... ]  99.51% Computing thresholds ... \
+[........................................] 100.00% Computing thresholds ... |
+
+[                                        ]   0.00% Repairing epochs |
+[                                        ]   1.39% Repairing epochs /
+[.                                       ]   2.78% Repairing epochs -
+[.                                       ]   4.17% Repairing epochs \
+[..                                      ]   5.56% Repairing epochs |
+[..                                      ]   6.94% Repairing epochs /
+[...                                     ]   8.33% Repairing epochs -
+[...                                     ]   9.72% Repairing epochs \
+[....                                    ]  11.11% Repairing epochs |
+[.....                                   ]  12.50% Repairing epochs /
+[.....                                   ]  13.89% Repairing epochs -
+[......                                  ]  15.28% Repairing epochs \
+[......                                  ]  16.67% Repairing epochs |
+[.......                                 ]  18.06% Repairing epochs /
+[.......                                 ]  19.44% Repairing epochs -
+[........                                ]  20.83% Repairing epochs \
+[........                                ]  22.22% Repairing epochs |
+[.........                               ]  23.61% Repairing epochs /
+[..........                              ]  25.00% Repairing epochs -
+[..........                              ]  26.39% Repairing epochs \
+[...........                             ]  27.78% Repairing epochs |
+[...........                             ]  29.17% Repairing epochs /
+[............                            ]  30.56% Repairing epochs -
+[............                            ]  31.94% Repairing epochs \
+[.............                           ]  33.33% Repairing epochs |
+[.............                           ]  34.72% Repairing epochs /
+[..............                          ]  36.11% Repairing epochs -
+[...............                         ]  37.50% Repairing epochs \
+[...............                         ]  38.89% Repairing epochs |
+[................                        ]  40.28% Repairing epochs /
+[................                        ]  41.67% Repairing epochs -
+[.................                       ]  43.06% Repairing epochs \
+[.................                       ]  44.44% Repairing epochs |
+[..................                      ]  45.83% Repairing epochs /
+[..................                      ]  47.22% Repairing epochs -
+[...................                     ]  48.61% Repairing epochs \
+[....................                    ]  50.00% Repairing epochs |
+[....................                    ]  51.39% Repairing epochs /
+[.....................                   ]  52.78% Repairing epochs -
+[.....................                   ]  54.17% Repairing epochs \
+[......................                  ]  55.56% Repairing epochs |
+[......................                  ]  56.94% Repairing epochs /
+[.......................                 ]  58.33% Repairing epochs -
+[.......................                 ]  59.72% Repairing epochs \
+[........................                ]  61.11% Repairing epochs |
+[.........................               ]  62.50% Repairing epochs /
+[.........................               ]  63.89% Repairing epochs -
+[..........................              ]  65.28% Repairing epochs \
+[..........................              ]  66.67% Repairing epochs |
+[...........................             ]  68.06% Repairing epochs /
+[...........................             ]  69.44% Repairing epochs -
+[............................            ]  70.83% Repairing epochs \
+[............................            ]  72.22% Repairing epochs |
+[.............................           ]  73.61% Repairing epochs /
+[..............................          ]  75.00% Repairing epochs -
+[..............................          ]  76.39% Repairing epochs \
+[...............................         ]  77.78% Repairing epochs |
+[...............................         ]  79.17% Repairing epochs /
+[................................        ]  80.56% Repairing epochs -
+[................................        ]  81.94% Repairing epochs \
+[.................................       ]  83.33% Repairing epochs |
+[.................................       ]  84.72% Repairing epochs /
+[..................................      ]  86.11% Repairing epochs -
+[...................................     ]  87.50% Repairing epochs \
+[...................................     ]  88.89% Repairing epochs |
+[....................................    ]  90.28% Repairing epochs /
+[....................................    ]  91.67% Repairing epochs -
+[.....................................   ]  93.06% Repairing epochs \
+[.....................................   ]  94.44% Repairing epochs |
+[......................................  ]  95.83% Repairing epochs /
+[......................................  ]  97.22% Repairing epochs -
+[....................................... ]  98.61% Repairing epochs \
+[........................................] 100.00% Repairing epochs |
+
+[                                        ]   0.00% n_interp |
+
+[                                        ]   0.00% Repairing epochs |
+[                                        ]   1.39% Repairing epochs /
+[.                                       ]   2.78% Repairing epochs -
+[.                                       ]   4.17% Repairing epochs \
+[..                                      ]   5.56% Repairing epochs |
+[..                                      ]   6.94% Repairing epochs /
+[...                                     ]   8.33% Repairing epochs -
+[...                                     ]   9.72% Repairing epochs \
+[....                                    ]  11.11% Repairing epochs |
+[.....                                   ]  12.50% Repairing epochs /
+[.....                                   ]  13.89% Repairing epochs -
+[......                                  ]  15.28% Repairing epochs \
+[......                                  ]  16.67% Repairing epochs |
+[.......                                 ]  18.06% Repairing epochs /
+[.......                                 ]  19.44% Repairing epochs -
+[........                                ]  20.83% Repairing epochs \
+[........                                ]  22.22% Repairing epochs |
+[.........                               ]  23.61% Repairing epochs /
+[..........                              ]  25.00% Repairing epochs -
+[..........                              ]  26.39% Repairing epochs \
+[...........                             ]  27.78% Repairing epochs |
+[...........                             ]  29.17% Repairing epochs /
+[............                            ]  30.56% Repairing epochs -
+[............                            ]  31.94% Repairing epochs \
+[.............                           ]  33.33% Repairing epochs |
+[.............                           ]  34.72% Repairing epochs /
+[..............                          ]  36.11% Repairing epochs -
+[...............                         ]  37.50% Repairing epochs \
+[...............                         ]  38.89% Repairing epochs |
+[................                        ]  40.28% Repairing epochs /
+[................                        ]  41.67% Repairing epochs -
+[.................                       ]  43.06% Repairing epochs \
+[.................                       ]  44.44% Repairing epochs |
+[..................                      ]  45.83% Repairing epochs /
+[..................                      ]  47.22% Repairing epochs -
+[...................                     ]  48.61% Repairing epochs \
+[....................                    ]  50.00% Repairing epochs |
+[....................                    ]  51.39% Repairing epochs /
+[.....................                   ]  52.78% Repairing epochs -
+[.....................                   ]  54.17% Repairing epochs \
+[......................                  ]  55.56% Repairing epochs |
+[......................                  ]  56.94% Repairing epochs /
+[.......................                 ]  58.33% Repairing epochs -
+[.......................                 ]  59.72% Repairing epochs \
+[........................                ]  61.11% Repairing epochs |
+[.........................               ]  62.50% Repairing epochs /
+[.........................               ]  63.89% Repairing epochs -
+[..........................              ]  65.28% Repairing epochs \
+[..........................              ]  66.67% Repairing epochs |
+[...........................             ]  68.06% Repairing epochs /
+[...........................             ]  69.44% Repairing epochs -
+[............................            ]  70.83% Repairing epochs \
+[............................            ]  72.22% Repairing epochs |
+[.............................           ]  73.61% Repairing epochs /
+[..............................          ]  75.00% Repairing epochs -
+[..............................          ]  76.39% Repairing epochs \
+[...............................         ]  77.78% Repairing epochs |
+[...............................         ]  79.17% Repairing epochs /
+[................................        ]  80.56% Repairing epochs -
+[................................        ]  81.94% Repairing epochs \
+[.................................       ]  83.33% Repairing epochs |
+[.................................       ]  84.72% Repairing epochs /
+[..................................      ]  86.11% Repairing epochs -
+[...................................     ]  87.50% Repairing epochs \
+[...................................     ]  88.89% Repairing epochs |
+[....................................    ]  90.28% Repairing epochs /
+[....................................    ]  91.67% Repairing epochs -
+[.....................................   ]  93.06% Repairing epochs \
+[.....................................   ]  94.44% Repairing epochs |
+[......................................  ]  95.83% Repairing epochs /
+[......................................  ]  97.22% Repairing epochs -
+[....................................... ]  98.61% Repairing epochs \
+[........................................] 100.00% Repairing epochs |
+
+[                                        ]   0.00% Fold |
+[....                                    ]  10.00% Fold /
+[........                                ]  20.00% Fold -
+[............                            ]  30.00% Fold \
+[................                        ]  40.00% Fold |
+[....................                    ]  50.00% Fold /
+[........................                ]  60.00% Fold -
+[............................            ]  70.00% Fold \
+[................................        ]  80.00% Fold |
+[....................................    ]  90.00% Fold /
+[........................................] 100.00% Fold -
+[.............                           ]  33.33% n_interp /
+
+[                                        ]   0.00% Repairing epochs |
+[                                        ]   1.39% Repairing epochs /
+[.                                       ]   2.78% Repairing epochs -
+[.                                       ]   4.17% Repairing epochs \
+[..                                      ]   5.56% Repairing epochs |
+[..                                      ]   6.94% Repairing epochs /
+[...                                     ]   8.33% Repairing epochs -
+[...                                     ]   9.72% Repairing epochs \
+[....                                    ]  11.11% Repairing epochs |
+[.....                                   ]  12.50% Repairing epochs /
+[.....                                   ]  13.89% Repairing epochs -
+[......                                  ]  15.28% Repairing epochs \
+[......                                  ]  16.67% Repairing epochs |
+[.......                                 ]  18.06% Repairing epochs /
+[.......                                 ]  19.44% Repairing epochs -
+[........                                ]  20.83% Repairing epochs \
+[........                                ]  22.22% Repairing epochs |
+[.........                               ]  23.61% Repairing epochs /
+[..........                              ]  25.00% Repairing epochs -
+[..........                              ]  26.39% Repairing epochs \
+[...........                             ]  27.78% Repairing epochs |
+[...........                             ]  29.17% Repairing epochs /
+[............                            ]  30.56% Repairing epochs -
+[............                            ]  31.94% Repairing epochs \
+[.............                           ]  33.33% Repairing epochs |
+[.............                           ]  34.72% Repairing epochs /
+[..............                          ]  36.11% Repairing epochs -
+[...............                         ]  37.50% Repairing epochs \
+[...............                         ]  38.89% Repairing epochs |
+[................                        ]  40.28% Repairing epochs /
+[................                        ]  41.67% Repairing epochs -
+[.................                       ]  43.06% Repairing epochs \
+[.................                       ]  44.44% Repairing epochs |
+[..................                      ]  45.83% Repairing epochs /
+[..................                      ]  47.22% Repairing epochs -
+[...................                     ]  48.61% Repairing epochs \
+[....................                    ]  50.00% Repairing epochs |
+[....................                    ]  51.39% Repairing epochs /
+[.....................                   ]  52.78% Repairing epochs -
+[.....................                   ]  54.17% Repairing epochs \
+[......................                  ]  55.56% Repairing epochs |
+[......................                  ]  56.94% Repairing epochs /
+[.......................                 ]  58.33% Repairing epochs -
+[.......................                 ]  59.72% Repairing epochs \
+[........................                ]  61.11% Repairing epochs |
+[.........................               ]  62.50% Repairing epochs /
+[.........................               ]  63.89% Repairing epochs -
+[..........................              ]  65.28% Repairing epochs \
+[..........................              ]  66.67% Repairing epochs |
+[...........................             ]  68.06% Repairing epochs /
+[...........................             ]  69.44% Repairing epochs -
+[............................            ]  70.83% Repairing epochs \
+[............................            ]  72.22% Repairing epochs |
+[.............................           ]  73.61% Repairing epochs /
+[..............................          ]  75.00% Repairing epochs -
+[..............................          ]  76.39% Repairing epochs \
+[...............................         ]  77.78% Repairing epochs |
+[...............................         ]  79.17% Repairing epochs /
+[................................        ]  80.56% Repairing epochs -
+[................................        ]  81.94% Repairing epochs \
+[.................................       ]  83.33% Repairing epochs |
+[.................................       ]  84.72% Repairing epochs /
+[..................................      ]  86.11% Repairing epochs -
+[...................................     ]  87.50% Repairing epochs \
+[...................................     ]  88.89% Repairing epochs |
+[....................................    ]  90.28% Repairing epochs /
+[....................................    ]  91.67% Repairing epochs -
+[.....................................   ]  93.06% Repairing epochs \
+[.....................................   ]  94.44% Repairing epochs |
+[......................................  ]  95.83% Repairing epochs /
+[......................................  ]  97.22% Repairing epochs -
+[....................................... ]  98.61% Repairing epochs \
+[........................................] 100.00% Repairing epochs |
+
+[                                        ]   0.00% Fold |
+[....                                    ]  10.00% Fold /
+[........                                ]  20.00% Fold -
+[............                            ]  30.00% Fold \
+[................                        ]  40.00% Fold |
+[....................                    ]  50.00% Fold /
+[........................                ]  60.00% Fold -
+[............................            ]  70.00% Fold \
+[................................        ]  80.00% Fold |
+[....................................    ]  90.00% Fold /
+[........................................] 100.00% Fold -
+[..........................              ]  66.67% n_interp -
+
+[                                        ]   0.00% Repairing epochs |
+[                                        ]   1.39% Repairing epochs /
+[.                                       ]   2.78% Repairing epochs -
+[.                                       ]   4.17% Repairing epochs \
+[..                                      ]   5.56% Repairing epochs |
+[..                                      ]   6.94% Repairing epochs /
+[...                                     ]   8.33% Repairing epochs -
+[...                                     ]   9.72% Repairing epochs \
+[....                                    ]  11.11% Repairing epochs |
+[.....                                   ]  12.50% Repairing epochs /
+[.....                                   ]  13.89% Repairing epochs -
+[......                                  ]  15.28% Repairing epochs \
+[......                                  ]  16.67% Repairing epochs |
+[.......                                 ]  18.06% Repairing epochs /
+[.......                                 ]  19.44% Repairing epochs -
+[........                                ]  20.83% Repairing epochs \
+[........                                ]  22.22% Repairing epochs |
+[.........                               ]  23.61% Repairing epochs /
+[..........                              ]  25.00% Repairing epochs -
+[..........                              ]  26.39% Repairing epochs \
+[...........                             ]  27.78% Repairing epochs |
+[...........                             ]  29.17% Repairing epochs /
+[............                            ]  30.56% Repairing epochs -
+[............                            ]  31.94% Repairing epochs \
+[.............                           ]  33.33% Repairing epochs |
+[.............                           ]  34.72% Repairing epochs /
+[..............                          ]  36.11% Repairing epochs -
+[...............                         ]  37.50% Repairing epochs \
+[...............                         ]  38.89% Repairing epochs |
+[................                        ]  40.28% Repairing epochs /
+[................                        ]  41.67% Repairing epochs -
+[.................                       ]  43.06% Repairing epochs \
+[.................                       ]  44.44% Repairing epochs |
+[..................                      ]  45.83% Repairing epochs /
+[..................                      ]  47.22% Repairing epochs -
+[...................                     ]  48.61% Repairing epochs \
+[....................                    ]  50.00% Repairing epochs |
+[....................                    ]  51.39% Repairing epochs /
+[.....................                   ]  52.78% Repairing epochs -
+[.....................                   ]  54.17% Repairing epochs \
+[......................                  ]  55.56% Repairing epochs |
+[......................                  ]  56.94% Repairing epochs /
+[.......................                 ]  58.33% Repairing epochs -
+[.......................                 ]  59.72% Repairing epochs \
+[........................                ]  61.11% Repairing epochs |
+[.........................               ]  62.50% Repairing epochs /
+[.........................               ]  63.89% Repairing epochs -
+[..........................              ]  65.28% Repairing epochs \
+[..........................              ]  66.67% Repairing epochs |
+[...........................             ]  68.06% Repairing epochs /
+[...........................             ]  69.44% Repairing epochs -
+[............................            ]  70.83% Repairing epochs \
+[............................            ]  72.22% Repairing epochs |
+[.............................           ]  73.61% Repairing epochs /
+[..............................          ]  75.00% Repairing epochs -
+[..............................          ]  76.39% Repairing epochs \
+[...............................         ]  77.78% Repairing epochs |
+[...............................         ]  79.17% Repairing epochs /
+[................................        ]  80.56% Repairing epochs -
+[................................        ]  81.94% Repairing epochs \
+[.................................       ]  83.33% Repairing epochs |
+[.................................       ]  84.72% Repairing epochs /
+[..................................      ]  86.11% Repairing epochs -
+[...................................     ]  87.50% Repairing epochs \
+[...................................     ]  88.89% Repairing epochs |
+[....................................    ]  90.28% Repairing epochs /
+[....................................    ]  91.67% Repairing epochs -
+[.....................................   ]  93.06% Repairing epochs \
+[.....................................   ]  94.44% Repairing epochs |
+[......................................  ]  95.83% Repairing epochs /
+[......................................  ]  97.22% Repairing epochs -
+[....................................... ]  98.61% Repairing epochs \
+[........................................] 100.00% Repairing epochs |
+
+[                                        ]   0.00% Fold |
+[....                                    ]  10.00% Fold /
+[........                                ]  20.00% Fold -
+[............                            ]  30.00% Fold \
+[................                        ]  40.00% Fold |
+[....................                    ]  50.00% Fold /
+[........................                ]  60.00% Fold -
+[............................            ]  70.00% Fold \
+[................................        ]  80.00% Fold |
+[....................................    ]  90.00% Fold /
+[........................................] 100.00% Fold -
+[........................................] 100.00% n_interp \
+
+
+
+Estimated consensus=0.50 and n_interpolate=4
+
+
+[                                        ]   0.00% Repairing epochs |
+[                                        ]   1.39% Repairing epochs /
+[.                                       ]   2.78% Repairing epochs -
+[.                                       ]   4.17% Repairing epochs \
+[..                                      ]   5.56% Repairing epochs |
+[..                                      ]   6.94% Repairing epochs /
+[...                                     ]   8.33% Repairing epochs -
+[...                                     ]   9.72% Repairing epochs \
+[....                                    ]  11.11% Repairing epochs |
+[.....                                   ]  12.50% Repairing epochs /
+[.....                                   ]  13.89% Repairing epochs -
+[......                                  ]  15.28% Repairing epochs \
+[......                                  ]  16.67% Repairing epochs |
+[.......                                 ]  18.06% Repairing epochs /
+[.......                                 ]  19.44% Repairing epochs -
+[........                                ]  20.83% Repairing epochs \
+[........                                ]  22.22% Repairing epochs |
+[.........                               ]  23.61% Repairing epochs /
+[..........                              ]  25.00% Repairing epochs -
+[..........                              ]  26.39% Repairing epochs \
+[...........                             ]  27.78% Repairing epochs |
+[...........                             ]  29.17% Repairing epochs /
+[............                            ]  30.56% Repairing epochs -
+[............                            ]  31.94% Repairing epochs \
+[.............                           ]  33.33% Repairing epochs |
+[.............                           ]  34.72% Repairing epochs /
+[..............                          ]  36.11% Repairing epochs -
+[...............                         ]  37.50% Repairing epochs \
+[...............                         ]  38.89% Repairing epochs |
+[................                        ]  40.28% Repairing epochs /
+[................                        ]  41.67% Repairing epochs -
+[.................                       ]  43.06% Repairing epochs \
+[.................                       ]  44.44% Repairing epochs |
+[..................                      ]  45.83% Repairing epochs /
+[..................                      ]  47.22% Repairing epochs -
+[...................                     ]  48.61% Repairing epochs \
+[....................                    ]  50.00% Repairing epochs |
+[....................                    ]  51.39% Repairing epochs /
+[.....................                   ]  52.78% Repairing epochs -
+[.....................                   ]  54.17% Repairing epochs \
+[......................                  ]  55.56% Repairing epochs |
+[......................                  ]  56.94% Repairing epochs /
+[.......................                 ]  58.33% Repairing epochs -
+[.......................                 ]  59.72% Repairing epochs \
+[........................                ]  61.11% Repairing epochs |
+[.........................               ]  62.50% Repairing epochs /
+[.........................               ]  63.89% Repairing epochs -
+[..........................              ]  65.28% Repairing epochs \
+[..........................              ]  66.67% Repairing epochs |
+[...........................             ]  68.06% Repairing epochs /
+[...........................             ]  69.44% Repairing epochs -
+[............................            ]  70.83% Repairing epochs \
+[............................            ]  72.22% Repairing epochs |
+[.............................           ]  73.61% Repairing epochs /
+[..............................          ]  75.00% Repairing epochs -
+[..............................          ]  76.39% Repairing epochs \
+[...............................         ]  77.78% Repairing epochs |
+[...............................         ]  79.17% Repairing epochs /
+[................................        ]  80.56% Repairing epochs -
+[................................        ]  81.94% Repairing epochs \
+[.................................       ]  83.33% Repairing epochs |
+[.................................       ]  84.72% Repairing epochs /
+[..................................      ]  86.11% Repairing epochs -
+[...................................     ]  87.50% Repairing epochs \
+[...................................     ]  88.89% Repairing epochs |
+[....................................    ]  90.28% Repairing epochs /
+[....................................    ]  91.67% Repairing epochs -
+[.....................................   ]  93.06% Repairing epochs \
+[.....................................   ]  94.44% Repairing epochs |
+[......................................  ]  95.83% Repairing epochs /
+[......................................  ]  97.22% Repairing epochs -
+[....................................... ]  98.61% Repairing epochs \
+[........................................] 100.00% Repairing epochs |No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
+</pre></div>
+</div>
+<p>Now, we will manually mark the bad channels just for plotting.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evoked</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+<span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Let us plot the results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">ylim</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+<span class="n">evoked</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">evoked</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Before autoreject&#39;</span><span class="p">)</span>
+<span class="n">evoked_clean</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">evoked_clean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;After autoreject&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_auto_repair_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_auto_repair_001.png" />
+<p>To top things up, we can also visualize the bad sensors for each trial using
+a heatmap.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_auto_repair_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_auto_repair_002.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/mainak/Documents/github_repos/autoreject/autoreject/autoreject.py:1268: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  plt.show()
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  44.328 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-auto-repair-py">
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/aea993923b5172fb01f04270c955cdfd/plot_auto_repair.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_auto_repair.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/6a610d2fe2a84c566a7604a79246fa38/plot_auto_repair.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_auto_repair.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+</div>
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
+src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+alt="Fork me on GitHub"
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

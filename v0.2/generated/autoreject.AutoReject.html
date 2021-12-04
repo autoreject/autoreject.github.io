@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>autoreject.AutoReject &#8212; autoreject 0.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../auto_examples/index.html">Examples</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">autoreject.AutoReject</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/generated/autoreject.AutoReject.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="section" id="autoreject-autoreject">
+<h1>autoreject.AutoReject<a class="headerlink" href="#autoreject-autoreject" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="autoreject.AutoReject">
+<em class="property">class </em><code class="sig-prename descclassname">autoreject.</code><code class="sig-name descname">AutoReject</code><span class="sig-paren">(</span><em class="sig-param">n_interpolate=None</em>, <em class="sig-param">consensus=None</em>, <em class="sig-param">thresh_func=None</em>, <em class="sig-param">cv=10</em>, <em class="sig-param">picks=None</em>, <em class="sig-param">thresh_method='bayesian_optimization'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficiently find n_interpolate and consensus.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AutoReject by design supports multiple channels.
+If no picks are passed, separate solutions will be computed for each
+channel type and internally combined. This then readily supports
+cleaning unseen epochs from the different channel types used during fit.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>consensus</strong><span class="classifier">array | None</span></dt><dd><p>The values to try for percentage of channels that must agree as a
+fraction of the total number of channels. This sets <span class="math notranslate nohighlight">\(\\kappa/Q\)</span>.
+If None, defaults to <cite>np.linspace(0, 1.0, 11)</cite></p>
+</dd>
+<dt><strong>n_interpolate</strong><span class="classifier">array | None</span></dt><dd><p>The values to try for the number of channels for which to interpolate.
+This is <span class="math notranslate nohighlight">\(\\rho\)</span>. If None, defaults to np.array([1, 4, 32])</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">a scikit-learn cross-validation object</span></dt><dd><p>Defaults to cv=10</p>
+</dd>
+<dt><strong>picks</strong><span class="classifier">ndarray, shape(n_channels) | None</span></dt><dd><p>The channels to be considered for autoreject. If None, defaults
+to data channels {‘meg’, ‘eeg’}, which will lead fitting and combining
+autoreject solutions across these channel types. Note that, if picks is
+None, autoreject ignores channels marked bad in epochs.info[‘bads’].</p>
+</dd>
+<dt><strong>thresh_method</strong><span class="classifier">str</span></dt><dd><p>‘bayesian_optimization’ or ‘random_search’</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of jobs.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int seed, RandomState instance, or None (default)</span></dt><dd><p>The seed of the pseudo random number generator to use.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">‘tqdm’, ‘tqdm_notebook’, ‘progressbar’ or False</span></dt><dd><p>The verbosity of progress messages.
+If <cite>‘progressbar’</cite>, use <cite>mne.utils.ProgressBar</cite>.
+If <cite>‘tqdm’</cite>, use <cite>tqdm.tqdm</cite>.
+If <cite>‘tqdm_notebook’</cite>, use <cite>tqdm.tqdm_notebook</cite>.
+If False, suppress all output messages.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>local_reject_</strong><span class="classifier">list</span></dt><dd><p>The instances of _AutoReject for each channel type.</p>
+</dd>
+<dt><strong>threshes_</strong><span class="classifier">dict</span></dt><dd><p>The sensor-level thresholds with channel names as keys
+and the peak-to-peak thresholds as the values.</p>
+</dd>
+<dt><strong>loss_</strong><span class="classifier">dict of array, shape (len(n_interpolate), len(consensus))</span></dt><dd><p>The cross validation error for different parameter values.</p>
+</dd>
+<dt><strong>consensus_</strong><span class="classifier">dict</span></dt><dd><p>The estimated consensus per channel type.</p>
+</dd>
+<dt><strong>n_interpolate_</strong><span class="classifier">dict</span></dt><dd><p>The estimated n_interpolate per channel type.</p>
+</dd>
+<dt><strong>picks_</strong><span class="classifier">array-like, shape (n_data_channels,)</span></dt><dd><p>The data channels considered by autoreject. By default
+only data channels, not already marked as bads are considered.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, epochs)</p></td>
+<td><p>Fit the epochs on the AutoReject object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(self, epochs[, return_log])</p></td>
+<td><p>Estimate the rejection params and finds bad epochs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(self, epochs[, picks])</p></td>
+<td><p>Get rejection logs of epochs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self, fname[, overwrite])</p></td>
+<td><p>Save autoreject object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(self, epochs[, return_log])</p></td>
+<td><p>Remove bad epochs, repairs sensors and returns clean epochs.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="autoreject.AutoReject.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n_interpolate=None</em>, <em class="sig-param">consensus=None</em>, <em class="sig-param">thresh_func=None</em>, <em class="sig-param">cv=10</em>, <em class="sig-param">picks=None</em>, <em class="sig-param">thresh_method='bayesian_optimization'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">verbose='progressbar'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#AutoReject.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.AutoReject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init it.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#autoreject.AutoReject.__init__" title="autoreject.AutoReject.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self[, n_interpolate, consensus, …])</p></td>
+<td><p>Init it.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(self, epochs)</p></td>
+<td><p>Fit the epochs on the AutoReject object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(self, epochs[, return_log])</p></td>
+<td><p>Estimate the rejection params and finds bad epochs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reject_log</span></code>(self, epochs[, picks])</p></td>
+<td><p>Get rejection logs of epochs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code>(self, fname[, overwrite])</p></td>
+<td><p>Save autoreject object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(self, epochs[, return_log])</p></td>
+<td><p>Remove bad epochs, repairs sensors and returns clean epochs.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
+src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+alt="Fork me on GitHub"
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
