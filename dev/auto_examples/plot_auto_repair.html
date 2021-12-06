@@ -1,0 +1,1858 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Automatically repair epochs &#8212; autoreject 0.3.dev0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          autoreject</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="index.html">Examples</a></li>
+                <li><a href="../explanation.html">Explanation</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../whats_new.html">What's new</a></li>
+                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
+  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+    v0.3.dev0
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
+    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
+    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+  </ul>
+</div>
+
+
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-auto-repair-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="automatically-repair-epochs">
+<span id="sphx-glr-auto-examples-plot-auto-repair-py"></span><h1>Automatically repair epochs<a class="headerlink" href="#automatically-repair-epochs" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to use <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> to automatically
+repair epochs.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#         Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
+<span class="c1"># License: BSD-3-Clause</span>
+</pre></div>
+</div>
+<p>Let us first define the parameters. <cite>n_interpolates</cite> are the <span class="math notranslate nohighlight">\(\rho\)</span>
+values that we would like <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> to try and <cite>consensus_percs</cite>
+are the <span class="math notranslate nohighlight">\(\kappa\)</span> values that <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> will try (see the
+<a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2017.06.030">autoreject paper</a>) for
+more information on these parameters).</p>
+<p>Epochs with more than <span class="math notranslate nohighlight">\(\kappa * N\)</span> sensors (<span class="math notranslate nohighlight">\(N\)</span> total sensors)
+bad are dropped. For the rest of the epochs, the worst <span class="math notranslate nohighlight">\(\rho\)</span>
+bad sensors (as determined by channel-level thresholds) are interpolated.
+The exact values of these parameters are not preselected but learned from
+the data. If the number of bad sensors for a particular trial is less than
+<span class="math notranslate nohighlight">\(\rho\)</span>, all the bad sensors are interpolated.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n_interpolates</span></a> <span class="o">=</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">consensus_percs</span></a> <span class="o">=</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the purposes of this example, we shall use the MNE sample dataset.
+Therefore, let us make some MNE related imports.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>  <span class="c1"># noqa</span>
+</pre></div>
+</div>
+<p>Now, we can import the class required for rejecting and repairing bad
+epochs. <a class="reference internal" href="../generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> is a callable which must be
+provided to the <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> class for computing
+the channel-level thresholds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="p">(</span><a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">AutoReject</span></a><span class="p">,</span> <span class="n">set_matplotlib_defaults</span><span class="p">)</span>  <span class="c1"># noqa</span>
+</pre></div>
+</div>
+<p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">check_random_state</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path" title="mne.datasets.sample.data_path" class="sphx-glr-backref-module-mne-datasets-sample sphx-glr-backref-type-py-function"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">+</span> <span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;</span>
+<a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Opening raw data file /home/circleci/mne_data/MNE-sample-data/MEG/sample/sample_audvis_filt-0-40_raw.fif...
+    Read a total of 4 projection items:
+        PCA-v1 (1 x 102)  idle
+        PCA-v2 (1 x 102)  idle
+        PCA-v3 (1 x 102)  idle
+        Average EEG reference (1 x 60)  idle
+    Range : 6450 ... 48149 =     42.956 ...   320.665 secs
+Ready.
+Reading 0 ... 41699  =      0.000 ...   277.709 secs...
+</pre></div>
+</div>
+<p>We can then read in the events</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;</span>
+                           <span class="s1">&#39;eve.fif&#39;</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Auditory/Right&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
+
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.read_events.html#mne.read_events" title="mne.read_events" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">read_events</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p>And pick MEG channels for repairing. Currently, <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> can repair
+only one channel type at a time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">include</span><span class="o">=</span><span class="p">[],</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+</pre></div>
+</div>
+<p>Now, we can create epochs. The <code class="docutils literal notranslate"><span class="pre">reject</span></code> params will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
+because we do not want epochs to be dropped when instantiating
+<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.del_proj" title="mne.io.Raw.del_proj" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">del_proj</span></a><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
+<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span>
+                    <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> internally does cross-validation to
+determine the optimal values <span class="math notranslate nohighlight">\(\rho^{*}\)</span> and <span class="math notranslate nohighlight">\(\kappa^{*}\)</span></p>
+<p>Note that <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> by design supports
+multiple channels.
+If no picks are passed, separate solutions will be computed for each channel
+type and internally combined. This then readily supports cleaning
+unseen epochs from the different channel types used during fit.
+Here we only use a subset of channels to save time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">AutoReject</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n_interpolates</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">consensus_percs</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="p">,</span>
+                <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;random_search&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Note that fitting and transforming can be done on different compatible</span>
+<span class="c1"># portions of data if needed.</span>
+<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span>
+<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_clean</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a><span class="o">.</span><span class="n">transform</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>105 coil definitions read
+Running autoreject on ch_type=grad
+
+  0%|          | Creating augmented epochs : 0/204 [00:00&lt;?,       ?it/s]
+  0%|          | Creating augmented epochs : 1/204 [00:00&lt;00:27,    7.42it/s]
+  1%|          | Creating augmented epochs : 2/204 [00:00&lt;00:28,    7.09it/s]
+  1%|1         | Creating augmented epochs : 3/204 [00:00&lt;00:29,    6.81it/s]
+  2%|1         | Creating augmented epochs : 4/204 [00:00&lt;00:31,    6.43it/s]
+  2%|2         | Creating augmented epochs : 5/204 [00:00&lt;00:30,    6.51it/s]
+  3%|2         | Creating augmented epochs : 6/204 [00:00&lt;00:31,    6.35it/s]
+  3%|3         | Creating augmented epochs : 7/204 [00:01&lt;00:31,    6.30it/s]
+  4%|3         | Creating augmented epochs : 8/204 [00:01&lt;00:31,    6.27it/s]
+  4%|4         | Creating augmented epochs : 9/204 [00:01&lt;00:30,    6.30it/s]
+  5%|4         | Creating augmented epochs : 10/204 [00:01&lt;00:31,    6.08it/s]
+  5%|5         | Creating augmented epochs : 11/204 [00:01&lt;00:32,    6.00it/s]
+  6%|5         | Creating augmented epochs : 12/204 [00:01&lt;00:31,    6.08it/s]
+  6%|6         | Creating augmented epochs : 13/204 [00:02&lt;00:32,    5.95it/s]
+  7%|6         | Creating augmented epochs : 14/204 [00:02&lt;00:32,    5.76it/s]
+  7%|7         | Creating augmented epochs : 15/204 [00:02&lt;00:32,    5.74it/s]
+  8%|7         | Creating augmented epochs : 16/204 [00:02&lt;00:32,    5.81it/s]
+  8%|8         | Creating augmented epochs : 17/204 [00:02&lt;00:32,    5.84it/s]
+  9%|8         | Creating augmented epochs : 18/204 [00:03&lt;00:31,    5.90it/s]
+  9%|9         | Creating augmented epochs : 19/204 [00:03&lt;00:31,    5.95it/s]
+ 10%|9         | Creating augmented epochs : 20/204 [00:03&lt;00:30,    5.99it/s]
+ 10%|#         | Creating augmented epochs : 21/204 [00:03&lt;00:30,    6.03it/s]
+ 11%|#         | Creating augmented epochs : 22/204 [00:03&lt;00:30,    6.06it/s]
+ 11%|#1        | Creating augmented epochs : 23/204 [00:03&lt;00:29,    6.06it/s]
+ 12%|#1        | Creating augmented epochs : 24/204 [00:03&lt;00:29,    6.10it/s]
+ 12%|#2        | Creating augmented epochs : 25/204 [00:04&lt;00:29,    6.14it/s]
+ 13%|#2        | Creating augmented epochs : 26/204 [00:04&lt;00:28,    6.17it/s]
+ 13%|#3        | Creating augmented epochs : 27/204 [00:04&lt;00:29,    6.06it/s]
+ 14%|#3        | Creating augmented epochs : 28/204 [00:04&lt;00:29,    6.02it/s]
+ 14%|#4        | Creating augmented epochs : 29/204 [00:04&lt;00:29,    6.03it/s]
+ 15%|#4        | Creating augmented epochs : 30/204 [00:04&lt;00:28,    6.02it/s]
+ 15%|#5        | Creating augmented epochs : 31/204 [00:05&lt;00:28,    6.04it/s]
+ 16%|#5        | Creating augmented epochs : 32/204 [00:05&lt;00:28,    6.02it/s]
+ 16%|#6        | Creating augmented epochs : 33/204 [00:05&lt;00:28,    6.05it/s]
+ 17%|#6        | Creating augmented epochs : 34/204 [00:05&lt;00:28,    6.05it/s]
+ 17%|#7        | Creating augmented epochs : 35/204 [00:05&lt;00:27,    6.09it/s]
+ 18%|#7        | Creating augmented epochs : 36/204 [00:05&lt;00:27,    6.12it/s]
+ 18%|#8        | Creating augmented epochs : 37/204 [00:06&lt;00:27,    6.15it/s]
+ 19%|#8        | Creating augmented epochs : 38/204 [00:06&lt;00:26,    6.15it/s]
+ 19%|#9        | Creating augmented epochs : 39/204 [00:06&lt;00:26,    6.18it/s]
+ 20%|#9        | Creating augmented epochs : 40/204 [00:06&lt;00:26,    6.20it/s]
+ 20%|##        | Creating augmented epochs : 41/204 [00:06&lt;00:26,    6.10it/s]
+ 21%|##        | Creating augmented epochs : 42/204 [00:06&lt;00:26,    6.11it/s]
+ 21%|##1       | Creating augmented epochs : 43/204 [00:07&lt;00:26,    6.14it/s]
+ 22%|##1       | Creating augmented epochs : 44/204 [00:07&lt;00:26,    6.15it/s]
+ 22%|##2       | Creating augmented epochs : 45/204 [00:07&lt;00:26,    6.10it/s]
+ 23%|##2       | Creating augmented epochs : 46/204 [00:07&lt;00:25,    6.11it/s]
+ 23%|##3       | Creating augmented epochs : 47/204 [00:07&lt;00:25,    6.11it/s]
+ 24%|##3       | Creating augmented epochs : 48/204 [00:07&lt;00:25,    6.12it/s]
+ 24%|##4       | Creating augmented epochs : 49/204 [00:08&lt;00:25,    6.14it/s]
+ 25%|##4       | Creating augmented epochs : 50/204 [00:08&lt;00:25,    6.16it/s]
+ 25%|##5       | Creating augmented epochs : 51/204 [00:08&lt;00:25,    6.07it/s]
+ 25%|##5       | Creating augmented epochs : 52/204 [00:08&lt;00:25,    6.07it/s]
+ 26%|##5       | Creating augmented epochs : 53/204 [00:08&lt;00:24,    6.10it/s]
+ 26%|##6       | Creating augmented epochs : 54/204 [00:08&lt;00:24,    6.13it/s]
+ 27%|##6       | Creating augmented epochs : 55/204 [00:09&lt;00:24,    6.15it/s]
+ 27%|##7       | Creating augmented epochs : 56/204 [00:09&lt;00:24,    6.07it/s]
+ 28%|##7       | Creating augmented epochs : 57/204 [00:09&lt;00:24,    6.10it/s]
+ 28%|##8       | Creating augmented epochs : 58/204 [00:09&lt;00:23,    6.12it/s]
+ 29%|##8       | Creating augmented epochs : 59/204 [00:09&lt;00:23,    6.15it/s]
+ 29%|##9       | Creating augmented epochs : 60/204 [00:09&lt;00:23,    6.15it/s]
+ 30%|##9       | Creating augmented epochs : 61/204 [00:09&lt;00:23,    6.18it/s]
+ 30%|###       | Creating augmented epochs : 62/204 [00:10&lt;00:23,    6.16it/s]
+ 31%|###       | Creating augmented epochs : 63/204 [00:10&lt;00:22,    6.16it/s]
+ 31%|###1      | Creating augmented epochs : 64/204 [00:10&lt;00:22,    6.13it/s]
+ 32%|###1      | Creating augmented epochs : 65/204 [00:10&lt;00:22,    6.15it/s]
+ 32%|###2      | Creating augmented epochs : 66/204 [00:10&lt;00:22,    6.05it/s]
+ 33%|###2      | Creating augmented epochs : 67/204 [00:11&lt;00:22,    6.06it/s]
+ 33%|###3      | Creating augmented epochs : 68/204 [00:11&lt;00:22,    6.08it/s]
+ 34%|###3      | Creating augmented epochs : 69/204 [00:11&lt;00:22,    5.97it/s]
+ 34%|###4      | Creating augmented epochs : 70/204 [00:11&lt;00:22,    5.98it/s]
+ 35%|###4      | Creating augmented epochs : 71/204 [00:11&lt;00:22,    6.01it/s]
+ 35%|###5      | Creating augmented epochs : 72/204 [00:11&lt;00:21,    6.04it/s]
+ 36%|###5      | Creating augmented epochs : 73/204 [00:12&lt;00:21,    6.04it/s]
+ 36%|###6      | Creating augmented epochs : 74/204 [00:12&lt;00:21,    6.06it/s]
+ 37%|###6      | Creating augmented epochs : 75/204 [00:12&lt;00:21,    6.06it/s]
+ 37%|###7      | Creating augmented epochs : 76/204 [00:12&lt;00:21,    6.08it/s]
+ 38%|###7      | Creating augmented epochs : 77/204 [00:12&lt;00:20,    6.11it/s]
+ 38%|###8      | Creating augmented epochs : 78/204 [00:12&lt;00:20,    6.14it/s]
+ 39%|###8      | Creating augmented epochs : 79/204 [00:12&lt;00:20,    6.13it/s]
+ 39%|###9      | Creating augmented epochs : 80/204 [00:13&lt;00:20,    6.15it/s]
+ 40%|###9      | Creating augmented epochs : 81/204 [00:13&lt;00:20,    6.09it/s]
+ 40%|####      | Creating augmented epochs : 82/204 [00:13&lt;00:20,    6.10it/s]
+ 41%|####      | Creating augmented epochs : 83/204 [00:13&lt;00:19,    6.11it/s]
+ 41%|####1     | Creating augmented epochs : 84/204 [00:13&lt;00:19,    6.14it/s]
+ 42%|####1     | Creating augmented epochs : 85/204 [00:13&lt;00:19,    6.16it/s]
+ 42%|####2     | Creating augmented epochs : 86/204 [00:14&lt;00:19,    6.17it/s]
+ 43%|####2     | Creating augmented epochs : 87/204 [00:14&lt;00:19,    6.16it/s]
+ 43%|####3     | Creating augmented epochs : 88/204 [00:14&lt;00:18,    6.18it/s]
+ 44%|####3     | Creating augmented epochs : 89/204 [00:14&lt;00:18,    6.19it/s]
+ 44%|####4     | Creating augmented epochs : 90/204 [00:14&lt;00:18,    6.21it/s]
+ 45%|####4     | Creating augmented epochs : 91/204 [00:14&lt;00:18,    6.22it/s]
+ 45%|####5     | Creating augmented epochs : 92/204 [00:15&lt;00:18,    6.13it/s]
+ 46%|####5     | Creating augmented epochs : 93/204 [00:15&lt;00:18,    6.15it/s]
+ 46%|####6     | Creating augmented epochs : 94/204 [00:15&lt;00:17,    6.17it/s]
+ 47%|####6     | Creating augmented epochs : 95/204 [00:15&lt;00:17,    6.13it/s]
+ 47%|####7     | Creating augmented epochs : 96/204 [00:15&lt;00:17,    6.10it/s]
+ 48%|####7     | Creating augmented epochs : 97/204 [00:15&lt;00:17,    6.12it/s]
+ 48%|####8     | Creating augmented epochs : 98/204 [00:16&lt;00:17,    6.11it/s]
+ 49%|####8     | Creating augmented epochs : 99/204 [00:16&lt;00:17,    6.12it/s]
+ 49%|####9     | Creating augmented epochs : 100/204 [00:16&lt;00:16,    6.14it/s]
+ 50%|####9     | Creating augmented epochs : 101/204 [00:16&lt;00:16,    6.15it/s]
+ 50%|#####     | Creating augmented epochs : 102/204 [00:16&lt;00:16,    6.18it/s]
+ 50%|#####     | Creating augmented epochs : 103/204 [00:16&lt;00:16,    6.10it/s]
+ 51%|#####     | Creating augmented epochs : 104/204 [00:17&lt;00:16,    6.11it/s]
+ 51%|#####1    | Creating augmented epochs : 105/204 [00:17&lt;00:16,    6.13it/s]
+ 52%|#####1    | Creating augmented epochs : 106/204 [00:17&lt;00:15,    6.16it/s]
+ 52%|#####2    | Creating augmented epochs : 107/204 [00:17&lt;00:15,    6.19it/s]
+ 53%|#####2    | Creating augmented epochs : 108/204 [00:17&lt;00:15,    6.18it/s]
+ 53%|#####3    | Creating augmented epochs : 109/204 [00:17&lt;00:15,    6.20it/s]
+ 54%|#####3    | Creating augmented epochs : 110/204 [00:17&lt;00:15,    6.22it/s]
+ 54%|#####4    | Creating augmented epochs : 111/204 [00:18&lt;00:15,    6.12it/s]
+ 55%|#####4    | Creating augmented epochs : 112/204 [00:18&lt;00:15,    6.08it/s]
+ 55%|#####5    | Creating augmented epochs : 113/204 [00:18&lt;00:14,    6.11it/s]
+ 56%|#####5    | Creating augmented epochs : 114/204 [00:18&lt;00:14,    6.04it/s]
+ 56%|#####6    | Creating augmented epochs : 115/204 [00:18&lt;00:14,    6.02it/s]
+ 57%|#####6    | Creating augmented epochs : 116/204 [00:19&lt;00:14,    6.04it/s]
+ 57%|#####7    | Creating augmented epochs : 117/204 [00:19&lt;00:14,    5.97it/s]
+ 58%|#####7    | Creating augmented epochs : 118/204 [00:19&lt;00:14,    5.87it/s]
+ 58%|#####8    | Creating augmented epochs : 119/204 [00:19&lt;00:14,    5.88it/s]
+ 59%|#####8    | Creating augmented epochs : 120/204 [00:19&lt;00:14,    5.91it/s]
+ 59%|#####9    | Creating augmented epochs : 121/204 [00:19&lt;00:13,    5.94it/s]
+ 60%|#####9    | Creating augmented epochs : 122/204 [00:20&lt;00:13,    5.96it/s]
+ 60%|######    | Creating augmented epochs : 123/204 [00:20&lt;00:13,    5.95it/s]
+ 61%|######    | Creating augmented epochs : 124/204 [00:20&lt;00:13,    5.98it/s]
+ 61%|######1   | Creating augmented epochs : 125/204 [00:20&lt;00:13,    6.00it/s]
+ 62%|######1   | Creating augmented epochs : 126/204 [00:20&lt;00:12,    6.02it/s]
+ 62%|######2   | Creating augmented epochs : 127/204 [00:20&lt;00:12,    5.95it/s]
+ 63%|######2   | Creating augmented epochs : 128/204 [00:21&lt;00:12,    5.95it/s]
+ 63%|######3   | Creating augmented epochs : 129/204 [00:21&lt;00:12,    5.88it/s]
+ 64%|######3   | Creating augmented epochs : 130/204 [00:21&lt;00:12,    5.78it/s]
+ 64%|######4   | Creating augmented epochs : 131/204 [00:21&lt;00:12,    5.80it/s]
+ 65%|######4   | Creating augmented epochs : 132/204 [00:21&lt;00:12,    5.83it/s]
+ 65%|######5   | Creating augmented epochs : 133/204 [00:22&lt;00:12,    5.76it/s]
+ 66%|######5   | Creating augmented epochs : 134/204 [00:22&lt;00:12,    5.79it/s]
+ 66%|######6   | Creating augmented epochs : 135/204 [00:22&lt;00:11,    5.82it/s]
+ 67%|######6   | Creating augmented epochs : 136/204 [00:22&lt;00:11,    5.82it/s]
+ 67%|######7   | Creating augmented epochs : 137/204 [00:22&lt;00:11,    5.84it/s]
+ 68%|######7   | Creating augmented epochs : 138/204 [00:22&lt;00:11,    5.85it/s]
+ 68%|######8   | Creating augmented epochs : 139/204 [00:23&lt;00:11,    5.83it/s]
+ 69%|######8   | Creating augmented epochs : 140/204 [00:23&lt;00:10,    5.86it/s]
+ 69%|######9   | Creating augmented epochs : 141/204 [00:23&lt;00:10,    5.87it/s]
+ 70%|######9   | Creating augmented epochs : 142/204 [00:23&lt;00:10,    5.90it/s]
+ 70%|#######   | Creating augmented epochs : 143/204 [00:23&lt;00:10,    5.92it/s]
+ 71%|#######   | Creating augmented epochs : 144/204 [00:23&lt;00:10,    5.95it/s]
+ 71%|#######1  | Creating augmented epochs : 145/204 [00:24&lt;00:10,    5.87it/s]
+ 72%|#######1  | Creating augmented epochs : 146/204 [00:24&lt;00:10,    5.78it/s]
+ 72%|#######2  | Creating augmented epochs : 147/204 [00:24&lt;00:09,    5.80it/s]
+ 73%|#######2  | Creating augmented epochs : 148/204 [00:24&lt;00:09,    5.73it/s]
+ 73%|#######3  | Creating augmented epochs : 149/204 [00:24&lt;00:09,    5.73it/s]
+ 74%|#######3  | Creating augmented epochs : 150/204 [00:24&lt;00:09,    5.76it/s]
+ 74%|#######4  | Creating augmented epochs : 151/204 [00:25&lt;00:09,    5.80it/s]
+ 75%|#######4  | Creating augmented epochs : 152/204 [00:25&lt;00:08,    5.82it/s]
+ 75%|#######5  | Creating augmented epochs : 153/204 [00:25&lt;00:08,    5.74it/s]
+ 75%|#######5  | Creating augmented epochs : 154/204 [00:25&lt;00:08,    5.72it/s]
+ 76%|#######5  | Creating augmented epochs : 155/204 [00:25&lt;00:08,    5.73it/s]
+ 76%|#######6  | Creating augmented epochs : 156/204 [00:26&lt;00:08,    5.73it/s]
+ 77%|#######6  | Creating augmented epochs : 157/204 [00:26&lt;00:08,    5.76it/s]
+ 77%|#######7  | Creating augmented epochs : 158/204 [00:26&lt;00:07,    5.80it/s]
+ 78%|#######7  | Creating augmented epochs : 159/204 [00:26&lt;00:07,    5.73it/s]
+ 78%|#######8  | Creating augmented epochs : 160/204 [00:26&lt;00:07,    5.66it/s]
+ 79%|#######8  | Creating augmented epochs : 161/204 [00:27&lt;00:07,    5.58it/s]
+ 79%|#######9  | Creating augmented epochs : 162/204 [00:27&lt;00:07,    5.57it/s]
+ 80%|#######9  | Creating augmented epochs : 163/204 [00:27&lt;00:07,    5.61it/s]
+ 80%|########  | Creating augmented epochs : 164/204 [00:27&lt;00:07,    5.62it/s]
+ 81%|########  | Creating augmented epochs : 165/204 [00:27&lt;00:06,    5.59it/s]
+ 81%|########1 | Creating augmented epochs : 166/204 [00:27&lt;00:06,    5.59it/s]
+ 82%|########1 | Creating augmented epochs : 167/204 [00:28&lt;00:06,    5.63it/s]
+ 82%|########2 | Creating augmented epochs : 168/204 [00:28&lt;00:06,    5.67it/s]
+ 83%|########2 | Creating augmented epochs : 169/204 [00:28&lt;00:06,    5.71it/s]
+ 83%|########3 | Creating augmented epochs : 170/204 [00:28&lt;00:05,    5.75it/s]
+ 84%|########3 | Creating augmented epochs : 171/204 [00:28&lt;00:05,    5.76it/s]
+ 84%|########4 | Creating augmented epochs : 172/204 [00:28&lt;00:05,    5.81it/s]
+ 85%|########4 | Creating augmented epochs : 173/204 [00:28&lt;00:05,    5.85it/s]
+ 85%|########5 | Creating augmented epochs : 174/204 [00:29&lt;00:05,    5.89it/s]
+ 86%|########5 | Creating augmented epochs : 175/204 [00:29&lt;00:04,    5.91it/s]
+ 86%|########6 | Creating augmented epochs : 176/204 [00:29&lt;00:04,    5.89it/s]
+ 87%|########6 | Creating augmented epochs : 177/204 [00:29&lt;00:04,    5.89it/s]
+ 87%|########7 | Creating augmented epochs : 178/204 [00:29&lt;00:04,    5.90it/s]
+ 88%|########7 | Creating augmented epochs : 179/204 [00:29&lt;00:04,    5.88it/s]
+ 88%|########8 | Creating augmented epochs : 180/204 [00:30&lt;00:04,    5.90it/s]
+ 89%|########8 | Creating augmented epochs : 181/204 [00:30&lt;00:03,    5.94it/s]
+ 89%|########9 | Creating augmented epochs : 182/204 [00:30&lt;00:03,    5.97it/s]
+ 90%|########9 | Creating augmented epochs : 183/204 [00:30&lt;00:03,    5.91it/s]
+ 90%|######### | Creating augmented epochs : 184/204 [00:30&lt;00:03,    5.93it/s]
+ 91%|######### | Creating augmented epochs : 185/204 [00:30&lt;00:03,    5.96it/s]
+ 91%|#########1| Creating augmented epochs : 186/204 [00:31&lt;00:03,    5.90it/s]
+ 92%|#########1| Creating augmented epochs : 187/204 [00:31&lt;00:02,    5.88it/s]
+ 92%|#########2| Creating augmented epochs : 188/204 [00:31&lt;00:02,    5.91it/s]
+ 93%|#########2| Creating augmented epochs : 189/204 [00:31&lt;00:02,    5.86it/s]
+ 93%|#########3| Creating augmented epochs : 190/204 [00:31&lt;00:02,    5.78it/s]
+ 94%|#########3| Creating augmented epochs : 191/204 [00:32&lt;00:02,    5.71it/s]
+ 94%|#########4| Creating augmented epochs : 192/204 [00:32&lt;00:02,    5.70it/s]
+ 95%|#########4| Creating augmented epochs : 193/204 [00:32&lt;00:01,    5.74it/s]
+ 95%|#########5| Creating augmented epochs : 194/204 [00:32&lt;00:01,    5.75it/s]
+ 96%|#########5| Creating augmented epochs : 195/204 [00:32&lt;00:01,    5.79it/s]
+ 96%|#########6| Creating augmented epochs : 196/204 [00:32&lt;00:01,    5.83it/s]
+ 97%|#########6| Creating augmented epochs : 197/204 [00:33&lt;00:01,    5.77it/s]
+ 97%|#########7| Creating augmented epochs : 198/204 [00:33&lt;00:01,    5.80it/s]
+ 98%|#########7| Creating augmented epochs : 199/204 [00:33&lt;00:00,    5.84it/s]
+ 98%|#########8| Creating augmented epochs : 200/204 [00:33&lt;00:00,    5.86it/s]
+ 99%|#########8| Creating augmented epochs : 201/204 [00:33&lt;00:00,    5.89it/s]
+ 99%|#########9| Creating augmented epochs : 202/204 [00:33&lt;00:00,    5.93it/s]
+100%|#########9| Creating augmented epochs : 203/204 [00:34&lt;00:00,    5.94it/s]
+100%|##########| Creating augmented epochs : 204/204 [00:34&lt;00:00,    5.89it/s]
+100%|##########| Creating augmented epochs : 204/204 [00:34&lt;00:00,    5.96it/s]
+
+  0%|          | Computing thresholds ... : 0/204 [00:00&lt;?,       ?it/s]
+  0%|          | Computing thresholds ... : 1/204 [00:00&lt;00:38,    5.25it/s]
+  1%|          | Computing thresholds ... : 2/204 [00:00&lt;00:34,    5.87it/s]
+  1%|1         | Computing thresholds ... : 3/204 [00:00&lt;00:32,    6.11it/s]
+  2%|1         | Computing thresholds ... : 4/204 [00:00&lt;00:32,    6.20it/s]
+  2%|2         | Computing thresholds ... : 5/204 [00:00&lt;00:31,    6.25it/s]
+  3%|2         | Computing thresholds ... : 6/204 [00:00&lt;00:31,    6.33it/s]
+  3%|3         | Computing thresholds ... : 7/204 [00:01&lt;00:31,    6.34it/s]
+  4%|3         | Computing thresholds ... : 8/204 [00:01&lt;00:31,    6.32it/s]
+  4%|4         | Computing thresholds ... : 9/204 [00:01&lt;00:30,    6.33it/s]
+  5%|4         | Computing thresholds ... : 10/204 [00:01&lt;00:30,    6.35it/s]
+  5%|5         | Computing thresholds ... : 11/204 [00:01&lt;00:30,    6.37it/s]
+  6%|5         | Computing thresholds ... : 12/204 [00:01&lt;00:29,    6.40it/s]
+  6%|6         | Computing thresholds ... : 13/204 [00:02&lt;00:29,    6.43it/s]
+  7%|6         | Computing thresholds ... : 14/204 [00:02&lt;00:29,    6.45it/s]
+  7%|7         | Computing thresholds ... : 15/204 [00:02&lt;00:29,    6.44it/s]
+  8%|7         | Computing thresholds ... : 16/204 [00:02&lt;00:29,    6.44it/s]
+  8%|8         | Computing thresholds ... : 17/204 [00:02&lt;00:29,    6.44it/s]
+  9%|8         | Computing thresholds ... : 18/204 [00:02&lt;00:28,    6.44it/s]
+  9%|9         | Computing thresholds ... : 19/204 [00:02&lt;00:28,    6.43it/s]
+ 10%|9         | Computing thresholds ... : 20/204 [00:03&lt;00:28,    6.42it/s]
+ 10%|#         | Computing thresholds ... : 21/204 [00:03&lt;00:28,    6.43it/s]
+ 11%|#         | Computing thresholds ... : 22/204 [00:03&lt;00:28,    6.43it/s]
+ 11%|#1        | Computing thresholds ... : 23/204 [00:03&lt;00:28,    6.43it/s]
+ 12%|#1        | Computing thresholds ... : 24/204 [00:03&lt;00:27,    6.44it/s]
+ 12%|#2        | Computing thresholds ... : 25/204 [00:03&lt;00:27,    6.45it/s]
+ 13%|#2        | Computing thresholds ... : 26/204 [00:04&lt;00:27,    6.46it/s]
+ 13%|#3        | Computing thresholds ... : 27/204 [00:04&lt;00:27,    6.46it/s]
+ 14%|#3        | Computing thresholds ... : 28/204 [00:04&lt;00:27,    6.46it/s]
+ 14%|#4        | Computing thresholds ... : 29/204 [00:04&lt;00:27,    6.43it/s]
+ 15%|#4        | Computing thresholds ... : 30/204 [00:04&lt;00:27,    6.44it/s]
+ 15%|#5        | Computing thresholds ... : 31/204 [00:04&lt;00:26,    6.46it/s]
+ 16%|#5        | Computing thresholds ... : 32/204 [00:04&lt;00:26,    6.47it/s]
+ 16%|#6        | Computing thresholds ... : 33/204 [00:05&lt;00:26,    6.47it/s]
+ 17%|#6        | Computing thresholds ... : 34/204 [00:05&lt;00:26,    6.47it/s]
+ 17%|#7        | Computing thresholds ... : 35/204 [00:05&lt;00:26,    6.47it/s]
+ 18%|#7        | Computing thresholds ... : 36/204 [00:05&lt;00:25,    6.47it/s]
+ 18%|#8        | Computing thresholds ... : 37/204 [00:05&lt;00:25,    6.47it/s]
+ 19%|#8        | Computing thresholds ... : 38/204 [00:05&lt;00:25,    6.47it/s]
+ 19%|#9        | Computing thresholds ... : 39/204 [00:06&lt;00:25,    6.48it/s]
+ 20%|#9        | Computing thresholds ... : 40/204 [00:06&lt;00:25,    6.46it/s]
+ 20%|##        | Computing thresholds ... : 41/204 [00:06&lt;00:25,    6.45it/s]
+ 21%|##        | Computing thresholds ... : 42/204 [00:06&lt;00:25,    6.46it/s]
+ 21%|##1       | Computing thresholds ... : 43/204 [00:06&lt;00:24,    6.46it/s]
+ 22%|##1       | Computing thresholds ... : 44/204 [00:06&lt;00:24,    6.47it/s]
+ 22%|##2       | Computing thresholds ... : 45/204 [00:06&lt;00:24,    6.48it/s]
+ 23%|##2       | Computing thresholds ... : 46/204 [00:07&lt;00:24,    6.49it/s]
+ 23%|##3       | Computing thresholds ... : 47/204 [00:07&lt;00:24,    6.48it/s]
+ 24%|##3       | Computing thresholds ... : 48/204 [00:07&lt;00:24,    6.47it/s]
+ 24%|##4       | Computing thresholds ... : 49/204 [00:07&lt;00:24,    6.46it/s]
+ 25%|##4       | Computing thresholds ... : 50/204 [00:07&lt;00:23,    6.45it/s]
+ 25%|##5       | Computing thresholds ... : 51/204 [00:07&lt;00:23,    6.44it/s]
+ 25%|##5       | Computing thresholds ... : 52/204 [00:08&lt;00:23,    6.44it/s]
+ 26%|##5       | Computing thresholds ... : 53/204 [00:08&lt;00:23,    6.42it/s]
+ 26%|##6       | Computing thresholds ... : 54/204 [00:08&lt;00:23,    6.41it/s]
+ 27%|##6       | Computing thresholds ... : 55/204 [00:08&lt;00:23,    6.42it/s]
+ 27%|##7       | Computing thresholds ... : 56/204 [00:08&lt;00:23,    6.41it/s]
+ 28%|##7       | Computing thresholds ... : 57/204 [00:08&lt;00:22,    6.41it/s]
+ 28%|##8       | Computing thresholds ... : 58/204 [00:09&lt;00:22,    6.41it/s]
+ 29%|##8       | Computing thresholds ... : 59/204 [00:09&lt;00:22,    6.40it/s]
+ 29%|##9       | Computing thresholds ... : 60/204 [00:09&lt;00:22,    6.41it/s]
+ 30%|##9       | Computing thresholds ... : 61/204 [00:09&lt;00:22,    6.40it/s]
+ 30%|###       | Computing thresholds ... : 62/204 [00:09&lt;00:22,    6.40it/s]
+ 31%|###       | Computing thresholds ... : 63/204 [00:09&lt;00:21,    6.41it/s]
+ 31%|###1      | Computing thresholds ... : 64/204 [00:09&lt;00:21,    6.42it/s]
+ 32%|###1      | Computing thresholds ... : 65/204 [00:10&lt;00:21,    6.42it/s]
+ 32%|###2      | Computing thresholds ... : 66/204 [00:10&lt;00:21,    6.43it/s]
+ 33%|###2      | Computing thresholds ... : 67/204 [00:10&lt;00:21,    6.44it/s]
+ 33%|###3      | Computing thresholds ... : 68/204 [00:10&lt;00:21,    6.43it/s]
+ 34%|###3      | Computing thresholds ... : 69/204 [00:10&lt;00:21,    6.41it/s]
+ 34%|###4      | Computing thresholds ... : 70/204 [00:10&lt;00:20,    6.41it/s]
+ 35%|###4      | Computing thresholds ... : 71/204 [00:11&lt;00:20,    6.40it/s]
+ 35%|###5      | Computing thresholds ... : 72/204 [00:11&lt;00:20,    6.39it/s]
+ 36%|###5      | Computing thresholds ... : 73/204 [00:11&lt;00:20,    6.39it/s]
+ 36%|###6      | Computing thresholds ... : 74/204 [00:11&lt;00:20,    6.39it/s]
+ 37%|###6      | Computing thresholds ... : 75/204 [00:11&lt;00:20,    6.40it/s]
+ 37%|###7      | Computing thresholds ... : 76/204 [00:11&lt;00:19,    6.41it/s]
+ 38%|###7      | Computing thresholds ... : 77/204 [00:11&lt;00:19,    6.41it/s]
+ 38%|###8      | Computing thresholds ... : 78/204 [00:12&lt;00:19,    6.40it/s]
+ 39%|###8      | Computing thresholds ... : 79/204 [00:12&lt;00:19,    6.40it/s]
+ 39%|###9      | Computing thresholds ... : 80/204 [00:12&lt;00:19,    6.40it/s]
+ 40%|###9      | Computing thresholds ... : 81/204 [00:12&lt;00:19,    6.40it/s]
+ 40%|####      | Computing thresholds ... : 82/204 [00:12&lt;00:19,    6.40it/s]
+ 41%|####      | Computing thresholds ... : 83/204 [00:12&lt;00:18,    6.40it/s]
+ 41%|####1     | Computing thresholds ... : 84/204 [00:13&lt;00:18,    6.40it/s]
+ 42%|####1     | Computing thresholds ... : 85/204 [00:13&lt;00:18,    6.40it/s]
+ 42%|####2     | Computing thresholds ... : 86/204 [00:13&lt;00:18,    6.39it/s]
+ 43%|####2     | Computing thresholds ... : 87/204 [00:13&lt;00:18,    6.39it/s]
+ 43%|####3     | Computing thresholds ... : 88/204 [00:13&lt;00:18,    6.38it/s]
+ 44%|####3     | Computing thresholds ... : 89/204 [00:13&lt;00:18,    6.38it/s]
+ 44%|####4     | Computing thresholds ... : 90/204 [00:14&lt;00:17,    6.38it/s]
+ 45%|####4     | Computing thresholds ... : 91/204 [00:14&lt;00:17,    6.37it/s]
+ 45%|####5     | Computing thresholds ... : 92/204 [00:14&lt;00:17,    6.37it/s]
+ 46%|####5     | Computing thresholds ... : 93/204 [00:14&lt;00:17,    6.37it/s]
+ 46%|####6     | Computing thresholds ... : 94/204 [00:14&lt;00:17,    6.36it/s]
+ 47%|####6     | Computing thresholds ... : 95/204 [00:14&lt;00:17,    6.37it/s]
+ 47%|####7     | Computing thresholds ... : 96/204 [00:14&lt;00:16,    6.38it/s]
+ 48%|####7     | Computing thresholds ... : 97/204 [00:15&lt;00:16,    6.39it/s]
+ 48%|####8     | Computing thresholds ... : 98/204 [00:15&lt;00:16,    6.39it/s]
+ 49%|####8     | Computing thresholds ... : 99/204 [00:15&lt;00:16,    6.39it/s]
+ 49%|####9     | Computing thresholds ... : 100/204 [00:15&lt;00:16,    6.39it/s]
+ 50%|####9     | Computing thresholds ... : 101/204 [00:15&lt;00:16,    6.39it/s]
+ 50%|#####     | Computing thresholds ... : 102/204 [00:15&lt;00:15,    6.41it/s]
+ 50%|#####     | Computing thresholds ... : 103/204 [00:16&lt;00:15,    6.42it/s]
+ 51%|#####     | Computing thresholds ... : 104/204 [00:16&lt;00:15,    6.42it/s]
+ 51%|#####1    | Computing thresholds ... : 105/204 [00:16&lt;00:15,    6.41it/s]
+ 52%|#####1    | Computing thresholds ... : 106/204 [00:16&lt;00:15,    6.42it/s]
+ 52%|#####2    | Computing thresholds ... : 107/204 [00:16&lt;00:15,    6.43it/s]
+ 53%|#####2    | Computing thresholds ... : 108/204 [00:16&lt;00:14,    6.44it/s]
+ 53%|#####3    | Computing thresholds ... : 109/204 [00:16&lt;00:14,    6.45it/s]
+ 54%|#####3    | Computing thresholds ... : 110/204 [00:17&lt;00:14,    6.46it/s]
+ 54%|#####4    | Computing thresholds ... : 111/204 [00:17&lt;00:14,    6.46it/s]
+ 55%|#####4    | Computing thresholds ... : 112/204 [00:17&lt;00:14,    6.47it/s]
+ 55%|#####5    | Computing thresholds ... : 113/204 [00:17&lt;00:14,    6.48it/s]
+ 56%|#####5    | Computing thresholds ... : 114/204 [00:17&lt;00:13,    6.49it/s]
+ 56%|#####6    | Computing thresholds ... : 115/204 [00:17&lt;00:13,    6.49it/s]
+ 57%|#####6    | Computing thresholds ... : 116/204 [00:18&lt;00:13,    6.49it/s]
+ 57%|#####7    | Computing thresholds ... : 117/204 [00:18&lt;00:13,    6.47it/s]
+ 58%|#####7    | Computing thresholds ... : 118/204 [00:18&lt;00:13,    6.47it/s]
+ 58%|#####8    | Computing thresholds ... : 119/204 [00:18&lt;00:13,    6.46it/s]
+ 59%|#####8    | Computing thresholds ... : 120/204 [00:18&lt;00:12,    6.46it/s]
+ 59%|#####9    | Computing thresholds ... : 121/204 [00:18&lt;00:12,    6.48it/s]
+ 60%|#####9    | Computing thresholds ... : 122/204 [00:18&lt;00:12,    6.48it/s]
+ 60%|######    | Computing thresholds ... : 123/204 [00:19&lt;00:12,    6.48it/s]
+ 61%|######    | Computing thresholds ... : 124/204 [00:19&lt;00:12,    6.49it/s]
+ 61%|######1   | Computing thresholds ... : 125/204 [00:19&lt;00:12,    6.48it/s]
+ 62%|######1   | Computing thresholds ... : 126/204 [00:19&lt;00:12,    6.50it/s]
+ 62%|######2   | Computing thresholds ... : 127/204 [00:19&lt;00:11,    6.50it/s]
+ 63%|######2   | Computing thresholds ... : 128/204 [00:19&lt;00:11,    6.52it/s]
+ 63%|######3   | Computing thresholds ... : 129/204 [00:20&lt;00:11,    6.52it/s]
+ 64%|######3   | Computing thresholds ... : 130/204 [00:20&lt;00:11,    6.52it/s]
+ 64%|######4   | Computing thresholds ... : 131/204 [00:20&lt;00:11,    6.53it/s]
+ 65%|######4   | Computing thresholds ... : 132/204 [00:20&lt;00:11,    6.53it/s]
+ 65%|######5   | Computing thresholds ... : 133/204 [00:20&lt;00:10,    6.53it/s]
+ 66%|######5   | Computing thresholds ... : 134/204 [00:20&lt;00:10,    6.54it/s]
+ 66%|######6   | Computing thresholds ... : 135/204 [00:20&lt;00:10,    6.55it/s]
+ 67%|######6   | Computing thresholds ... : 136/204 [00:21&lt;00:10,    6.55it/s]
+ 67%|######7   | Computing thresholds ... : 137/204 [00:21&lt;00:10,    6.55it/s]
+ 68%|######7   | Computing thresholds ... : 138/204 [00:21&lt;00:10,    6.55it/s]
+ 68%|######8   | Computing thresholds ... : 139/204 [00:21&lt;00:09,    6.54it/s]
+ 69%|######8   | Computing thresholds ... : 140/204 [00:21&lt;00:09,    6.54it/s]
+ 69%|######9   | Computing thresholds ... : 141/204 [00:21&lt;00:09,    6.54it/s]
+ 70%|######9   | Computing thresholds ... : 142/204 [00:22&lt;00:09,    6.54it/s]
+ 70%|#######   | Computing thresholds ... : 143/204 [00:22&lt;00:09,    6.54it/s]
+ 71%|#######   | Computing thresholds ... : 144/204 [00:22&lt;00:09,    6.53it/s]
+ 71%|#######1  | Computing thresholds ... : 145/204 [00:22&lt;00:09,    6.51it/s]
+ 72%|#######1  | Computing thresholds ... : 146/204 [00:22&lt;00:08,    6.51it/s]
+ 72%|#######2  | Computing thresholds ... : 147/204 [00:22&lt;00:08,    6.52it/s]
+ 73%|#######2  | Computing thresholds ... : 148/204 [00:22&lt;00:08,    6.53it/s]
+ 73%|#######3  | Computing thresholds ... : 149/204 [00:23&lt;00:08,    6.55it/s]
+ 74%|#######3  | Computing thresholds ... : 150/204 [00:23&lt;00:08,    6.55it/s]
+ 74%|#######4  | Computing thresholds ... : 151/204 [00:23&lt;00:08,    6.55it/s]
+ 75%|#######4  | Computing thresholds ... : 152/204 [00:23&lt;00:07,    6.54it/s]
+ 75%|#######5  | Computing thresholds ... : 153/204 [00:23&lt;00:07,    6.55it/s]
+ 75%|#######5  | Computing thresholds ... : 154/204 [00:23&lt;00:07,    6.55it/s]
+ 76%|#######5  | Computing thresholds ... : 155/204 [00:23&lt;00:07,    6.55it/s]
+ 76%|#######6  | Computing thresholds ... : 156/204 [00:24&lt;00:07,    6.56it/s]
+ 77%|#######6  | Computing thresholds ... : 157/204 [00:24&lt;00:07,    6.56it/s]
+ 77%|#######7  | Computing thresholds ... : 158/204 [00:24&lt;00:07,    6.57it/s]
+ 78%|#######7  | Computing thresholds ... : 159/204 [00:24&lt;00:06,    6.57it/s]
+ 78%|#######8  | Computing thresholds ... : 160/204 [00:24&lt;00:06,    6.58it/s]
+ 79%|#######8  | Computing thresholds ... : 161/204 [00:24&lt;00:06,    6.59it/s]
+ 79%|#######9  | Computing thresholds ... : 162/204 [00:25&lt;00:06,    6.58it/s]
+ 80%|#######9  | Computing thresholds ... : 163/204 [00:25&lt;00:06,    6.59it/s]
+ 80%|########  | Computing thresholds ... : 164/204 [00:25&lt;00:06,    6.59it/s]
+ 81%|########  | Computing thresholds ... : 165/204 [00:25&lt;00:05,    6.58it/s]
+ 81%|########1 | Computing thresholds ... : 166/204 [00:25&lt;00:05,    6.57it/s]
+ 82%|########1 | Computing thresholds ... : 167/204 [00:25&lt;00:05,    6.57it/s]
+ 82%|########2 | Computing thresholds ... : 168/204 [00:25&lt;00:05,    6.57it/s]
+ 83%|########2 | Computing thresholds ... : 169/204 [00:26&lt;00:05,    6.56it/s]
+ 83%|########3 | Computing thresholds ... : 170/204 [00:26&lt;00:05,    6.56it/s]
+ 84%|########3 | Computing thresholds ... : 171/204 [00:26&lt;00:05,    6.56it/s]
+ 84%|########4 | Computing thresholds ... : 172/204 [00:26&lt;00:04,    6.56it/s]
+ 85%|########4 | Computing thresholds ... : 173/204 [00:26&lt;00:04,    6.55it/s]
+ 85%|########5 | Computing thresholds ... : 174/204 [00:26&lt;00:04,    6.55it/s]
+ 86%|########5 | Computing thresholds ... : 175/204 [00:27&lt;00:04,    6.55it/s]
+ 86%|########6 | Computing thresholds ... : 176/204 [00:27&lt;00:04,    6.54it/s]
+ 87%|########6 | Computing thresholds ... : 177/204 [00:27&lt;00:04,    6.54it/s]
+ 87%|########7 | Computing thresholds ... : 178/204 [00:27&lt;00:03,    6.53it/s]
+ 88%|########7 | Computing thresholds ... : 179/204 [00:27&lt;00:03,    6.53it/s]
+ 88%|########8 | Computing thresholds ... : 180/204 [00:27&lt;00:03,    6.53it/s]
+ 89%|########8 | Computing thresholds ... : 181/204 [00:27&lt;00:03,    6.55it/s]
+ 89%|########9 | Computing thresholds ... : 182/204 [00:28&lt;00:03,    6.54it/s]
+ 90%|########9 | Computing thresholds ... : 183/204 [00:28&lt;00:03,    6.55it/s]
+ 90%|######### | Computing thresholds ... : 184/204 [00:28&lt;00:03,    6.55it/s]
+ 91%|######### | Computing thresholds ... : 185/204 [00:28&lt;00:02,    6.54it/s]
+ 91%|#########1| Computing thresholds ... : 186/204 [00:28&lt;00:02,    6.55it/s]
+ 92%|#########1| Computing thresholds ... : 187/204 [00:28&lt;00:02,    6.56it/s]
+ 92%|#########2| Computing thresholds ... : 188/204 [00:29&lt;00:02,    6.57it/s]
+ 93%|#########2| Computing thresholds ... : 189/204 [00:29&lt;00:02,    6.56it/s]
+ 93%|#########3| Computing thresholds ... : 190/204 [00:29&lt;00:02,    6.56it/s]
+ 94%|#########3| Computing thresholds ... : 191/204 [00:29&lt;00:01,    6.55it/s]
+ 94%|#########4| Computing thresholds ... : 192/204 [00:29&lt;00:01,    6.55it/s]
+ 95%|#########4| Computing thresholds ... : 193/204 [00:29&lt;00:01,    6.55it/s]
+ 95%|#########5| Computing thresholds ... : 194/204 [00:29&lt;00:01,    6.56it/s]
+ 96%|#########5| Computing thresholds ... : 195/204 [00:30&lt;00:01,    6.55it/s]
+ 96%|#########6| Computing thresholds ... : 196/204 [00:30&lt;00:01,    6.54it/s]
+ 97%|#########6| Computing thresholds ... : 197/204 [00:30&lt;00:01,    6.54it/s]
+ 97%|#########7| Computing thresholds ... : 198/204 [00:30&lt;00:00,    6.54it/s]
+ 98%|#########7| Computing thresholds ... : 199/204 [00:30&lt;00:00,    6.54it/s]
+ 98%|#########8| Computing thresholds ... : 200/204 [00:30&lt;00:00,    6.55it/s]
+ 99%|#########8| Computing thresholds ... : 201/204 [00:31&lt;00:00,    6.56it/s]
+ 99%|#########9| Computing thresholds ... : 202/204 [00:31&lt;00:00,    6.57it/s]
+100%|#########9| Computing thresholds ... : 203/204 [00:31&lt;00:00,    6.57it/s]
+100%|##########| Computing thresholds ... : 204/204 [00:31&lt;00:00,    6.57it/s]
+100%|##########| Computing thresholds ... : 204/204 [00:31&lt;00:00,    6.49it/s]
+
+
+
+  0%|          | Repairing epochs : 0/72 [00:00&lt;?,       ?it/s]
+
+
+  3%|2         | Repairing epochs : 2/72 [00:00&lt;00:00,   76.75it/s]
+
+
+  6%|5         | Repairing epochs : 4/72 [00:00&lt;00:00,   75.18it/s]
+
+
+  8%|8         | Repairing epochs : 6/72 [00:00&lt;00:00,   74.06it/s]
+
+
+ 11%|#1        | Repairing epochs : 8/72 [00:00&lt;00:00,   74.61it/s]
+
+
+ 14%|#3        | Repairing epochs : 10/72 [00:00&lt;00:00,   75.21it/s]
+
+
+ 17%|#6        | Repairing epochs : 12/72 [00:00&lt;00:00,   74.53it/s]
+
+
+ 19%|#9        | Repairing epochs : 14/72 [00:00&lt;00:00,   73.83it/s]
+
+
+ 22%|##2       | Repairing epochs : 16/72 [00:00&lt;00:00,   72.98it/s]
+
+
+ 25%|##5       | Repairing epochs : 18/72 [00:00&lt;00:00,   72.55it/s]
+
+
+ 28%|##7       | Repairing epochs : 20/72 [00:00&lt;00:00,   72.51it/s]
+
+
+ 29%|##9       | Repairing epochs : 21/72 [00:00&lt;00:00,   71.68it/s]
+
+
+ 32%|###1      | Repairing epochs : 23/72 [00:00&lt;00:00,   71.53it/s]
+
+
+ 35%|###4      | Repairing epochs : 25/72 [00:00&lt;00:00,   71.58it/s]
+
+
+ 38%|###7      | Repairing epochs : 27/72 [00:00&lt;00:00,   71.59it/s]
+
+
+ 40%|####      | Repairing epochs : 29/72 [00:00&lt;00:00,   71.83it/s]
+
+
+ 43%|####3     | Repairing epochs : 31/72 [00:00&lt;00:00,   71.88it/s]
+
+
+ 46%|####5     | Repairing epochs : 33/72 [00:00&lt;00:00,   72.05it/s]
+
+
+ 49%|####8     | Repairing epochs : 35/72 [00:00&lt;00:00,   72.39it/s]
+
+
+ 51%|#####1    | Repairing epochs : 37/72 [00:00&lt;00:00,   72.70it/s]
+
+
+ 54%|#####4    | Repairing epochs : 39/72 [00:00&lt;00:00,   72.87it/s]
+
+
+ 57%|#####6    | Repairing epochs : 41/72 [00:00&lt;00:00,   72.94it/s]
+
+
+ 60%|#####9    | Repairing epochs : 43/72 [00:00&lt;00:00,   72.98it/s]
+
+
+ 62%|######2   | Repairing epochs : 45/72 [00:00&lt;00:00,   72.94it/s]
+
+
+ 65%|######5   | Repairing epochs : 47/72 [00:00&lt;00:00,   72.94it/s]
+
+
+ 68%|######8   | Repairing epochs : 49/72 [00:00&lt;00:00,   72.79it/s]
+
+
+ 71%|#######   | Repairing epochs : 51/72 [00:00&lt;00:00,   72.71it/s]
+
+
+ 74%|#######3  | Repairing epochs : 53/72 [00:00&lt;00:00,   72.37it/s]
+
+
+ 76%|#######6  | Repairing epochs : 55/72 [00:00&lt;00:00,   72.39it/s]
+
+
+ 79%|#######9  | Repairing epochs : 57/72 [00:00&lt;00:00,   72.52it/s]
+
+
+ 82%|########1 | Repairing epochs : 59/72 [00:00&lt;00:00,   72.59it/s]
+
+
+ 85%|########4 | Repairing epochs : 61/72 [00:00&lt;00:00,   72.43it/s]
+
+
+ 88%|########7 | Repairing epochs : 63/72 [00:00&lt;00:00,   72.54it/s]
+
+
+ 90%|######### | Repairing epochs : 65/72 [00:00&lt;00:00,   72.70it/s]
+
+
+ 93%|#########3| Repairing epochs : 67/72 [00:00&lt;00:00,   72.76it/s]
+
+
+ 96%|#########5| Repairing epochs : 69/72 [00:00&lt;00:00,   72.89it/s]
+
+
+ 99%|#########8| Repairing epochs : 71/72 [00:00&lt;00:00,   73.02it/s]
+100%|##########| Repairing epochs : 72/72 [00:00&lt;00:00,   72.80it/s]
+
+
+  0%|          | n_interp : 0/3 [00:00&lt;?,       ?it/s]
+
+
+  0%|          | Repairing epochs : 0/72 [00:00&lt;?,       ?it/s]
+
+
+  1%|1         | Repairing epochs : 1/72 [00:00&lt;00:12,    5.81it/s]
+
+
+  3%|2         | Repairing epochs : 2/72 [00:00&lt;00:12,    5.75it/s]
+
+
+  4%|4         | Repairing epochs : 3/72 [00:00&lt;00:11,    5.76it/s]
+
+
+  6%|5         | Repairing epochs : 4/72 [00:00&lt;00:11,    5.76it/s]
+
+
+  7%|6         | Repairing epochs : 5/72 [00:00&lt;00:11,    5.78it/s]
+
+
+  8%|8         | Repairing epochs : 6/72 [00:01&lt;00:11,    5.78it/s]
+
+
+ 10%|9         | Repairing epochs : 7/72 [00:01&lt;00:11,    5.78it/s]
+
+
+ 11%|#1        | Repairing epochs : 8/72 [00:01&lt;00:11,    5.80it/s]
+
+
+ 12%|#2        | Repairing epochs : 9/72 [00:01&lt;00:10,    5.79it/s]
+
+
+ 14%|#3        | Repairing epochs : 10/72 [00:01&lt;00:10,    5.80it/s]
+
+
+ 15%|#5        | Repairing epochs : 11/72 [00:01&lt;00:10,    5.55it/s]
+
+
+ 17%|#6        | Repairing epochs : 12/72 [00:02&lt;00:10,    5.46it/s]
+
+
+ 18%|#8        | Repairing epochs : 13/72 [00:02&lt;00:10,    5.49it/s]
+
+
+ 19%|#9        | Repairing epochs : 14/72 [00:02&lt;00:10,    5.52it/s]
+
+
+ 21%|##        | Repairing epochs : 15/72 [00:02&lt;00:10,    5.55it/s]
+
+
+ 22%|##2       | Repairing epochs : 16/72 [00:02&lt;00:10,    5.57it/s]
+
+
+ 24%|##3       | Repairing epochs : 17/72 [00:03&lt;00:09,    5.58it/s]
+
+
+ 25%|##5       | Repairing epochs : 18/72 [00:03&lt;00:09,    5.61it/s]
+
+
+ 26%|##6       | Repairing epochs : 19/72 [00:03&lt;00:09,    5.61it/s]
+
+
+ 28%|##7       | Repairing epochs : 20/72 [00:03&lt;00:09,    5.63it/s]
+
+
+ 29%|##9       | Repairing epochs : 21/72 [00:03&lt;00:09,    5.65it/s]
+
+
+ 31%|###       | Repairing epochs : 22/72 [00:03&lt;00:08,    5.66it/s]
+
+
+ 32%|###1      | Repairing epochs : 23/72 [00:04&lt;00:08,    5.68it/s]
+
+
+ 33%|###3      | Repairing epochs : 24/72 [00:04&lt;00:08,    5.70it/s]
+
+
+ 35%|###4      | Repairing epochs : 25/72 [00:04&lt;00:08,    5.71it/s]
+
+
+ 36%|###6      | Repairing epochs : 26/72 [00:04&lt;00:08,    5.71it/s]
+
+
+ 38%|###7      | Repairing epochs : 27/72 [00:04&lt;00:07,    5.72it/s]
+
+
+ 39%|###8      | Repairing epochs : 28/72 [00:04&lt;00:07,    5.72it/s]
+
+
+ 40%|####      | Repairing epochs : 29/72 [00:05&lt;00:07,    5.73it/s]
+
+
+ 42%|####1     | Repairing epochs : 30/72 [00:05&lt;00:07,    5.73it/s]
+
+
+ 43%|####3     | Repairing epochs : 31/72 [00:05&lt;00:07,    5.73it/s]
+
+
+ 44%|####4     | Repairing epochs : 32/72 [00:05&lt;00:06,    5.74it/s]
+
+
+ 46%|####5     | Repairing epochs : 33/72 [00:05&lt;00:06,    5.74it/s]
+
+
+ 47%|####7     | Repairing epochs : 34/72 [00:05&lt;00:06,    5.74it/s]
+
+
+ 49%|####8     | Repairing epochs : 35/72 [00:06&lt;00:06,    5.75it/s]
+
+
+ 50%|#####     | Repairing epochs : 36/72 [00:06&lt;00:06,    5.74it/s]
+
+
+ 51%|#####1    | Repairing epochs : 37/72 [00:06&lt;00:06,    5.73it/s]
+
+
+ 53%|#####2    | Repairing epochs : 38/72 [00:06&lt;00:05,    5.73it/s]
+
+
+ 54%|#####4    | Repairing epochs : 39/72 [00:06&lt;00:05,    5.73it/s]
+
+
+ 56%|#####5    | Repairing epochs : 40/72 [00:07&lt;00:05,    5.74it/s]
+
+
+ 57%|#####6    | Repairing epochs : 41/72 [00:07&lt;00:05,    5.74it/s]
+
+
+ 58%|#####8    | Repairing epochs : 42/72 [00:07&lt;00:05,    5.74it/s]
+
+
+ 60%|#####9    | Repairing epochs : 43/72 [00:07&lt;00:05,    5.74it/s]
+
+
+ 61%|######1   | Repairing epochs : 44/72 [00:07&lt;00:04,    5.74it/s]
+
+
+ 62%|######2   | Repairing epochs : 45/72 [00:07&lt;00:04,    5.74it/s]
+
+
+ 64%|######3   | Repairing epochs : 46/72 [00:08&lt;00:04,    5.74it/s]
+
+
+ 65%|######5   | Repairing epochs : 47/72 [00:08&lt;00:04,    5.74it/s]
+
+
+ 67%|######6   | Repairing epochs : 48/72 [00:08&lt;00:04,    5.74it/s]
+
+
+ 68%|######8   | Repairing epochs : 49/72 [00:08&lt;00:04,    5.75it/s]
+
+
+ 69%|######9   | Repairing epochs : 50/72 [00:08&lt;00:03,    5.75it/s]
+
+
+ 71%|#######   | Repairing epochs : 51/72 [00:08&lt;00:03,    5.75it/s]
+
+
+ 72%|#######2  | Repairing epochs : 52/72 [00:09&lt;00:03,    5.75it/s]
+
+
+ 74%|#######3  | Repairing epochs : 53/72 [00:09&lt;00:03,    5.76it/s]
+
+
+ 75%|#######5  | Repairing epochs : 54/72 [00:09&lt;00:03,    5.76it/s]
+
+
+ 76%|#######6  | Repairing epochs : 55/72 [00:09&lt;00:02,    5.76it/s]
+
+
+ 78%|#######7  | Repairing epochs : 56/72 [00:09&lt;00:02,    5.76it/s]
+
+
+ 79%|#######9  | Repairing epochs : 57/72 [00:09&lt;00:02,    5.77it/s]
+
+
+ 81%|########  | Repairing epochs : 58/72 [00:10&lt;00:02,    5.78it/s]
+
+
+ 82%|########1 | Repairing epochs : 59/72 [00:10&lt;00:02,    5.78it/s]
+
+
+ 83%|########3 | Repairing epochs : 60/72 [00:10&lt;00:02,    5.79it/s]
+
+
+ 85%|########4 | Repairing epochs : 61/72 [00:10&lt;00:01,    5.79it/s]
+
+
+ 86%|########6 | Repairing epochs : 62/72 [00:10&lt;00:01,    5.79it/s]
+
+
+ 88%|########7 | Repairing epochs : 63/72 [00:10&lt;00:01,    5.80it/s]
+
+
+ 89%|########8 | Repairing epochs : 64/72 [00:11&lt;00:01,    5.80it/s]
+
+
+ 90%|######### | Repairing epochs : 65/72 [00:11&lt;00:01,    5.81it/s]
+
+
+ 92%|#########1| Repairing epochs : 66/72 [00:11&lt;00:01,    5.81it/s]
+
+
+ 93%|#########3| Repairing epochs : 67/72 [00:11&lt;00:00,    5.81it/s]
+
+
+ 94%|#########4| Repairing epochs : 68/72 [00:11&lt;00:00,    5.81it/s]
+
+
+ 96%|#########5| Repairing epochs : 69/72 [00:11&lt;00:00,    5.81it/s]
+
+
+ 97%|#########7| Repairing epochs : 70/72 [00:12&lt;00:00,    5.81it/s]
+
+
+ 99%|#########8| Repairing epochs : 71/72 [00:12&lt;00:00,    5.80it/s]
+
+
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.80it/s]
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.75it/s]
+
+
+
+
+  0%|          | Fold : 0/10 [00:00&lt;?,       ?it/s]
+
+
+
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.92it/s]
+
+
+
+ 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.44it/s]
+
+
+
+ 30%|###       | Fold : 3/10 [00:00&lt;00:01,    5.70it/s]
+
+
+
+ 40%|####      | Fold : 4/10 [00:00&lt;00:01,    5.83it/s]
+
+
+
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    5.89it/s]
+
+
+
+ 60%|######    | Fold : 6/10 [00:01&lt;00:00,    5.93it/s]
+
+
+
+ 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    5.98it/s]
+
+
+
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.03it/s]
+
+
+
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.12it/s]
+
+
+
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.19it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.13it/s]
+
+
+ 33%|###3      | n_interp : 1/3 [00:14&lt;00:28,   14.35s/it]
+
+
+  0%|          | Repairing epochs : 0/72 [00:00&lt;?,       ?it/s]
+
+
+  1%|1         | Repairing epochs : 1/72 [00:00&lt;00:09,    7.58it/s]
+
+
+  3%|2         | Repairing epochs : 2/72 [00:00&lt;00:10,    6.63it/s]
+
+
+  4%|4         | Repairing epochs : 3/72 [00:00&lt;00:10,    6.38it/s]
+
+
+  6%|5         | Repairing epochs : 4/72 [00:00&lt;00:10,    6.24it/s]
+
+
+  7%|6         | Repairing epochs : 5/72 [00:00&lt;00:10,    6.18it/s]
+
+
+  8%|8         | Repairing epochs : 6/72 [00:01&lt;00:11,    5.66it/s]
+
+
+ 10%|9         | Repairing epochs : 7/72 [00:01&lt;00:11,    5.50it/s]
+
+
+ 11%|#1        | Repairing epochs : 8/72 [00:01&lt;00:12,    5.29it/s]
+
+
+ 12%|#2        | Repairing epochs : 9/72 [00:01&lt;00:11,    5.38it/s]
+
+
+ 14%|#3        | Repairing epochs : 10/72 [00:01&lt;00:11,    5.45it/s]
+
+
+ 15%|#5        | Repairing epochs : 11/72 [00:01&lt;00:11,    5.49it/s]
+
+
+ 17%|#6        | Repairing epochs : 12/72 [00:02&lt;00:10,    5.53it/s]
+
+
+ 18%|#8        | Repairing epochs : 13/72 [00:02&lt;00:10,    5.56it/s]
+
+
+ 19%|#9        | Repairing epochs : 14/72 [00:02&lt;00:10,    5.60it/s]
+
+
+ 21%|##        | Repairing epochs : 15/72 [00:02&lt;00:10,    5.63it/s]
+
+
+ 22%|##2       | Repairing epochs : 16/72 [00:02&lt;00:09,    5.66it/s]
+
+
+ 24%|##3       | Repairing epochs : 17/72 [00:03&lt;00:09,    5.69it/s]
+
+
+ 25%|##5       | Repairing epochs : 18/72 [00:03&lt;00:09,    5.70it/s]
+
+
+ 26%|##6       | Repairing epochs : 19/72 [00:03&lt;00:09,    5.72it/s]
+
+
+ 28%|##7       | Repairing epochs : 20/72 [00:03&lt;00:09,    5.73it/s]
+
+
+ 29%|##9       | Repairing epochs : 21/72 [00:03&lt;00:08,    5.75it/s]
+
+
+ 31%|###       | Repairing epochs : 22/72 [00:03&lt;00:08,    5.77it/s]
+
+
+ 32%|###1      | Repairing epochs : 23/72 [00:04&lt;00:08,    5.76it/s]
+
+
+ 33%|###3      | Repairing epochs : 24/72 [00:04&lt;00:08,    5.77it/s]
+
+
+ 35%|###4      | Repairing epochs : 25/72 [00:04&lt;00:08,    5.78it/s]
+
+
+ 36%|###6      | Repairing epochs : 26/72 [00:04&lt;00:07,    5.79it/s]
+
+
+ 38%|###7      | Repairing epochs : 27/72 [00:04&lt;00:07,    5.79it/s]
+
+
+ 39%|###8      | Repairing epochs : 28/72 [00:04&lt;00:07,    5.81it/s]
+
+
+ 40%|####      | Repairing epochs : 29/72 [00:05&lt;00:07,    5.81it/s]
+
+
+ 42%|####1     | Repairing epochs : 30/72 [00:05&lt;00:07,    5.82it/s]
+
+
+ 43%|####3     | Repairing epochs : 31/72 [00:05&lt;00:07,    5.83it/s]
+
+
+ 44%|####4     | Repairing epochs : 32/72 [00:05&lt;00:06,    5.82it/s]
+
+
+ 46%|####5     | Repairing epochs : 33/72 [00:05&lt;00:06,    5.82it/s]
+
+
+ 47%|####7     | Repairing epochs : 34/72 [00:05&lt;00:06,    5.82it/s]
+
+
+ 49%|####8     | Repairing epochs : 35/72 [00:06&lt;00:06,    5.81it/s]
+
+
+ 50%|#####     | Repairing epochs : 36/72 [00:06&lt;00:06,    5.81it/s]
+
+
+ 51%|#####1    | Repairing epochs : 37/72 [00:06&lt;00:06,    5.83it/s]
+
+
+ 53%|#####2    | Repairing epochs : 38/72 [00:06&lt;00:05,    5.83it/s]
+
+
+ 54%|#####4    | Repairing epochs : 39/72 [00:06&lt;00:05,    5.84it/s]
+
+
+ 56%|#####5    | Repairing epochs : 40/72 [00:06&lt;00:05,    5.84it/s]
+
+
+ 57%|#####6    | Repairing epochs : 41/72 [00:07&lt;00:05,    5.84it/s]
+
+
+ 58%|#####8    | Repairing epochs : 42/72 [00:07&lt;00:05,    5.84it/s]
+
+
+ 60%|#####9    | Repairing epochs : 43/72 [00:07&lt;00:04,    5.85it/s]
+
+
+ 61%|######1   | Repairing epochs : 44/72 [00:07&lt;00:04,    5.85it/s]
+
+
+ 62%|######2   | Repairing epochs : 45/72 [00:07&lt;00:04,    5.85it/s]
+
+
+ 64%|######3   | Repairing epochs : 46/72 [00:07&lt;00:04,    5.85it/s]
+
+
+ 65%|######5   | Repairing epochs : 47/72 [00:08&lt;00:04,    5.86it/s]
+
+
+ 67%|######6   | Repairing epochs : 48/72 [00:08&lt;00:04,    5.86it/s]
+
+
+ 68%|######8   | Repairing epochs : 49/72 [00:08&lt;00:03,    5.86it/s]
+
+
+ 69%|######9   | Repairing epochs : 50/72 [00:08&lt;00:03,    5.87it/s]
+
+
+ 71%|#######   | Repairing epochs : 51/72 [00:08&lt;00:03,    5.88it/s]
+
+
+ 72%|#######2  | Repairing epochs : 52/72 [00:08&lt;00:03,    5.88it/s]
+
+
+ 74%|#######3  | Repairing epochs : 53/72 [00:09&lt;00:03,    5.88it/s]
+
+
+ 75%|#######5  | Repairing epochs : 54/72 [00:09&lt;00:03,    5.88it/s]
+
+
+ 76%|#######6  | Repairing epochs : 55/72 [00:09&lt;00:02,    5.88it/s]
+
+
+ 78%|#######7  | Repairing epochs : 56/72 [00:09&lt;00:02,    5.88it/s]
+
+
+ 79%|#######9  | Repairing epochs : 57/72 [00:09&lt;00:02,    5.88it/s]
+
+
+ 81%|########  | Repairing epochs : 58/72 [00:09&lt;00:02,    5.87it/s]
+
+
+ 82%|########1 | Repairing epochs : 59/72 [00:10&lt;00:02,    5.87it/s]
+
+
+ 83%|########3 | Repairing epochs : 60/72 [00:10&lt;00:02,    5.87it/s]
+
+
+ 85%|########4 | Repairing epochs : 61/72 [00:10&lt;00:01,    5.87it/s]
+
+
+ 86%|########6 | Repairing epochs : 62/72 [00:10&lt;00:01,    5.87it/s]
+
+
+ 88%|########7 | Repairing epochs : 63/72 [00:10&lt;00:01,    5.87it/s]
+
+
+ 89%|########8 | Repairing epochs : 64/72 [00:10&lt;00:01,    5.87it/s]
+
+
+ 90%|######### | Repairing epochs : 65/72 [00:11&lt;00:01,    5.86it/s]
+
+
+ 92%|#########1| Repairing epochs : 66/72 [00:11&lt;00:01,    5.86it/s]
+
+
+ 93%|#########3| Repairing epochs : 67/72 [00:11&lt;00:00,    5.85it/s]
+
+
+ 94%|#########4| Repairing epochs : 68/72 [00:11&lt;00:00,    5.86it/s]
+
+
+ 96%|#########5| Repairing epochs : 69/72 [00:11&lt;00:00,    5.86it/s]
+
+
+ 97%|#########7| Repairing epochs : 70/72 [00:12&lt;00:00,    5.86it/s]
+
+
+ 99%|#########8| Repairing epochs : 71/72 [00:12&lt;00:00,    5.85it/s]
+
+
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.85it/s]
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.82it/s]
+
+
+
+
+  0%|          | Fold : 0/10 [00:00&lt;?,       ?it/s]
+
+
+
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.87it/s]
+
+
+
+ 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.37it/s]
+
+
+
+ 30%|###       | Fold : 3/10 [00:00&lt;00:01,    5.58it/s]
+
+
+
+ 40%|####      | Fold : 4/10 [00:00&lt;00:01,    5.61it/s]
+
+
+
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    5.71it/s]
+
+
+
+ 60%|######    | Fold : 6/10 [00:01&lt;00:00,    5.79it/s]
+
+
+
+ 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    5.84it/s]
+
+
+
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    5.90it/s]
+
+
+
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    5.95it/s]
+
+
+
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.00it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    5.95it/s]
+
+
+ 67%|######6   | n_interp : 2/3 [00:28&lt;00:14,   14.29s/it]
+
+
+  0%|          | Repairing epochs : 0/72 [00:00&lt;?,       ?it/s]
+
+
+  1%|1         | Repairing epochs : 1/72 [00:00&lt;00:08,    8.35it/s]
+
+
+  3%|2         | Repairing epochs : 2/72 [00:00&lt;00:10,    6.90it/s]
+
+
+  4%|4         | Repairing epochs : 3/72 [00:00&lt;00:11,    6.20it/s]
+
+
+  6%|5         | Repairing epochs : 4/72 [00:00&lt;00:12,    5.51it/s]
+
+
+  7%|6         | Repairing epochs : 5/72 [00:00&lt;00:12,    5.38it/s]
+
+
+  8%|8         | Repairing epochs : 6/72 [00:01&lt;00:12,    5.45it/s]
+
+
+ 10%|9         | Repairing epochs : 7/72 [00:01&lt;00:11,    5.50it/s]
+
+
+ 11%|#1        | Repairing epochs : 8/72 [00:01&lt;00:11,    5.55it/s]
+
+
+ 12%|#2        | Repairing epochs : 9/72 [00:01&lt;00:11,    5.59it/s]
+
+
+ 14%|#3        | Repairing epochs : 10/72 [00:01&lt;00:10,    5.64it/s]
+
+
+ 15%|#5        | Repairing epochs : 11/72 [00:01&lt;00:10,    5.67it/s]
+
+
+ 17%|#6        | Repairing epochs : 12/72 [00:02&lt;00:10,    5.70it/s]
+
+
+ 18%|#8        | Repairing epochs : 13/72 [00:02&lt;00:10,    5.72it/s]
+
+
+ 19%|#9        | Repairing epochs : 14/72 [00:02&lt;00:10,    5.73it/s]
+
+
+ 21%|##        | Repairing epochs : 15/72 [00:02&lt;00:09,    5.77it/s]
+
+
+ 22%|##2       | Repairing epochs : 16/72 [00:02&lt;00:09,    5.79it/s]
+
+
+ 24%|##3       | Repairing epochs : 17/72 [00:03&lt;00:09,    5.62it/s]
+
+
+ 25%|##5       | Repairing epochs : 18/72 [00:03&lt;00:09,    5.59it/s]
+
+
+ 26%|##6       | Repairing epochs : 19/72 [00:03&lt;00:09,    5.62it/s]
+
+
+ 28%|##7       | Repairing epochs : 20/72 [00:03&lt;00:09,    5.65it/s]
+
+
+ 29%|##9       | Repairing epochs : 21/72 [00:03&lt;00:08,    5.69it/s]
+
+
+ 31%|###       | Repairing epochs : 22/72 [00:03&lt;00:08,    5.71it/s]
+
+
+ 32%|###1      | Repairing epochs : 23/72 [00:04&lt;00:08,    5.72it/s]
+
+
+ 33%|###3      | Repairing epochs : 24/72 [00:04&lt;00:08,    5.73it/s]
+
+
+ 35%|###4      | Repairing epochs : 25/72 [00:04&lt;00:08,    5.75it/s]
+
+
+ 36%|###6      | Repairing epochs : 26/72 [00:04&lt;00:07,    5.77it/s]
+
+
+ 38%|###7      | Repairing epochs : 27/72 [00:04&lt;00:07,    5.78it/s]
+
+
+ 39%|###8      | Repairing epochs : 28/72 [00:04&lt;00:07,    5.79it/s]
+
+
+ 40%|####      | Repairing epochs : 29/72 [00:05&lt;00:07,    5.79it/s]
+
+
+ 42%|####1     | Repairing epochs : 30/72 [00:05&lt;00:07,    5.80it/s]
+
+
+ 43%|####3     | Repairing epochs : 31/72 [00:05&lt;00:07,    5.81it/s]
+
+
+ 44%|####4     | Repairing epochs : 32/72 [00:05&lt;00:06,    5.82it/s]
+
+
+ 46%|####5     | Repairing epochs : 33/72 [00:05&lt;00:06,    5.83it/s]
+
+
+ 47%|####7     | Repairing epochs : 34/72 [00:05&lt;00:06,    5.84it/s]
+
+
+ 49%|####8     | Repairing epochs : 35/72 [00:06&lt;00:06,    5.85it/s]
+
+
+ 50%|#####     | Repairing epochs : 36/72 [00:06&lt;00:06,    5.85it/s]
+
+
+ 51%|#####1    | Repairing epochs : 37/72 [00:06&lt;00:05,    5.85it/s]
+
+
+ 53%|#####2    | Repairing epochs : 38/72 [00:06&lt;00:05,    5.85it/s]
+
+
+ 54%|#####4    | Repairing epochs : 39/72 [00:06&lt;00:05,    5.86it/s]
+
+
+ 56%|#####5    | Repairing epochs : 40/72 [00:06&lt;00:05,    5.85it/s]
+
+
+ 57%|#####6    | Repairing epochs : 41/72 [00:07&lt;00:05,    5.85it/s]
+
+
+ 58%|#####8    | Repairing epochs : 42/72 [00:07&lt;00:05,    5.87it/s]
+
+
+ 60%|#####9    | Repairing epochs : 43/72 [00:07&lt;00:04,    5.87it/s]
+
+
+ 61%|######1   | Repairing epochs : 44/72 [00:07&lt;00:04,    5.87it/s]
+
+
+ 62%|######2   | Repairing epochs : 45/72 [00:07&lt;00:04,    5.88it/s]
+
+
+ 64%|######3   | Repairing epochs : 46/72 [00:07&lt;00:04,    5.88it/s]
+
+
+ 65%|######5   | Repairing epochs : 47/72 [00:08&lt;00:04,    5.88it/s]
+
+
+ 67%|######6   | Repairing epochs : 48/72 [00:08&lt;00:04,    5.89it/s]
+
+
+ 68%|######8   | Repairing epochs : 49/72 [00:08&lt;00:03,    5.90it/s]
+
+
+ 69%|######9   | Repairing epochs : 50/72 [00:08&lt;00:03,    5.91it/s]
+
+
+ 71%|#######   | Repairing epochs : 51/72 [00:08&lt;00:03,    5.91it/s]
+
+
+ 72%|#######2  | Repairing epochs : 52/72 [00:08&lt;00:03,    5.93it/s]
+
+
+ 74%|#######3  | Repairing epochs : 53/72 [00:09&lt;00:03,    5.93it/s]
+
+
+ 75%|#######5  | Repairing epochs : 54/72 [00:09&lt;00:03,    5.93it/s]
+
+
+ 76%|#######6  | Repairing epochs : 55/72 [00:09&lt;00:02,    5.93it/s]
+
+
+ 78%|#######7  | Repairing epochs : 56/72 [00:09&lt;00:02,    5.93it/s]
+
+
+ 79%|#######9  | Repairing epochs : 57/72 [00:09&lt;00:02,    5.93it/s]
+
+
+ 81%|########  | Repairing epochs : 58/72 [00:09&lt;00:02,    5.93it/s]
+
+
+ 82%|########1 | Repairing epochs : 59/72 [00:10&lt;00:02,    5.93it/s]
+
+
+ 83%|########3 | Repairing epochs : 60/72 [00:10&lt;00:02,    5.94it/s]
+
+
+ 85%|########4 | Repairing epochs : 61/72 [00:10&lt;00:01,    5.93it/s]
+
+
+ 86%|########6 | Repairing epochs : 62/72 [00:10&lt;00:01,    5.94it/s]
+
+
+ 88%|########7 | Repairing epochs : 63/72 [00:10&lt;00:01,    5.94it/s]
+
+
+ 89%|########8 | Repairing epochs : 64/72 [00:10&lt;00:01,    5.88it/s]
+
+
+ 90%|######### | Repairing epochs : 65/72 [00:11&lt;00:01,    5.88it/s]
+
+
+ 92%|#########1| Repairing epochs : 66/72 [00:11&lt;00:01,    5.88it/s]
+
+
+ 93%|#########3| Repairing epochs : 67/72 [00:11&lt;00:00,    5.89it/s]
+
+
+ 94%|#########4| Repairing epochs : 68/72 [00:11&lt;00:00,    5.89it/s]
+
+
+ 96%|#########5| Repairing epochs : 69/72 [00:11&lt;00:00,    5.89it/s]
+
+
+ 97%|#########7| Repairing epochs : 70/72 [00:11&lt;00:00,    5.91it/s]
+
+
+ 99%|#########8| Repairing epochs : 71/72 [00:12&lt;00:00,    5.91it/s]
+
+
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.84it/s]
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.83it/s]
+
+
+
+
+  0%|          | Fold : 0/10 [00:00&lt;?,       ?it/s]
+
+
+
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.99it/s]
+
+
+
+ 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.83it/s]
+
+
+
+ 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.29it/s]
+
+
+
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.51it/s]
+
+
+
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.68it/s]
+
+
+
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.84it/s]
+
+
+
+ 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.95it/s]
+
+
+
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    7.02it/s]
+
+
+
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    7.12it/s]
+
+
+
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    7.19it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    7.09it/s]
+
+
+100%|##########| n_interp : 3/3 [00:42&lt;00:00,   14.12s/it]
+100%|##########| n_interp : 3/3 [00:42&lt;00:00,   14.13s/it]
+
+
+
+
+Estimated consensus=0.50 and n_interpolate=4
+
+
+
+  0%|          | Repairing epochs : 0/72 [00:00&lt;?,       ?it/s]
+
+
+  1%|1         | Repairing epochs : 1/72 [00:00&lt;00:08,    8.33it/s]
+
+
+  3%|2         | Repairing epochs : 2/72 [00:00&lt;00:10,    6.94it/s]
+
+
+  4%|4         | Repairing epochs : 3/72 [00:00&lt;00:10,    6.58it/s]
+
+
+  6%|5         | Repairing epochs : 4/72 [00:00&lt;00:10,    6.42it/s]
+
+
+  7%|6         | Repairing epochs : 5/72 [00:00&lt;00:10,    6.32it/s]
+
+
+  8%|8         | Repairing epochs : 6/72 [00:00&lt;00:10,    6.26it/s]
+
+
+ 10%|9         | Repairing epochs : 7/72 [00:01&lt;00:10,    6.22it/s]
+
+
+ 11%|#1        | Repairing epochs : 8/72 [00:01&lt;00:10,    6.19it/s]
+
+
+ 12%|#2        | Repairing epochs : 9/72 [00:01&lt;00:10,    6.16it/s]
+
+
+ 14%|#3        | Repairing epochs : 10/72 [00:01&lt;00:10,    6.14it/s]
+
+
+ 15%|#5        | Repairing epochs : 11/72 [00:01&lt;00:09,    6.13it/s]
+
+
+ 17%|#6        | Repairing epochs : 12/72 [00:01&lt;00:09,    6.12it/s]
+
+
+ 18%|#8        | Repairing epochs : 13/72 [00:02&lt;00:09,    6.10it/s]
+
+
+ 19%|#9        | Repairing epochs : 14/72 [00:02&lt;00:09,    6.09it/s]
+
+
+ 21%|##        | Repairing epochs : 15/72 [00:02&lt;00:09,    6.08it/s]
+
+
+ 22%|##2       | Repairing epochs : 16/72 [00:02&lt;00:09,    6.06it/s]
+
+
+ 24%|##3       | Repairing epochs : 17/72 [00:02&lt;00:09,    6.05it/s]
+
+
+ 25%|##5       | Repairing epochs : 18/72 [00:02&lt;00:08,    6.03it/s]
+
+
+ 26%|##6       | Repairing epochs : 19/72 [00:03&lt;00:08,    6.03it/s]
+
+
+ 28%|##7       | Repairing epochs : 20/72 [00:03&lt;00:08,    6.03it/s]
+
+
+ 29%|##9       | Repairing epochs : 21/72 [00:03&lt;00:08,    6.03it/s]
+
+
+ 31%|###       | Repairing epochs : 22/72 [00:03&lt;00:08,    6.02it/s]
+
+
+ 32%|###1      | Repairing epochs : 23/72 [00:03&lt;00:08,    6.02it/s]
+
+
+ 33%|###3      | Repairing epochs : 24/72 [00:03&lt;00:07,    6.01it/s]
+
+
+ 35%|###4      | Repairing epochs : 25/72 [00:04&lt;00:07,    6.01it/s]
+
+
+ 36%|###6      | Repairing epochs : 26/72 [00:04&lt;00:07,    6.00it/s]
+
+
+ 38%|###7      | Repairing epochs : 27/72 [00:04&lt;00:07,    6.00it/s]
+
+
+ 39%|###8      | Repairing epochs : 28/72 [00:04&lt;00:07,    6.00it/s]
+
+
+ 40%|####      | Repairing epochs : 29/72 [00:04&lt;00:07,    6.00it/s]
+
+
+ 42%|####1     | Repairing epochs : 30/72 [00:04&lt;00:07,    5.99it/s]
+
+
+ 43%|####3     | Repairing epochs : 31/72 [00:05&lt;00:06,    5.99it/s]
+
+
+ 44%|####4     | Repairing epochs : 32/72 [00:05&lt;00:06,    6.00it/s]
+
+
+ 46%|####5     | Repairing epochs : 33/72 [00:05&lt;00:06,    6.00it/s]
+
+
+ 47%|####7     | Repairing epochs : 34/72 [00:05&lt;00:06,    5.99it/s]
+
+
+ 49%|####8     | Repairing epochs : 35/72 [00:05&lt;00:06,    6.00it/s]
+
+
+ 50%|#####     | Repairing epochs : 36/72 [00:05&lt;00:06,    5.99it/s]
+
+
+ 51%|#####1    | Repairing epochs : 37/72 [00:06&lt;00:05,    5.98it/s]
+
+
+ 53%|#####2    | Repairing epochs : 38/72 [00:06&lt;00:05,    5.98it/s]
+
+
+ 54%|#####4    | Repairing epochs : 39/72 [00:06&lt;00:05,    5.99it/s]
+
+
+ 56%|#####5    | Repairing epochs : 40/72 [00:06&lt;00:05,    5.99it/s]
+
+
+ 57%|#####6    | Repairing epochs : 41/72 [00:06&lt;00:05,    5.99it/s]
+
+
+ 58%|#####8    | Repairing epochs : 42/72 [00:06&lt;00:05,    5.99it/s]
+
+
+ 60%|#####9    | Repairing epochs : 43/72 [00:07&lt;00:04,    5.99it/s]
+
+
+ 61%|######1   | Repairing epochs : 44/72 [00:07&lt;00:04,    5.99it/s]
+
+
+ 62%|######2   | Repairing epochs : 45/72 [00:07&lt;00:04,    5.98it/s]
+
+
+ 64%|######3   | Repairing epochs : 46/72 [00:07&lt;00:04,    5.98it/s]
+
+
+ 65%|######5   | Repairing epochs : 47/72 [00:07&lt;00:04,    5.98it/s]
+
+
+ 67%|######6   | Repairing epochs : 48/72 [00:07&lt;00:04,    5.98it/s]
+
+
+ 68%|######8   | Repairing epochs : 49/72 [00:08&lt;00:03,    5.98it/s]
+
+
+ 69%|######9   | Repairing epochs : 50/72 [00:08&lt;00:03,    5.94it/s]
+
+
+ 71%|#######   | Repairing epochs : 51/72 [00:08&lt;00:03,    5.91it/s]
+
+
+ 72%|#######2  | Repairing epochs : 52/72 [00:08&lt;00:03,    5.92it/s]
+
+
+ 74%|#######3  | Repairing epochs : 53/72 [00:08&lt;00:03,    5.91it/s]
+
+
+ 75%|#######5  | Repairing epochs : 54/72 [00:09&lt;00:03,    5.91it/s]
+
+
+ 76%|#######6  | Repairing epochs : 55/72 [00:09&lt;00:02,    5.91it/s]
+
+
+ 78%|#######7  | Repairing epochs : 56/72 [00:09&lt;00:02,    5.92it/s]
+
+
+ 79%|#######9  | Repairing epochs : 57/72 [00:09&lt;00:02,    5.80it/s]
+
+
+ 81%|########  | Repairing epochs : 58/72 [00:09&lt;00:02,    5.76it/s]
+
+
+ 82%|########1 | Repairing epochs : 59/72 [00:09&lt;00:02,    5.76it/s]
+
+
+ 83%|########3 | Repairing epochs : 60/72 [00:10&lt;00:02,    5.77it/s]
+
+
+ 85%|########4 | Repairing epochs : 61/72 [00:10&lt;00:01,    5.78it/s]
+
+
+ 86%|########6 | Repairing epochs : 62/72 [00:10&lt;00:01,    5.79it/s]
+
+
+ 88%|########7 | Repairing epochs : 63/72 [00:10&lt;00:01,    5.79it/s]
+
+
+ 89%|########8 | Repairing epochs : 64/72 [00:10&lt;00:01,    5.80it/s]
+
+
+ 90%|######### | Repairing epochs : 65/72 [00:10&lt;00:01,    5.81it/s]
+
+
+ 92%|#########1| Repairing epochs : 66/72 [00:11&lt;00:01,    5.81it/s]
+
+
+ 93%|#########3| Repairing epochs : 67/72 [00:11&lt;00:00,    5.82it/s]
+
+
+ 94%|#########4| Repairing epochs : 68/72 [00:11&lt;00:00,    5.83it/s]
+
+
+ 96%|#########5| Repairing epochs : 69/72 [00:11&lt;00:00,    5.84it/s]
+
+
+ 97%|#########7| Repairing epochs : 70/72 [00:11&lt;00:00,    5.85it/s]
+
+
+ 99%|#########8| Repairing epochs : 71/72 [00:11&lt;00:00,    5.84it/s]
+
+
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.85it/s]
+100%|##########| Repairing epochs : 72/72 [00:12&lt;00:00,    5.92it/s]
+No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
+</pre></div>
+</div>
+<p>Now, we will manually mark the bad channels just for plotting.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+<a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Let us plot the results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">)</span>
+
+<a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">:</span>
+    <a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.pick_types" title="mne.EvokedArray.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.plot" title="mne.EvokedArray.plot" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Before autoreject&#39;</span><span class="p">)</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.pick_types" title="mne.EvokedArray.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
+<a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.plot" title="mne.EvokedArray.plot" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="p">)</span>
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;After autoreject&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_plot_auto_repair_001.png" srcset="../_images/sphx_glr_plot_auto_repair_001.png" alt="Before autoreject, After autoreject" class = "sphx-glr-single-img"/><p>To top things up, we can also visualize the bad sensors for each trial using
+a heatmap.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_plot_auto_repair_002.png" srcset="../_images/sphx_glr_plot_auto_repair_002.png" alt="plot auto repair" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 1 Axes&gt;
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  7.805 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-auto-repair-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/5995ecc2dc23849c68eb9e34ddd30605/plot_auto_repair.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_auto_repair.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/8d1e5fa3a1a228b5f1ccd8ac06f1a6d4/plot_auto_repair.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_auto_repair.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+</div>
+
+<!-- Github "fork me" ribbon -->
+<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
+src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
+alt="Fork me on GitHub"
+data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016-2021, autoreject developers. Last updated on 2021-12-06.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
