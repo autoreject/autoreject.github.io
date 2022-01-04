@@ -1,28 +1,34 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>autoreject.validation_curve &#8212; autoreject 0.2.1 documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>autoreject.validation_curve &#8212; autoreject 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -38,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -63,34 +69,30 @@
       aria-labelledby="dLabelGlobalToc"></ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">autoreject.validation_curve</a></li>
-</ul>
-</ul>
-</li>
-              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="../_sources/generated/autoreject.validation_curve.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
           
+<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
+  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+    v0.3
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
+    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
+    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+    <li><a href="https://autoreject.github.io/v0.3/index.html">v0.3</a></li>
+  </ul>
+</div>
+
+
             
 <form class="navbar-form navbar-right" action="../search.html" method="get">
  <div class="form-group">
@@ -100,48 +102,49 @@
   <input type="hidden" name="area" value="default" />
 </form>
           
+
         </div>
     </div>
   </div>
 
 <div class="container content-container">
   
-  <div class="section" id="autoreject-validation-curve">
+  <section id="autoreject-validation-curve">
 <h1>autoreject.validation_curve<a class="headerlink" href="#autoreject-validation-curve" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="autoreject.validation_curve">
-<code class="sig-prename descclassname">autoreject.</code><code class="sig-name descname">validation_curve</code><span class="sig-paren">(</span><em class="sig-param">epochs</em>, <em class="sig-param">y=None</em>, <em class="sig-param">param_name='thresh'</em>, <em class="sig-param">param_range=None</em>, <em class="sig-param">cv=None</em>, <em class="sig-param">return_param_range=False</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#validation_curve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="autoreject.validation_curve">
+<span class="sig-prename descclassname"><span class="pre">autoreject.</span></span><span class="sig-name descname"><span class="pre">validation_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'thresh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_param_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#validation_curve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.validation_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validation curve on epochs for global autoreject.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>epochs</strong><span class="classifier">instance of mne.Epochs.</span></dt><dd><p>The epochs.</p>
+<dd class="field-odd"><dl>
+<dt><strong>epochs</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> mne.Epochs.</span></dt><dd><p>The epochs.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">array | None</span></dt><dd><p>The labels.</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The labels.</p>
 </dd>
-<dt><strong>param_name</strong><span class="classifier">str</span></dt><dd><p>Name of the parameter that will be varied.
+<dt><strong>param_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Name of the parameter that will be varied.
 Defaults to ‘thresh’.</p>
 </dd>
-<dt><strong>param_range</strong><span class="classifier">array | None</span></dt><dd><p>The values of the parameter that will be evaluated.
+<dt><strong>param_range</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values of the parameter that will be evaluated.
 If None, 15 values between the min and the max threshold
 will be tested.</p>
 </dd>
-<dt><strong>cv</strong><span class="classifier">int, cross-validation generator or an iterable, optional</span></dt><dd><p>Determines the cross-validation strategy.</p>
+<dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, cross-validation <a class="reference external" href="https://docs.python.org/3/glossary.html#term-generator" title="(in Python v3.10)"><span>generator</span></a> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">an</span></code> <a class="reference external" href="https://docs.python.org/3/glossary.html#term-iterable" title="(in Python v3.10)"><span>iterable</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Determines the cross-validation strategy.</p>
 </dd>
-<dt><strong>return_param_range</strong><span class="classifier">bool</span></dt><dd><p>If True the used param_range is returned.
+<dt><strong>return_param_range</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.10)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True the used param_range is returned.
 Defaults to False.</p>
 </dd>
-<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of thresholds to compute in parallel.</p>
+<dt><strong>n_jobs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>The number of thresholds to compute in parallel.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>train_scores</strong><span class="classifier">array</span></dt><dd><p>The scores in the training set</p>
+<dd class="field-even"><dl>
+<dt><strong>train_scores</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>The scores in the training set</p>
 </dd>
-<dt><strong>test_scores</strong><span class="classifier">array</span></dt><dd><p>The scores in the test set</p>
+<dt><strong>test_scores</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>The scores in the test set</p>
 </dd>
-<dt><strong>param_range</strong><span class="classifier">array</span></dt><dd><p>The thresholds used to build the validation curve.
+<dt><strong>param_range</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></span></dt><dd><p>The thresholds used to build the validation curve.
 Only returned if <cite>return_param_range</cite> is True.</p>
 </dd>
 </dl>
@@ -149,7 +152,7 @@ Only returned if <cite>return_param_range</cite> is True.</p>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
 </div>
@@ -166,8 +169,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-04.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>

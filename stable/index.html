@@ -1,28 +1,34 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>autoreject &#8212; autoreject 0.2.1 documentation</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>autoreject &#8212; autoreject 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -38,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="#">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -63,38 +69,30 @@
       aria-labelledby="dLabelGlobalToc"></ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">autoreject</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
-<li><a class="reference internal" href="#bug-reports">Bug reports</a></li>
-<li><a class="reference internal" href="#cite">Cite</a></li>
-</ul>
-</ul>
-</li>
-              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="_sources/index.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
           
+<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
+  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+    v0.3
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
+    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
+    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+    <li><a href="https://autoreject.github.io/v0.3/index.html">v0.3</a></li>
+  </ul>
+</div>
+
+
             
 <form class="navbar-form navbar-right" action="search.html" method="get">
  <div class="form-group">
@@ -104,45 +102,58 @@
   <input type="hidden" name="area" value="default" />
 </form>
           
+
         </div>
     </div>
   </div>
 
 <div class="container content-container">
   
-  <div class="section" id="autoreject">
+  <section id="autoreject">
 <h1>autoreject<a class="headerlink" href="#autoreject" title="Permalink to this headline">¶</a></h1>
 <p>This is a library to automatically reject bad trials and repair bad sensors in magneto-/electroencephalography (M/EEG) data.</p>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>We recommend the <a class="reference external" href="https://www.continuum.io/downloads">Anaconda Python distribution</a>
-and a <strong>Python version &gt;=3.5</strong> To install <code class="docutils literal notranslate"><span class="pre">autoreject</span></code>, you first need to
-install its dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install numpy matplotlib scipy scikit-learn joblib
-$ pip install -U mne
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>We recommend the <a class="reference external" href="https://www.anaconda.com/">Anaconda Python distribution</a>
+and a <strong>Python version &gt;= 3.7</strong>.
+To obtain the stable release of <code class="docutils literal notranslate"><span class="pre">autoreject</span></code>, you can use <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">autoreject</span>
 </pre></div>
 </div>
-<p>An optional dependency is <a class="reference external" href="https://tqdm.github.io/">tqdm</a> if you want to use the verbosity flags <cite>‘tqdm’</cite> or <cite>‘tqdm_notebook’</cite>
-for nice progressbars. In case you want to be able to read and write <cite>autoreject</cite> objects using the HDF5 format,
-you may also want to install <a class="reference external" href="https://pypi.org/project/h5py/">h5py</a>.</p>
-<p>Then install the latest release of autoreject use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -U autoreject
+<p>Or <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">autoreject</span>
 </pre></div>
 </div>
-<p>If you want to install the latest version of the code (nightly) use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install https://api.github.com/repos/autoreject/autoreject/zipball/master
+<p>If you want the latest (development) version of <code class="docutils literal notranslate"><span class="pre">autoreject</span></code>, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">autoreject</span><span class="o">/</span><span class="n">autoreject</span><span class="o">/</span><span class="n">zipball</span><span class="o">/</span><span class="n">master</span>
 </pre></div>
 </div>
 <p>If you do not have admin privileges on the computer, use the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag
-with <cite>pip</cite>. To upgrade, use the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> flag provided by <cite>pip</cite>.</p>
+with <cite>pip</cite>.</p>
 <p>To check if everything worked fine, you can do:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -c &#39;import autoreject&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import autoreject&#39;</span>
 </pre></div>
 </div>
 <p>and it should not give any error messages.</p>
-</div>
-<div class="section" id="quickstart">
+<p>Below, we list the dependencies for <code class="docutils literal notranslate"><span class="pre">autoreject</span></code>.
+All required dependencies are installed automatically when you install <code class="docutils literal notranslate"><span class="pre">autoreject</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mne</span></code> (&gt;=0.24)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> (&gt;=1.20)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy</span></code> (&gt;=1.6)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> (&gt;=0.24)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joblib</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (&gt;=3.3)</p></li>
+</ul>
+<p>Optional dependencies are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tqdm</span></code> (for nice progress-bars when setting <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h5py</span></code> (for writing <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> objects using the HDF5 format)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openneuro-py</span></code> (&gt;= 2021.7, for fetching data from OpenNeuro.org)</p></li>
+</ul>
+</section>
+</section>
+<section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <p>The easiest way to get started is to copy the following three lines of code
 in your script:</p>
@@ -157,27 +168,28 @@ rejection dictionary, simply do:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>  
 </pre></div>
 </div>
-<p>We also implement RANSAC from the PREP pipeline.
+<p>We also implement RANSAC from the <a class="reference external" href="https://doi.org/10.3389/fninf.2015.00016">PREP pipeline</a>.
 The API is the same:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">Ransac</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rsc</span> <span class="o">=</span> <span class="n">Ransac</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">rsc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>  
 </pre></div>
 </div>
-<p>For more details check out the <a class="reference internal" href="auto_examples/plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span class="std std-ref">example to automatically detect and repair bad epochs</span></a>.</p>
-</div>
-<div class="section" id="bug-reports">
+<p>For more details check out the example to
+<a class="reference external" href="https://circleci.com/api/v1.1/project/github/autoreject/autoreject/latest/artifacts/0/html/auto_examples/plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py?branch=master">automatically detect and repair bad epochs</a>.</p>
+</section>
+<section id="bug-reports">
 <h1>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this headline">¶</a></h1>
-<p>Use the <a class="reference external" href="https://github.com/autoreject/autoreject/issues">github issue tracker</a> to report bugs.</p>
-</div>
-<div class="section" id="cite">
+<p>Please use the <a class="reference external" href="https://github.com/autoreject/autoreject/issues">GitHub issue tracker</a> to report bugs.</p>
+</section>
+<section id="cite">
 <h1>Cite<a class="headerlink" href="#cite" title="Permalink to this headline">¶</a></h1>
 <p>[1] Mainak Jas, Denis Engemann, Federico Raimondo, Yousra Bekhti, and Alexandre Gramfort, “<a class="reference external" href="https://hal.archives-ouvertes.fr/hal-01313458/document">Automated rejection and repair of bad trials in MEG/EEG</a>.”
 In 6th International Workshop on Pattern Recognition in Neuroimaging (PRNI), 2016.</p>
 <p>[2] Mainak Jas, Denis Engemann, Yousra Bekhti, Federico Raimondo, and Alexandre Gramfort. 2017.
 “<a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S1053811917305013">Autoreject: Automated artifact rejection for MEG and EEG data</a>”.
 NeuroImage, 159, 417-429.</p>
-</div>
+</section>
 
 
 </div>
@@ -194,8 +206,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-04.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>

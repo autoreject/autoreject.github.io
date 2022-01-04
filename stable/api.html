@@ -1,28 +1,34 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>API Documentation &#8212; autoreject 0.2.1 documentation</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>API Documentation &#8212; autoreject 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -38,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -63,40 +69,30 @@
       aria-labelledby="dLabelGlobalToc"></ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">API Documentation</a><ul>
-<li><a class="reference internal" href="#epochs-rejection">Epochs rejection</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#utilities">Utilities</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="_sources/api.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
           
+<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
+  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+    v0.3
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
+    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
+    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+    <li><a href="https://autoreject.github.io/v0.3/index.html">v0.3</a></li>
+  </ul>
+</div>
+
+
             
 <form class="navbar-form navbar-right" action="search.html" method="get">
  <div class="form-group">
@@ -106,17 +102,19 @@
   <input type="hidden" name="area" value="default" />
 </form>
           
+
         </div>
     </div>
   </div>
 
 <div class="container content-container">
   
-  <div class="section" id="api-documentation">
+  <section id="api-documentation">
 <span id="id1"></span><h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="epochs-rejection">
-<h2>Epochs rejection<a class="headerlink" href="#epochs-rejection" title="Permalink to this headline">¶</a></h2>
-<p>Classes</p>
+<section id="module-autoreject">
+<span id="epochs-rejection"></span><h2>Epochs rejection<a class="headerlink" href="#module-autoreject" title="Permalink to this headline">¶</a></h2>
+<p>Automated rejection and repair of epochs in M/EEG.</p>
+<p>Classes:</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -134,7 +132,7 @@
 </tr>
 </tbody>
 </table>
-<p>Functions</p>
+<p>Functions:</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -147,31 +145,32 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/autoreject.get_rejection_threshold.html#autoreject.get_rejection_threshold" title="autoreject.get_rejection_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rejection_threshold</span></code></a>(epochs[, decim, …])</p></td>
 <td><p>Compute global rejection thresholds.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/autoreject.validation_curve.html#autoreject.validation_curve" title="autoreject.validation_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validation_curve</span></code></a>(epochs[, y, param_name, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/autoreject.read_auto_reject.html#autoreject.read_auto_reject" title="autoreject.read_auto_reject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_auto_reject</span></code></a>(fname)</p></td>
+<td><p>Read AutoReject object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/autoreject.validation_curve.html#autoreject.validation_curve" title="autoreject.validation_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validation_curve</span></code></a>(epochs[, y, param_name, …])</p></td>
 <td><p>Validation curve on epochs for global autoreject.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="utilities">
-<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
-<p>Functions</p>
+</section>
+<section id="module-autoreject.utils">
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-autoreject.utils" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions for autoreject.</p>
+<p>Functions:</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/autoreject.utils.fetch_file.html#autoreject.utils.fetch_file" title="autoreject.utils.fetch_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fetch_file</span></code></a>(url, file_name[, resume, timeout])</p></td>
-<td><p>Load requested file, downloading it if needed or requested.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/autoreject.utils.set_matplotlib_defaults.html#autoreject.utils.set_matplotlib_defaults" title="autoreject.utils.set_matplotlib_defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_matplotlib_defaults</span></code></a>(plt[, style])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/autoreject.utils.set_matplotlib_defaults.html#autoreject.utils.set_matplotlib_defaults" title="autoreject.utils.set_matplotlib_defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_matplotlib_defaults</span></code></a>(plt[, style])</p></td>
 <td><p>Set publication quality defaults for matplotlib.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
 </div>
@@ -188,8 +187,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-04.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>

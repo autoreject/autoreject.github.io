@@ -1,28 +1,34 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Computation times &#8212; autoreject 0.2.1 documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Computation times &#8212; autoreject 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -38,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.2.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -63,34 +69,30 @@
       aria-labelledby="dLabelGlobalToc"></ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Computation times</a></li>
-</ul>
-</ul>
-</li>
-              
             
             
             
             
             
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="../_sources/auto_examples/sg_execution_times.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
+              <li class="hidden-sm"></li>
             
           </ul>
 
           
+<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
+  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+    v0.3
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
+    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
+    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+    <li><a href="https://autoreject.github.io/v0.3/index.html">v0.3</a></li>
+  </ul>
+</div>
+
+
             
 <form class="navbar-form navbar-right" action="../search.html" method="get">
  <div class="form-group">
@@ -100,24 +102,54 @@
   <input type="hidden" name="area" value="default" />
 </form>
           
+
         </div>
     </div>
   </div>
 
 <div class="container content-container">
   
-  <div class="section" id="computation-times">
+  <section id="computation-times">
 <span id="sphx-glr-auto-examples-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>04:02.261</strong> total execution time for <strong>auto_examples</strong> files:</p>
-<ul class="simple">
-<li><p><strong>04:02.261</strong>: <a class="reference internal" href="plot_visualize_bad_epochs.html#sphx-glr-auto-examples-plot-visualize-bad-epochs-py"><span class="std std-ref">Visualize bad sensors per trial</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_visualize_bad_epochs.py</span></code>)</p></li>
-<li><p><strong>00:00.000</strong>: <a class="reference internal" href="plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span class="std std-ref">Automatically repair epochs</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_auto_repair.py</span></code>)</p></li>
-<li><p><strong>00:00.000</strong>: <a class="reference internal" href="plot_channel_thresholds.html#sphx-glr-auto-examples-plot-channel-thresholds-py"><span class="std std-ref">Plot channel-level thresholds</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_channel_thresholds.py</span></code>)</p></li>
-<li><p><strong>00:00.000</strong>: <a class="reference internal" href="plot_estimate_global_reject.html#sphx-glr-auto-examples-plot-estimate-global-reject-py"><span class="std std-ref">Find global rejection threshold</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_estimate_global_reject.py</span></code>)</p></li>
-<li><p><strong>00:00.000</strong>: <a class="reference internal" href="plot_global_reject.html#sphx-glr-auto-examples-plot-global-reject-py"><span class="std std-ref">Plotting the cross-validation curve</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_global_reject.py</span></code>)</p></li>
-<li><p><strong>00:00.000</strong>: <a class="reference internal" href="plot_ransac.html#sphx-glr-auto-examples-plot-ransac-py"><span class="std std-ref">Detect bad sensors using RANSAC</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_ransac.py</span></code>)</p></li>
-</ul>
-</div>
+<p><strong>23:02.067</strong> total execution time for <strong>auto_examples</strong> files:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 84%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_visualize_bad_epochs.html#sphx-glr-auto-examples-plot-visualize-bad-epochs-py"><span class="std std-ref">Visualize bad sensors per trial</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_visualize_bad_epochs.py</span></code>)</p></td>
+<td><p>23:02.067</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="plot_auto_repair.html#sphx-glr-auto-examples-plot-auto-repair-py"><span class="std std-ref">Automatically repair epochs</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_auto_repair.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_autoreject_workflow.html#sphx-glr-auto-examples-plot-autoreject-workflow-py"><span class="std std-ref">Preprocessing workflow with autoreject and ICA</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_autoreject_workflow.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="plot_channel_thresholds.html#sphx-glr-auto-examples-plot-channel-thresholds-py"><span class="std std-ref">Plot channel-level thresholds</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_channel_thresholds.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_estimate_global_reject.html#sphx-glr-auto-examples-plot-estimate-global-reject-py"><span class="std std-ref">Find global rejection threshold</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_estimate_global_reject.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="plot_global_reject.html#sphx-glr-auto-examples-plot-global-reject-py"><span class="std std-ref">Plotting the cross-validation curve</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_global_reject.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="plot_ransac.html#sphx-glr-auto-examples-plot-ransac-py"><span class="std std-ref">Detect bad sensors using RANSAC</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_ransac.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 
 
 </div>
@@ -134,8 +166,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-04.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
     </p>
   </div>
 </footer>
