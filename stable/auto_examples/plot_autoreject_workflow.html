@@ -4,9 +4,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.3 documentation</title>
+    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.3.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -26,10 +26,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -44,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -81,7 +81,7 @@
           
 <div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
   <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-    v0.3
+    v0.3.1
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -162,48 +162,126 @@ installed with the command <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Hello! This is openneuro-py 2021.10.1. Great to see you!
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Hello! This is openneuro-py 2022.1.0. Great to see you!
 
       Please report problems and bugs at
       https://github.com/hoechenberger/openneuro-py/issues
 
 Preparing to download ds002778 ...
+Cannot determine local revision of the dataset ,and the target directory is not empty. If the download fails, you may want to try again with a fresh (empty) target directory.
 Retrieving up to 12 files (5 concurrent downloads).
 
-Skipping CHANGES: already downloaded.: 100%|##########| 269/269 [00:00&lt;?, ?B/s]
+CHANGES: 0.00B [00:00, ?B/s]
+
+README: 0.00B [00:00, ?B/s]
 
 
-Skipping participants.tsv: already downloaded.: 100%|##########| 1.62k/1.62k [00:00&lt;?, ?B/s]
+dataset_description.json: 0.00B [00:00, ?B/s]
 
 
-Skipping participants.json: already downloaded.: 100%|##########| 1.24k/1.24k [00:00&lt;?, ?B/s]
 
 
-Skipping dataset_description.json: already downloaded.: 100%|##########| 350/350 [00:00&lt;?, ?B/s]
 
 
-Skipping README: already downloaded.: 100%|##########| 4.38k/4.38k [00:00&lt;?, ?B/s]
+participants.tsv:   0%|          | 0.00/1.62k [00:00&lt;?, ?B/s]
 
 
-Re-downloading sub-pd14_ses-off_task-rest_beh.tsv: file size mismatch.: 0.00B [00:00, ?B/s]
+sub-pd14_ses-off_task-rest_beh.json: 0.00B [00:00, ?B/s]
+
+participants.json:   0%|          | 0.00/1.24k [00:00&lt;?, ?B/s]
 
 
-Re-downloading sub-pd14_ses-off_task-rest_channels.tsv: file size mismatch.: 0.00B [00:00, ?B/s]
+
+sub-pd14_ses-off_scans.tsv:   0%|          | 0.00/76.0 [00:00&lt;?, ?B/s]
+
+sub-pd14_ses-off_task-rest_channels.tsv: 0.00B [00:00, ?B/s]
 
 
-Skipping sub-pd14_ses-off_task-rest_beh.json: already downloaded.: 100%|##########| 555/555 [00:00&lt;?, ?B/s]
+sub-pd14_ses-off_task-rest_beh.tsv: 0.00B [00:00, ?B/s]
 
 
-Skipping sub-pd14_ses-off_task-rest_eeg.json: already downloaded.: 100%|##########| 471/471 [00:00&lt;?, ?B/s]
 
 
-Skipping sub-pd14_ses-off_task-rest_events.tsv: already downloaded.: 100%|##########| 65.0/65.0 [00:00&lt;?, ?B/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   0%|          | 0.00/17.5M [00:00&lt;?, ?B/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   0%|          | 17.6k/17.5M [00:00&lt;02:05, 146kB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   0%|          | 51.6k/17.5M [00:00&lt;01:21, 226kB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   1%|          | 120k/17.5M [00:00&lt;00:48, 377kB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   1%|1         | 256k/17.5M [00:00&lt;00:33, 549kB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   2%|1         | 324k/17.5M [00:00&lt;00:41, 431kB/s]
+
+sub-pd14_ses-off_task-rest_eeg.json:   0%|          | 0.00/471 [00:00&lt;?, ?B/s]
 
 
-Skipping sub-pd14_ses-off_scans.tsv: already downloaded.: 100%|##########| 76.0/76.0 [00:00&lt;?, ?B/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   2%|2         | 426k/17.5M [00:00&lt;00:33, 538kB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   4%|3         | 647k/17.5M [00:01&lt;00:20, 884kB/s]
+
+sub-pd14_ses-off_task-rest_events.tsv:   0%|          | 0.00/65.0 [00:00&lt;?, ?B/s]
 
 
-Skipping sub-pd14_ses-off_task-rest_eeg.bdf: already downloaded.: 100%|##########| 17.5M/17.5M [00:00&lt;?, ?B/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   5%|4         | 834k/17.5M [00:01&lt;00:16, 1.07MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   6%|5         | 1.01M/17.5M [00:01&lt;00:13, 1.25MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   7%|7         | 1.23M/17.5M [00:01&lt;00:12, 1.42MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   8%|8         | 1.44M/17.5M [00:01&lt;00:11, 1.53MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:   9%|9         | 1.66M/17.5M [00:01&lt;00:10, 1.62MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  11%|#         | 1.88M/17.5M [00:01&lt;00:09, 1.68MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  12%|#2        | 2.11M/17.5M [00:01&lt;00:09, 1.77MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  13%|#3        | 2.34M/17.5M [00:02&lt;00:08, 1.82MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  15%|#4        | 2.57M/17.5M [00:02&lt;00:08, 1.86MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  16%|#5        | 2.81M/17.5M [00:02&lt;00:08, 1.90MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  17%|#7        | 3.06M/17.5M [00:02&lt;00:07, 1.95MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  19%|#8        | 3.29M/17.5M [00:02&lt;00:07, 1.97MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  20%|##        | 3.54M/17.5M [00:02&lt;00:07, 2.01MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  22%|##1       | 3.79M/17.5M [00:02&lt;00:07, 2.04MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  23%|##3       | 4.05M/17.5M [00:02&lt;00:06, 2.09MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  25%|##4       | 4.30M/17.5M [00:03&lt;00:06, 2.10MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  26%|##5       | 4.55M/17.5M [00:03&lt;00:06, 2.22MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  27%|##7       | 4.82M/17.5M [00:03&lt;00:06, 2.11MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  29%|##8       | 5.08M/17.5M [00:03&lt;00:06, 2.16MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  30%|###       | 5.35M/17.5M [00:03&lt;00:05, 2.18MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  32%|###1      | 5.61M/17.5M [00:03&lt;00:05, 2.20MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  33%|###3      | 5.88M/17.5M [00:03&lt;00:05, 2.22MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  35%|###5      | 6.14M/17.5M [00:03&lt;00:05, 2.23MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  37%|###6      | 6.41M/17.5M [00:04&lt;00:05, 2.23MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  38%|###8      | 6.67M/17.5M [00:04&lt;00:04, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  40%|###9      | 6.94M/17.5M [00:04&lt;00:04, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  41%|####1     | 7.22M/17.5M [00:04&lt;00:04, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  43%|####2     | 7.49M/17.5M [00:04&lt;00:04, 2.30MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  44%|####4     | 7.77M/17.5M [00:04&lt;00:04, 2.32MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  46%|####5     | 8.04M/17.5M [00:04&lt;00:04, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  47%|####7     | 8.32M/17.5M [00:04&lt;00:04, 2.32MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  49%|####8     | 8.58M/17.5M [00:04&lt;00:04, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  51%|#####     | 8.87M/17.5M [00:05&lt;00:03, 2.32MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  52%|#####2    | 9.15M/17.5M [00:05&lt;00:03, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  54%|#####3    | 9.41M/17.5M [00:05&lt;00:03, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  55%|#####5    | 9.70M/17.5M [00:05&lt;00:03, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  57%|#####6    | 9.98M/17.5M [00:05&lt;00:03, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  58%|#####8    | 10.2M/17.5M [00:05&lt;00:03, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  60%|#####9    | 10.5M/17.5M [00:05&lt;00:03, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  62%|######1   | 10.8M/17.5M [00:05&lt;00:03, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  63%|######3   | 11.1M/17.5M [00:06&lt;00:02, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  65%|######4   | 11.4M/17.5M [00:06&lt;00:02, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  66%|######6   | 11.6M/17.5M [00:06&lt;00:02, 2.33MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  68%|######7   | 11.9M/17.5M [00:06&lt;00:02, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  70%|######9   | 12.2M/17.5M [00:06&lt;00:02, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  71%|#######1  | 12.5M/17.5M [00:06&lt;00:02, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  73%|#######2  | 12.8M/17.5M [00:06&lt;00:02, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  74%|#######4  | 13.0M/17.5M [00:06&lt;00:02, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  76%|#######5  | 13.3M/17.5M [00:07&lt;00:01, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  77%|#######7  | 13.6M/17.5M [00:07&lt;00:01, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  79%|#######9  | 13.9M/17.5M [00:07&lt;00:01, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  81%|########  | 14.1M/17.5M [00:07&lt;00:01, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  82%|########2 | 14.4M/17.5M [00:07&lt;00:01, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  84%|########3 | 14.7M/17.5M [00:07&lt;00:01, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  85%|########5 | 15.0M/17.5M [00:07&lt;00:01, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  87%|########6 | 15.2M/17.5M [00:07&lt;00:01, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  88%|########8 | 15.5M/17.5M [00:08&lt;00:00, 2.34MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  90%|######### | 15.8M/17.5M [00:08&lt;00:00, 2.35MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  92%|#########1| 16.1M/17.5M [00:08&lt;00:00, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  93%|#########3| 16.4M/17.5M [00:08&lt;00:00, 2.37MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  95%|#########4| 16.6M/17.5M [00:08&lt;00:00, 2.36MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  97%|#########6| 16.9M/17.5M [00:08&lt;00:00, 2.37MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf:  98%|#########8| 17.2M/17.5M [00:08&lt;00:00, 2.40MB/s]
+sub-pd14_ses-off_task-rest_eeg.bdf: 100%|#########9| 17.5M/17.5M [00:08&lt;00:00, 2.40MB/s]
 
 Finished downloading ds002778.
 
@@ -230,11 +308,9 @@ resting-state EEG.</p>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_001.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_001.png" alt="0.006 s, 0.979 s, 2.699 s" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Extracting EDF parameters from /Users/mainak/Documents/github_repos/autoreject/examples/sub-pd14/ses-off/eeg/sub-pd14_ses-off_task-rest_eeg.bdf...
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Extracting EDF parameters from /home/stefanappelhoff/Desktop/bids/autoreject/examples/sub-pd14/ses-off/eeg/sub-pd14_ses-off_task-rest_eeg.bdf...
 BDF file detected
 Setting channel info structure...
-Could not determine channel type of the following channels, they will be set as EEG:
-Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz, EXG1, EXG2, EXG3, EXG4, EXG5, EXG6, EXG7, EXG8
 Creating raw.info structure...
 Reading 0 ... 149503  =      0.000 ...   291.998 secs...
 Not setting metadata
@@ -268,92 +344,89 @@ number of channels to interpolate was set to check some low numbers</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Creating augmented epochs : 1/32 [00:00&lt;00:00,   42.43it/s]
-  6%|6         | Creating augmented epochs : 2/32 [00:00&lt;00:00,   43.78it/s]
-  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   43.52it/s]
- 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   45.33it/s]
- 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   45.10it/s]
- 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   46.19it/s]
- 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   47.29it/s]
- 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   49.06it/s]
- 31%|###1      | Creating augmented epochs : 10/32 [00:00&lt;00:00,   48.55it/s]
- 38%|###7      | Creating augmented epochs : 12/32 [00:00&lt;00:00,   49.78it/s]
- 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   48.01it/s]
- 44%|####3     | Creating augmented epochs : 14/32 [00:00&lt;00:00,   45.59it/s]
- 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   43.57it/s]
- 50%|#####     | Creating augmented epochs : 16/32 [00:00&lt;00:00,   43.57it/s]
- 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   44.17it/s]
- 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   44.45it/s]
- 59%|#####9    | Creating augmented epochs : 19/32 [00:00&lt;00:00,   44.15it/s]
- 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   44.44it/s]
- 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   44.52it/s]
- 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   44.11it/s]
- 72%|#######1  | Creating augmented epochs : 23/32 [00:00&lt;00:00,   43.18it/s]
- 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   37.06it/s]
- 78%|#######8  | Creating augmented epochs : 25/32 [00:00&lt;00:00,   37.08it/s]
- 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   36.44it/s]
- 84%|########4 | Creating augmented epochs : 27/32 [00:00&lt;00:00,   36.29it/s]
- 88%|########7 | Creating augmented epochs : 28/32 [00:00&lt;00:00,   30.84it/s]
- 91%|######### | Creating augmented epochs : 29/32 [00:00&lt;00:00,   29.91it/s]
- 94%|#########3| Creating augmented epochs : 30/32 [00:00&lt;00:00,   29.96it/s]
- 97%|#########6| Creating augmented epochs : 31/32 [00:00&lt;00:00,   27.08it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:01&lt;00:00,   26.44it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:01&lt;00:00,   31.35it/s]
+  6%|6         | Creating augmented epochs : 2/32 [00:00&lt;00:00,   61.69it/s]
+  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   58.72it/s]
+ 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   57.84it/s]
+ 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   54.15it/s]
+ 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   43.25it/s]
+ 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   34.82it/s]
+ 25%|##5       | Creating augmented epochs : 8/32 [00:00&lt;00:00,   36.56it/s]
+ 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   38.02it/s]
+ 31%|###1      | Creating augmented epochs : 10/32 [00:00&lt;00:00,   39.15it/s]
+ 34%|###4      | Creating augmented epochs : 11/32 [00:00&lt;00:00,   40.85it/s]
+ 38%|###7      | Creating augmented epochs : 12/32 [00:00&lt;00:00,   42.21it/s]
+ 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   43.42it/s]
+ 44%|####3     | Creating augmented epochs : 14/32 [00:00&lt;00:00,   40.68it/s]
+ 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   37.85it/s]
+ 50%|#####     | Creating augmented epochs : 16/32 [00:00&lt;00:00,   36.75it/s]
+ 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   37.22it/s]
+ 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   37.83it/s]
+ 59%|#####9    | Creating augmented epochs : 19/32 [00:00&lt;00:00,   37.71it/s]
+ 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   37.36it/s]
+ 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   35.99it/s]
+ 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   35.67it/s]
+ 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   37.88it/s]
+ 78%|#######8  | Creating augmented epochs : 25/32 [00:00&lt;00:00,   38.80it/s]
+ 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   39.58it/s]
+ 84%|########4 | Creating augmented epochs : 27/32 [00:00&lt;00:00,   33.79it/s]
+ 88%|########7 | Creating augmented epochs : 28/32 [00:00&lt;00:00,   32.18it/s]
+ 91%|######### | Creating augmented epochs : 29/32 [00:00&lt;00:00,   32.87it/s]
+ 94%|#########3| Creating augmented epochs : 30/32 [00:00&lt;00:00,   33.53it/s]
+ 97%|#########6| Creating augmented epochs : 31/32 [00:00&lt;00:00,   33.99it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   33.81it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   35.36it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Computing thresholds ... : 1/32 [00:01&lt;00:51,    1.67s/it]
-  6%|6         | Computing thresholds ... : 2/32 [00:03&lt;00:46,    1.55s/it]
-  9%|9         | Computing thresholds ... : 3/32 [00:04&lt;00:41,    1.43s/it]
- 12%|#2        | Computing thresholds ... : 4/32 [00:05&lt;00:34,    1.23s/it]
- 16%|#5        | Computing thresholds ... : 5/32 [00:05&lt;00:30,    1.12s/it]
- 19%|#8        | Computing thresholds ... : 6/32 [00:06&lt;00:27,    1.04s/it]
- 22%|##1       | Computing thresholds ... : 7/32 [00:07&lt;00:26,    1.06s/it]
- 25%|##5       | Computing thresholds ... : 8/32 [00:09&lt;00:26,    1.12s/it]
- 28%|##8       | Computing thresholds ... : 9/32 [00:09&lt;00:25,    1.09s/it]
- 31%|###1      | Computing thresholds ... : 10/32 [00:10&lt;00:22,    1.04s/it]
- 34%|###4      | Computing thresholds ... : 11/32 [00:11&lt;00:20,    1.00it/s]
- 38%|###7      | Computing thresholds ... : 12/32 [00:11&lt;00:19,    1.04it/s]
- 41%|####      | Computing thresholds ... : 13/32 [00:12&lt;00:18,    1.04it/s]
- 44%|####3     | Computing thresholds ... : 14/32 [00:13&lt;00:17,    1.04it/s]
- 47%|####6     | Computing thresholds ... : 15/32 [00:14&lt;00:16,    1.06it/s]
- 50%|#####     | Computing thresholds ... : 16/32 [00:15&lt;00:14,    1.08it/s]
- 53%|#####3    | Computing thresholds ... : 17/32 [00:16&lt;00:14,    1.06it/s]
- 56%|#####6    | Computing thresholds ... : 18/32 [00:17&lt;00:13,    1.05it/s]
- 59%|#####9    | Computing thresholds ... : 19/32 [00:18&lt;00:12,    1.04it/s]
- 62%|######2   | Computing thresholds ... : 20/32 [00:19&lt;00:11,    1.01it/s]
- 66%|######5   | Computing thresholds ... : 21/32 [00:21&lt;00:10,    1.01it/s]
- 69%|######8   | Computing thresholds ... : 22/32 [00:21&lt;00:09,    1.03it/s]
- 72%|#######1  | Computing thresholds ... : 23/32 [00:22&lt;00:08,    1.05it/s]
- 75%|#######5  | Computing thresholds ... : 24/32 [00:23&lt;00:07,    1.07it/s]
- 78%|#######8  | Computing thresholds ... : 25/32 [00:24&lt;00:06,    1.07it/s]
- 81%|########1 | Computing thresholds ... : 26/32 [00:24&lt;00:05,    1.08it/s]
- 84%|########4 | Computing thresholds ... : 27/32 [00:25&lt;00:04,    1.10it/s]
- 88%|########7 | Computing thresholds ... : 28/32 [00:26&lt;00:03,    1.10it/s]
- 91%|######### | Computing thresholds ... : 29/32 [00:27&lt;00:02,    1.12it/s]
- 94%|#########3| Computing thresholds ... : 30/32 [00:27&lt;00:01,    1.13it/s]
- 97%|#########6| Computing thresholds ... : 31/32 [00:28&lt;00:00,    1.14it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:29&lt;00:00,    1.14it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:29&lt;00:00,    1.08it/s]
+  3%|3         | Computing thresholds ... : 1/32 [00:00&lt;00:23,    1.32it/s]
+  6%|6         | Computing thresholds ... : 2/32 [00:01&lt;00:23,    1.26it/s]
+  9%|9         | Computing thresholds ... : 3/32 [00:02&lt;00:20,    1.39it/s]
+ 12%|#2        | Computing thresholds ... : 4/32 [00:02&lt;00:18,    1.54it/s]
+ 16%|#5        | Computing thresholds ... : 5/32 [00:03&lt;00:16,    1.61it/s]
+ 19%|#8        | Computing thresholds ... : 6/32 [00:03&lt;00:15,    1.69it/s]
+ 22%|##1       | Computing thresholds ... : 7/32 [00:04&lt;00:14,    1.69it/s]
+ 25%|##5       | Computing thresholds ... : 8/32 [00:05&lt;00:15,    1.58it/s]
+ 28%|##8       | Computing thresholds ... : 9/32 [00:05&lt;00:14,    1.55it/s]
+ 31%|###1      | Computing thresholds ... : 10/32 [00:06&lt;00:14,    1.50it/s]
+ 34%|###4      | Computing thresholds ... : 11/32 [00:07&lt;00:13,    1.53it/s]
+ 38%|###7      | Computing thresholds ... : 12/32 [00:07&lt;00:12,    1.57it/s]
+ 41%|####      | Computing thresholds ... : 13/32 [00:08&lt;00:11,    1.62it/s]
+ 44%|####3     | Computing thresholds ... : 14/32 [00:08&lt;00:10,    1.66it/s]
+ 47%|####6     | Computing thresholds ... : 15/32 [00:09&lt;00:10,    1.63it/s]
+ 50%|#####     | Computing thresholds ... : 16/32 [00:09&lt;00:09,    1.67it/s]
+ 53%|#####3    | Computing thresholds ... : 17/32 [00:10&lt;00:08,    1.71it/s]
+ 56%|#####6    | Computing thresholds ... : 18/32 [00:10&lt;00:08,    1.75it/s]
+ 59%|#####9    | Computing thresholds ... : 19/32 [00:11&lt;00:07,    1.76it/s]
+ 62%|######2   | Computing thresholds ... : 20/32 [00:11&lt;00:06,    1.75it/s]
+ 66%|######5   | Computing thresholds ... : 21/32 [00:12&lt;00:06,    1.77it/s]
+ 69%|######8   | Computing thresholds ... : 22/32 [00:12&lt;00:05,    1.77it/s]
+ 72%|#######1  | Computing thresholds ... : 23/32 [00:13&lt;00:05,    1.70it/s]
+ 75%|#######5  | Computing thresholds ... : 24/32 [00:14&lt;00:04,    1.72it/s]
+ 78%|#######8  | Computing thresholds ... : 25/32 [00:14&lt;00:04,    1.74it/s]
+ 81%|########1 | Computing thresholds ... : 26/32 [00:15&lt;00:03,    1.76it/s]
+ 84%|########4 | Computing thresholds ... : 27/32 [00:15&lt;00:02,    1.79it/s]
+ 88%|########7 | Computing thresholds ... : 28/32 [00:16&lt;00:02,    1.81it/s]
+ 91%|######### | Computing thresholds ... : 29/32 [00:16&lt;00:01,    1.83it/s]
+ 94%|#########3| Computing thresholds ... : 30/32 [00:16&lt;00:01,    1.86it/s]
+ 97%|#########6| Computing thresholds ... : 31/32 [00:17&lt;00:00,    1.87it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:17&lt;00:00,    1.89it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:17&lt;00:00,    1.80it/s]
 
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  210.14it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  273.10it/s]
 
 
- 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  248.49it/s]
+ 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  260.58it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  226.62it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  259.24it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  213.64it/s]
-
-
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  216.81it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  214.40it/s]
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  254.41it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  250.61it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
@@ -362,23 +435,29 @@ number of channels to interpolate was set to check some low numbers</p>
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,  104.41it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,  114.87it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  161.54it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  149.05it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  157.85it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  115.32it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  152.57it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  109.87it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  132.59it/s]
+ 65%|######5   | Repairing epochs : 13/20 [00:00&lt;00:00,  120.51it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  122.91it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  129.46it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  100.77it/s]
+
+
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   87.98it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   87.42it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   94.46it/s]
 
 
 
@@ -387,72 +466,72 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.92it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    7.31it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    4.65it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    8.95it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    3.72it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,    9.51it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:01,    4.00it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,    9.92it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:01&lt;00:01,    4.14it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   10.30it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:01&lt;00:00,    4.35it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   10.37it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    4.52it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   10.50it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    4.74it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   10.58it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    4.88it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   10.56it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.94it/s]
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.83it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.59it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.49it/s]
 
 
- 25%|##5       | n_interp : 1/4 [00:02&lt;00:06,    2.24s/it]
+ 25%|##5       | n_interp : 1/4 [00:01&lt;00:03,    1.19s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  226.66it/s]
+ 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  237.03it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  187.38it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  143.77it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  182.89it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  108.82it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  193.24it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  122.53it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  161.05it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  106.51it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,  150.37it/s]
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,  101.32it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  134.98it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  145.96it/s]
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   93.88it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  103.00it/s]
 
 
 
@@ -461,66 +540,69 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:05,    1.68it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    8.35it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:01&lt;00:04,    1.74it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    9.61it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:02&lt;00:05,    1.35it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   10.06it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:02&lt;00:04,    1.40it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   10.24it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:03&lt;00:03,    1.64it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   10.45it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:03&lt;00:02,    1.63it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   10.66it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:04&lt;00:01,    1.66it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   10.86it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:04&lt;00:01,    1.87it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   10.95it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:04&lt;00:00,    2.08it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   10.95it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:04&lt;00:00,    2.26it/s]
-100%|##########| Fold : 10/10 [00:04&lt;00:00,    2.12it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.97it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.88it/s]
 
 
- 50%|#####     | n_interp : 2/4 [00:07&lt;00:07,    3.60s/it]
+ 50%|#####     | n_interp : 2/4 [00:02&lt;00:02,    1.16s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 15%|#5        | Repairing epochs : 3/20 [00:00&lt;00:00,  181.86it/s]
+ 15%|#5        | Repairing epochs : 3/20 [00:00&lt;00:00,  157.03it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  158.06it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  164.76it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  139.09it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  150.78it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  151.16it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  171.65it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  140.80it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  150.51it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  140.46it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  128.07it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  137.31it/s]
 
 
 
@@ -529,69 +611,72 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    6.59it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:00,    9.44it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.83it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,   10.37it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.10it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   11.01it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.09it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   11.19it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    5.99it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   11.24it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.02it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   11.20it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.12it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   11.24it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.15it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   11.18it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.16it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   11.30it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.20it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.17it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   11.32it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   11.27it/s]
 
 
- 75%|#######5  | n_interp : 3/4 [00:08&lt;00:02,    2.96s/it]
+ 75%|#######5  | n_interp : 3/4 [00:03&lt;00:01,    1.12s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  225.29it/s]
+ 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  241.60it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  182.29it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  185.91it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  173.47it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  101.62it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  185.64it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  123.80it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  155.45it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  103.44it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  127.95it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  141.00it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   95.55it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   92.50it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  100.17it/s]
 
 
 
@@ -600,48 +685,48 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    7.74it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:00,    9.11it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    7.72it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,   10.41it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:00,    7.50it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   11.37it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    7.38it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   11.43it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    7.46it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   11.68it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    7.38it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   11.81it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:00&lt;00:00,    7.06it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   11.83it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.88it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   11.94it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.84it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   11.90it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.75it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.82it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   11.99it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   11.90it/s]
 
 
-100%|##########| n_interp : 4/4 [00:10&lt;00:00,    2.60s/it]
-100%|##########| n_interp : 4/4 [00:10&lt;00:00,    2.63s/it]
+100%|##########| n_interp : 4/4 [00:04&lt;00:00,    1.10s/it]
+100%|##########| n_interp : 4/4 [00:04&lt;00:00,    1.10s/it]
 
 
 
@@ -653,155 +738,170 @@ Estimated consensus=0.10 and n_interpolate=1
   0%|          | Repairing epochs : 0/97 [00:00&lt;?,       ?it/s]
 
 
-  3%|3         | Repairing epochs : 3/97 [00:00&lt;00:00,  172.94it/s]
+  3%|3         | Repairing epochs : 3/97 [00:00&lt;00:00,  173.31it/s]
 
 
-  7%|7         | Repairing epochs : 7/97 [00:00&lt;00:00,  147.85it/s]
+  8%|8         | Repairing epochs : 8/97 [00:00&lt;00:00,  241.74it/s]
 
 
- 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:00,  125.57it/s]
+ 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:00,  179.59it/s]
 
 
- 14%|#4        | Repairing epochs : 14/97 [00:00&lt;00:00,  140.70it/s]
+ 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:00,  173.52it/s]
 
 
- 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:00,  123.61it/s]
+ 16%|#6        | Repairing epochs : 16/97 [00:00&lt;00:00,  147.00it/s]
 
 
- 16%|#6        | Repairing epochs : 16/97 [00:00&lt;00:00,  113.78it/s]
+ 19%|#8        | Repairing epochs : 18/97 [00:00&lt;00:00,  136.02it/s]
 
 
- 20%|#9        | Repairing epochs : 19/97 [00:00&lt;00:00,  121.17it/s]
+ 23%|##2       | Repairing epochs : 22/97 [00:00&lt;00:00,  150.05it/s]
 
 
- 25%|##4       | Repairing epochs : 24/97 [00:00&lt;00:00,  133.91it/s]
+ 25%|##4       | Repairing epochs : 24/97 [00:00&lt;00:00,  121.31it/s]
 
 
- 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:00,  130.92it/s]
+ 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:00,  117.44it/s]
 
 
- 30%|##9       | Repairing epochs : 29/97 [00:00&lt;00:00,  129.53it/s]
+ 29%|##8       | Repairing epochs : 28/97 [00:00&lt;00:00,  110.42it/s]
 
 
- 32%|###1      | Repairing epochs : 31/97 [00:00&lt;00:00,  126.55it/s]
+ 32%|###1      | Repairing epochs : 31/97 [00:00&lt;00:00,  110.52it/s]
 
 
- 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:00,  127.66it/s]
+ 35%|###5      | Repairing epochs : 34/97 [00:00&lt;00:00,  114.77it/s]
 
 
- 38%|###8      | Repairing epochs : 37/97 [00:00&lt;00:00,  123.13it/s]
+ 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:00,  105.48it/s]
 
 
- 40%|####      | Repairing epochs : 39/97 [00:00&lt;00:00,  116.20it/s]
+ 38%|###8      | Repairing epochs : 37/97 [00:00&lt;00:00,  106.53it/s]
 
 
- 43%|####3     | Repairing epochs : 42/97 [00:00&lt;00:00,  119.15it/s]
+ 40%|####      | Repairing epochs : 39/97 [00:00&lt;00:00,  105.28it/s]
 
 
- 44%|####4     | Repairing epochs : 43/97 [00:00&lt;00:00,  112.10it/s]
+ 43%|####3     | Repairing epochs : 42/97 [00:00&lt;00:00,  108.50it/s]
 
 
- 48%|####8     | Repairing epochs : 47/97 [00:00&lt;00:00,  107.98it/s]
+ 44%|####4     | Repairing epochs : 43/97 [00:00&lt;00:00,  100.25it/s]
 
 
- 51%|#####     | Repairing epochs : 49/97 [00:00&lt;00:00,  107.82it/s]
+ 48%|####8     | Repairing epochs : 47/97 [00:00&lt;00:00,  107.07it/s]
 
 
- 53%|#####2    | Repairing epochs : 51/97 [00:00&lt;00:00,   98.81it/s]
+ 53%|#####2    | Repairing epochs : 51/97 [00:00&lt;00:00,  105.98it/s]
 
 
- 56%|#####5    | Repairing epochs : 54/97 [00:00&lt;00:00,   96.26it/s]
+ 56%|#####5    | Repairing epochs : 54/97 [00:00&lt;00:00,  104.18it/s]
 
 
- 57%|#####6    | Repairing epochs : 55/97 [00:00&lt;00:00,   92.29it/s]
+ 59%|#####8    | Repairing epochs : 57/97 [00:00&lt;00:00,  107.94it/s]
 
 
- 60%|#####9    | Repairing epochs : 58/97 [00:00&lt;00:00,   91.36it/s]
+ 60%|#####9    | Repairing epochs : 58/97 [00:00&lt;00:00,  105.03it/s]
 
 
- 61%|######    | Repairing epochs : 59/97 [00:00&lt;00:00,   87.86it/s]
+ 61%|######    | Repairing epochs : 59/97 [00:00&lt;00:00,   96.82it/s]
 
 
- 65%|######4   | Repairing epochs : 63/97 [00:00&lt;00:00,   92.16it/s]
+ 65%|######4   | Repairing epochs : 63/97 [00:00&lt;00:00,  100.36it/s]
 
 
- 66%|######5   | Repairing epochs : 64/97 [00:00&lt;00:00,   88.38it/s]
+ 67%|######7   | Repairing epochs : 65/97 [00:00&lt;00:00,   98.39it/s]
 
 
- 67%|######7   | Repairing epochs : 65/97 [00:00&lt;00:00,   87.09it/s]
+ 68%|######8   | Repairing epochs : 66/97 [00:00&lt;00:00,   94.49it/s]
 
 
- 68%|######8   | Repairing epochs : 66/97 [00:00&lt;00:00,   85.19it/s]
+ 69%|######9   | Repairing epochs : 67/97 [00:00&lt;00:00,   92.52it/s]
 
 
- 69%|######9   | Repairing epochs : 67/97 [00:00&lt;00:00,   83.06it/s]
+ 70%|#######   | Repairing epochs : 68/97 [00:00&lt;00:00,   90.80it/s]
 
 
- 70%|#######   | Repairing epochs : 68/97 [00:00&lt;00:00,   81.28it/s]
+ 71%|#######1  | Repairing epochs : 69/97 [00:00&lt;00:00,   87.87it/s]
 
 
- 71%|#######1  | Repairing epochs : 69/97 [00:00&lt;00:00,   78.87it/s]
+ 72%|#######2  | Repairing epochs : 70/97 [00:00&lt;00:00,   85.94it/s]
 
 
- 72%|#######2  | Repairing epochs : 70/97 [00:00&lt;00:00,   77.55it/s]
+ 73%|#######3  | Repairing epochs : 71/97 [00:00&lt;00:00,   84.70it/s]
 
 
- 73%|#######3  | Repairing epochs : 71/97 [00:00&lt;00:00,   73.09it/s]
+ 75%|#######5  | Repairing epochs : 73/97 [00:00&lt;00:00,   82.45it/s]
 
 
- 74%|#######4  | Repairing epochs : 72/97 [00:00&lt;00:00,   69.67it/s]
+ 76%|#######6  | Repairing epochs : 74/97 [00:00&lt;00:00,   76.57it/s]
 
 
- 75%|#######5  | Repairing epochs : 73/97 [00:00&lt;00:00,   68.34it/s]
+ 77%|#######7  | Repairing epochs : 75/97 [00:00&lt;00:00,   74.66it/s]
 
 
- 76%|#######6  | Repairing epochs : 74/97 [00:00&lt;00:00,   65.65it/s]
+ 78%|#######8  | Repairing epochs : 76/97 [00:00&lt;00:00,   74.11it/s]
 
 
- 77%|#######7  | Repairing epochs : 75/97 [00:00&lt;00:00,   63.00it/s]
+ 79%|#######9  | Repairing epochs : 77/97 [00:00&lt;00:00,   73.30it/s]
 
 
- 78%|#######8  | Repairing epochs : 76/97 [00:00&lt;00:00,   62.03it/s]
+ 80%|########  | Repairing epochs : 78/97 [00:00&lt;00:00,   72.38it/s]
 
 
- 79%|#######9  | Repairing epochs : 77/97 [00:00&lt;00:00,   61.36it/s]
+ 81%|########1 | Repairing epochs : 79/97 [00:00&lt;00:00,   71.30it/s]
 
 
- 80%|########  | Repairing epochs : 78/97 [00:01&lt;00:00,   60.57it/s]
+ 82%|########2 | Repairing epochs : 80/97 [00:00&lt;00:00,   70.54it/s]
 
 
- 81%|########1 | Repairing epochs : 79/97 [00:01&lt;00:00,   59.87it/s]
+ 84%|########3 | Repairing epochs : 81/97 [00:00&lt;00:00,   69.46it/s]
 
 
- 84%|########3 | Repairing epochs : 81/97 [00:01&lt;00:00,   60.78it/s]
+ 85%|########4 | Repairing epochs : 82/97 [00:00&lt;00:00,   68.73it/s]
 
 
- 86%|########5 | Repairing epochs : 83/97 [00:01&lt;00:00,   61.72it/s]
+ 87%|########6 | Repairing epochs : 84/97 [00:01&lt;00:00,   68.65it/s]
 
 
- 88%|########7 | Repairing epochs : 85/97 [00:01&lt;00:00,   63.07it/s]
+ 88%|########7 | Repairing epochs : 85/97 [00:01&lt;00:00,   67.43it/s]
 
 
- 89%|########8 | Repairing epochs : 86/97 [00:01&lt;00:00,   63.00it/s]
+ 89%|########8 | Repairing epochs : 86/97 [00:01&lt;00:00,   58.19it/s]
 
 
- 91%|######### | Repairing epochs : 88/97 [00:01&lt;00:00,   63.61it/s]
+ 90%|########9 | Repairing epochs : 87/97 [00:01&lt;00:00,   57.61it/s]
 
 
- 93%|#########2| Repairing epochs : 90/97 [00:01&lt;00:00,   64.16it/s]
+ 91%|######### | Repairing epochs : 88/97 [00:01&lt;00:00,   52.29it/s]
 
 
- 95%|#########4| Repairing epochs : 92/97 [00:01&lt;00:00,   64.35it/s]
+ 92%|#########1| Repairing epochs : 89/97 [00:01&lt;00:00,   51.46it/s]
 
 
- 97%|#########6| Repairing epochs : 94/97 [00:01&lt;00:00,   64.67it/s]
+ 93%|#########2| Repairing epochs : 90/97 [00:01&lt;00:00,   51.36it/s]
 
 
- 98%|#########7| Repairing epochs : 95/97 [00:01&lt;00:00,   64.33it/s]
+ 94%|#########3| Repairing epochs : 91/97 [00:01&lt;00:00,   51.01it/s]
 
 
-100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   63.90it/s]
-100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   75.16it/s]
+ 95%|#########4| Repairing epochs : 92/97 [00:01&lt;00:00,   51.10it/s]
+
+
+ 96%|#########5| Repairing epochs : 93/97 [00:01&lt;00:00,   50.51it/s]
+
+
+ 97%|#########6| Repairing epochs : 94/97 [00:01&lt;00:00,   50.21it/s]
+
+
+ 98%|#########7| Repairing epochs : 95/97 [00:01&lt;00:00,   49.18it/s]
+
+
+ 99%|#########8| Repairing epochs : 96/97 [00:01&lt;00:00,   48.47it/s]
+
+
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   47.83it/s]
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   68.03it/s]
 Dropped 27 epochs: 54, 58, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
@@ -812,7 +912,7 @@ Dropped 27 epochs: 54, 58, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 7
 <img src="../_images/sphx_glr_plot_autoreject_workflow_002.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_002.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Using matplotlib as 2D backend.
 
-&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+&lt;MNEBrowseFigure size 2511x1385 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>and the reject log</p>
@@ -868,99 +968,94 @@ Loading data for 97 events and 1536 original time points ...
 Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Creating augmented epochs : 1/32 [00:00&lt;00:00,   62.12it/s]
-  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   60.97it/s]
- 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   57.42it/s]
- 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   58.03it/s]
- 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   56.01it/s]
- 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   53.63it/s]
- 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   56.09it/s]
- 34%|###4      | Creating augmented epochs : 11/32 [00:00&lt;00:00,   58.95it/s]
- 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   61.37it/s]
- 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   62.18it/s]
- 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   63.40it/s]
- 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   62.33it/s]
- 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   62.53it/s]
- 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   62.12it/s]
- 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   59.15it/s]
- 72%|#######1  | Creating augmented epochs : 23/32 [00:00&lt;00:00,   59.19it/s]
- 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   59.24it/s]
- 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   59.87it/s]
- 88%|########7 | Creating augmented epochs : 28/32 [00:00&lt;00:00,   60.63it/s]
- 91%|######### | Creating augmented epochs : 29/32 [00:00&lt;00:00,   60.49it/s]
- 94%|#########3| Creating augmented epochs : 30/32 [00:00&lt;00:00,   60.44it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   60.58it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   60.36it/s]
+  3%|3         | Creating augmented epochs : 1/32 [00:00&lt;00:01,   28.08it/s]
+  6%|6         | Creating augmented epochs : 2/32 [00:00&lt;00:00,   33.07it/s]
+  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   30.09it/s]
+ 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   34.10it/s]
+ 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   35.73it/s]
+ 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   36.88it/s]
+ 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   33.52it/s]
+ 25%|##5       | Creating augmented epochs : 8/32 [00:00&lt;00:00,   34.17it/s]
+ 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   35.10it/s]
+ 31%|###1      | Creating augmented epochs : 10/32 [00:00&lt;00:00,   32.19it/s]
+ 34%|###4      | Creating augmented epochs : 11/32 [00:00&lt;00:00,   23.91it/s]
+ 38%|###7      | Creating augmented epochs : 12/32 [00:00&lt;00:00,   24.07it/s]
+ 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   24.77it/s]
+ 44%|####3     | Creating augmented epochs : 14/32 [00:00&lt;00:00,   23.91it/s]
+ 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   25.01it/s]
+ 50%|#####     | Creating augmented epochs : 16/32 [00:00&lt;00:00,   25.09it/s]
+ 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   26.20it/s]
+ 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   25.48it/s]
+ 59%|#####9    | Creating augmented epochs : 19/32 [00:00&lt;00:00,   25.48it/s]
+ 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   24.01it/s]
+ 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   24.14it/s]
+ 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   25.06it/s]
+ 72%|#######1  | Creating augmented epochs : 23/32 [00:00&lt;00:00,   25.56it/s]
+ 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   25.83it/s]
+ 78%|#######8  | Creating augmented epochs : 25/32 [00:00&lt;00:00,   26.31it/s]
+ 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   27.16it/s]
+ 84%|########4 | Creating augmented epochs : 27/32 [00:00&lt;00:00,   27.77it/s]
+ 88%|########7 | Creating augmented epochs : 28/32 [00:01&lt;00:00,   28.49it/s]
+ 91%|######### | Creating augmented epochs : 29/32 [00:01&lt;00:00,   28.44it/s]
+ 94%|#########3| Creating augmented epochs : 30/32 [00:01&lt;00:00,   28.51it/s]
+ 97%|#########6| Creating augmented epochs : 31/32 [00:01&lt;00:00,   27.80it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:01&lt;00:00,   27.26it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:01&lt;00:00,   27.05it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Computing thresholds ... : 1/32 [00:01&lt;00:36,    1.17s/it]
-  6%|6         | Computing thresholds ... : 2/32 [00:01&lt;00:29,    1.03it/s]
-  9%|9         | Computing thresholds ... : 3/32 [00:02&lt;00:28,    1.01it/s]
- 12%|#2        | Computing thresholds ... : 4/32 [00:03&lt;00:27,    1.03it/s]
- 16%|#5        | Computing thresholds ... : 5/32 [00:04&lt;00:24,    1.10it/s]
- 19%|#8        | Computing thresholds ... : 6/32 [00:05&lt;00:22,    1.17it/s]
- 22%|##1       | Computing thresholds ... : 7/32 [00:05&lt;00:20,    1.19it/s]
- 25%|##5       | Computing thresholds ... : 8/32 [00:07&lt;00:21,    1.14it/s]
- 28%|##8       | Computing thresholds ... : 9/32 [00:08&lt;00:21,    1.06it/s]
- 31%|###1      | Computing thresholds ... : 10/32 [00:09&lt;00:20,    1.05it/s]
- 34%|###4      | Computing thresholds ... : 11/32 [00:10&lt;00:19,    1.09it/s]
- 38%|###7      | Computing thresholds ... : 12/32 [00:11&lt;00:19,    1.04it/s]
- 41%|####      | Computing thresholds ... : 13/32 [00:12&lt;00:18,    1.02it/s]
- 44%|####3     | Computing thresholds ... : 14/32 [00:14&lt;00:18,    1.03s/it]
- 47%|####6     | Computing thresholds ... : 15/32 [00:14&lt;00:16,    1.01it/s]
- 50%|#####     | Computing thresholds ... : 16/32 [00:15&lt;00:15,    1.05it/s]
- 53%|#####3    | Computing thresholds ... : 17/32 [00:16&lt;00:14,    1.07it/s]
- 56%|#####6    | Computing thresholds ... : 18/32 [00:16&lt;00:13,    1.07it/s]
- 59%|#####9    | Computing thresholds ... : 19/32 [00:17&lt;00:11,    1.08it/s]
- 62%|######2   | Computing thresholds ... : 20/32 [00:18&lt;00:10,    1.11it/s]
- 66%|######5   | Computing thresholds ... : 21/32 [00:18&lt;00:09,    1.13it/s]
- 69%|######8   | Computing thresholds ... : 22/32 [00:19&lt;00:08,    1.15it/s]
- 72%|#######1  | Computing thresholds ... : 23/32 [00:20&lt;00:07,    1.18it/s]
- 75%|#######5  | Computing thresholds ... : 24/32 [00:20&lt;00:06,    1.20it/s]
- 78%|#######8  | Computing thresholds ... : 25/32 [00:21&lt;00:05,    1.21it/s]
- 81%|########1 | Computing thresholds ... : 26/32 [00:22&lt;00:04,    1.23it/s]
- 84%|########4 | Computing thresholds ... : 27/32 [00:22&lt;00:04,    1.25it/s]
- 88%|########7 | Computing thresholds ... : 28/32 [00:23&lt;00:03,    1.27it/s]
- 91%|######### | Computing thresholds ... : 29/32 [00:24&lt;00:02,    1.27it/s]
- 94%|#########3| Computing thresholds ... : 30/32 [00:25&lt;00:01,    1.24it/s]
- 97%|#########6| Computing thresholds ... : 31/32 [00:26&lt;00:00,    1.25it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:27&lt;00:00,    1.23it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:27&lt;00:00,    1.18it/s]
+  3%|3         | Computing thresholds ... : 1/32 [00:01&lt;00:39,    1.27s/it]
+  6%|6         | Computing thresholds ... : 2/32 [00:02&lt;00:38,    1.28s/it]
+  9%|9         | Computing thresholds ... : 3/32 [00:03&lt;00:29,    1.03s/it]
+ 12%|#2        | Computing thresholds ... : 4/32 [00:03&lt;00:26,    1.06it/s]
+ 16%|#5        | Computing thresholds ... : 5/32 [00:04&lt;00:24,    1.08it/s]
+ 19%|#8        | Computing thresholds ... : 6/32 [00:05&lt;00:23,    1.09it/s]
+ 22%|##1       | Computing thresholds ... : 7/32 [00:06&lt;00:22,    1.12it/s]
+ 25%|##5       | Computing thresholds ... : 8/32 [00:07&lt;00:21,    1.11it/s]
+ 28%|##8       | Computing thresholds ... : 9/32 [00:08&lt;00:20,    1.12it/s]
+ 31%|###1      | Computing thresholds ... : 10/32 [00:08&lt;00:18,    1.18it/s]
+ 34%|###4      | Computing thresholds ... : 11/32 [00:09&lt;00:16,    1.24it/s]
+ 38%|###7      | Computing thresholds ... : 12/32 [00:09&lt;00:15,    1.26it/s]
+ 41%|####      | Computing thresholds ... : 13/32 [00:10&lt;00:14,    1.30it/s]
+ 44%|####3     | Computing thresholds ... : 14/32 [00:10&lt;00:13,    1.35it/s]
+ 47%|####6     | Computing thresholds ... : 15/32 [00:11&lt;00:12,    1.40it/s]
+ 50%|#####     | Computing thresholds ... : 16/32 [00:11&lt;00:11,    1.42it/s]
+ 53%|#####3    | Computing thresholds ... : 17/32 [00:12&lt;00:10,    1.46it/s]
+ 56%|#####6    | Computing thresholds ... : 18/32 [00:12&lt;00:09,    1.50it/s]
+ 59%|#####9    | Computing thresholds ... : 19/32 [00:13&lt;00:08,    1.54it/s]
+ 62%|######2   | Computing thresholds ... : 20/32 [00:13&lt;00:07,    1.55it/s]
+ 66%|######5   | Computing thresholds ... : 21/32 [00:14&lt;00:06,    1.58it/s]
+ 69%|######8   | Computing thresholds ... : 22/32 [00:14&lt;00:06,    1.60it/s]
+ 72%|#######1  | Computing thresholds ... : 23/32 [00:15&lt;00:05,    1.63it/s]
+ 75%|#######5  | Computing thresholds ... : 24/32 [00:16&lt;00:04,    1.63it/s]
+ 78%|#######8  | Computing thresholds ... : 25/32 [00:16&lt;00:04,    1.66it/s]
+ 81%|########1 | Computing thresholds ... : 26/32 [00:16&lt;00:03,    1.68it/s]
+ 84%|########4 | Computing thresholds ... : 27/32 [00:17&lt;00:02,    1.68it/s]
+ 88%|########7 | Computing thresholds ... : 28/32 [00:18&lt;00:02,    1.70it/s]
+ 91%|######### | Computing thresholds ... : 29/32 [00:18&lt;00:01,    1.69it/s]
+ 94%|#########3| Computing thresholds ... : 30/32 [00:19&lt;00:01,    1.70it/s]
+ 97%|#########6| Computing thresholds ... : 31/32 [00:20&lt;00:00,    1.65it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:20&lt;00:00,    1.67it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:20&lt;00:00,    1.55it/s]
 
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,  112.54it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  272.41it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  112.43it/s]
+ 40%|####      | Repairing epochs : 8/20 [00:00&lt;00:00,  228.54it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   32.18it/s]
+ 55%|#####5    | Repairing epochs : 11/20 [00:00&lt;00:00,  198.49it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   33.76it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  206.17it/s]
 
 
- 40%|####      | Repairing epochs : 8/20 [00:00&lt;00:00,   35.54it/s]
-
-
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   39.91it/s]
-
-
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   41.30it/s]
-
-
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   50.25it/s]
-
-
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   54.55it/s]
-
-
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   60.51it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   56.44it/s]
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,  207.50it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  207.53it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
@@ -969,53 +1064,47 @@ Running autoreject on ch_type=eeg
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
-  5%|5         | Repairing epochs : 1/20 [00:00&lt;00:00,   21.68it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   63.75it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   25.87it/s]
+ 15%|#5        | Repairing epochs : 3/20 [00:00&lt;00:00,   50.81it/s]
 
 
- 15%|#5        | Repairing epochs : 3/20 [00:00&lt;00:00,   28.27it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,   62.41it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,   37.26it/s]
+ 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   59.25it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   35.60it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   50.87it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   28.87it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   60.52it/s]
 
 
- 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,   35.05it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   62.87it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   26.63it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,   53.07it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   27.90it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   51.84it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,   30.10it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   50.94it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   29.24it/s]
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   49.02it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   28.08it/s]
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   44.33it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   29.23it/s]
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   43.46it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   29.85it/s]
-
-
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   30.93it/s]
-
-
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   31.30it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   30.69it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   42.76it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   44.47it/s]
 
 
 
@@ -1024,78 +1113,78 @@ Running autoreject on ch_type=eeg
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.91it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    7.13it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.38it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    8.09it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    4.42it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,    8.75it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:01,    4.40it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,    9.41it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:01&lt;00:01,    3.50it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    9.75it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:01&lt;00:01,    3.77it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,    9.31it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    4.00it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,    7.96it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    4.12it/s]
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    7.49it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:02&lt;00:00,    4.21it/s]
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    7.68it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.41it/s]
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.34it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    8.04it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    8.09it/s]
 
 
- 25%|##5       | n_interp : 1/4 [00:02&lt;00:08,    2.99s/it]
+ 25%|##5       | n_interp : 1/4 [00:01&lt;00:05,    1.72s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   73.62it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,  108.93it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,   94.31it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  112.61it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   91.80it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  100.53it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  106.79it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  108.66it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  108.41it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  105.56it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  107.85it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  105.12it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  100.38it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   98.31it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   97.22it/s]
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   91.45it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   96.82it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   96.51it/s]
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   92.76it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   95.73it/s]
 
 
 
@@ -1104,75 +1193,81 @@ Running autoreject on ch_type=eeg
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    5.65it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:00,   10.93it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    6.26it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,   11.55it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.40it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   11.16it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.45it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   11.39it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.61it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   11.50it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.72it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   11.37it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.75it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   11.40it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.81it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   11.34it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.32it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   10.83it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.25it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.30it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.69it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.79it/s]
 
 
- 50%|#####     | n_interp : 2/4 [00:04&lt;00:04,    2.39s/it]
+ 50%|#####     | n_interp : 2/4 [00:02&lt;00:02,    1.43s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   71.65it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   96.50it/s]
 
 
- 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,   85.90it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  130.57it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   84.50it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  106.56it/s]
 
 
- 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  102.32it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  110.49it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  105.23it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  104.49it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  107.12it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  101.47it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,  102.71it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   94.31it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   97.62it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   96.42it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   89.15it/s]
+
+
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   84.78it/s]
+
+
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   84.23it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   85.95it/s]
 
 
 
@@ -1181,75 +1276,96 @@ Running autoreject on ch_type=eeg
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    6.58it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    8.10it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.88it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    9.19it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    5.98it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,    9.90it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.16it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   10.28it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.22it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    9.63it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.29it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,    9.73it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.34it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,    9.56it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.45it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,    9.76it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.54it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,    9.74it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.61it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.54it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    9.83it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    9.79it/s]
 
 
- 75%|#######5  | n_interp : 3/4 [00:06&lt;00:02,    2.18s/it]
+ 75%|#######5  | n_interp : 3/4 [00:04&lt;00:01,    1.38s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   82.47it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,   81.39it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  102.83it/s]
+ 15%|#5        | Repairing epochs : 3/20 [00:00&lt;00:00,   60.26it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   97.73it/s]
+ 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,   60.39it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  114.48it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,   47.04it/s]
 
 
- 65%|######5   | Repairing epochs : 13/20 [00:00&lt;00:00,  124.93it/s]
+ 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   41.21it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  110.15it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,   39.81it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,  105.25it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   50.36it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,  100.07it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   99.52it/s]
+ 55%|#####5    | Repairing epochs : 11/20 [00:00&lt;00:00,   51.20it/s]
+
+
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   51.18it/s]
+
+
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,   55.39it/s]
+
+
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   55.17it/s]
+
+
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   54.97it/s]
+
+
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   49.04it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   44.59it/s]
+
+
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   47.09it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   47.90it/s]
 
 
 
@@ -1258,48 +1374,48 @@ Running autoreject on ch_type=eeg
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    7.42it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:00,   13.55it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    7.59it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,   12.95it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:00,    7.62it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   12.44it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    7.60it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   12.23it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    7.67it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   12.23it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    7.69it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   12.33it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:00&lt;00:00,    7.72it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   12.36it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    7.67it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   12.29it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    7.71it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   12.14it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    7.75it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    7.73it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   12.05it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   12.09it/s]
 
 
-100%|##########| n_interp : 4/4 [00:08&lt;00:00,    2.00s/it]
-100%|##########| n_interp : 4/4 [00:08&lt;00:00,    2.03s/it]
+100%|##########| n_interp : 4/4 [00:05&lt;00:00,    1.35s/it]
+100%|##########| n_interp : 4/4 [00:05&lt;00:00,    1.35s/it]
 
 
 
@@ -1311,179 +1427,185 @@ Estimated consensus=0.40 and n_interpolate=4
   0%|          | Repairing epochs : 0/97 [00:00&lt;?,       ?it/s]
 
 
-  2%|2         | Repairing epochs : 2/97 [00:00&lt;00:01,   93.63it/s]
+  2%|2         | Repairing epochs : 2/97 [00:00&lt;00:00,  107.77it/s]
 
 
-  5%|5         | Repairing epochs : 5/97 [00:00&lt;00:00,  101.60it/s]
+  5%|5         | Repairing epochs : 5/97 [00:00&lt;00:00,  137.03it/s]
 
 
-  7%|7         | Repairing epochs : 7/97 [00:00&lt;00:00,   92.89it/s]
+  7%|7         | Repairing epochs : 7/97 [00:00&lt;00:00,  106.42it/s]
 
 
- 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:00,  109.96it/s]
+ 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:00,  110.37it/s]
 
 
- 13%|#3        | Repairing epochs : 13/97 [00:00&lt;00:00,  120.71it/s]
+ 12%|#2        | Repairing epochs : 12/97 [00:00&lt;00:00,  102.42it/s]
 
 
- 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:00,  109.08it/s]
+ 14%|#4        | Repairing epochs : 14/97 [00:00&lt;00:00,   99.64it/s]
 
 
- 18%|#7        | Repairing epochs : 17/97 [00:00&lt;00:00,  106.93it/s]
+ 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:00,   93.25it/s]
 
 
- 20%|#9        | Repairing epochs : 19/97 [00:00&lt;00:00,  103.87it/s]
+ 16%|#6        | Repairing epochs : 16/97 [00:00&lt;00:00,   88.56it/s]
 
 
- 22%|##1       | Repairing epochs : 21/97 [00:00&lt;00:00,  102.44it/s]
+ 19%|#8        | Repairing epochs : 18/97 [00:00&lt;00:00,   91.54it/s]
 
 
- 24%|##3       | Repairing epochs : 23/97 [00:00&lt;00:00,  102.02it/s]
+ 21%|##        | Repairing epochs : 20/97 [00:00&lt;00:00,   90.37it/s]
 
 
- 26%|##5       | Repairing epochs : 25/97 [00:00&lt;00:00,  100.74it/s]
+ 24%|##3       | Repairing epochs : 23/97 [00:00&lt;00:00,   95.59it/s]
 
 
- 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:00,   99.84it/s]
+ 26%|##5       | Repairing epochs : 25/97 [00:00&lt;00:00,   93.29it/s]
 
 
- 30%|##9       | Repairing epochs : 29/97 [00:00&lt;00:00,   98.45it/s]
+ 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:00,   95.18it/s]
 
 
- 32%|###1      | Repairing epochs : 31/97 [00:00&lt;00:00,   97.78it/s]
+ 30%|##9       | Repairing epochs : 29/97 [00:00&lt;00:00,   93.62it/s]
 
 
- 34%|###4      | Repairing epochs : 33/97 [00:00&lt;00:00,   97.38it/s]
+ 32%|###1      | Repairing epochs : 31/97 [00:00&lt;00:00,   93.38it/s]
 
 
- 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:00,   97.06it/s]
+ 34%|###4      | Repairing epochs : 33/97 [00:00&lt;00:00,   94.81it/s]
 
 
- 38%|###8      | Repairing epochs : 37/97 [00:00&lt;00:00,   96.83it/s]
+ 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:00,   92.70it/s]
 
 
- 40%|####      | Repairing epochs : 39/97 [00:00&lt;00:00,   96.20it/s]
+ 37%|###7      | Repairing epochs : 36/97 [00:00&lt;00:00,   90.76it/s]
 
 
- 42%|####2     | Repairing epochs : 41/97 [00:00&lt;00:00,   96.22it/s]
+ 39%|###9      | Repairing epochs : 38/97 [00:00&lt;00:00,   88.55it/s]
 
 
- 44%|####4     | Repairing epochs : 43/97 [00:00&lt;00:00,   96.19it/s]
+ 40%|####      | Repairing epochs : 39/97 [00:00&lt;00:00,   86.53it/s]
 
 
- 46%|####6     | Repairing epochs : 45/97 [00:00&lt;00:00,   96.37it/s]
+ 42%|####2     | Repairing epochs : 41/97 [00:00&lt;00:00,   82.92it/s]
 
 
- 48%|####8     | Repairing epochs : 47/97 [00:00&lt;00:00,   95.94it/s]
+ 43%|####3     | Repairing epochs : 42/97 [00:00&lt;00:00,   81.13it/s]
 
 
- 51%|#####     | Repairing epochs : 49/97 [00:00&lt;00:00,   95.86it/s]
+ 45%|####5     | Repairing epochs : 44/97 [00:00&lt;00:00,   79.92it/s]
 
 
- 53%|#####2    | Repairing epochs : 51/97 [00:00&lt;00:00,   94.26it/s]
+ 46%|####6     | Repairing epochs : 45/97 [00:00&lt;00:00,   73.68it/s]
 
 
- 55%|#####4    | Repairing epochs : 53/97 [00:00&lt;00:00,   93.93it/s]
+ 47%|####7     | Repairing epochs : 46/97 [00:00&lt;00:00,   68.89it/s]
 
 
- 57%|#####6    | Repairing epochs : 55/97 [00:00&lt;00:00,   93.64it/s]
+ 49%|####9     | Repairing epochs : 48/97 [00:00&lt;00:00,   69.49it/s]
 
 
- 59%|#####8    | Repairing epochs : 57/97 [00:00&lt;00:00,   93.53it/s]
+ 51%|#####     | Repairing epochs : 49/97 [00:00&lt;00:00,   68.50it/s]
 
 
- 61%|######    | Repairing epochs : 59/97 [00:00&lt;00:00,   93.59it/s]
+ 52%|#####1    | Repairing epochs : 50/97 [00:00&lt;00:00,   66.57it/s]
 
 
- 63%|######2   | Repairing epochs : 61/97 [00:00&lt;00:00,   93.54it/s]
+ 53%|#####2    | Repairing epochs : 51/97 [00:00&lt;00:00,   66.15it/s]
 
 
- 65%|######4   | Repairing epochs : 63/97 [00:00&lt;00:00,   92.08it/s]
+ 55%|#####4    | Repairing epochs : 53/97 [00:00&lt;00:00,   67.42it/s]
 
 
- 66%|######5   | Repairing epochs : 64/97 [00:00&lt;00:00,   89.90it/s]
+ 56%|#####5    | Repairing epochs : 54/97 [00:00&lt;00:00,   66.17it/s]
 
 
- 67%|######7   | Repairing epochs : 65/97 [00:00&lt;00:00,   87.89it/s]
+ 57%|#####6    | Repairing epochs : 55/97 [00:00&lt;00:00,   64.59it/s]
 
 
- 69%|######9   | Repairing epochs : 67/97 [00:00&lt;00:00,   86.28it/s]
+ 58%|#####7    | Repairing epochs : 56/97 [00:00&lt;00:00,   62.98it/s]
 
 
- 70%|#######   | Repairing epochs : 68/97 [00:00&lt;00:00,   84.47it/s]
+ 59%|#####8    | Repairing epochs : 57/97 [00:00&lt;00:00,   62.28it/s]
 
 
- 71%|#######1  | Repairing epochs : 69/97 [00:00&lt;00:00,   82.91it/s]
+ 60%|#####9    | Repairing epochs : 58/97 [00:00&lt;00:00,   61.33it/s]
 
 
- 72%|#######2  | Repairing epochs : 70/97 [00:00&lt;00:00,   80.21it/s]
+ 62%|######1   | Repairing epochs : 60/97 [00:00&lt;00:00,   59.29it/s]
 
 
- 73%|#######3  | Repairing epochs : 71/97 [00:00&lt;00:00,   77.84it/s]
+ 63%|######2   | Repairing epochs : 61/97 [00:00&lt;00:00,   57.64it/s]
 
 
- 74%|#######4  | Repairing epochs : 72/97 [00:00&lt;00:00,   76.89it/s]
+ 64%|######3   | Repairing epochs : 62/97 [00:00&lt;00:00,   57.47it/s]
 
 
- 75%|#######5  | Repairing epochs : 73/97 [00:00&lt;00:00,   75.52it/s]
+ 65%|######4   | Repairing epochs : 63/97 [00:00&lt;00:00,   57.31it/s]
 
 
- 76%|#######6  | Repairing epochs : 74/97 [00:00&lt;00:00,   74.15it/s]
+ 66%|######5   | Repairing epochs : 64/97 [00:00&lt;00:00,   57.28it/s]
 
 
- 78%|#######8  | Repairing epochs : 76/97 [00:00&lt;00:00,   73.66it/s]
+ 67%|######7   | Repairing epochs : 65/97 [00:00&lt;00:00,   56.84it/s]
 
 
- 79%|#######9  | Repairing epochs : 77/97 [00:00&lt;00:00,   71.98it/s]
+ 68%|######8   | Repairing epochs : 66/97 [00:00&lt;00:00,   56.67it/s]
 
 
- 80%|########  | Repairing epochs : 78/97 [00:00&lt;00:00,   71.39it/s]
+ 69%|######9   | Repairing epochs : 67/97 [00:01&lt;00:00,   56.15it/s]
 
 
- 81%|########1 | Repairing epochs : 79/97 [00:00&lt;00:00,   70.86it/s]
+ 71%|#######1  | Repairing epochs : 69/97 [00:01&lt;00:00,   58.37it/s]
 
 
- 82%|########2 | Repairing epochs : 80/97 [00:00&lt;00:00,   69.76it/s]
+ 73%|#######3  | Repairing epochs : 71/97 [00:01&lt;00:00,   60.52it/s]
 
 
- 84%|########3 | Repairing epochs : 81/97 [00:01&lt;00:00,   68.68it/s]
+ 75%|#######5  | Repairing epochs : 73/97 [00:01&lt;00:00,   62.42it/s]
 
 
- 86%|########5 | Repairing epochs : 83/97 [00:01&lt;00:00,   67.36it/s]
+ 78%|#######8  | Repairing epochs : 76/97 [00:01&lt;00:00,   66.19it/s]
 
 
- 87%|########6 | Repairing epochs : 84/97 [00:01&lt;00:00,   66.21it/s]
+ 80%|########  | Repairing epochs : 78/97 [00:01&lt;00:00,   66.92it/s]
 
 
- 88%|########7 | Repairing epochs : 85/97 [00:01&lt;00:00,   65.67it/s]
+ 82%|########2 | Repairing epochs : 80/97 [00:01&lt;00:00,   68.16it/s]
 
 
- 90%|########9 | Repairing epochs : 87/97 [00:01&lt;00:00,   65.18it/s]
+ 85%|########4 | Repairing epochs : 82/97 [00:01&lt;00:00,   69.72it/s]
 
 
- 91%|######### | Repairing epochs : 88/97 [00:01&lt;00:00,   64.45it/s]
+ 87%|########6 | Repairing epochs : 84/97 [00:01&lt;00:00,   70.65it/s]
 
 
- 93%|#########2| Repairing epochs : 90/97 [00:01&lt;00:00,   65.03it/s]
+ 90%|########9 | Repairing epochs : 87/97 [00:01&lt;00:00,   73.29it/s]
 
 
- 94%|#########3| Repairing epochs : 91/97 [00:01&lt;00:00,   64.38it/s]
+ 91%|######### | Repairing epochs : 88/97 [00:01&lt;00:00,   72.59it/s]
 
 
- 95%|#########4| Repairing epochs : 92/97 [00:01&lt;00:00,   64.02it/s]
+ 92%|#########1| Repairing epochs : 89/97 [00:01&lt;00:00,   72.05it/s]
 
 
- 96%|#########5| Repairing epochs : 93/97 [00:01&lt;00:00,   63.76it/s]
+ 94%|#########3| Repairing epochs : 91/97 [00:01&lt;00:00,   72.70it/s]
 
 
- 97%|#########6| Repairing epochs : 94/97 [00:01&lt;00:00,   63.36it/s]
+ 95%|#########4| Repairing epochs : 92/97 [00:01&lt;00:00,   72.30it/s]
 
 
- 99%|#########8| Repairing epochs : 96/97 [00:01&lt;00:00,   63.15it/s]
+ 96%|#########5| Repairing epochs : 93/97 [00:01&lt;00:00,   71.11it/s]
 
 
-100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   62.67it/s]
-100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   75.38it/s]
+ 97%|#########6| Repairing epochs : 94/97 [00:01&lt;00:00,   69.80it/s]
+
+
+ 99%|#########8| Repairing epochs : 96/97 [00:01&lt;00:00,   69.14it/s]
+
+
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   64.48it/s]
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   68.28it/s]
 Dropped 23 epochs: 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
@@ -1492,7 +1614,7 @@ Dropped 23 epochs: 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 7
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_004.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_004.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 2511x1385 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>and the reject log. As we can see in the plot, high-pass filtering reduced
@@ -1522,9 +1644,13 @@ previous run of autoreject for the benefit of the ICA algorithm.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Fitting ICA to data using 32 channels (please be patient, this may take a while)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+Fitting ICA to data using 32 channels (please be patient, this may take a while)
 Selecting by non-zero PCA components: 32 components
-Fitting ICA took 12.5s.
+Fitting ICA took 11.1s.
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1572,7 +1698,18 @@ artifact.</p>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_autoreject_workflow_006.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_006.png" alt="ICA components, ICA000, ICA002" class = "sphx-glr-single-img"/><p>plot with and without eyeblink component</p>
+<img src="../_images/sphx_glr_plot_autoreject_workflow_006.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_006.png" alt="ICA components, ICA000, ICA002" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/stefanappelhoff/miniconda3/envs/autoreject/lib/python3.8/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+</pre></div>
+</div>
+<p>plot with and without eyeblink component</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.plot_overlay" title="mne.preprocessing.ICA.plot_overlay" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">plot_overlay</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">(),</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span>
 <a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.apply" title="mne.preprocessing.ICA.apply" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">apply</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span>
 </pre></div>
@@ -1636,88 +1773,90 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Creating augmented epochs : 1/32 [00:00&lt;00:00,   40.02it/s]
-  6%|6         | Creating augmented epochs : 2/32 [00:00&lt;00:00,   47.81it/s]
-  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   49.39it/s]
- 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   46.44it/s]
- 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   48.35it/s]
- 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   48.74it/s]
- 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   50.51it/s]
- 25%|##5       | Creating augmented epochs : 8/32 [00:00&lt;00:00,   51.43it/s]
- 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   51.44it/s]
- 31%|###1      | Creating augmented epochs : 10/32 [00:00&lt;00:00,   51.33it/s]
- 34%|###4      | Creating augmented epochs : 11/32 [00:00&lt;00:00,   52.30it/s]
- 38%|###7      | Creating augmented epochs : 12/32 [00:00&lt;00:00,   52.48it/s]
- 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   52.19it/s]
- 44%|####3     | Creating augmented epochs : 14/32 [00:00&lt;00:00,   51.75it/s]
- 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   52.30it/s]
- 50%|#####     | Creating augmented epochs : 16/32 [00:00&lt;00:00,   51.56it/s]
- 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   51.87it/s]
- 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   51.99it/s]
- 59%|#####9    | Creating augmented epochs : 19/32 [00:00&lt;00:00,   51.79it/s]
- 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   51.66it/s]
- 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   52.02it/s]
- 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   51.63it/s]
- 72%|#######1  | Creating augmented epochs : 23/32 [00:00&lt;00:00,   51.84it/s]
- 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   52.02it/s]
- 78%|#######8  | Creating augmented epochs : 25/32 [00:00&lt;00:00,   52.45it/s]
- 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   52.38it/s]
- 84%|########4 | Creating augmented epochs : 27/32 [00:00&lt;00:00,   51.97it/s]
- 88%|########7 | Creating augmented epochs : 28/32 [00:00&lt;00:00,   52.17it/s]
- 91%|######### | Creating augmented epochs : 29/32 [00:00&lt;00:00,   52.02it/s]
- 94%|#########3| Creating augmented epochs : 30/32 [00:00&lt;00:00,   51.93it/s]
- 97%|#########6| Creating augmented epochs : 31/32 [00:00&lt;00:00,   52.21it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   51.50it/s]
-100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   51.50it/s]
+  6%|6         | Creating augmented epochs : 2/32 [00:00&lt;00:00,   71.29it/s]
+  9%|9         | Creating augmented epochs : 3/32 [00:00&lt;00:00,   63.56it/s]
+ 12%|#2        | Creating augmented epochs : 4/32 [00:00&lt;00:00,   58.68it/s]
+ 16%|#5        | Creating augmented epochs : 5/32 [00:00&lt;00:00,   56.36it/s]
+ 19%|#8        | Creating augmented epochs : 6/32 [00:00&lt;00:00,   56.04it/s]
+ 22%|##1       | Creating augmented epochs : 7/32 [00:00&lt;00:00,   55.95it/s]
+ 25%|##5       | Creating augmented epochs : 8/32 [00:00&lt;00:00,   55.48it/s]
+ 28%|##8       | Creating augmented epochs : 9/32 [00:00&lt;00:00,   54.38it/s]
+ 31%|###1      | Creating augmented epochs : 10/32 [00:00&lt;00:00,   53.87it/s]
+ 34%|###4      | Creating augmented epochs : 11/32 [00:00&lt;00:00,   53.93it/s]
+ 38%|###7      | Creating augmented epochs : 12/32 [00:00&lt;00:00,   53.59it/s]
+ 41%|####      | Creating augmented epochs : 13/32 [00:00&lt;00:00,   53.41it/s]
+ 44%|####3     | Creating augmented epochs : 14/32 [00:00&lt;00:00,   50.99it/s]
+ 47%|####6     | Creating augmented epochs : 15/32 [00:00&lt;00:00,   50.98it/s]
+ 50%|#####     | Creating augmented epochs : 16/32 [00:00&lt;00:00,   50.88it/s]
+ 53%|#####3    | Creating augmented epochs : 17/32 [00:00&lt;00:00,   51.19it/s]
+ 56%|#####6    | Creating augmented epochs : 18/32 [00:00&lt;00:00,   51.12it/s]
+ 59%|#####9    | Creating augmented epochs : 19/32 [00:00&lt;00:00,   50.84it/s]
+ 62%|######2   | Creating augmented epochs : 20/32 [00:00&lt;00:00,   45.62it/s]
+ 66%|######5   | Creating augmented epochs : 21/32 [00:00&lt;00:00,   45.57it/s]
+ 69%|######8   | Creating augmented epochs : 22/32 [00:00&lt;00:00,   45.70it/s]
+ 72%|#######1  | Creating augmented epochs : 23/32 [00:00&lt;00:00,   46.23it/s]
+ 75%|#######5  | Creating augmented epochs : 24/32 [00:00&lt;00:00,   46.56it/s]
+ 78%|#######8  | Creating augmented epochs : 25/32 [00:00&lt;00:00,   46.84it/s]
+ 81%|########1 | Creating augmented epochs : 26/32 [00:00&lt;00:00,   47.28it/s]
+ 84%|########4 | Creating augmented epochs : 27/32 [00:00&lt;00:00,   46.69it/s]
+ 88%|########7 | Creating augmented epochs : 28/32 [00:00&lt;00:00,   46.18it/s]
+ 91%|######### | Creating augmented epochs : 29/32 [00:00&lt;00:00,   45.91it/s]
+ 94%|#########3| Creating augmented epochs : 30/32 [00:00&lt;00:00,   46.14it/s]
+ 97%|#########6| Creating augmented epochs : 31/32 [00:00&lt;00:00,   46.34it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   46.43it/s]
+100%|##########| Creating augmented epochs : 32/32 [00:00&lt;00:00,   47.66it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|3         | Computing thresholds ... : 1/32 [00:00&lt;00:26,    1.17it/s]
-  6%|6         | Computing thresholds ... : 2/32 [00:01&lt;00:25,    1.18it/s]
-  9%|9         | Computing thresholds ... : 3/32 [00:02&lt;00:25,    1.14it/s]
- 12%|#2        | Computing thresholds ... : 4/32 [00:03&lt;00:25,    1.10it/s]
- 16%|#5        | Computing thresholds ... : 5/32 [00:04&lt;00:24,    1.08it/s]
- 19%|#8        | Computing thresholds ... : 6/32 [00:05&lt;00:23,    1.12it/s]
- 22%|##1       | Computing thresholds ... : 7/32 [00:06&lt;00:21,    1.16it/s]
- 25%|##5       | Computing thresholds ... : 8/32 [00:06&lt;00:20,    1.20it/s]
- 28%|##8       | Computing thresholds ... : 9/32 [00:07&lt;00:18,    1.22it/s]
- 31%|###1      | Computing thresholds ... : 10/32 [00:08&lt;00:18,    1.20it/s]
- 34%|###4      | Computing thresholds ... : 11/32 [00:09&lt;00:18,    1.13it/s]
- 38%|###7      | Computing thresholds ... : 12/32 [00:10&lt;00:17,    1.16it/s]
- 41%|####      | Computing thresholds ... : 13/32 [00:11&lt;00:16,    1.13it/s]
- 44%|####3     | Computing thresholds ... : 14/32 [00:12&lt;00:16,    1.10it/s]
- 47%|####6     | Computing thresholds ... : 15/32 [00:13&lt;00:15,    1.10it/s]
- 50%|#####     | Computing thresholds ... : 16/32 [00:14&lt;00:14,    1.10it/s]
- 53%|#####3    | Computing thresholds ... : 17/32 [00:15&lt;00:13,    1.11it/s]
- 56%|#####6    | Computing thresholds ... : 18/32 [00:15&lt;00:12,    1.13it/s]
- 59%|#####9    | Computing thresholds ... : 19/32 [00:16&lt;00:11,    1.15it/s]
- 62%|######2   | Computing thresholds ... : 20/32 [00:17&lt;00:10,    1.16it/s]
- 66%|######5   | Computing thresholds ... : 21/32 [00:18&lt;00:09,    1.16it/s]
- 69%|######8   | Computing thresholds ... : 22/32 [00:19&lt;00:08,    1.16it/s]
- 72%|#######1  | Computing thresholds ... : 23/32 [00:19&lt;00:07,    1.18it/s]
- 75%|#######5  | Computing thresholds ... : 24/32 [00:21&lt;00:07,    1.14it/s]
- 78%|#######8  | Computing thresholds ... : 25/32 [00:22&lt;00:06,    1.12it/s]
- 81%|########1 | Computing thresholds ... : 26/32 [00:23&lt;00:05,    1.12it/s]
- 84%|########4 | Computing thresholds ... : 27/32 [00:24&lt;00:04,    1.11it/s]
- 88%|########7 | Computing thresholds ... : 28/32 [00:24&lt;00:03,    1.11it/s]
- 91%|######### | Computing thresholds ... : 29/32 [00:26&lt;00:02,    1.06it/s]
- 94%|#########3| Computing thresholds ... : 30/32 [00:27&lt;00:01,    1.07it/s]
- 97%|#########6| Computing thresholds ... : 31/32 [00:28&lt;00:00,    1.09it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:28&lt;00:00,    1.10it/s]
-100%|##########| Computing thresholds ... : 32/32 [00:28&lt;00:00,    1.11it/s]
+  3%|3         | Computing thresholds ... : 1/32 [00:00&lt;00:15,    1.99it/s]
+  6%|6         | Computing thresholds ... : 2/32 [00:00&lt;00:14,    2.07it/s]
+  9%|9         | Computing thresholds ... : 3/32 [00:01&lt;00:13,    2.08it/s]
+ 12%|#2        | Computing thresholds ... : 4/32 [00:01&lt;00:13,    2.10it/s]
+ 16%|#5        | Computing thresholds ... : 5/32 [00:02&lt;00:13,    1.93it/s]
+ 19%|#8        | Computing thresholds ... : 6/32 [00:03&lt;00:15,    1.66it/s]
+ 22%|##1       | Computing thresholds ... : 7/32 [00:04&lt;00:14,    1.70it/s]
+ 25%|##5       | Computing thresholds ... : 8/32 [00:04&lt;00:13,    1.73it/s]
+ 28%|##8       | Computing thresholds ... : 9/32 [00:05&lt;00:14,    1.64it/s]
+ 31%|###1      | Computing thresholds ... : 10/32 [00:06&lt;00:13,    1.62it/s]
+ 34%|###4      | Computing thresholds ... : 11/32 [00:06&lt;00:12,    1.65it/s]
+ 38%|###7      | Computing thresholds ... : 12/32 [00:07&lt;00:12,    1.65it/s]
+ 41%|####      | Computing thresholds ... : 13/32 [00:07&lt;00:11,    1.69it/s]
+ 44%|####3     | Computing thresholds ... : 14/32 [00:08&lt;00:10,    1.68it/s]
+ 47%|####6     | Computing thresholds ... : 15/32 [00:08&lt;00:10,    1.66it/s]
+ 50%|#####     | Computing thresholds ... : 16/32 [00:09&lt;00:09,    1.64it/s]
+ 53%|#####3    | Computing thresholds ... : 17/32 [00:10&lt;00:09,    1.59it/s]
+ 56%|#####6    | Computing thresholds ... : 18/32 [00:10&lt;00:08,    1.62it/s]
+ 59%|#####9    | Computing thresholds ... : 19/32 [00:11&lt;00:08,    1.62it/s]
+ 62%|######2   | Computing thresholds ... : 20/32 [00:12&lt;00:07,    1.56it/s]
+ 66%|######5   | Computing thresholds ... : 21/32 [00:13&lt;00:06,    1.58it/s]
+ 69%|######8   | Computing thresholds ... : 22/32 [00:13&lt;00:06,    1.55it/s]
+ 72%|#######1  | Computing thresholds ... : 23/32 [00:14&lt;00:05,    1.57it/s]
+ 75%|#######5  | Computing thresholds ... : 24/32 [00:15&lt;00:05,    1.56it/s]
+ 78%|#######8  | Computing thresholds ... : 25/32 [00:15&lt;00:04,    1.52it/s]
+ 81%|########1 | Computing thresholds ... : 26/32 [00:16&lt;00:03,    1.52it/s]
+ 84%|########4 | Computing thresholds ... : 27/32 [00:17&lt;00:03,    1.53it/s]
+ 88%|########7 | Computing thresholds ... : 28/32 [00:17&lt;00:02,    1.56it/s]
+ 91%|######### | Computing thresholds ... : 29/32 [00:18&lt;00:01,    1.56it/s]
+ 94%|#########3| Computing thresholds ... : 30/32 [00:18&lt;00:01,    1.58it/s]
+ 97%|#########6| Computing thresholds ... : 31/32 [00:19&lt;00:00,    1.60it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:19&lt;00:00,    1.62it/s]
+100%|##########| Computing thresholds ... : 32/32 [00:19&lt;00:00,    1.62it/s]
 
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,  330.75it/s]
+ 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,  315.58it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  274.02it/s]
+ 55%|#####5    | Repairing epochs : 11/20 [00:00&lt;00:00,  294.05it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  303.66it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  317.06it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  264.28it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  244.55it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  228.07it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
@@ -1726,26 +1865,38 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  250.47it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  197.67it/s]
 
 
- 40%|####      | Repairing epochs : 8/20 [00:00&lt;00:00,  205.80it/s]
+ 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  156.63it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  177.59it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  144.15it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  166.22it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  130.83it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  140.63it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  102.87it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,  128.76it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   95.13it/s]
 
 
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  120.34it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  123.97it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   88.61it/s]
+
+
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   84.09it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   80.07it/s]
+
+
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   68.28it/s]
+
+
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   66.26it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   72.18it/s]
 
 
 
@@ -1754,75 +1905,90 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    5.57it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    7.71it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.96it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    8.71it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.17it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,    7.09it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:01,    5.96it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.83it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.02it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.13it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.09it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.23it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.04it/s]
+ 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    6.41it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.02it/s]
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    6.21it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    6.12it/s]
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    5.99it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.16it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    6.13it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    5.79it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    5.90it/s]
 
 
- 25%|##5       | n_interp : 1/4 [00:01&lt;00:05,    1.81s/it]
+ 25%|##5       | n_interp : 1/4 [00:01&lt;00:05,    1.99s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  186.29it/s]
+ 20%|##        | Repairing epochs : 4/20 [00:00&lt;00:00,  208.52it/s]
 
 
- 35%|###5      | Repairing epochs : 7/20 [00:00&lt;00:00,  162.44it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  111.64it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  155.90it/s]
+ 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   94.00it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  147.65it/s]
+ 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  112.22it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  125.77it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   96.55it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  111.96it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   87.87it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,  103.05it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,   86.18it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   98.32it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,  101.60it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   79.81it/s]
+
+
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   74.01it/s]
+
+
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   70.12it/s]
+
+
+ 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   67.73it/s]
+
+
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   65.08it/s]
+
+
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   62.10it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   66.45it/s]
 
 
 
@@ -1831,87 +1997,84 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    6.70it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.76it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    6.65it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:01,    4.61it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.12it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:01,    4.58it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.01it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:01,    4.67it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    5.45it/s]
+ 50%|#####     | Fold : 5/10 [00:01&lt;00:01,    4.71it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:01&lt;00:00,    5.45it/s]
+ 60%|######    | Fold : 6/10 [00:01&lt;00:00,    4.70it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    4.52it/s]
+ 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    4.73it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    4.29it/s]
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    4.70it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    4.47it/s]
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    4.72it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.55it/s]
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.63it/s]
+100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.69it/s]
+100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.69it/s]
 
 
- 50%|#####     | n_interp : 2/4 [00:04&lt;00:04,    2.10s/it]
+ 50%|#####     | n_interp : 2/4 [00:04&lt;00:04,    2.24s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  190.41it/s]
+ 10%|#         | Repairing epochs : 2/20 [00:00&lt;00:00,  123.05it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,  137.05it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,   79.36it/s]
 
 
- 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  147.51it/s]
+ 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,   68.86it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  114.38it/s]
+ 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,   86.12it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  107.53it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,   70.95it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  101.65it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,   68.64it/s]
 
 
- 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   93.69it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,   67.02it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   87.83it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,   64.88it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   80.90it/s]
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   65.44it/s]
 
 
- 90%|######### | Repairing epochs : 18/20 [00:00&lt;00:00,   74.65it/s]
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   68.18it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   66.20it/s]
-
-
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   64.60it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   70.50it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   64.95it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   65.25it/s]
 
 
 
@@ -1920,75 +2083,81 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:02,    4.23it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    4.72it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    4.89it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:01,    5.35it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    5.34it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.21it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:01,    5.50it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.57it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    5.44it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.81it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:01&lt;00:00,    5.17it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,    7.33it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    5.09it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,    7.79it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    5.10it/s]
+ 80%|########  | Fold : 8/10 [00:01&lt;00:00,    8.18it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:01&lt;00:00,    5.01it/s]
+ 90%|######### | Fold : 9/10 [00:01&lt;00:00,    8.39it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    5.05it/s]
-100%|##########| Fold : 10/10 [00:01&lt;00:00,    5.06it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    8.61it/s]
+100%|##########| Fold : 10/10 [00:01&lt;00:00,    8.29it/s]
 
 
- 75%|#######5  | n_interp : 3/4 [00:06&lt;00:02,    2.17s/it]
+ 75%|#######5  | n_interp : 3/4 [00:06&lt;00:01,    2.00s/it]
 
 
   0%|          | Repairing epochs : 0/20 [00:00&lt;?,       ?it/s]
 
 
- 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  223.35it/s]
+ 25%|##5       | Repairing epochs : 5/20 [00:00&lt;00:00,  188.05it/s]
 
 
- 30%|###       | Repairing epochs : 6/20 [00:00&lt;00:00,  143.69it/s]
+ 45%|####5     | Repairing epochs : 9/20 [00:00&lt;00:00,  199.45it/s]
 
 
- 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  128.51it/s]
+ 50%|#####     | Repairing epochs : 10/20 [00:00&lt;00:00,  151.34it/s]
 
 
- 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  114.64it/s]
+ 60%|######    | Repairing epochs : 12/20 [00:00&lt;00:00,  134.66it/s]
 
 
- 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  111.52it/s]
+ 70%|#######   | Repairing epochs : 14/20 [00:00&lt;00:00,  124.23it/s]
 
 
- 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,  103.60it/s]
+ 75%|#######5  | Repairing epochs : 15/20 [00:00&lt;00:00,  106.03it/s]
 
 
- 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   98.49it/s]
+ 80%|########  | Repairing epochs : 16/20 [00:00&lt;00:00,   91.45it/s]
 
 
- 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   97.29it/s]
-100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   99.03it/s]
+ 85%|########5 | Repairing epochs : 17/20 [00:00&lt;00:00,   84.26it/s]
+
+
+ 95%|#########5| Repairing epochs : 19/20 [00:00&lt;00:00,   80.55it/s]
+
+
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   77.11it/s]
+100%|##########| Repairing epochs : 20/20 [00:00&lt;00:00,   81.93it/s]
 
 
 
@@ -1997,48 +2166,48 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 10%|#         | Fold : 1/10 [00:00&lt;00:01,    5.24it/s]
+ 10%|#         | Fold : 1/10 [00:00&lt;00:01,    8.38it/s]
 
 
 
- 20%|##        | Fold : 2/10 [00:00&lt;00:01,    6.18it/s]
+ 20%|##        | Fold : 2/10 [00:00&lt;00:00,    9.96it/s]
 
 
 
- 30%|###       | Fold : 3/10 [00:00&lt;00:01,    6.41it/s]
+ 30%|###       | Fold : 3/10 [00:00&lt;00:00,   10.63it/s]
 
 
 
- 40%|####      | Fold : 4/10 [00:00&lt;00:00,    6.46it/s]
+ 40%|####      | Fold : 4/10 [00:00&lt;00:00,   10.93it/s]
 
 
 
- 50%|#####     | Fold : 5/10 [00:00&lt;00:00,    6.55it/s]
+ 50%|#####     | Fold : 5/10 [00:00&lt;00:00,   10.60it/s]
 
 
 
- 60%|######    | Fold : 6/10 [00:00&lt;00:00,    6.30it/s]
+ 60%|######    | Fold : 6/10 [00:00&lt;00:00,   10.81it/s]
 
 
 
- 70%|#######   | Fold : 7/10 [00:01&lt;00:00,    5.39it/s]
+ 70%|#######   | Fold : 7/10 [00:00&lt;00:00,   10.89it/s]
 
 
 
- 80%|########  | Fold : 8/10 [00:01&lt;00:00,    4.33it/s]
+ 80%|########  | Fold : 8/10 [00:00&lt;00:00,   11.05it/s]
 
 
 
- 90%|######### | Fold : 9/10 [00:02&lt;00:00,    4.31it/s]
+ 90%|######### | Fold : 9/10 [00:00&lt;00:00,   10.50it/s]
 
 
 
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.40it/s]
-100%|##########| Fold : 10/10 [00:02&lt;00:00,    4.55it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.23it/s]
+100%|##########| Fold : 10/10 [00:00&lt;00:00,   10.31it/s]
 
 
-100%|##########| n_interp : 4/4 [00:08&lt;00:00,    2.24s/it]
-100%|##########| n_interp : 4/4 [00:08&lt;00:00,    2.23s/it]
+100%|##########| n_interp : 4/4 [00:07&lt;00:00,    1.79s/it]
+100%|##########| n_interp : 4/4 [00:07&lt;00:00,    1.81s/it]
 
 
 
@@ -2050,200 +2219,182 @@ Estimated consensus=0.40 and n_interpolate=2
   0%|          | Repairing epochs : 0/97 [00:00&lt;?,       ?it/s]
 
 
-  4%|4         | Repairing epochs : 4/97 [00:00&lt;00:00,  247.86it/s]
+  5%|5         | Repairing epochs : 5/97 [00:00&lt;00:00,  234.07it/s]
 
 
-  5%|5         | Repairing epochs : 5/97 [00:00&lt;00:00,  148.69it/s]
+  9%|9         | Repairing epochs : 9/97 [00:00&lt;00:00,  230.48it/s]
 
 
-  6%|6         | Repairing epochs : 6/97 [00:00&lt;00:00,  110.54it/s]
+ 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:00,  177.03it/s]
 
 
-  9%|9         | Repairing epochs : 9/97 [00:00&lt;00:00,   90.38it/s]
+ 12%|#2        | Repairing epochs : 12/97 [00:00&lt;00:00,  145.84it/s]
 
 
- 10%|#         | Repairing epochs : 10/97 [00:00&lt;00:01,   55.23it/s]
+ 14%|#4        | Repairing epochs : 14/97 [00:00&lt;00:00,  133.00it/s]
 
 
- 12%|#2        | Repairing epochs : 12/97 [00:00&lt;00:01,   52.97it/s]
+ 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:00,  117.86it/s]
 
 
- 14%|#4        | Repairing epochs : 14/97 [00:00&lt;00:01,   49.28it/s]
+ 16%|#6        | Repairing epochs : 16/97 [00:00&lt;00:00,  107.81it/s]
 
 
- 15%|#5        | Repairing epochs : 15/97 [00:00&lt;00:01,   46.71it/s]
+ 18%|#7        | Repairing epochs : 17/97 [00:00&lt;00:00,  101.67it/s]
 
 
- 16%|#6        | Repairing epochs : 16/97 [00:00&lt;00:01,   44.61it/s]
+ 20%|#9        | Repairing epochs : 19/97 [00:00&lt;00:00,   98.00it/s]
 
 
- 18%|#7        | Repairing epochs : 17/97 [00:00&lt;00:01,   40.30it/s]
+ 22%|##1       | Repairing epochs : 21/97 [00:00&lt;00:00,   96.36it/s]
 
 
- 19%|#8        | Repairing epochs : 18/97 [00:00&lt;00:01,   40.80it/s]
+ 23%|##2       | Repairing epochs : 22/97 [00:00&lt;00:00,   75.98it/s]
 
 
- 20%|#9        | Repairing epochs : 19/97 [00:00&lt;00:01,   40.90it/s]
+ 25%|##4       | Repairing epochs : 24/97 [00:00&lt;00:00,   74.21it/s]
 
 
- 21%|##        | Repairing epochs : 20/97 [00:00&lt;00:01,   39.66it/s]
+ 26%|##5       | Repairing epochs : 25/97 [00:00&lt;00:00,   72.56it/s]
 
 
- 22%|##1       | Repairing epochs : 21/97 [00:00&lt;00:01,   38.94it/s]
+ 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:00,   70.68it/s]
 
 
- 23%|##2       | Repairing epochs : 22/97 [00:00&lt;00:01,   39.80it/s]
+ 29%|##8       | Repairing epochs : 28/97 [00:00&lt;00:01,   67.70it/s]
 
 
- 24%|##3       | Repairing epochs : 23/97 [00:00&lt;00:01,   40.63it/s]
+ 31%|###       | Repairing epochs : 30/97 [00:00&lt;00:00,   68.63it/s]
 
 
- 26%|##5       | Repairing epochs : 25/97 [00:00&lt;00:01,   42.50it/s]
+ 33%|###2      | Repairing epochs : 32/97 [00:00&lt;00:00,   67.63it/s]
 
 
- 28%|##7       | Repairing epochs : 27/97 [00:00&lt;00:01,   45.09it/s]
+ 35%|###5      | Repairing epochs : 34/97 [00:00&lt;00:00,   67.84it/s]
 
 
- 30%|##9       | Repairing epochs : 29/97 [00:00&lt;00:01,   46.97it/s]
+ 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:00,   67.38it/s]
 
 
- 32%|###1      | Repairing epochs : 31/97 [00:00&lt;00:01,   48.84it/s]
+ 37%|###7      | Repairing epochs : 36/97 [00:00&lt;00:00,   64.34it/s]
 
 
- 34%|###4      | Repairing epochs : 33/97 [00:00&lt;00:01,   50.46it/s]
+ 38%|###8      | Repairing epochs : 37/97 [00:00&lt;00:00,   63.71it/s]
 
 
- 35%|###5      | Repairing epochs : 34/97 [00:00&lt;00:01,   43.70it/s]
+ 39%|###9      | Repairing epochs : 38/97 [00:00&lt;00:00,   62.37it/s]
 
 
- 36%|###6      | Repairing epochs : 35/97 [00:00&lt;00:02,   30.86it/s]
+ 40%|####      | Repairing epochs : 39/97 [00:00&lt;00:00,   61.37it/s]
 
 
- 37%|###7      | Repairing epochs : 36/97 [00:01&lt;00:02,   26.30it/s]
+ 42%|####2     | Repairing epochs : 41/97 [00:00&lt;00:00,   63.09it/s]
 
 
- 38%|###8      | Repairing epochs : 37/97 [00:01&lt;00:02,   26.01it/s]
+ 43%|####3     | Repairing epochs : 42/97 [00:00&lt;00:00,   58.11it/s]
 
 
- 39%|###9      | Repairing epochs : 38/97 [00:01&lt;00:02,   25.44it/s]
+ 44%|####4     | Repairing epochs : 43/97 [00:00&lt;00:00,   57.18it/s]
 
 
- 40%|####      | Repairing epochs : 39/97 [00:01&lt;00:02,   25.06it/s]
+ 45%|####5     | Repairing epochs : 44/97 [00:00&lt;00:00,   56.67it/s]
 
 
- 42%|####2     | Repairing epochs : 41/97 [00:01&lt;00:02,   26.78it/s]
+ 46%|####6     | Repairing epochs : 45/97 [00:00&lt;00:00,   56.25it/s]
 
 
- 43%|####3     | Repairing epochs : 42/97 [00:01&lt;00:02,   27.34it/s]
+ 47%|####7     | Repairing epochs : 46/97 [00:00&lt;00:00,   55.65it/s]
 
 
- 45%|####5     | Repairing epochs : 44/97 [00:01&lt;00:01,   29.05it/s]
+ 48%|####8     | Repairing epochs : 47/97 [00:00&lt;00:00,   54.55it/s]
 
 
- 46%|####6     | Repairing epochs : 45/97 [00:01&lt;00:01,   29.46it/s]
+ 49%|####9     | Repairing epochs : 48/97 [00:00&lt;00:00,   54.08it/s]
 
 
- 47%|####7     | Repairing epochs : 46/97 [00:01&lt;00:01,   30.12it/s]
+ 53%|#####2    | Repairing epochs : 51/97 [00:00&lt;00:00,   58.78it/s]
 
 
- 49%|####9     | Repairing epochs : 48/97 [00:01&lt;00:01,   31.57it/s]
+ 55%|#####4    | Repairing epochs : 53/97 [00:00&lt;00:00,   61.44it/s]
 
 
- 52%|#####1    | Repairing epochs : 50/97 [00:01&lt;00:01,   33.68it/s]
+ 57%|#####6    | Repairing epochs : 55/97 [00:00&lt;00:00,   62.43it/s]
 
 
- 54%|#####3    | Repairing epochs : 52/97 [00:01&lt;00:01,   35.26it/s]
+ 58%|#####7    | Repairing epochs : 56/97 [00:00&lt;00:00,   62.09it/s]
 
 
- 56%|#####5    | Repairing epochs : 54/97 [00:01&lt;00:01,   36.71it/s]
+ 60%|#####9    | Repairing epochs : 58/97 [00:00&lt;00:00,   63.97it/s]
 
 
- 57%|#####6    | Repairing epochs : 55/97 [00:01&lt;00:01,   36.99it/s]
+ 62%|######1   | Repairing epochs : 60/97 [00:00&lt;00:00,   65.01it/s]
 
 
- 59%|#####8    | Repairing epochs : 57/97 [00:01&lt;00:01,   38.99it/s]
+ 63%|######2   | Repairing epochs : 61/97 [00:00&lt;00:00,   64.06it/s]
 
 
- 62%|######1   | Repairing epochs : 60/97 [00:01&lt;00:00,   41.89it/s]
+ 65%|######4   | Repairing epochs : 63/97 [00:00&lt;00:00,   64.94it/s]
 
 
- 65%|######4   | Repairing epochs : 63/97 [00:01&lt;00:00,   44.85it/s]
+ 66%|######5   | Repairing epochs : 64/97 [00:00&lt;00:00,   64.20it/s]
 
 
- 67%|######7   | Repairing epochs : 65/97 [00:01&lt;00:00,   45.91it/s]
+ 67%|######7   | Repairing epochs : 65/97 [00:00&lt;00:00,   63.64it/s]
 
 
- 69%|######9   | Repairing epochs : 67/97 [00:01&lt;00:00,   47.31it/s]
+ 68%|######8   | Repairing epochs : 66/97 [00:01&lt;00:00,   62.81it/s]
 
 
- 71%|#######1  | Repairing epochs : 69/97 [00:01&lt;00:00,   48.15it/s]
+ 69%|######9   | Repairing epochs : 67/97 [00:01&lt;00:00,   61.92it/s]
 
 
- 73%|#######3  | Repairing epochs : 71/97 [00:01&lt;00:00,   49.65it/s]
+ 71%|#######1  | Repairing epochs : 69/97 [00:01&lt;00:00,   62.94it/s]
 
 
- 75%|#######5  | Repairing epochs : 73/97 [00:01&lt;00:00,   50.49it/s]
+ 73%|#######3  | Repairing epochs : 71/97 [00:01&lt;00:00,   65.14it/s]
 
 
- 76%|#######6  | Repairing epochs : 74/97 [00:01&lt;00:00,   50.31it/s]
+ 75%|#######5  | Repairing epochs : 73/97 [00:01&lt;00:00,   67.13it/s]
 
 
- 77%|#######7  | Repairing epochs : 75/97 [00:01&lt;00:00,   49.51it/s]
+ 77%|#######7  | Repairing epochs : 75/97 [00:01&lt;00:00,   67.77it/s]
 
 
- 78%|#######8  | Repairing epochs : 76/97 [00:01&lt;00:00,   49.67it/s]
+ 79%|#######9  | Repairing epochs : 77/97 [00:01&lt;00:00,   69.90it/s]
 
 
- 79%|#######9  | Repairing epochs : 77/97 [00:01&lt;00:00,   49.47it/s]
+ 81%|########1 | Repairing epochs : 79/97 [00:01&lt;00:00,   69.94it/s]
 
 
- 80%|########  | Repairing epochs : 78/97 [00:01&lt;00:00,   49.63it/s]
+ 84%|########3 | Repairing epochs : 81/97 [00:01&lt;00:00,   70.35it/s]
 
 
- 81%|########1 | Repairing epochs : 79/97 [00:01&lt;00:00,   49.89it/s]
+ 86%|########5 | Repairing epochs : 83/97 [00:01&lt;00:00,   71.73it/s]
 
 
- 82%|########2 | Repairing epochs : 80/97 [00:01&lt;00:00,   49.81it/s]
+ 88%|########7 | Repairing epochs : 85/97 [00:01&lt;00:00,   72.05it/s]
 
 
- 84%|########3 | Repairing epochs : 81/97 [00:01&lt;00:00,   50.00it/s]
+ 90%|########9 | Repairing epochs : 87/97 [00:01&lt;00:00,   73.53it/s]
 
 
- 85%|########4 | Repairing epochs : 82/97 [00:01&lt;00:00,   49.29it/s]
+ 92%|#########1| Repairing epochs : 89/97 [00:01&lt;00:00,   75.35it/s]
 
 
- 86%|########5 | Repairing epochs : 83/97 [00:01&lt;00:00,   49.49it/s]
+ 94%|#########3| Repairing epochs : 91/97 [00:01&lt;00:00,   75.38it/s]
 
 
- 87%|########6 | Repairing epochs : 84/97 [00:01&lt;00:00,   49.87it/s]
+ 96%|#########5| Repairing epochs : 93/97 [00:01&lt;00:00,   77.17it/s]
 
 
- 89%|########8 | Repairing epochs : 86/97 [00:01&lt;00:00,   51.10it/s]
+ 98%|#########7| Repairing epochs : 95/97 [00:01&lt;00:00,   77.86it/s]
 
 
- 91%|######### | Repairing epochs : 88/97 [00:02&lt;00:00,   52.63it/s]
-
-
- 93%|#########2| Repairing epochs : 90/97 [00:02&lt;00:00,   53.99it/s]
-
-
- 95%|#########4| Repairing epochs : 92/97 [00:02&lt;00:00,   55.01it/s]
-
-
- 96%|#########5| Repairing epochs : 93/97 [00:02&lt;00:00,   55.02it/s]
-
-
- 98%|#########7| Repairing epochs : 95/97 [00:02&lt;00:00,   56.25it/s]
-
-
- 99%|#########8| Repairing epochs : 96/97 [00:02&lt;00:00,   56.34it/s]
-
-
-100%|##########| Repairing epochs : 97/97 [00:02&lt;00:00,   55.32it/s]
-100%|##########| Repairing epochs : 97/97 [00:02&lt;00:00,   45.29it/s]
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   78.40it/s]
+100%|##########| Repairing epochs : 97/97 [00:01&lt;00:00,   71.54it/s]
 Dropped 11 epochs: 62, 63, 64, 65, 69, 71, 72, 73, 80, 95, 96
 
-&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+&lt;MNEBrowseFigure size 2511x1385 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>We will do a few more visualizations to see that removing the bad epochs
@@ -2263,9 +2414,9 @@ have on the data.</p>
 <p>Next, we will visualize the cleaned average data and compare it against
 the bad segments.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_bad</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">()</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">times</span></a><span class="p">,</span> <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.data" title="mne.EvokedArray.data" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">())</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">times</span></a><span class="p">,</span> <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.data" title="mne.EvokedArray.data" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">())</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_010.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_010.png" alt="EEG (32 channels)" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
@@ -2283,7 +2434,7 @@ time-frequency analysis. We want to emphasize that there
 is no subsitute for visual inspection. Irrespective of the rejection
 method used, we highly recommend users to inspect their preprocessed
 data before further analyses.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  31.268 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  54.949 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-autoreject-workflow-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/85c2c90b959d98328ef38b4615114365/plot_autoreject_workflow.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_autoreject_workflow.py</span></code></a></p>
@@ -2311,8 +2462,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-04.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-03-16.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
     </p>
   </div>
 </footer>
