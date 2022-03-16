@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.3 documentation</title>
+    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.4.dev0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -26,10 +26,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -44,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -81,7 +81,7 @@
           
 <div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
   <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-    v0.3
+    v0.4.dev0
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -602,79 +602,79 @@ because we do not want epochs to be dropped when instantiating
   LooseVersion(library.__version__) &lt; LooseVersion(min_version):
 
   0%|          | Iterating epochs : 0/72 [00:00&lt;?,       ?it/s]
-  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:05,   12.48it/s]
-  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:05,   13.82it/s]
-  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:04,   14.42it/s]
-  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:04,   14.74it/s]
-  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:04,   14.88it/s]
-  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:04,   14.94it/s]
- 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:04,   14.99it/s]
- 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:04,   15.01it/s]
- 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:04,   14.98it/s]
- 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:04,   14.99it/s]
- 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:04,   15.04it/s]
- 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:03,   15.07it/s]
- 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:03,   15.09it/s]
- 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:03,   15.11it/s]
- 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:03,   15.13it/s]
- 22%|##2       | Iterating epochs : 16/72 [00:01&lt;00:03,   15.15it/s]
- 24%|##3       | Iterating epochs : 17/72 [00:01&lt;00:03,   15.14it/s]
- 25%|##5       | Iterating epochs : 18/72 [00:01&lt;00:03,   15.16it/s]
- 26%|##6       | Iterating epochs : 19/72 [00:01&lt;00:03,   15.20it/s]
- 28%|##7       | Iterating epochs : 20/72 [00:01&lt;00:03,   15.22it/s]
- 29%|##9       | Iterating epochs : 21/72 [00:01&lt;00:03,   15.23it/s]
- 31%|###       | Iterating epochs : 22/72 [00:01&lt;00:03,   15.25it/s]
- 32%|###1      | Iterating epochs : 23/72 [00:01&lt;00:03,   15.24it/s]
- 33%|###3      | Iterating epochs : 24/72 [00:01&lt;00:03,   15.24it/s]
- 35%|###4      | Iterating epochs : 25/72 [00:01&lt;00:03,   15.22it/s]
- 36%|###6      | Iterating epochs : 26/72 [00:01&lt;00:03,   15.25it/s]
- 38%|###7      | Iterating epochs : 27/72 [00:01&lt;00:02,   15.27it/s]
- 39%|###8      | Iterating epochs : 28/72 [00:01&lt;00:02,   15.30it/s]
- 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:02,   15.33it/s]
- 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:02,   15.35it/s]
- 43%|####3     | Iterating epochs : 31/72 [00:02&lt;00:02,   15.38it/s]
- 44%|####4     | Iterating epochs : 32/72 [00:02&lt;00:02,   15.38it/s]
- 46%|####5     | Iterating epochs : 33/72 [00:02&lt;00:02,   15.40it/s]
- 47%|####7     | Iterating epochs : 34/72 [00:02&lt;00:02,   15.42it/s]
- 49%|####8     | Iterating epochs : 35/72 [00:02&lt;00:02,   15.42it/s]
- 50%|#####     | Iterating epochs : 36/72 [00:02&lt;00:02,   15.43it/s]
- 51%|#####1    | Iterating epochs : 37/72 [00:02&lt;00:02,   15.45it/s]
- 53%|#####2    | Iterating epochs : 38/72 [00:02&lt;00:02,   15.45it/s]
- 54%|#####4    | Iterating epochs : 39/72 [00:02&lt;00:02,   15.46it/s]
- 56%|#####5    | Iterating epochs : 40/72 [00:02&lt;00:02,   15.46it/s]
- 57%|#####6    | Iterating epochs : 41/72 [00:02&lt;00:02,   15.45it/s]
- 58%|#####8    | Iterating epochs : 42/72 [00:02&lt;00:01,   15.45it/s]
- 60%|#####9    | Iterating epochs : 43/72 [00:02&lt;00:01,   15.45it/s]
- 61%|######1   | Iterating epochs : 44/72 [00:02&lt;00:01,   15.45it/s]
- 62%|######2   | Iterating epochs : 45/72 [00:02&lt;00:01,   15.44it/s]
- 64%|######3   | Iterating epochs : 46/72 [00:02&lt;00:01,   15.45it/s]
- 65%|######5   | Iterating epochs : 47/72 [00:03&lt;00:01,   15.45it/s]
- 67%|######6   | Iterating epochs : 48/72 [00:03&lt;00:01,   15.45it/s]
- 68%|######8   | Iterating epochs : 49/72 [00:03&lt;00:01,   15.44it/s]
- 69%|######9   | Iterating epochs : 50/72 [00:03&lt;00:01,   15.44it/s]
- 71%|#######   | Iterating epochs : 51/72 [00:03&lt;00:01,   15.44it/s]
- 72%|#######2  | Iterating epochs : 52/72 [00:03&lt;00:01,   15.44it/s]
- 74%|#######3  | Iterating epochs : 53/72 [00:03&lt;00:01,   15.44it/s]
- 75%|#######5  | Iterating epochs : 54/72 [00:03&lt;00:01,   15.45it/s]
- 76%|#######6  | Iterating epochs : 55/72 [00:03&lt;00:01,   15.44it/s]
- 78%|#######7  | Iterating epochs : 56/72 [00:03&lt;00:01,   15.41it/s]
- 79%|#######9  | Iterating epochs : 57/72 [00:03&lt;00:00,   15.41it/s]
- 81%|########  | Iterating epochs : 58/72 [00:03&lt;00:00,   15.40it/s]
- 82%|########1 | Iterating epochs : 59/72 [00:03&lt;00:00,   15.39it/s]
- 83%|########3 | Iterating epochs : 60/72 [00:03&lt;00:00,   15.39it/s]
- 85%|########4 | Iterating epochs : 61/72 [00:03&lt;00:00,   15.39it/s]
- 86%|########6 | Iterating epochs : 62/72 [00:04&lt;00:00,   15.40it/s]
- 88%|########7 | Iterating epochs : 63/72 [00:04&lt;00:00,   15.38it/s]
- 89%|########8 | Iterating epochs : 64/72 [00:04&lt;00:00,   15.38it/s]
- 90%|######### | Iterating epochs : 65/72 [00:04&lt;00:00,   15.38it/s]
- 92%|#########1| Iterating epochs : 66/72 [00:04&lt;00:00,   15.38it/s]
- 93%|#########3| Iterating epochs : 67/72 [00:04&lt;00:00,   15.37it/s]
- 94%|#########4| Iterating epochs : 68/72 [00:04&lt;00:00,   15.37it/s]
- 96%|#########5| Iterating epochs : 69/72 [00:04&lt;00:00,   15.37it/s]
- 97%|#########7| Iterating epochs : 70/72 [00:04&lt;00:00,   15.33it/s]
- 99%|#########8| Iterating epochs : 71/72 [00:04&lt;00:00,   15.32it/s]
-100%|##########| Iterating epochs : 72/72 [00:04&lt;00:00,   15.32it/s]
-100%|##########| Iterating epochs : 72/72 [00:04&lt;00:00,   15.33it/s]
+  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:05,   13.01it/s]
+  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:05,   13.52it/s]
+  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:04,   14.13it/s]
+  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:04,   14.48it/s]
+  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:04,   14.62it/s]
+  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:04,   14.77it/s]
+ 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:04,   14.85it/s]
+ 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:04,   14.99it/s]
+ 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:04,   15.05it/s]
+ 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:04,   15.13it/s]
+ 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:04,   15.21it/s]
+ 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:03,   15.25it/s]
+ 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:03,   15.29it/s]
+ 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:03,   15.35it/s]
+ 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:03,   15.40it/s]
+ 22%|##2       | Iterating epochs : 16/72 [00:01&lt;00:03,   15.46it/s]
+ 24%|##3       | Iterating epochs : 17/72 [00:01&lt;00:03,   15.51it/s]
+ 25%|##5       | Iterating epochs : 18/72 [00:01&lt;00:03,   15.55it/s]
+ 26%|##6       | Iterating epochs : 19/72 [00:01&lt;00:03,   15.59it/s]
+ 28%|##7       | Iterating epochs : 20/72 [00:01&lt;00:03,   15.61it/s]
+ 29%|##9       | Iterating epochs : 21/72 [00:01&lt;00:03,   15.59it/s]
+ 31%|###       | Iterating epochs : 22/72 [00:01&lt;00:03,   15.61it/s]
+ 32%|###1      | Iterating epochs : 23/72 [00:01&lt;00:03,   15.63it/s]
+ 33%|###3      | Iterating epochs : 24/72 [00:01&lt;00:03,   15.65it/s]
+ 35%|###4      | Iterating epochs : 25/72 [00:01&lt;00:02,   15.68it/s]
+ 36%|###6      | Iterating epochs : 26/72 [00:01&lt;00:02,   15.69it/s]
+ 38%|###7      | Iterating epochs : 27/72 [00:01&lt;00:02,   15.71it/s]
+ 39%|###8      | Iterating epochs : 28/72 [00:01&lt;00:02,   15.71it/s]
+ 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:02,   15.70it/s]
+ 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:02,   15.72it/s]
+ 43%|####3     | Iterating epochs : 31/72 [00:01&lt;00:02,   15.71it/s]
+ 44%|####4     | Iterating epochs : 32/72 [00:02&lt;00:02,   15.72it/s]
+ 46%|####5     | Iterating epochs : 33/72 [00:02&lt;00:02,   15.72it/s]
+ 47%|####7     | Iterating epochs : 34/72 [00:02&lt;00:02,   15.73it/s]
+ 49%|####8     | Iterating epochs : 35/72 [00:02&lt;00:02,   15.73it/s]
+ 50%|#####     | Iterating epochs : 36/72 [00:02&lt;00:02,   15.74it/s]
+ 51%|#####1    | Iterating epochs : 37/72 [00:02&lt;00:02,   15.72it/s]
+ 53%|#####2    | Iterating epochs : 38/72 [00:02&lt;00:02,   15.73it/s]
+ 54%|#####4    | Iterating epochs : 39/72 [00:02&lt;00:02,   15.74it/s]
+ 56%|#####5    | Iterating epochs : 40/72 [00:02&lt;00:02,   15.74it/s]
+ 57%|#####6    | Iterating epochs : 41/72 [00:02&lt;00:01,   15.78it/s]
+ 58%|#####8    | Iterating epochs : 42/72 [00:02&lt;00:01,   15.80it/s]
+ 60%|#####9    | Iterating epochs : 43/72 [00:02&lt;00:01,   15.81it/s]
+ 61%|######1   | Iterating epochs : 44/72 [00:02&lt;00:01,   15.82it/s]
+ 62%|######2   | Iterating epochs : 45/72 [00:02&lt;00:01,   15.83it/s]
+ 64%|######3   | Iterating epochs : 46/72 [00:02&lt;00:01,   15.85it/s]
+ 65%|######5   | Iterating epochs : 47/72 [00:02&lt;00:01,   15.86it/s]
+ 67%|######6   | Iterating epochs : 48/72 [00:03&lt;00:01,   15.87it/s]
+ 68%|######8   | Iterating epochs : 49/72 [00:03&lt;00:01,   15.87it/s]
+ 69%|######9   | Iterating epochs : 50/72 [00:03&lt;00:01,   15.88it/s]
+ 71%|#######   | Iterating epochs : 51/72 [00:03&lt;00:01,   15.89it/s]
+ 72%|#######2  | Iterating epochs : 52/72 [00:03&lt;00:01,   15.89it/s]
+ 74%|#######3  | Iterating epochs : 53/72 [00:03&lt;00:01,   15.86it/s]
+ 75%|#######5  | Iterating epochs : 54/72 [00:03&lt;00:01,   15.88it/s]
+ 76%|#######6  | Iterating epochs : 55/72 [00:03&lt;00:01,   15.90it/s]
+ 78%|#######7  | Iterating epochs : 56/72 [00:03&lt;00:01,   15.90it/s]
+ 79%|#######9  | Iterating epochs : 57/72 [00:03&lt;00:00,   15.92it/s]
+ 81%|########  | Iterating epochs : 58/72 [00:03&lt;00:00,   15.92it/s]
+ 82%|########1 | Iterating epochs : 59/72 [00:03&lt;00:00,   15.93it/s]
+ 83%|########3 | Iterating epochs : 60/72 [00:03&lt;00:00,   15.91it/s]
+ 85%|########4 | Iterating epochs : 61/72 [00:03&lt;00:00,   15.88it/s]
+ 86%|########6 | Iterating epochs : 62/72 [00:03&lt;00:00,   15.86it/s]
+ 88%|########7 | Iterating epochs : 63/72 [00:04&lt;00:00,   15.85it/s]
+ 89%|########8 | Iterating epochs : 64/72 [00:04&lt;00:00,   15.84it/s]
+ 90%|######### | Iterating epochs : 65/72 [00:04&lt;00:00,   15.82it/s]
+ 92%|#########1| Iterating epochs : 66/72 [00:04&lt;00:00,   15.81it/s]
+ 93%|#########3| Iterating epochs : 67/72 [00:04&lt;00:00,   15.81it/s]
+ 94%|#########4| Iterating epochs : 68/72 [00:04&lt;00:00,   15.79it/s]
+ 96%|#########5| Iterating epochs : 69/72 [00:04&lt;00:00,   15.77it/s]
+ 97%|#########7| Iterating epochs : 70/72 [00:04&lt;00:00,   15.78it/s]
+ 99%|#########8| Iterating epochs : 71/72 [00:04&lt;00:00,   15.78it/s]
+100%|##########| Iterating epochs : 72/72 [00:04&lt;00:00,   15.78it/s]
+100%|##########| Iterating epochs : 72/72 [00:04&lt;00:00,   15.72it/s]
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.7min remaining:    0.0s
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.7min finished
 </pre></div>
@@ -716,13 +716,13 @@ MEG 2443
 <p>Let us plot the results.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
-<span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">)</span>
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">)</span>
 
-<a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">:</span>
-    <a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-    <a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">170</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
 <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.pick_types" title="mne.EvokedArray.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
@@ -731,28 +731,28 @@ MEG 2443
 <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.pick_types" title="mne.EvokedArray.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.plot" title="mne.EvokedArray.plot" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[],</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="p">)</span>
 <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;After RANSAC&#39;</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.tight_layout" title="matplotlib.figure.Figure.tight_layout" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.tight_layout" title="matplotlib.figure.Figure.tight_layout" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_plot_ransac_001.png" srcset="../_images/sphx_glr_plot_ransac_001.png" alt="Before RANSAC, After RANSAC" class = "sphx-glr-single-img"/><p>To top things up, we can also visualize the bad sensors for each trial using
 a heatmap.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ch_names</span></a> <span class="o">=</span> <span class="p">[</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.ch_names" title="mne.Epochs.ch_names" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span></a><span class="p">][</span><span class="mi">7</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
-<a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.imshow.html#matplotlib.axes.Axes.imshow" title="matplotlib.axes.Axes.imshow" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_log</span></a><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span>
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.imshow.html#matplotlib.axes.Axes.imshow" title="matplotlib.axes.Axes.imshow" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_log</span></a><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span>
           <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.grid.html#matplotlib.axes.Axes.grid" title="matplotlib.axes.Axes.grid" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">grid</span></a><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html#matplotlib.axes.Axes.set_xlabel" title="matplotlib.axes.Axes.set_xlabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span></a><span class="p">(</span><span class="s1">&#39;Sensors&#39;</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html#matplotlib.axes.Axes.set_ylabel" title="matplotlib.axes.Axes.set_ylabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span></a><span class="p">(</span><span class="s1">&#39;Trials&#39;</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span></a><span class="p">),</span> <span class="mi">10</span><span class="p">),</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.grid.html#matplotlib.axes.Axes.grid" title="matplotlib.axes.Axes.grid" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">grid</span></a><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html#matplotlib.axes.Axes.set_xlabel" title="matplotlib.axes.Axes.set_xlabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span></a><span class="p">(</span><span class="s1">&#39;Sensors&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html#matplotlib.axes.Axes.set_ylabel" title="matplotlib.axes.Axes.set_ylabel" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span></a><span class="p">(</span><span class="s1">&#39;Trials&#39;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span></a><span class="p">),</span> <span class="mi">10</span><span class="p">),</span>
          <span class="n">xticklabels</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ch_names</span></a><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.get_yticklabels.html#matplotlib.axes.Axes.get_yticklabels" title="matplotlib.axes.Axes.get_yticklabels" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span></a><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.get_xticklabels.html#matplotlib.axes.Axes.get_xticklabels" title="matplotlib.axes.Axes.get_xticklabels" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span></a><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure.tight_layout" title="matplotlib.figure.Figure.tight_layout" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">])</span>
-<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.get_yticklabels.html#matplotlib.axes.Axes.get_yticklabels" title="matplotlib.axes.Axes.get_yticklabels" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span></a><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.get_xticklabels.html#matplotlib.axes.Axes.get_xticklabels" title="matplotlib.axes.Axes.get_xticklabels" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span></a><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html#matplotlib.axes.Axes.tick_params" title="matplotlib.axes.Axes.tick_params" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span></a><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.tight_layout" title="matplotlib.figure.Figure.tight_layout" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">])</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  49.150 seconds)</p>
+<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  45.995 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c46630e57be6fee69c36b69808826387/plot_ransac.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ransac.py</span></code></a></p>
@@ -780,7 +780,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-01-26.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-03-16.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
     </p>
   </div>
