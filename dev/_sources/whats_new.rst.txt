@@ -17,6 +17,13 @@ Changelog
 
 - ``autoreject`` now requires ``mne >= 1.0``, by `Mainak Jas`_, `Alex Gramfort`_, and `Stefan Appelhoff`_ in :github:`#267` and :github:`#268`
 
+- Add ``reject_log`` option to :meth:`autoreject.AutoReject.transform` to enable
+  users to make corrections to ``reject_log`` estimated by autoreject, by `Alex Rockhill`
+  in :github:`#270` 
+
+- Add :meth:`autoreject.RejectLog.save` and :func:`autoreject.read_reject_log` to
+  save and load reject logs, by `Alex Rockhill`_ in :github:`#270`
+
 .. _0.3:
 
 0.3 (2022-01-04)
@@ -92,3 +99,4 @@ Changelog
 .. _Mathieu Scheltienne: https://github.com/mscheltienne
 .. _Patrick Stetz: https://patrickstetz.com
 .. _Stefan Appelhoff: https://stefanappelhoff.com/
+.. _Alex Rockhill: https://github.com/alexrockhill

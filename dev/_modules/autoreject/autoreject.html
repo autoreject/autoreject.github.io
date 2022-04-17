@@ -240,6 +240,25 @@
     <span class="k">return</span> <span class="n">ar</span></div>
 
 
+<div class="viewcode-block" id="read_reject_log"><a class="viewcode-back" href="../../generated/autoreject.read_reject_log.html#autoreject.read_reject_log">[docs]</a><span class="k">def</span> <span class="nf">read_reject_log</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Read a reject log.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fname : str</span>
+<span class="sd">        The filename where the reject log is saved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    reject_log : instance of autoreject.RejectLog</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reject_log_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">reject_log</span> <span class="o">=</span> <span class="n">RejectLog</span><span class="p">(</span><span class="n">bad_epochs</span><span class="o">=</span><span class="n">reject_log_data</span><span class="p">[</span><span class="s1">&#39;bad_epochs&#39;</span><span class="p">],</span>
+                           <span class="n">labels</span><span class="o">=</span><span class="n">reject_log_data</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">],</span>
+                           <span class="n">ch_names</span><span class="o">=</span><span class="n">reject_log_data</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">reject_log</span></div>
+
+
 <span class="k">class</span> <span class="nc">BaseAutoReject</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for rejection.&quot;&quot;&quot;</span>
 
@@ -617,7 +636,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">consensus</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">thresh_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>  <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Init it.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">thresh_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -829,7 +848,7 @@
 <span class="sd">            The cleaned epochs.</span>
 
 <span class="sd">        reject_log : instance of autoreject.RejectLog</span>
-<span class="sd">            The rejection log. Returned only of return_log is True.</span>
+<span class="sd">            If not None, override the reject log determined by autoreject.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
                     <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">&#39;data_channels&#39;</span><span class="p">)</span>
@@ -1194,7 +1213,7 @@
             <span class="n">reject_log</span><span class="o">.</span><span class="n">ch_names</span> <span class="o">=</span> <span class="n">this_reject_log</span><span class="o">.</span><span class="n">ch_names</span>
         <span class="k">return</span> <span class="n">reject_log</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reject_log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Remove bad epochs, repairs sensors and returns clean epochs.</span>
 
 <span class="sd">        Parameters</span>
@@ -1204,6 +1223,10 @@
 
 <span class="sd">        return_log : bool</span>
 <span class="sd">            If true the rejection log is also returned.</span>
+
+<span class="sd">        reject_log : instance of autoreject.RejectLog | None</span>
+<span class="sd">            The reject log to use. If None, the default reject log</span>
+<span class="sd">            is used.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1218,8 +1241,12 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Please run autoreject.fit() method first&#39;</span><span class="p">)</span>
 
         <span class="n">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reject_log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">RejectLog</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;reject_log must be an instance of RejectLog, &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">reject_log</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="n">reject_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reject_log</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reject_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
         <span class="n">epochs_clean</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">_apply_interp</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">epochs_clean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshes_</span><span class="p">,</span>
                       <span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dots</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
@@ -1502,7 +1529,25 @@
         <span class="k">return</span> <span class="n">plot_mne_epochs</span><span class="p">(</span>
             <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
             <span class="n">epoch_colors</span><span class="o">=</span><span class="n">epoch_colors</span><span class="p">,</span> <span class="n">scalings</span><span class="o">=</span><span class="n">scalings</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save a reject log.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname : str</span>
+<span class="sd">            The filename to save to. The filename must end in &#39;.npz&#39;.</span>
+<span class="sd">        overwrite : bool</span>
+<span class="sd">            If True, overwrite file if it already exists. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s1"> already exists. Please set &#39;</span>
+                             <span class="s1">&#39;overwrite=True if you want to overwrite it.&#39;</span><span class="p">)</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">ch_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_names</span><span class="p">,</span>
+                            <span class="n">bad_epochs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span></div>
 </pre></div>
 
 </div>
@@ -1519,7 +1564,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-06.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-17.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>

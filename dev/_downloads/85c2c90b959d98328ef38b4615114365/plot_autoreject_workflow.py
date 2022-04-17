@@ -32,8 +32,6 @@ autoreject (local) again.
 # installed with the command ``pip install openneuro-py``.
 
 import os.path as op
-
-import numpy as np
 import matplotlib.pyplot as plt
 import openneuro
 
@@ -131,8 +129,8 @@ reject_log.plot('horizontal')
 # eyeblinks from the data. If our analysis were to be very dependent on
 # sensors at the front of the head, we could skip ICA and use the previous
 # result. However, ICA can increase the amount of usable data by applying
-# a spatial filter that downscales the data in sensors most affected by eyeblink
-# artifacts.
+# a spatial filter that downscales the data in sensors most affected by
+# eyeblink artifacts.
 #
 # Note that ICA works best if bad segments of the data are removed
 # Hence, we will remove the bad segments from the
@@ -198,6 +196,22 @@ evoked_bad = epochs[reject_log.bad_epochs].average()
 plt.figure()
 plt.plot(evoked_bad.times, evoked_bad.data.T * 1e6, 'r', zorder=-1)
 epochs_ar.average().plot(axes=plt.gca())
+
+# %%
+# As a last optional step, we can do inspect the reject_log and make manual
+# corrections to the reject_log. For instance, if data is limited, we may
+# not want to drop epochs but retain the list of bad epochs for quality
+# assurance metrics.
+
+reject_log = ar.get_reject_log(epochs)
+bad_epochs = reject_log.bad_epochs.copy()
+reject_log.bad_epochs[:] = False  # no bad epochs
+
+# %%
+# The modified reject log can be applied to the data as follows.
+epochs_ar = ar.transform(epochs, reject_log=reject_log)
+print(f'Number of epochs originally: {len(epochs)}, '
+      f'after autoreject: {len(epochs_ar)}')
 
 # %%
 # Finally, don't forget that we are working with resting state data
