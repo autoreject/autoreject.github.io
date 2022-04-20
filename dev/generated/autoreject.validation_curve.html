@@ -118,7 +118,7 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
-<dt><strong>epochs</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> mne.Epochs.</span></dt><dd><p>The epochs.</p>
+<dt><strong>epochs</strong><span class="classifier">instance of <a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a></span></dt><dd><p>The epochs.</p>
 </dd>
 <dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The labels.</p>
 </dd>
@@ -129,7 +129,8 @@ Defaults to ‘thresh’.</p>
 If None, 15 values between the min and the max threshold
 will be tested.</p>
 </dd>
-<dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, cross-validation <a class="reference external" href="https://docs.python.org/3/glossary.html#term-generator" title="(in Python v3.10)"><span>generator</span></a> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">an</span></code> <a class="reference external" href="https://docs.python.org/3/glossary.html#term-iterable" title="(in Python v3.10)"><span>iterable</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Determines the cross-validation strategy.</p>
+<dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection" title="(in scikit-learn v1.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a> object | <a class="reference external" href="https://docs.python.org/3/glossary.html#term-iterable" title="(in Python v3.10)"><span>iterable</span></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Determines the cross-validation strategy.
+Defaults to None.</p>
 </dd>
 <dt><strong>return_param_range</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.10)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True the used param_range is returned.
 Defaults to False.</p>
@@ -152,6 +153,15 @@ Only returned if <cite>return_param_range</cite> is True.</p>
 </dl>
 </dd></dl>
 
+<section id="examples-using-autoreject-validation-curve">
+<span id="sphx-glr-backreferences-autoreject-validation-curve"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">autoreject.validation_curve</span></code><a class="headerlink" href="#examples-using-autoreject-validation-curve" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use autoreject to plot the cross-validation curve that is used..."><figure class="align-default" id="id1">
+<img alt="Plotting the cross-validation curve" src="../_images/sphx_glr_plot_global_reject_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../auto_examples/plot_global_reject.html#sphx-glr-auto-examples-plot-global-reject-py"><span class="std std-ref">Plotting the cross-validation curve</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></section>
 </section>
 
 
@@ -169,7 +179,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-17.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-20.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
