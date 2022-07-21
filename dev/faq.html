@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Frequently asked questions &#8212; autoreject 0.4.dev0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -17,6 +17,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -110,22 +111,22 @@
 <div class="container content-container">
   
   <section id="frequently-asked-questions">
-<h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">¶</a></h1>
 <p>This section of the documentation provides a <em>discussion-like</em> format, answering
 “How-to” questions.</p>
 <section id="should-i-apply-ica-first-or-autoreject-first">
-<h2>Should I apply ICA first or autoreject first?<a class="headerlink" href="#should-i-apply-ica-first-or-autoreject-first" title="Permalink to this headline">¶</a></h2>
+<h2>Should I apply ICA first or autoreject first?<a class="headerlink" href="#should-i-apply-ica-first-or-autoreject-first" title="Permalink to this heading">¶</a></h2>
 <p>Please read <a class="reference internal" href="auto_examples/plot_autoreject_workflow.html#plot-autoreject-workflow"><span class="std std-ref">Preprocessing workflow with autoreject and ICA</span></a>.</p>
 </section>
 <section id="is-it-dangerous-to-do-source-estimation-with-interpolated-channels">
-<h2>Is it dangerous to do source estimation with interpolated channels?<a class="headerlink" href="#is-it-dangerous-to-do-source-estimation-with-interpolated-channels" title="Permalink to this headline">¶</a></h2>
+<h2>Is it dangerous to do source estimation with interpolated channels?<a class="headerlink" href="#is-it-dangerous-to-do-source-estimation-with-interpolated-channels" title="Permalink to this heading">¶</a></h2>
 <p>Interpolated data is no different from measured data. It’s what you would expect
 to see if there were no artifacts in the data. Interpolation is nothing magical.
 It simply takes a weighted average of the data in the neighboring good channels. Indeed, if the artifact was left in the data, it will bias the source estimate
 far more than any potential harm that interpolation may pose.</p>
 </section>
 <section id="how-do-i-manually-set-the-n-interpolate-and-consensus-parameter">
-<h2>How do I manually set the <cite>n_interpolate</cite> and <cite>consensus</cite> parameter?<a class="headerlink" href="#how-do-i-manually-set-the-n-interpolate-and-consensus-parameter" title="Permalink to this headline">¶</a></h2>
+<h2>How do I manually set the <cite>n_interpolate</cite> and <cite>consensus</cite> parameter?<a class="headerlink" href="#how-do-i-manually-set-the-n-interpolate-and-consensus-parameter" title="Permalink to this heading">¶</a></h2>
 <p>If you do not want autoreject to select a parameter for you, simply pass it
 as a list of a single element:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span> <span class="o">=</span> <span class="n">AutoReject</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">consensus_percs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">])</span>
@@ -135,7 +136,7 @@ as a list of a single element:</p>
 validation score.</p>
 </section>
 <section id="is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate">
-<h2>Is it possible to get only bad sensor annotations and not interpolate?<a class="headerlink" href="#is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate" title="Permalink to this headline">¶</a></h2>
+<h2>Is it possible to get only bad sensor annotations and not interpolate?<a class="headerlink" href="#is-it-possible-to-get-only-bad-sensor-annotations-and-not-interpolate" title="Permalink to this heading">¶</a></h2>
 <p>Yes! Simply do:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ar</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reject_log</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
@@ -160,8 +161,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-20.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-07-21.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

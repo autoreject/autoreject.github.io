@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +16,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -117,6 +118,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Authors: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Simon Kern</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
@@ -127,44 +129,7 @@
 <span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_pbar</span><span class="p">,</span> <span class="n">_handle_picks</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_check_data</span>
-
-
-<span class="k">def</span> <span class="nf">_iterate_epochs</span><span class="p">(</span><span class="n">ransac</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">idxs</span><span class="p">,</span> <span class="n">ch_subset</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
-    <span class="n">ransac</span><span class="o">.</span><span class="n">mappings_</span> <span class="o">=</span> <span class="n">ransac</span><span class="o">.</span><span class="n">_get_mappings</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">ch_subset</span><span class="p">)</span>
-    <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span><span class="p">)</span>
-    <span class="n">corrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">),</span> <span class="n">n_channels</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_pbar</span><span class="p">(</span><span class="n">idxs</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Iterating epochs&#39;</span><span class="p">,</span>
-                                  <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)):</span>
-        <span class="n">ransac</span><span class="o">.</span><span class="n">corr_</span> <span class="o">=</span> <span class="n">ransac</span><span class="o">.</span><span class="n">_compute_correlations</span><span class="p">(</span>
-            <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="n">idx</span><span class="p">,</span> <span class="n">ransac</span><span class="o">.</span><span class="n">picks</span><span class="p">])</span>
-        <span class="n">corrs</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ransac</span><span class="o">.</span><span class="n">corr_</span>
-    <span class="k">return</span> <span class="n">corrs</span>
-
-
-<span class="k">def</span> <span class="nf">_get_channel_type</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
-    <span class="n">picked_info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">pick_info</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">)</span>
-    <span class="n">ch_types_picked</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">meas_info</span><span class="o">.</span><span class="n">channel_type</span><span class="p">(</span><span class="n">picked_info</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">))}</span>
-    <span class="n">invalid_ch_types_present</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ch_types_picked</span>
-                                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="ow">and</span>
-                                <span class="n">key</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">invalid_ch_types_present</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid channel types present in epochs.&#39;</span>
-                         <span class="s1">&#39; Expected ONLY `meg` or ONLY `eeg`. Got </span><span class="si">%s</span><span class="s1">&#39;</span>
-                         <span class="o">%</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">invalid_ch_types_present</span><span class="p">))</span>
-
-    <span class="n">has_meg</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">kk</span> <span class="ow">in</span> <span class="n">ch_types_picked</span> <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">))</span>
-    <span class="k">if</span> <span class="s1">&#39;eeg&#39;</span> <span class="ow">in</span> <span class="n">ch_types_picked</span> <span class="ow">and</span> <span class="n">has_meg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Got mixed channel types. Pick either eeg or meg&#39;</span>
-                         <span class="s1">&#39; but not both&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s1">&#39;eeg&#39;</span> <span class="ow">in</span> <span class="n">ch_types_picked</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;eeg&#39;</span>
-    <span class="k">elif</span> <span class="n">has_meg</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;meg&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Oh no! Your channel type is not known.&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_check_data</span><span class="p">,</span> <span class="n">_get_channel_type</span>
 
 
 <div class="viewcode-block" id="Ransac"><a class="viewcode-back" href="../../generated/autoreject.Ransac.html#autoreject.Ransac">[docs]</a><span class="k">class</span> <span class="nc">Ransac</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -227,26 +192,40 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">picks</span> <span class="o">=</span> <span class="n">picks</span>
 
-    <span class="k">def</span> <span class="nf">_get_random_subsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">random_state</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_iterate_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
+        <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">)</span>
+        <span class="n">corrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">),</span> <span class="n">n_channels</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_pbar</span><span class="p">(</span><span class="n">idxs</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Iterating epochs&#39;</span><span class="p">,</span>
+                                      <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="n">idx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">]</span>
+            <span class="n">corrs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_correlations</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">corrs</span>
+
+    <span class="k">def</span> <span class="nf">_get_random_subsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Get random channels&quot;&quot;&quot;</span>
-        <span class="c1"># have to set the seed here</span>
-        <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="c1"># have to set the seed here, as here the only part with randomization</span>
+        <span class="c1"># occurs. However, all subsets are precomputed outside of Parallel,</span>
+        <span class="c1"># therefore, we can simply compute them once</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">picked_info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">pick</span><span class="o">.</span><span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">)</span>
         <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">])</span>
 
         <span class="c1"># number of channels to interpolate from</span>
         <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_channels</span> <span class="o">*</span> <span class="n">n_channels</span><span class="p">))</span>
 
-        <span class="c1"># get picks for resamples</span>
-        <span class="n">picks</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_resample</span><span class="p">):</span>
-            <span class="n">pick</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">n_channels</span><span class="p">)[:</span><span class="n">n_samples</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">picks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pick</span><span class="p">)</span>
+        <span class="c1"># get picks for resamples, but ignore channels marked as bad</span>
+        <span class="n">bad_chs</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span>
+        <span class="n">ch_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bad_chs</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_list</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_samples</span><span class="p">,</span> <span class="s1">&#39;too many channels marked as bad,&#39;</span>\
+                                          <span class="s1">&#39;cannot perform interpolation with&#39;</span>\
+                                          <span class="sa">f</span><span class="s1">&#39;min_channels=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">min_channels</span><span class="si">}</span><span class="s1">&#39;</span>
 
-        <span class="c1"># get channel subsets as lists</span>
-        <span class="n">ch_subsets</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">:</span>
-            <span class="n">ch_subsets</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pick</span><span class="p">])</span>
+        <span class="c1"># randomly sample subsets of good channels</span>
+        <span class="n">ch_subsets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_resample</span><span class="p">):</span>
+            <span class="n">picks</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ch_list</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">picks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>  <span class="c1"># convert from str-array to string</span>
+            <span class="n">ch_subsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">ch_subsets</span>
 
@@ -258,13 +237,14 @@
         <span class="n">ch_names</span> <span class="o">=</span> <span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]</span>
         <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)</span>
         <span class="n">pick_to</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_channels</span><span class="p">)</span>
-        <span class="n">mappings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mappings</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="c1"># Try different channel subsets</span>
-        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ch_subsets</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">_pbar</span><span class="p">(</span><span class="n">ch_subsets</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;interpolating channels&#39;</span><span class="p">,</span>
+                            <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">):</span>
             <span class="c1"># don&#39;t do the following as it will sort the channels!</span>
             <span class="c1"># pick_from = pick_channels(ch_names, ch_subsets[idx])</span>
             <span class="n">pick_from</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ch_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                                  <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ch_subsets</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
+                                  <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">])</span>
             <span class="n">mapping</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_channels</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">))</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch_type</span> <span class="o">==</span> <span class="s1">&#39;meg&#39;</span><span class="p">:</span>
                 <span class="n">mapping</span><span class="p">[:,</span> <span class="n">pick_from</span><span class="p">]</span> <span class="o">=</span> <span class="n">_fast_map_meg_channels</span><span class="p">(</span>
@@ -297,7 +277,28 @@
         <span class="n">corr</span> <span class="o">=</span> <span class="n">num</span> <span class="o">/</span> <span class="n">denom</span>
         <span class="k">return</span> <span class="n">corr</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+<div class="viewcode-block" id="Ransac.fit"><a class="viewcode-back" href="../../generated/autoreject.Ransac.html#autoreject.Ransac.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform RANSAC on the given epochs.</span>
+
+<span class="sd">        Steps:</span>
+<span class="sd">            1. Interpolate all channels from a subset of channels</span>
+<span class="sd">              (fraction denoted as `min_channels`), repeat `n_resample` times.</span>
+<span class="sd">            2. See if correlation of interpolated channels to original channel</span>
+<span class="sd">              is above 75% per epoch (`min_corr`)</span>
+<span class="sd">            3. if more than `unbroken_time` fraction of epochs have a lower</span>
+<span class="sd">              correlation than that, add channel to self.bad_chs_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : mne.Epochs</span>
+<span class="sd">            An Epochs object with data to perform RANSAC on</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        self : Ransac</span>
+<span class="sd">            The updated instance with the list of bad channels accessible by</span>
+<span class="sd">            ``self.bad_chs_``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">picks</span> <span class="o">=</span> <span class="n">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">)</span>
         <span class="n">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">,</span>
                     <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">&#39;single_channel_type&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
@@ -305,21 +306,33 @@
         <span class="n">n_epochs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 
         <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">check_n_jobs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-        <span class="n">parallel</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        <span class="n">my_iterator</span> <span class="o">=</span> <span class="n">delayed</span><span class="p">(</span><span class="n">_iterate_epochs</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iterating epochs ...&#39;</span><span class="p">)</span>
-        <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span>
-        <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
-        <span class="n">base_random_state</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ch_subsets_</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_random_subsets</span><span class="p">(</span>
-                            <span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">base_random_state</span> <span class="o">+</span> <span class="n">random_state</span><span class="p">)</span>
-                            <span class="k">for</span> <span class="n">random_state</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_jobs</span><span class="p">)]</span>
-        <span class="n">epoch_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">),</span> <span class="n">n_jobs</span><span class="p">)</span>
-        <span class="n">corrs</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">my_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">idxs</span><span class="p">,</span> <span class="n">chs</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-                         <span class="k">for</span> <span class="n">idxs</span><span class="p">,</span> <span class="n">chs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">epoch_idxs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch_subsets_</span><span class="p">))</span>
+        <span class="n">parallel</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">10</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># create `n_resample` different random subsamples of channels,</span>
+        <span class="c1"># with each subsample set containing `min_channels` amount of</span>
+        <span class="c1"># random channels from the list of all channels.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch_subsets_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_random_subsets</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
+
+        <span class="c1"># compute mappings with possibility of parallelization</span>
+        <span class="c1"># max n_resample splits possible</span>
+        <span class="n">n_splits</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_jobs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_resample</span><span class="p">)</span>
+        <span class="n">ch_subsets_split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_subsets_</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">)</span>
+        <span class="n">delayed_func</span> <span class="o">=</span> <span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_mappings</span><span class="p">)</span>
+        <span class="c1"># no random seed needs to be supplied to get_mappings, as there is</span>
+        <span class="c1"># no random subsampling happening here</span>
+        <span class="n">mappings</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">ch_subset</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch_subset</span>
+                            <span class="ow">in</span> <span class="n">ch_subsets_split</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">mappings</span><span class="p">)</span>
+
+        <span class="c1"># compute correlations with possibility of parallelization</span>
+        <span class="n">delayed_func</span> <span class="o">=</span> <span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iterate_epochs</span><span class="p">)</span>
+        <span class="n">n_splits</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">)</span>  <span class="c1"># max n_epochs splits possible</span>
+        <span class="n">epoch_idxs_splits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">),</span> <span class="n">n_splits</span><span class="p">)</span>
+        <span class="n">corrs</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">idxs</span><span class="p">)</span> <span class="k">for</span> <span class="n">idxs</span>
+                         <span class="ow">in</span> <span class="n">epoch_idxs_splits</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">corr_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">corrs</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Done]&#39;</span><span class="p">)</span>
 
         <span class="c1"># compute how many windows is a sensor RANSAC-bad</span>
@@ -332,8 +345,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">bad_chs_</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">picks</span><span class="p">[</span><span class="n">p</span><span class="p">]]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">bad_idx</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">bad_chs_</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">return</span> <span class="bp">self</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bad_chs_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
         <span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -361,8 +374,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-20.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-07-21.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

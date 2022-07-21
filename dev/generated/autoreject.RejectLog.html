@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>autoreject.RejectLog &#8212; autoreject 0.4.dev0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -17,6 +17,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -110,19 +111,19 @@
 <div class="container content-container">
   
   <section id="autoreject-rejectlog">
-<h1>autoreject.RejectLog<a class="headerlink" href="#autoreject-rejectlog" title="Permalink to this headline">¶</a></h1>
+<h1>autoreject.RejectLog<a class="headerlink" href="#autoreject-rejectlog" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="autoreject.RejectLog">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autoreject.</span></span><span class="sig-name descname"><span class="pre">RejectLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bad_epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Rejection Log.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>bad_epochs</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/glossary.html#term-array_like" title="(in NumPy v1.23.dev0)"><span>array_like</span></a>, shape (n_epochs,)</span></dt><dd><p>The boolean array with entries True for epochs that
+<dt><strong>bad_epochs</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/glossary.html#term-array_like" title="(in NumPy v1.24.dev0)"><span>array_like</span></a>, shape (n_epochs,)</span></dt><dd><p>The boolean array with entries True for epochs that
 are marked as bad.</p>
 </dd>
-<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (<code class="xref py py-obj docutils literal notranslate"><span class="pre">n_epochs</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_channels</span></code>)</span></dt><dd><p>It contains integers that encode if a channel in a given
+<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (<code class="xref py py-obj docutils literal notranslate"><span class="pre">n_epochs</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_channels</span></code>)</span></dt><dd><p>It contains integers that encode if a channel in a given
 epoch is good (value 0), bad (1), or bad and interpolated (2).</p>
 </dd>
 <dt><strong>ch_names</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The list of channels corresponding to the rows of the labels.</p>
@@ -135,7 +136,7 @@ epoch is good (value 0), bad (1), or bad and interpolated (2).</p>
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vertical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot an image of good, bad and interpolated channels for each epoch.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>orientation</strong><span class="classifier">‘vertical’ | ‘horizontal’</span></dt><dd><p>If <cite>‘vertical’</cite> (default), will plot sensors on x-axis and epochs
 on y-axis. If <cite>‘horizontal’</cite>, will plot epochs on x-axis and
@@ -147,14 +148,14 @@ show_names entries.</p>
 </dd>
 <dt><strong>show</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.10)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True (default), display the figure immediately.</p>
 </dd>
-<dt><strong>ax</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The axes to plot to. In <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), create a new
+<dt><strong>ax</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The axes to plot to. In <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), create a new
 figure and axes.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>figure</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>The figure object containing the plot.</p>
+<dt><strong>figure</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>The figure object containing the plot.</p>
 </dd>
 </dl>
 </dd>
@@ -166,7 +167,7 @@ figure and axes.</p>
 <span class="sig-name descname"><span class="pre">plot_epochs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog.plot_epochs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog.plot_epochs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot interpolated and dropped epochs.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>epochs</strong><span class="classifier">instance of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Epochs</span></code></span></dt><dd><p>The epochs.</p>
 </dd>
@@ -181,9 +182,9 @@ figure and axes.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>fig</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>Epochs traces.</p>
+<dt><strong>fig</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>Epochs traces.</p>
 </dd>
 </dl>
 </dd>
@@ -195,7 +196,7 @@ figure and axes.</p>
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a reject log.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>fname</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The filename to save to. The filename must end in ‘.npz’.</p>
 </dd>
@@ -209,7 +210,7 @@ figure and axes.</p>
 </dd></dl>
 
 <section id="examples-using-autoreject-rejectlog">
-<span id="sphx-glr-backreferences-autoreject-rejectlog"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">autoreject.RejectLog</span></code><a class="headerlink" href="#examples-using-autoreject-rejectlog" title="Permalink to this headline">¶</a></h2>
+<span id="sphx-glr-backreferences-autoreject-rejectlog"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">autoreject.RejectLog</span></code><a class="headerlink" href="#examples-using-autoreject-rejectlog" title="Permalink to this heading">¶</a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="**tldr**: We recommend that you first highpass filter the data, then run autoreject (local) and..."><figure class="align-default" id="id1">
 <img alt="Preprocessing workflow with ``autoreject`` and ICA" src="../_images/sphx_glr_plot_autoreject_workflow_thumb.png" />
 <figcaption>
@@ -240,8 +241,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-04-20.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-07-21.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>
