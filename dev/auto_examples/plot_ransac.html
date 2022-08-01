@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Detect bad sensors using RANSAC &#8212; autoreject 0.4.dev0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -123,6 +123,7 @@ detect bad sensors and repair them. Note that this implementation in
 works for MEG sensors as well.</p>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Bigdely-Shamlo, N., Mullen, T., Kothe, C., Su, K. M., &amp; Robbins, K. A.
@@ -134,6 +135,7 @@ EEG analysis. Frontiers in neuroinformatics, 9, 16.</p>
 <p>Jas, M., Engemann, D. A., Bekhti, Y., Raimondo, F., &amp; Gramfort, A.
 (2017). Autoreject: Automated artifact rejection for MEG and EEG data.
 NeuroImage, 159, 417-429.</p>
+</aside>
 </aside>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
 <span class="c1"># License: BSD-3-Clause</span>
@@ -153,7 +155,6 @@ Therefore, let us make some MNE related imports.</p>
 <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/plot_ransac.py:37: DeprecationWarning: data_path functions now return pathlib.Path objects which do not natively support the plus (+) operator, switch to using forward slash (/) instead. Support for plus will be removed in 1.2.
   raw_fname = data_path + &#39;/MEG/sample/sample_audvis_filt-0-40_raw.fif&#39;
 Opening raw data file /home/circleci/mne_data/MNE-sample-data//MEG/sample/sample_audvis_filt-0-40_raw.fif...
@@ -176,7 +177,6 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.read_events.html#mne.read_events" title="mne.read_events" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">read_events</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/plot_ransac.py:43: DeprecationWarning: data_path functions now return pathlib.Path objects which do not natively support the plus (+) operator, switch to using forward slash (/) instead. Support for plus will be removed in 1.2.
   event_fname = data_path + (&#39;/MEG/sample/sample_audvis_filt-0-40_raw-&#39;
 </pre></div>
@@ -206,141 +206,140 @@ because we do not want epochs to be dropped when instantiating
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_clean</span></a> <span class="o">=</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span></a><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
   0%|          | interpolating channels : 0/50 [00:00&lt;?,       ?it/s]
-  2%|2         | interpolating channels : 1/50 [00:01&lt;01:00,    1.22s/it]
-  4%|4         | interpolating channels : 2/50 [00:02&lt;00:59,    1.23s/it]
+  2%|2         | interpolating channels : 1/50 [00:01&lt;01:00,    1.24s/it]
+  4%|4         | interpolating channels : 2/50 [00:02&lt;00:59,    1.25s/it]
   6%|6         | interpolating channels : 3/50 [00:03&lt;00:58,    1.24s/it]
   8%|8         | interpolating channels : 4/50 [00:04&lt;00:56,    1.24s/it]
- 10%|#         | interpolating channels : 5/50 [00:06&lt;00:55,    1.24s/it]
- 12%|#2        | interpolating channels : 6/50 [00:07&lt;00:54,    1.24s/it]
- 14%|#4        | interpolating channels : 7/50 [00:08&lt;00:53,    1.24s/it]
- 16%|#6        | interpolating channels : 8/50 [00:09&lt;00:52,    1.24s/it]
- 18%|#8        | interpolating channels : 9/50 [00:11&lt;00:50,    1.24s/it]
- 20%|##        | interpolating channels : 10/50 [00:12&lt;00:49,    1.24s/it]
- 22%|##2       | interpolating channels : 11/50 [00:13&lt;00:48,    1.24s/it]
- 24%|##4       | interpolating channels : 12/50 [00:14&lt;00:47,    1.24s/it]
- 26%|##6       | interpolating channels : 13/50 [00:16&lt;00:45,    1.24s/it]
- 28%|##8       | interpolating channels : 14/50 [00:17&lt;00:44,    1.24s/it]
- 30%|###       | interpolating channels : 15/50 [00:18&lt;00:43,    1.24s/it]
- 32%|###2      | interpolating channels : 16/50 [00:19&lt;00:42,    1.24s/it]
- 34%|###4      | interpolating channels : 17/50 [00:21&lt;00:41,    1.24s/it]
- 36%|###6      | interpolating channels : 18/50 [00:22&lt;00:39,    1.24s/it]
- 38%|###8      | interpolating channels : 19/50 [00:23&lt;00:38,    1.24s/it]
- 40%|####      | interpolating channels : 20/50 [00:24&lt;00:37,    1.24s/it]
- 42%|####2     | interpolating channels : 21/50 [00:26&lt;00:36,    1.24s/it]
- 44%|####4     | interpolating channels : 22/50 [00:27&lt;00:34,    1.24s/it]
- 46%|####6     | interpolating channels : 23/50 [00:28&lt;00:33,    1.25s/it]
- 48%|####8     | interpolating channels : 24/50 [00:29&lt;00:32,    1.25s/it]
- 50%|#####     | interpolating channels : 25/50 [00:31&lt;00:31,    1.25s/it]
- 52%|#####2    | interpolating channels : 26/50 [00:32&lt;00:30,    1.25s/it]
- 54%|#####4    | interpolating channels : 27/50 [00:33&lt;00:28,    1.25s/it]
- 56%|#####6    | interpolating channels : 28/50 [00:34&lt;00:27,    1.25s/it]
- 58%|#####8    | interpolating channels : 29/50 [00:36&lt;00:26,    1.25s/it]
- 60%|######    | interpolating channels : 30/50 [00:37&lt;00:24,    1.25s/it]
- 62%|######2   | interpolating channels : 31/50 [00:38&lt;00:23,    1.25s/it]
- 64%|######4   | interpolating channels : 32/50 [00:39&lt;00:22,    1.25s/it]
- 66%|######6   | interpolating channels : 33/50 [00:41&lt;00:21,    1.25s/it]
- 68%|######8   | interpolating channels : 34/50 [00:42&lt;00:19,    1.25s/it]
- 70%|#######   | interpolating channels : 35/50 [00:43&lt;00:18,    1.25s/it]
- 72%|#######2  | interpolating channels : 36/50 [00:44&lt;00:17,    1.25s/it]
- 74%|#######4  | interpolating channels : 37/50 [00:46&lt;00:16,    1.25s/it]
- 76%|#######6  | interpolating channels : 38/50 [00:47&lt;00:14,    1.25s/it]
- 78%|#######8  | interpolating channels : 39/50 [00:48&lt;00:13,    1.25s/it]
- 80%|########  | interpolating channels : 40/50 [00:49&lt;00:12,    1.24s/it]
- 82%|########2 | interpolating channels : 41/50 [00:51&lt;00:11,    1.24s/it]
- 84%|########4 | interpolating channels : 42/50 [00:52&lt;00:09,    1.24s/it]
- 86%|########6 | interpolating channels : 43/50 [00:53&lt;00:08,    1.24s/it]
- 88%|########8 | interpolating channels : 44/50 [00:54&lt;00:07,    1.24s/it]
- 90%|######### | interpolating channels : 45/50 [00:56&lt;00:06,    1.24s/it]
- 92%|#########2| interpolating channels : 46/50 [00:57&lt;00:04,    1.24s/it]
- 94%|#########3| interpolating channels : 47/50 [00:58&lt;00:03,    1.24s/it]
- 96%|#########6| interpolating channels : 48/50 [00:59&lt;00:02,    1.24s/it]
- 98%|#########8| interpolating channels : 49/50 [01:00&lt;00:01,    1.24s/it]
-100%|##########| interpolating channels : 50/50 [01:02&lt;00:00,    1.24s/it]
-100%|##########| interpolating channels : 50/50 [01:02&lt;00:00,    1.24s/it]
+ 10%|#         | interpolating channels : 5/50 [00:06&lt;00:55,    1.23s/it]
+ 12%|#2        | interpolating channels : 6/50 [00:07&lt;00:54,    1.23s/it]
+ 14%|#4        | interpolating channels : 7/50 [00:08&lt;00:52,    1.23s/it]
+ 16%|#6        | interpolating channels : 8/50 [00:09&lt;00:51,    1.23s/it]
+ 18%|#8        | interpolating channels : 9/50 [00:11&lt;00:50,    1.22s/it]
+ 20%|##        | interpolating channels : 10/50 [00:12&lt;00:49,    1.23s/it]
+ 22%|##2       | interpolating channels : 11/50 [00:13&lt;00:47,    1.23s/it]
+ 24%|##4       | interpolating channels : 12/50 [00:14&lt;00:46,    1.23s/it]
+ 26%|##6       | interpolating channels : 13/50 [00:15&lt;00:45,    1.23s/it]
+ 28%|##8       | interpolating channels : 14/50 [00:17&lt;00:44,    1.23s/it]
+ 30%|###       | interpolating channels : 15/50 [00:18&lt;00:42,    1.23s/it]
+ 32%|###2      | interpolating channels : 16/50 [00:19&lt;00:41,    1.23s/it]
+ 34%|###4      | interpolating channels : 17/50 [00:20&lt;00:40,    1.23s/it]
+ 36%|###6      | interpolating channels : 18/50 [00:22&lt;00:39,    1.23s/it]
+ 38%|###8      | interpolating channels : 19/50 [00:23&lt;00:38,    1.23s/it]
+ 40%|####      | interpolating channels : 20/50 [00:24&lt;00:36,    1.23s/it]
+ 42%|####2     | interpolating channels : 21/50 [00:25&lt;00:35,    1.23s/it]
+ 44%|####4     | interpolating channels : 22/50 [00:27&lt;00:34,    1.23s/it]
+ 46%|####6     | interpolating channels : 23/50 [00:28&lt;00:33,    1.23s/it]
+ 48%|####8     | interpolating channels : 24/50 [00:29&lt;00:31,    1.23s/it]
+ 50%|#####     | interpolating channels : 25/50 [00:30&lt;00:30,    1.23s/it]
+ 52%|#####2    | interpolating channels : 26/50 [00:31&lt;00:29,    1.23s/it]
+ 54%|#####4    | interpolating channels : 27/50 [00:33&lt;00:28,    1.23s/it]
+ 56%|#####6    | interpolating channels : 28/50 [00:34&lt;00:27,    1.23s/it]
+ 58%|#####8    | interpolating channels : 29/50 [00:35&lt;00:25,    1.23s/it]
+ 60%|######    | interpolating channels : 30/50 [00:36&lt;00:24,    1.23s/it]
+ 62%|######2   | interpolating channels : 31/50 [00:38&lt;00:23,    1.23s/it]
+ 64%|######4   | interpolating channels : 32/50 [00:39&lt;00:22,    1.23s/it]
+ 66%|######6   | interpolating channels : 33/50 [00:40&lt;00:20,    1.23s/it]
+ 68%|######8   | interpolating channels : 34/50 [00:41&lt;00:19,    1.23s/it]
+ 70%|#######   | interpolating channels : 35/50 [00:43&lt;00:18,    1.23s/it]
+ 72%|#######2  | interpolating channels : 36/50 [00:44&lt;00:17,    1.23s/it]
+ 74%|#######4  | interpolating channels : 37/50 [00:45&lt;00:16,    1.23s/it]
+ 76%|#######6  | interpolating channels : 38/50 [00:46&lt;00:14,    1.23s/it]
+ 78%|#######8  | interpolating channels : 39/50 [00:47&lt;00:13,    1.23s/it]
+ 80%|########  | interpolating channels : 40/50 [00:49&lt;00:12,    1.23s/it]
+ 82%|########2 | interpolating channels : 41/50 [00:50&lt;00:11,    1.23s/it]
+ 84%|########4 | interpolating channels : 42/50 [00:51&lt;00:09,    1.23s/it]
+ 86%|########6 | interpolating channels : 43/50 [00:52&lt;00:08,    1.23s/it]
+ 88%|########8 | interpolating channels : 44/50 [00:54&lt;00:07,    1.23s/it]
+ 90%|######### | interpolating channels : 45/50 [00:55&lt;00:06,    1.23s/it]
+ 92%|#########2| interpolating channels : 46/50 [00:56&lt;00:04,    1.23s/it]
+ 94%|#########3| interpolating channels : 47/50 [00:57&lt;00:03,    1.23s/it]
+ 96%|#########6| interpolating channels : 48/50 [00:59&lt;00:02,    1.23s/it]
+ 98%|#########8| interpolating channels : 49/50 [01:00&lt;00:01,    1.23s/it]
+100%|##########| interpolating channels : 50/50 [01:01&lt;00:00,    1.23s/it]
+100%|##########| interpolating channels : 50/50 [01:01&lt;00:00,    1.23s/it]
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.0min remaining:    0.0s
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.0min finished
 [Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
   0%|          | Iterating epochs : 0/72 [00:00&lt;?,       ?it/s]
-  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:05,   13.66it/s]
-  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:03,   18.19it/s]
-  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:03,   20.48it/s]
-  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:03,   21.97it/s]
-  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:02,   22.99it/s]
-  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:02,   23.63it/s]
- 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:02,   24.12it/s]
- 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:02,   24.52it/s]
- 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:02,   24.86it/s]
- 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:02,   25.19it/s]
- 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:02,   25.45it/s]
- 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:02,   25.61it/s]
- 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:02,   25.77it/s]
- 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:02,   25.95it/s]
- 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:02,   26.07it/s]
- 22%|##2       | Iterating epochs : 16/72 [00:00&lt;00:02,   26.17it/s]
- 24%|##3       | Iterating epochs : 17/72 [00:00&lt;00:02,   26.29it/s]
- 25%|##5       | Iterating epochs : 18/72 [00:00&lt;00:02,   26.38it/s]
- 26%|##6       | Iterating epochs : 19/72 [00:00&lt;00:01,   26.50it/s]
- 28%|##7       | Iterating epochs : 20/72 [00:00&lt;00:01,   26.59it/s]
- 29%|##9       | Iterating epochs : 21/72 [00:00&lt;00:01,   26.66it/s]
- 31%|###       | Iterating epochs : 22/72 [00:00&lt;00:01,   26.73it/s]
- 32%|###1      | Iterating epochs : 23/72 [00:00&lt;00:01,   26.81it/s]
- 33%|###3      | Iterating epochs : 24/72 [00:00&lt;00:01,   26.89it/s]
- 35%|###4      | Iterating epochs : 25/72 [00:00&lt;00:01,   26.95it/s]
- 36%|###6      | Iterating epochs : 26/72 [00:00&lt;00:01,   27.01it/s]
- 38%|###7      | Iterating epochs : 27/72 [00:01&lt;00:01,   27.04it/s]
- 39%|###8      | Iterating epochs : 28/72 [00:01&lt;00:01,   27.05it/s]
- 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:01,   27.06it/s]
- 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:01,   27.06it/s]
- 43%|####3     | Iterating epochs : 31/72 [00:01&lt;00:01,   27.04it/s]
- 44%|####4     | Iterating epochs : 32/72 [00:01&lt;00:01,   27.04it/s]
- 46%|####5     | Iterating epochs : 33/72 [00:01&lt;00:01,   27.02it/s]
- 47%|####7     | Iterating epochs : 34/72 [00:01&lt;00:01,   27.03it/s]
- 49%|####8     | Iterating epochs : 35/72 [00:01&lt;00:01,   27.03it/s]
- 50%|#####     | Iterating epochs : 36/72 [00:01&lt;00:01,   27.03it/s]
- 51%|#####1    | Iterating epochs : 37/72 [00:01&lt;00:01,   27.02it/s]
- 53%|#####2    | Iterating epochs : 38/72 [00:01&lt;00:01,   27.06it/s]
- 54%|#####4    | Iterating epochs : 39/72 [00:01&lt;00:01,   27.09it/s]
- 56%|#####5    | Iterating epochs : 40/72 [00:01&lt;00:01,   27.10it/s]
- 57%|#####6    | Iterating epochs : 41/72 [00:01&lt;00:01,   27.12it/s]
- 58%|#####8    | Iterating epochs : 42/72 [00:01&lt;00:01,   27.13it/s]
- 60%|#####9    | Iterating epochs : 43/72 [00:01&lt;00:01,   27.10it/s]
- 61%|######1   | Iterating epochs : 44/72 [00:01&lt;00:01,   27.11it/s]
- 62%|######2   | Iterating epochs : 45/72 [00:01&lt;00:00,   27.11it/s]
- 64%|######3   | Iterating epochs : 46/72 [00:01&lt;00:00,   27.11it/s]
- 65%|######5   | Iterating epochs : 47/72 [00:01&lt;00:00,   27.09it/s]
- 67%|######6   | Iterating epochs : 48/72 [00:01&lt;00:00,   27.08it/s]
- 68%|######8   | Iterating epochs : 49/72 [00:01&lt;00:00,   27.09it/s]
- 69%|######9   | Iterating epochs : 50/72 [00:01&lt;00:00,   27.11it/s]
- 71%|#######   | Iterating epochs : 51/72 [00:01&lt;00:00,   27.12it/s]
- 72%|#######2  | Iterating epochs : 52/72 [00:01&lt;00:00,   27.12it/s]
- 74%|#######3  | Iterating epochs : 53/72 [00:01&lt;00:00,   27.14it/s]
- 75%|#######5  | Iterating epochs : 54/72 [00:02&lt;00:00,   27.15it/s]
- 76%|#######6  | Iterating epochs : 55/72 [00:02&lt;00:00,   27.15it/s]
- 78%|#######7  | Iterating epochs : 56/72 [00:02&lt;00:00,   27.16it/s]
- 79%|#######9  | Iterating epochs : 57/72 [00:02&lt;00:00,   27.17it/s]
- 81%|########  | Iterating epochs : 58/72 [00:02&lt;00:00,   27.17it/s]
- 82%|########1 | Iterating epochs : 59/72 [00:02&lt;00:00,   27.18it/s]
- 83%|########3 | Iterating epochs : 60/72 [00:02&lt;00:00,   27.17it/s]
- 85%|########4 | Iterating epochs : 61/72 [00:02&lt;00:00,   27.18it/s]
- 86%|########6 | Iterating epochs : 62/72 [00:02&lt;00:00,   27.20it/s]
- 88%|########7 | Iterating epochs : 63/72 [00:02&lt;00:00,   27.23it/s]
- 89%|########8 | Iterating epochs : 64/72 [00:02&lt;00:00,   27.25it/s]
- 90%|######### | Iterating epochs : 65/72 [00:02&lt;00:00,   27.26it/s]
- 92%|#########1| Iterating epochs : 66/72 [00:02&lt;00:00,   27.28it/s]
- 93%|#########3| Iterating epochs : 67/72 [00:02&lt;00:00,   27.28it/s]
- 94%|#########4| Iterating epochs : 68/72 [00:02&lt;00:00,   27.29it/s]
- 96%|#########5| Iterating epochs : 69/72 [00:02&lt;00:00,   27.28it/s]
- 97%|#########7| Iterating epochs : 70/72 [00:02&lt;00:00,   27.28it/s]
- 99%|#########8| Iterating epochs : 71/72 [00:02&lt;00:00,   27.29it/s]
-100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   27.31it/s]
-100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   26.93it/s]
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.7s remaining:    0.0s
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.7s finished
+  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:05,   13.78it/s]
+  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:03,   18.47it/s]
+  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:03,   21.07it/s]
+  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:02,   22.85it/s]
+  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:02,   24.04it/s]
+  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:02,   24.86it/s]
+ 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:02,   25.47it/s]
+ 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:02,   25.99it/s]
+ 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:02,   26.40it/s]
+ 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:02,   26.71it/s]
+ 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:02,   26.81it/s]
+ 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:02,   26.86it/s]
+ 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:02,   26.87it/s]
+ 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:02,   26.85it/s]
+ 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:02,   26.86it/s]
+ 22%|##2       | Iterating epochs : 16/72 [00:00&lt;00:02,   26.89it/s]
+ 24%|##3       | Iterating epochs : 17/72 [00:00&lt;00:02,   26.91it/s]
+ 25%|##5       | Iterating epochs : 18/72 [00:00&lt;00:02,   26.91it/s]
+ 26%|##6       | Iterating epochs : 19/72 [00:00&lt;00:01,   26.97it/s]
+ 28%|##7       | Iterating epochs : 20/72 [00:00&lt;00:01,   27.00it/s]
+ 29%|##9       | Iterating epochs : 21/72 [00:00&lt;00:01,   27.02it/s]
+ 31%|###       | Iterating epochs : 22/72 [00:00&lt;00:01,   27.04it/s]
+ 32%|###1      | Iterating epochs : 23/72 [00:00&lt;00:01,   27.06it/s]
+ 33%|###3      | Iterating epochs : 24/72 [00:00&lt;00:01,   27.16it/s]
+ 35%|###4      | Iterating epochs : 25/72 [00:00&lt;00:01,   27.26it/s]
+ 36%|###6      | Iterating epochs : 26/72 [00:00&lt;00:01,   27.38it/s]
+ 38%|###7      | Iterating epochs : 27/72 [00:00&lt;00:01,   27.50it/s]
+ 39%|###8      | Iterating epochs : 28/72 [00:01&lt;00:01,   27.59it/s]
+ 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:01,   27.68it/s]
+ 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:01,   27.74it/s]
+ 43%|####3     | Iterating epochs : 31/72 [00:01&lt;00:01,   27.83it/s]
+ 44%|####4     | Iterating epochs : 32/72 [00:01&lt;00:01,   27.89it/s]
+ 46%|####5     | Iterating epochs : 33/72 [00:01&lt;00:01,   27.94it/s]
+ 47%|####7     | Iterating epochs : 34/72 [00:01&lt;00:01,   27.99it/s]
+ 49%|####8     | Iterating epochs : 35/72 [00:01&lt;00:01,   28.07it/s]
+ 50%|#####     | Iterating epochs : 36/72 [00:01&lt;00:01,   28.11it/s]
+ 51%|#####1    | Iterating epochs : 37/72 [00:01&lt;00:01,   28.13it/s]
+ 53%|#####2    | Iterating epochs : 38/72 [00:01&lt;00:01,   28.07it/s]
+ 54%|#####4    | Iterating epochs : 39/72 [00:01&lt;00:01,   27.98it/s]
+ 56%|#####5    | Iterating epochs : 40/72 [00:01&lt;00:01,   27.91it/s]
+ 57%|#####6    | Iterating epochs : 41/72 [00:01&lt;00:01,   27.88it/s]
+ 58%|#####8    | Iterating epochs : 42/72 [00:01&lt;00:01,   27.81it/s]
+ 60%|#####9    | Iterating epochs : 43/72 [00:01&lt;00:01,   27.79it/s]
+ 61%|######1   | Iterating epochs : 44/72 [00:01&lt;00:01,   27.77it/s]
+ 62%|######2   | Iterating epochs : 45/72 [00:01&lt;00:00,   27.73it/s]
+ 64%|######3   | Iterating epochs : 46/72 [00:01&lt;00:00,   27.67it/s]
+ 65%|######5   | Iterating epochs : 47/72 [00:01&lt;00:00,   27.64it/s]
+ 67%|######6   | Iterating epochs : 48/72 [00:01&lt;00:00,   27.61it/s]
+ 68%|######8   | Iterating epochs : 49/72 [00:01&lt;00:00,   27.61it/s]
+ 69%|######9   | Iterating epochs : 50/72 [00:01&lt;00:00,   27.49it/s]
+ 71%|#######   | Iterating epochs : 51/72 [00:01&lt;00:00,   26.59it/s]
+ 72%|#######2  | Iterating epochs : 52/72 [00:01&lt;00:00,   26.64it/s]
+ 74%|#######3  | Iterating epochs : 53/72 [00:01&lt;00:00,   26.75it/s]
+ 75%|#######5  | Iterating epochs : 54/72 [00:01&lt;00:00,   26.84it/s]
+ 76%|#######6  | Iterating epochs : 55/72 [00:02&lt;00:00,   26.94it/s]
+ 78%|#######7  | Iterating epochs : 56/72 [00:02&lt;00:00,   27.07it/s]
+ 79%|#######9  | Iterating epochs : 57/72 [00:02&lt;00:00,   27.21it/s]
+ 81%|########  | Iterating epochs : 58/72 [00:02&lt;00:00,   27.26it/s]
+ 82%|########1 | Iterating epochs : 59/72 [00:02&lt;00:00,   27.25it/s]
+ 83%|########3 | Iterating epochs : 60/72 [00:02&lt;00:00,   27.28it/s]
+ 85%|########4 | Iterating epochs : 61/72 [00:02&lt;00:00,   27.37it/s]
+ 86%|########6 | Iterating epochs : 62/72 [00:02&lt;00:00,   27.42it/s]
+ 88%|########7 | Iterating epochs : 63/72 [00:02&lt;00:00,   27.44it/s]
+ 89%|########8 | Iterating epochs : 64/72 [00:02&lt;00:00,   27.45it/s]
+ 90%|######### | Iterating epochs : 65/72 [00:02&lt;00:00,   27.47it/s]
+ 92%|#########1| Iterating epochs : 66/72 [00:02&lt;00:00,   27.47it/s]
+ 93%|#########3| Iterating epochs : 67/72 [00:02&lt;00:00,   27.45it/s]
+ 94%|#########4| Iterating epochs : 68/72 [00:02&lt;00:00,   27.42it/s]
+ 96%|#########5| Iterating epochs : 69/72 [00:02&lt;00:00,   27.38it/s]
+ 97%|#########7| Iterating epochs : 70/72 [00:02&lt;00:00,   27.34it/s]
+ 99%|#########8| Iterating epochs : 71/72 [00:02&lt;00:00,   27.32it/s]
+100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   27.30it/s]
+100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   27.26it/s]
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.6s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.6s finished
 [Done]
 Interpolating bad channels
     Automatic origin fit: head of radius 91.0 mm
@@ -354,7 +353,6 @@ Interpolating bad channels
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_chs_</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MEG 0722
 MEG 0813
 MEG 0812
@@ -420,8 +418,8 @@ a heatmap.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  9.118 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
+<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  8.175 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c46630e57be6fee69c36b69808826387/plot_ransac.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ransac.py</span></code></a></p>
 </div>
@@ -448,8 +446,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-07-23.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-08-01.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br/>
     </p>
   </div>
 </footer>

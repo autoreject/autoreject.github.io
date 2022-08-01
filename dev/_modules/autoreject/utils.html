@@ -140,7 +140,7 @@
                 <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">locs3d</span><span class="p">,</span> <span class="mf">0.</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">&#39;data_channels&#39;</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">&#39;data_channels&#39;</span><span class="p">,</span> <span class="n">check_loc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">_get_epochs_type</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">BaseEpochs</span><span class="p">):</span>
@@ -155,21 +155,20 @@
         <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">meas_info</span><span class="o">.</span><span class="n">channel_type</span><span class="p">(</span><span class="n">picked_info</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">))}</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_check_ch_locs</span><span class="p">(</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">check_loc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_check_ch_locs</span><span class="p">(</span><span class="n">picked_info</span><span class="p">[</span><span class="s1">&#39;chs&#39;</span><span class="p">]):</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Valid channel positions are needed &#39;</span>
                            <span class="s1">&#39;for autoreject to work&#39;</span><span class="p">)</span>
 
     <span class="c1"># XXX : ch_constraint -&gt; allow_many_types=True | False</span>
+    <span class="n">supported_channels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">,</span> <span class="s1">&#39;hbo&#39;</span><span class="p">,</span> <span class="s1">&#39;hbr&#39;</span><span class="p">,</span> <span class="s1">&#39;ecog&#39;</span><span class="p">,</span> <span class="s1">&#39;seeg&#39;</span><span class="p">]</span>
+    <span class="n">channel_text</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">supported_channels</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;AutoReject only supports </span><span class="si">{</span><span class="n">channel_text</span><span class="si">}</span><span class="s1"> currenly.&#39;</span>
     <span class="k">if</span> <span class="n">ch_constraint</span> <span class="o">==</span> <span class="s1">&#39;data_channels&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">,</span> <span class="s1">&#39;hbo&#39;</span><span class="p">,</span> <span class="s1">&#39;hbr&#39;</span><span class="p">)</span>
-                   <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;AutoReject only supports mag, grad, and eeg &#39;</span>
-                             <span class="s1">&#39;at this point.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="n">supported_channels</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">ch_constraint</span> <span class="o">==</span> <span class="s1">&#39;single_channel_type&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">,</span>
-                                                <span class="s1">&#39;hbo&#39;</span><span class="p">,</span> <span class="s1">&#39;hbr&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;AutoReject only supports mag, grad, and eeg &#39;</span>
-                             <span class="s1">&#39;at this point.&#39;</span><span class="p">)</span>  <span class="c1"># XXX: to check</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_types_picked</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">supported_channels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>  <span class="c1"># XXX: to check</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad value for ch_constraint.&#39;</span><span class="p">)</span>
 
@@ -185,7 +184,7 @@
     <span class="sd">&quot;&quot;&quot;Pick the data channls or return picks.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">picks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ref_meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                             <span class="n">fnirs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
+                             <span class="n">fnirs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ecog</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">_picks_to_idx</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span>
@@ -623,8 +622,8 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-07-23.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-08-01.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br/>
     </p>
   </div>
 </footer>
