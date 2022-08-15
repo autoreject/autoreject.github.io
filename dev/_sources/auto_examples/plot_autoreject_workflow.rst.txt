@@ -97,21 +97,19 @@ installed with the command ``pip install openneuro-py``.
     Preparing to download ds002778 ...
     Cannot determine local revision of the dataset ,and the target directory is not empty. If the download fails, you may want to try again with a fresh (empty) target directory.
     Retrieving up to 12 files (5 concurrent downloads).
-    participants.json:   0%|          | 0.00/1.24k [00:00<?, ?B/s]                                                                  participants.tsv:   0%|          | 0.00/1.62k [00:00<?, ?B/s]                                                                 README: 0.00B [00:00, ?B/s]
-    sub-pd14_ses-off_scans.tsv:   0%|          | 0.00/76.0 [00:00<?, ?B/s]
-                                                                                                         sub-pd14_ses-off_task-rest_eeg.bdf:   0%|          | 0.00/17.5M [00:00<?, ?B/s]
+    participants.tsv:   0%|          | 0.00/1.62k [00:00<?, ?B/s]                                                                 participants.json:   0%|          | 0.00/1.24k [00:00<?, ?B/s]                                                                  README: 0.00B [00:00, ?B/s]                               sub-pd14_ses-off_scans.tsv:   0%|          | 0.00/76.0 [00:00<?, ?B/s]                                                                          sub-pd14_ses-off_task-rest_eeg.json:   0%|          | 0.00/471 [00:00<?, ?B/s]                                                                                  dataset_description.json: 0.00B [00:00, ?B/s]                                                 sub-pd14_ses-off_task-rest_eeg.bdf:   0%|          | 0.00/17.5M [00:00<?, ?B/s]
     CHANGES: 0.00B [00:00, ?B/s]
-                                
-    sub-pd14_ses-off_task-rest_eeg.json:   0%|          | 0.00/471 [00:00<?, ?B/s]    sub-pd14_ses-off_task-rest_eeg.bdf:  15%|#4        | 2.58M/17.5M [00:00<00:00, 27.0MB/s]
-                                                                                  
-    dataset_description.json: 0.00B [00:00, ?B/s]
-                                                     sub-pd14_ses-off_task-rest_eeg.bdf:  34%|###3      | 5.90M/17.5M [00:00<00:00, 31.1MB/s]
-    sub-pd14_ses-off_task-rest_channels.tsv: 0.00B [00:00, ?B/s]
-                                                                
-    sub-pd14_ses-off_task-rest_beh.json: 0.00B [00:00, ?B/s]
-                                                                sub-pd14_ses-off_task-rest_eeg.bdf:  56%|#####6    | 9.85M/17.5M [00:00<00:00, 35.8MB/s]
+                                    sub-pd14_ses-off_task-rest_eeg.bdf:  13%|#2        | 2.28M/17.5M [00:00<00:00, 23.9MB/s]
     sub-pd14_ses-off_task-rest_events.tsv:   0%|          | 0.00/65.0 [00:00<?, ?B/s]
-                                                                                         sub-pd14_ses-off_task-rest_eeg.bdf:  85%|########5 | 14.9M/17.5M [00:00<00:00, 42.7MB/s]                                                                                            sub-pd14_ses-off_task-rest_beh.tsv: 0.00B [00:00, ?B/s]                                                           Finished downloading ds002778.
+                                                                                     
+    sub-pd14_ses-off_task-rest_beh.json: 0.00B [00:00, ?B/s]
+
+    sub-pd14_ses-off_task-rest_channels.tsv: 0.00B [00:00, ?B/s]
+                                                            
+
+                                                                    sub-pd14_ses-off_task-rest_eeg.bdf:  31%|###       | 5.38M/17.5M [00:00<00:00, 29.0MB/s]
+    sub-pd14_ses-off_task-rest_beh.tsv: 0.00B [00:00, ?B/s]
+                                                               sub-pd14_ses-off_task-rest_eeg.bdf:  51%|#####     | 8.90M/17.5M [00:00<00:00, 32.6MB/s]    sub-pd14_ses-off_task-rest_eeg.bdf:  71%|#######   | 12.4M/17.5M [00:00<00:00, 34.2MB/s]    sub-pd14_ses-off_task-rest_eeg.bdf:  94%|#########3| 16.5M/17.5M [00:00<00:00, 37.3MB/s]                                                                                            Finished downloading ds002778.
 
     Please enjoy your brains.
 
@@ -207,203 +205,201 @@ number of channels to interpolate was set to check some low numbers
  .. code-block:: none
 
     Running autoreject on ch_type=eeg
-      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  116.14it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  108.17it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  106.84it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  107.80it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  108.04it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  107.91it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  107.43it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  107.71it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  107.90it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  108.07it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  107.61it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  108.10it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  108.44it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  108.53it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  107.89it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  107.47it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  107.49it/s]
-      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:09,    3.33it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:08,    3.34it/s]      9%|9         | Computing thresholds ... : 3/32 [00:00<00:08,    3.35it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:08,    3.36it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:08,    3.37it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:01<00:07,    3.38it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:07,    3.37it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:07,    3.38it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:02<00:06,    3.38it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:02<00:06,    3.38it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:06,    3.37it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:03<00:05,    3.37it/s]     41%|####      | Computing thresholds ... : 13/32 [00:03<00:05,    3.38it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:05,    3.38it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:04<00:05,    3.37it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:04<00:04,    3.37it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:05<00:04,    3.37it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:05<00:04,    3.38it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:05<00:03,    3.38it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:05<00:03,    3.38it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:06<00:03,    3.38it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:06<00:02,    3.38it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:06<00:02,    3.38it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:07<00:02,    3.38it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:07<00:02,    3.38it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:07<00:01,    3.38it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:07<00:01,    3.38it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:08<00:01,    3.38it/s]     91%|######### | Computing thresholds ... : 29/32 [00:08<00:00,    3.37it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:08<00:00,    3.37it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:09<00:00,    3.37it/s]    100%|##########| Computing thresholds ... : 32/32 [00:09<00:00,    3.38it/s]    100%|##########| Computing thresholds ... : 32/32 [00:09<00:00,    3.38it/s]
+      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  117.55it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  110.27it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  108.91it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  109.77it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  109.98it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  109.92it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  109.56it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  109.89it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  109.96it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  110.15it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  109.74it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  110.39it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  110.54it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  110.33it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  109.87it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.60it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.62it/s]
+      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:09,    3.42it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:08,    3.44it/s]      9%|9         | Computing thresholds ... : 3/32 [00:00<00:08,    3.44it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:08,    3.44it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:07,    3.46it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:01<00:07,    3.46it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:07,    3.46it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:06,    3.46it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:02<00:06,    3.47it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:02<00:06,    3.47it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:06,    3.45it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:03<00:05,    3.46it/s]     41%|####      | Computing thresholds ... : 13/32 [00:03<00:05,    3.45it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:05,    3.45it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:04<00:04,    3.44it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:04<00:04,    3.44it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:04<00:04,    3.45it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:05<00:04,    3.45it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:05<00:03,    3.46it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:05<00:03,    3.46it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:06<00:03,    3.46it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:06<00:02,    3.46it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:06<00:02,    3.46it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:06<00:02,    3.46it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:07<00:02,    3.46it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:07<00:01,    3.46it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:07<00:01,    3.46it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:08<00:01,    3.46it/s]     91%|######### | Computing thresholds ... : 29/32 [00:08<00:00,    3.46it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:08<00:00,    3.46it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:08<00:00,    3.46it/s]    100%|##########| Computing thresholds ... : 32/32 [00:09<00:00,    3.46it/s]    100%|##########| Computing thresholds ... : 32/32 [00:09<00:00,    3.46it/s]
 
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  466.40it/s]
+     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  470.10it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  462.50it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  457.21it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  466.38it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  462.22it/s]
 
       0%|          | n_interp : 0/4 [00:00<?,       ?it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  178.95it/s]
+     25%|##5       | Repairing epochs : 5/20 [00:00<00:00,  294.59it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  188.25it/s]
+     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  241.85it/s]
 
-     55%|#####5    | Repairing epochs : 11/20 [00:00<00:00,  207.63it/s]
+     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  250.35it/s]
 
-     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  214.27it/s]
-
-     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  197.15it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  207.89it/s]
+     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  223.33it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  236.28it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   14.08it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.25it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   16.17it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.46it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   17.35it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   17.90it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   18.05it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.69it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   18.48it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   19.11it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.73it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.42it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   18.83it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.65it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   18.94it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   19.81it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   19.00it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   19.92it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   19.05it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   18.88it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   19.99it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.77it/s]
 
-     25%|##5       | n_interp : 1/4 [00:00<00:01,    1.58it/s]
+     25%|##5       | n_interp : 1/4 [00:00<00:01,    1.67it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  286.12it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  288.43it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  283.19it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  285.40it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  243.95it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  245.79it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  243.95it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  243.99it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  246.26it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  246.28it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   14.11it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.38it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   16.59it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   17.28it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   17.58it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   18.50it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   18.19it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   19.23it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   18.60it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   19.67it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.85it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.99it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   19.05it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   20.21it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   19.20it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   20.33it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   19.30it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   20.45it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   19.37it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.18it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.54it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.33it/s]
 
-     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.61it/s]
+     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.70it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  284.74it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  285.81it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  281.18it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  284.42it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  243.01it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  245.77it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  243.25it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  243.25it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  245.71it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  245.73it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   14.02it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.25it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   16.60it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.97it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   17.69it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   18.20it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   18.31it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.90it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   18.65it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   19.35it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.91it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.67it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   19.13it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.91it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   19.30it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   20.05it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   19.38it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   20.16it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   19.46it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.27it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.26it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.04it/s]
 
-     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.62it/s]
+     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.70it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  285.09it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  287.89it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  282.36it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  285.72it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  244.05it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  246.68it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  244.14it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  244.04it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  246.76it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  246.81it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   15.55it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   16.06it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   18.08it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   18.77it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   19.40it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   20.23it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   20.15it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   21.08it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   20.60it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   21.30it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   20.88it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   21.64it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   21.06it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   21.87it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   21.18it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   22.01it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   21.27it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   22.04it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   21.35it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   21.14it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   22.14it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   21.93it/s]
 
-    100%|##########| n_interp : 4/4 [00:02<00:00,    1.66it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.66it/s]
+    100%|##########| n_interp : 4/4 [00:02<00:00,    1.74it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.73it/s]
 
 
 
@@ -413,65 +409,65 @@ number of channels to interpolate was set to check some low numbers
 
       0%|          | Repairing epochs : 0/97 [00:00<?,       ?it/s]
 
-      6%|6         | Repairing epochs : 6/97 [00:00<00:00,  372.15it/s]
+      7%|7         | Repairing epochs : 7/97 [00:00<00:00,  283.43it/s]
 
-     10%|#         | Repairing epochs : 10/97 [00:00<00:00,  254.12it/s]
+     12%|#2        | Repairing epochs : 12/97 [00:00<00:00,  281.43it/s]
 
-     15%|#5        | Repairing epochs : 15/97 [00:00<00:00,  256.47it/s]
+     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  240.39it/s]
 
-     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  226.12it/s]
+     22%|##1       | Repairing epochs : 21/97 [00:00<00:00,  249.42it/s]
 
-     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  239.31it/s]
+     26%|##5       | Repairing epochs : 25/97 [00:00<00:00,  247.01it/s]
 
-     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  226.60it/s]
+     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  228.05it/s]
 
-     34%|###4      | Repairing epochs : 33/97 [00:00<00:00,  234.07it/s]
+     34%|###4      | Repairing epochs : 33/97 [00:00<00:00,  235.81it/s]
 
-     38%|###8      | Repairing epochs : 37/97 [00:00<00:00,  223.98it/s]
+     38%|###8      | Repairing epochs : 37/97 [00:00<00:00,  225.67it/s]
 
-     43%|####3     | Repairing epochs : 42/97 [00:00<00:00,  230.52it/s]
+     43%|####3     | Repairing epochs : 42/97 [00:00<00:00,  232.21it/s]
 
-     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  226.44it/s]
+     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  227.93it/s]
 
-     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  231.74it/s]
+     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  233.21it/s]
 
-     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  222.87it/s]
+     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  224.36it/s]
 
-     61%|######    | Repairing epochs : 59/97 [00:00<00:00,  216.11it/s]
+     61%|######    | Repairing epochs : 59/97 [00:00<00:00,  217.64it/s]
 
-     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  214.73it/s]
+     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  216.36it/s]
 
-     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  206.67it/s]
+     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  208.01it/s]
 
-     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  198.49it/s]
+     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  199.82it/s]
 
-     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  191.40it/s]
+     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  192.58it/s]
 
-     74%|#######4  | Repairing epochs : 72/97 [00:00<00:00,  184.62it/s]
+     74%|#######4  | Repairing epochs : 72/97 [00:00<00:00,  185.85it/s]
 
-     76%|#######6  | Repairing epochs : 74/97 [00:00<00:00,  178.27it/s]
+     76%|#######6  | Repairing epochs : 74/97 [00:00<00:00,  179.42it/s]
 
-     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  173.17it/s]
+     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  174.33it/s]
 
-     80%|########  | Repairing epochs : 78/97 [00:00<00:00,  168.79it/s]
+     80%|########  | Repairing epochs : 78/97 [00:00<00:00,  169.96it/s]
 
-     82%|########2 | Repairing epochs : 80/97 [00:00<00:00,  164.54it/s]
+     82%|########2 | Repairing epochs : 80/97 [00:00<00:00,  165.67it/s]
 
-     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  160.97it/s]
+     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  162.10it/s]
 
-     87%|########6 | Repairing epochs : 84/97 [00:00<00:00,  158.56it/s]
+     87%|########6 | Repairing epochs : 84/97 [00:00<00:00,  159.59it/s]
 
-     89%|########8 | Repairing epochs : 86/97 [00:00<00:00,  154.69it/s]
+     89%|########8 | Repairing epochs : 86/97 [00:00<00:00,  155.71it/s]
 
-     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  151.77it/s]
+     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  152.78it/s]
 
-     93%|#########2| Repairing epochs : 90/97 [00:00<00:00,  148.94it/s]
+     93%|#########2| Repairing epochs : 90/97 [00:00<00:00,  150.10it/s]
 
-     95%|#########4| Repairing epochs : 92/97 [00:00<00:00,  146.96it/s]
+     95%|#########4| Repairing epochs : 92/97 [00:00<00:00,  148.18it/s]
 
-     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  145.17it/s]
+     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  146.36it/s]
 
-     99%|#########8| Repairing epochs : 96/97 [00:00<00:00,  142.91it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  162.73it/s]
+     99%|#########8| Repairing epochs : 96/97 [00:00<00:00,  144.20it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  164.27it/s]
     Dropped 27 epochs: 54, 58, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 
 
@@ -596,219 +592,219 @@ Fourier transform could potentially be avoided by detrending instead.
     Using data from preloaded Raw for 97 events and 1536 original time points ...
     0 bad epochs dropped
     Running autoreject on ch_type=eeg
-      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  118.63it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  110.67it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  109.01it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  109.69it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  109.70it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  109.23it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  108.40it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  108.61it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  108.34it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  108.49it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  107.91it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  108.40it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  108.69it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  108.81it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  108.45it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  108.20it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  108.23it/s]
-      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:10,    3.02it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:09,    3.02it/s]      9%|9         | Computing thresholds ... : 3/32 [00:00<00:09,    3.02it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:09,    2.99it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:09,    2.94it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:02<00:08,    2.92it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:08,    2.90it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:08,    2.89it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:03<00:08,    2.87it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:03<00:07,    2.86it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:07,    2.86it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:04<00:06,    2.87it/s]     41%|####      | Computing thresholds ... : 13/32 [00:04<00:06,    2.88it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:06,    2.89it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:05<00:05,    2.91it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:05<00:05,    2.92it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:05<00:05,    2.92it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:06<00:04,    2.93it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:06<00:04,    2.93it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:06<00:04,    2.93it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:07<00:03,    2.93it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:07<00:03,    2.93it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:07<00:03,    2.93it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:08<00:02,    2.94it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:08<00:02,    2.94it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:08<00:02,    2.94it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:09<00:01,    2.94it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:09<00:01,    2.94it/s]     91%|######### | Computing thresholds ... : 29/32 [00:09<00:01,    2.94it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:10<00:00,    2.94it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:10<00:00,    2.94it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    2.95it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    2.93it/s]
+      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  120.39it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  112.05it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  109.95it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  110.70it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  110.63it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  110.38it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  109.89it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  109.99it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  109.69it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  109.85it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  109.39it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  109.88it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  110.23it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  110.28it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  109.85it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.45it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.52it/s]
+      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:10,    3.03it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:09,    3.03it/s]      9%|9         | Computing thresholds ... : 3/32 [00:01<00:09,    3.00it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:09,    3.01it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:09,    2.99it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:01<00:08,    3.01it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:08,    2.99it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:07,    3.01it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:02<00:07,    3.02it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:03<00:07,    3.03it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:06,    3.02it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:03<00:06,    3.02it/s]     41%|####      | Computing thresholds ... : 13/32 [00:04<00:06,    3.02it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:05,    3.02it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:04<00:05,    3.03it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:05<00:05,    3.03it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:05<00:04,    3.04it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:05<00:04,    3.05it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:06<00:04,    3.05it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:06<00:03,    3.06it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:06<00:03,    3.06it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:07<00:03,    3.05it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:07<00:02,    3.05it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:07<00:02,    3.05it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:08<00:02,    3.05it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:08<00:01,    3.06it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:08<00:01,    3.06it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:09<00:01,    3.06it/s]     91%|######### | Computing thresholds ... : 29/32 [00:09<00:00,    3.06it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:09<00:00,    3.06it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:10<00:00,    3.06it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    3.06it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    3.05it/s]
 
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  464.74it/s]
+     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  473.88it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  460.43it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  455.96it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  469.52it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  465.14it/s]
 
       0%|          | n_interp : 0/4 [00:00<?,       ?it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     10%|#         | Repairing epochs : 2/20 [00:00<00:00,  109.65it/s]
+     10%|#         | Repairing epochs : 2/20 [00:00<00:00,  110.51it/s]
 
-     25%|##5       | Repairing epochs : 5/20 [00:00<00:00,  131.61it/s]
+     25%|##5       | Repairing epochs : 5/20 [00:00<00:00,  133.00it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  123.60it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  125.07it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  148.42it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  149.70it/s]
 
-     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  146.98it/s]
+     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  148.55it/s]
 
-     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  140.87it/s]
+     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  142.75it/s]
 
-     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  136.74it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  134.39it/s]
+     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  138.30it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  136.08it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   13.85it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.39it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   15.96it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.32it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   17.28it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   17.78it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   18.02it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.55it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   18.52it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   19.07it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.83it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.43it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   19.04it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.65it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   19.17it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   19.78it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   19.24it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   19.86it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   19.32it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.12it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   19.94it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.72it/s]
 
-     25%|##5       | n_interp : 1/4 [00:00<00:02,    1.45it/s]
+     25%|##5       | n_interp : 1/4 [00:00<00:02,    1.49it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  150.73it/s]
+     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  154.43it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  162.75it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  165.79it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  175.71it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  178.07it/s]
 
-     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  164.13it/s]
+     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  166.39it/s]
 
-     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  154.84it/s]
+     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  156.88it/s]
 
-     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  149.33it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  150.96it/s]
+     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  150.69it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  152.61it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   19.92it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   20.58it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   20.20it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   20.78it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   20.35it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   20.87it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   20.39it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   20.84it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   20.45it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   20.85it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   20.50it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   20.83it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   20.41it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   20.87it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   20.44it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   20.85it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   20.44it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   20.83it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   20.45it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.41it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.83it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.81it/s]
 
-     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.51it/s]
+     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.55it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  165.34it/s]
+     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  175.01it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  168.79it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  174.64it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  178.70it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  182.23it/s]
 
-     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  165.45it/s]
+     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  168.03it/s]
 
-     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  156.22it/s]
+     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  158.03it/s]
 
-     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  150.50it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  152.79it/s]
+     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  152.12it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  154.62it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   20.10it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   20.85it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   20.18it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   21.06it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   20.25it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   21.14it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   20.29it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   21.08it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   20.30it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   21.08it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   20.33it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   21.16it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   20.32it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   21.18it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   20.29it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   21.20it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   20.26it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   21.20it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   20.26it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.24it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   21.20it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   21.16it/s]
 
-     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.53it/s]
+     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.57it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  180.24it/s]
+     15%|#5        | Repairing epochs : 3/20 [00:00<00:00,  184.46it/s]
 
-     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  175.77it/s]
+     35%|###5      | Repairing epochs : 7/20 [00:00<00:00,  179.04it/s]
 
-     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  182.75it/s]
+     60%|######    | Repairing epochs : 12/20 [00:00<00:00,  185.40it/s]
 
-     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  169.61it/s]
+     75%|#######5  | Repairing epochs : 15/20 [00:00<00:00,  172.35it/s]
 
-     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  159.43it/s]
+     85%|########5 | Repairing epochs : 17/20 [00:00<00:00,  161.16it/s]
 
-     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  152.66it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  155.00it/s]
+     95%|#########5| Repairing epochs : 19/20 [00:00<00:00,  152.17it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  153.89it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   22.14it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   22.46it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   22.39it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   22.96it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   22.45it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   23.19it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   22.42it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   23.27it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   22.39it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   23.24it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   22.31it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   23.21it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   22.25it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   23.17it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   22.22it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   23.10it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   22.16it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   23.03it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   22.11it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   22.12it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   23.00it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   22.99it/s]
 
-    100%|##########| n_interp : 4/4 [00:02<00:00,    1.57it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.56it/s]
+    100%|##########| n_interp : 4/4 [00:02<00:00,    1.61it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.61it/s]
 
 
 
@@ -818,79 +814,79 @@ Fourier transform could potentially be avoided by detrending instead.
 
       0%|          | Repairing epochs : 0/97 [00:00<?,       ?it/s]
 
-      3%|3         | Repairing epochs : 3/97 [00:00<00:00,  184.57it/s]
+      3%|3         | Repairing epochs : 3/97 [00:00<00:00,  187.26it/s]
 
-      7%|7         | Repairing epochs : 7/97 [00:00<00:00,  176.53it/s]
+      7%|7         | Repairing epochs : 7/97 [00:00<00:00,  178.91it/s]
 
-     11%|#1        | Repairing epochs : 11/97 [00:00<00:00,  198.73it/s]
+     12%|#2        | Repairing epochs : 12/97 [00:00<00:00,  184.07it/s]
 
-     14%|#4        | Repairing epochs : 14/97 [00:00<00:00,  181.86it/s]
+     15%|#5        | Repairing epochs : 15/97 [00:00<00:00,  176.31it/s]
 
-     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  165.96it/s]
+     18%|#7        | Repairing epochs : 17/97 [00:00<00:00,  164.24it/s]
 
-     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  156.63it/s]
+     20%|#9        | Repairing epochs : 19/97 [00:00<00:00,  154.68it/s]
 
-     22%|##1       | Repairing epochs : 21/97 [00:00<00:00,  155.22it/s]
+     23%|##2       | Repairing epochs : 22/97 [00:00<00:00,  158.73it/s]
 
-     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  158.59it/s]
+     26%|##5       | Repairing epochs : 25/97 [00:00<00:00,  161.35it/s]
 
-     28%|##7       | Repairing epochs : 27/97 [00:00<00:00,  160.51it/s]
+     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  163.53it/s]
 
-     31%|###       | Repairing epochs : 30/97 [00:00<00:00,  162.57it/s]
+     32%|###1      | Repairing epochs : 31/97 [00:00<00:00,  164.84it/s]
 
-     34%|###4      | Repairing epochs : 33/97 [00:00<00:00,  164.06it/s]
+     35%|###5      | Repairing epochs : 34/97 [00:00<00:00,  165.99it/s]
 
-     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  157.91it/s]
+     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  159.72it/s]
 
-     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  152.69it/s]
+     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  154.52it/s]
 
-     41%|####1     | Repairing epochs : 40/97 [00:00<00:00,  148.80it/s]
+     41%|####1     | Repairing epochs : 40/97 [00:00<00:00,  150.54it/s]
 
-     43%|####3     | Repairing epochs : 42/97 [00:00<00:00,  145.16it/s]
+     43%|####3     | Repairing epochs : 42/97 [00:00<00:00,  146.66it/s]
 
-     45%|####5     | Repairing epochs : 44/97 [00:00<00:00,  142.70it/s]
+     45%|####5     | Repairing epochs : 44/97 [00:00<00:00,  144.10it/s]
 
-     47%|####7     | Repairing epochs : 46/97 [00:00<00:00,  140.02it/s]
+     47%|####7     | Repairing epochs : 46/97 [00:00<00:00,  141.24it/s]
 
-     49%|####9     | Repairing epochs : 48/97 [00:00<00:00,  138.28it/s]
+     49%|####9     | Repairing epochs : 48/97 [00:00<00:00,  139.17it/s]
 
-     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  135.78it/s]
+     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  136.58it/s]
 
-     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  134.57it/s]
+     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  135.41it/s]
 
-     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  137.68it/s]
+     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  138.66it/s]
 
-     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  138.46it/s]
+     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  139.58it/s]
 
-     62%|######1   | Repairing epochs : 60/97 [00:00<00:00,  136.19it/s]
+     62%|######1   | Repairing epochs : 60/97 [00:00<00:00,  137.32it/s]
 
-     64%|######3   | Repairing epochs : 62/97 [00:00<00:00,  134.13it/s]
+     64%|######3   | Repairing epochs : 62/97 [00:00<00:00,  135.29it/s]
 
-     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  132.39it/s]
+     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  133.56it/s]
 
-     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  130.81it/s]
+     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  131.95it/s]
 
-     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  129.95it/s]
+     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  131.02it/s]
 
-     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  128.46it/s]
+     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  129.36it/s]
 
-     74%|#######4  | Repairing epochs : 72/97 [00:00<00:00,  128.06it/s]
+     74%|#######4  | Repairing epochs : 72/97 [00:00<00:00,  128.93it/s]
 
-     77%|#######7  | Repairing epochs : 75/97 [00:00<00:00,  130.63it/s]
+     77%|#######7  | Repairing epochs : 75/97 [00:00<00:00,  131.64it/s]
 
-     80%|########  | Repairing epochs : 78/97 [00:00<00:00,  133.16it/s]
+     80%|########  | Repairing epochs : 78/97 [00:00<00:00,  134.37it/s]
 
-     84%|########3 | Repairing epochs : 81/97 [00:00<00:00,  136.04it/s]
+     84%|########3 | Repairing epochs : 81/97 [00:00<00:00,  137.16it/s]
 
-     87%|########6 | Repairing epochs : 84/97 [00:00<00:00,  138.14it/s]
+     87%|########6 | Repairing epochs : 84/97 [00:00<00:00,  139.36it/s]
 
-     90%|########9 | Repairing epochs : 87/97 [00:00<00:00,  140.71it/s]
+     90%|########9 | Repairing epochs : 87/97 [00:00<00:00,  141.97it/s]
 
-     93%|#########2| Repairing epochs : 90/97 [00:00<00:00,  142.93it/s]
+     93%|#########2| Repairing epochs : 90/97 [00:00<00:00,  144.35it/s]
 
-     96%|#########5| Repairing epochs : 93/97 [00:00<00:00,  144.72it/s]
+     96%|#########5| Repairing epochs : 93/97 [00:00<00:00,  146.21it/s]
 
-     99%|#########8| Repairing epochs : 96/97 [00:00<00:00,  146.60it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  144.04it/s]
+     99%|#########8| Repairing epochs : 96/97 [00:00<00:00,  148.21it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  145.46it/s]
     Dropped 23 epochs: 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 
 
@@ -987,7 +983,7 @@ previous run of autoreject for the benefit of the ICA algorithm.
 
     Fitting ICA to data using 32 channels (please be patient, this may take a while)
     Selecting by non-zero PCA components: 32 components
-    Fitting ICA took 3.4s.
+    Fitting ICA took 3.2s.
 
 
 .. raw:: html
@@ -1161,217 +1157,217 @@ you optimize your use of ``autoreject`` in preprocessing.
  .. code-block:: none
 
     Running autoreject on ch_type=eeg
-      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  115.24it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  108.52it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  107.48it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  108.30it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  108.25it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  108.00it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  107.32it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  107.57it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  107.71it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  107.62it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  107.10it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  107.66it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  107.93it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  108.05it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  107.70it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  107.44it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  107.40it/s]
-      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:10,    2.95it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:10,    2.90it/s]      9%|9         | Computing thresholds ... : 3/32 [00:01<00:09,    2.90it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:09,    2.89it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:09,    2.92it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:02<00:08,    2.95it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:08,    2.96it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:08,    2.97it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:03<00:07,    2.98it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:03<00:07,    2.99it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:06,    3.00it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:04<00:06,    3.01it/s]     41%|####      | Computing thresholds ... : 13/32 [00:04<00:06,    3.02it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:05,    3.03it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:04<00:05,    3.03it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:05<00:05,    2.97it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:05<00:05,    2.97it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:06<00:04,    2.97it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:06<00:04,    2.96it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:06<00:04,    2.96it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:07<00:03,    2.96it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:07<00:03,    2.95it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:07<00:03,    2.93it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:08<00:02,    2.92it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:08<00:02,    2.91it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:08<00:02,    2.91it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:09<00:01,    2.90it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:09<00:01,    2.89it/s]     91%|######### | Computing thresholds ... : 29/32 [00:09<00:01,    2.88it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:10<00:00,    2.88it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:10<00:00,    2.89it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    2.89it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    2.92it/s]
+      0%|          | Creating augmented epochs : 0/32 [00:00<?,       ?it/s]      6%|6         | Creating augmented epochs : 2/32 [00:00<00:00,  113.70it/s]     12%|#2        | Creating augmented epochs : 4/32 [00:00<00:00,  108.58it/s]     19%|#8        | Creating augmented epochs : 6/32 [00:00<00:00,  107.74it/s]     25%|##5       | Creating augmented epochs : 8/32 [00:00<00:00,  108.97it/s]     31%|###1      | Creating augmented epochs : 10/32 [00:00<00:00,  109.39it/s]     38%|###7      | Creating augmented epochs : 12/32 [00:00<00:00,  109.56it/s]     44%|####3     | Creating augmented epochs : 14/32 [00:00<00:00,  109.25it/s]     50%|#####     | Creating augmented epochs : 16/32 [00:00<00:00,  109.59it/s]     56%|#####6    | Creating augmented epochs : 18/32 [00:00<00:00,  109.74it/s]     62%|######2   | Creating augmented epochs : 20/32 [00:00<00:00,  109.88it/s]     69%|######8   | Creating augmented epochs : 22/32 [00:00<00:00,  109.40it/s]     75%|#######5  | Creating augmented epochs : 24/32 [00:00<00:00,  109.93it/s]     81%|########1 | Creating augmented epochs : 26/32 [00:00<00:00,  110.24it/s]     88%|########7 | Creating augmented epochs : 28/32 [00:00<00:00,  110.36it/s]     94%|#########3| Creating augmented epochs : 30/32 [00:00<00:00,  110.01it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.73it/s]    100%|##########| Creating augmented epochs : 32/32 [00:00<00:00,  109.60it/s]
+      0%|          | Computing thresholds ... : 0/32 [00:00<?,       ?it/s]      3%|3         | Computing thresholds ... : 1/32 [00:00<00:10,    2.95it/s]      6%|6         | Computing thresholds ... : 2/32 [00:00<00:10,    2.99it/s]      9%|9         | Computing thresholds ... : 3/32 [00:00<00:09,    3.02it/s]     12%|#2        | Computing thresholds ... : 4/32 [00:01<00:09,    3.02it/s]     16%|#5        | Computing thresholds ... : 5/32 [00:01<00:09,    3.00it/s]     19%|#8        | Computing thresholds ... : 6/32 [00:01<00:08,    3.02it/s]     22%|##1       | Computing thresholds ... : 7/32 [00:02<00:08,    3.03it/s]     25%|##5       | Computing thresholds ... : 8/32 [00:02<00:07,    3.04it/s]     28%|##8       | Computing thresholds ... : 9/32 [00:02<00:07,    3.05it/s]     31%|###1      | Computing thresholds ... : 10/32 [00:03<00:07,    3.06it/s]     34%|###4      | Computing thresholds ... : 11/32 [00:03<00:06,    3.06it/s]     38%|###7      | Computing thresholds ... : 12/32 [00:03<00:06,    3.07it/s]     41%|####      | Computing thresholds ... : 13/32 [00:04<00:06,    3.07it/s]     44%|####3     | Computing thresholds ... : 14/32 [00:04<00:05,    3.08it/s]     47%|####6     | Computing thresholds ... : 15/32 [00:04<00:05,    3.09it/s]     50%|#####     | Computing thresholds ... : 16/32 [00:05<00:05,    3.02it/s]     53%|#####3    | Computing thresholds ... : 17/32 [00:05<00:04,    3.02it/s]     56%|#####6    | Computing thresholds ... : 18/32 [00:05<00:04,    3.03it/s]     59%|#####9    | Computing thresholds ... : 19/32 [00:06<00:04,    3.03it/s]     62%|######2   | Computing thresholds ... : 20/32 [00:06<00:03,    3.03it/s]     66%|######5   | Computing thresholds ... : 21/32 [00:06<00:03,    3.03it/s]     69%|######8   | Computing thresholds ... : 22/32 [00:07<00:03,    3.03it/s]     72%|#######1  | Computing thresholds ... : 23/32 [00:07<00:02,    3.03it/s]     75%|#######5  | Computing thresholds ... : 24/32 [00:07<00:02,    3.03it/s]     78%|#######8  | Computing thresholds ... : 25/32 [00:08<00:02,    3.02it/s]     81%|########1 | Computing thresholds ... : 26/32 [00:08<00:01,    3.02it/s]     84%|########4 | Computing thresholds ... : 27/32 [00:08<00:01,    3.02it/s]     88%|########7 | Computing thresholds ... : 28/32 [00:09<00:01,    3.02it/s]     91%|######### | Computing thresholds ... : 29/32 [00:09<00:00,    3.02it/s]     94%|#########3| Computing thresholds ... : 30/32 [00:09<00:00,    3.02it/s]     97%|#########6| Computing thresholds ... : 31/32 [00:10<00:00,    3.02it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    3.02it/s]    100%|##########| Computing thresholds ... : 32/32 [00:10<00:00,    3.02it/s]
 
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  467.31it/s]
+     40%|####      | Repairing epochs : 8/20 [00:00<00:00,  472.44it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  462.61it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  456.43it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  469.07it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  464.93it/s]
 
       0%|          | n_interp : 0/4 [00:00<?,       ?it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     25%|##5       | Repairing epochs : 5/20 [00:00<00:00,  295.56it/s]
+     25%|##5       | Repairing epochs : 5/20 [00:00<00:00,  296.03it/s]
 
-     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  241.52it/s]
+     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  243.22it/s]
 
-     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  216.71it/s]
+     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  218.88it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  188.08it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  190.60it/s]
 
-     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  173.82it/s]
+     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  175.70it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  163.25it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  167.26it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  165.25it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  169.38it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   13.26it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.06it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   15.42it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.20it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   16.67it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   17.59it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   17.40it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.41it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   17.89it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   18.93it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.22it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.31it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   18.36it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.58it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   18.50it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   19.78it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   18.60it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   19.96it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   18.72it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   18.50it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.10it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.84it/s]
 
-     25%|##5       | n_interp : 1/4 [00:00<00:02,    1.48it/s]
+     25%|##5       | n_interp : 1/4 [00:00<00:01,    1.58it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  337.82it/s]
+     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  333.36it/s]
 
-     55%|#####5    | Repairing epochs : 11/20 [00:00<00:00,  314.15it/s]
+     55%|#####5    | Repairing epochs : 11/20 [00:00<00:00,  313.84it/s]
 
-     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  250.68it/s]
+     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  250.40it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  210.58it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  210.37it/s]
 
-     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  190.36it/s]
+     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  191.02it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  176.13it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  182.05it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  177.05it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  182.93it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   13.84it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   14.23it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   15.81it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.37it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   17.01it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   17.88it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   17.66it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.70it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   18.11it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   19.16it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.43it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.52it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   18.67it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.79it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   18.84it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   19.97it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   18.97it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   20.13it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   19.08it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   18.86it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.26it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.00it/s]
 
-     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.51it/s]
+     50%|#####     | n_interp : 2/4 [00:01<00:01,    1.59it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  330.25it/s]
+     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  292.67it/s]
 
-     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  287.50it/s]
+     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  270.90it/s]
 
-     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  242.31it/s]
+     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  234.36it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  201.48it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  195.60it/s]
 
-     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  183.08it/s]
+     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  179.18it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  172.51it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  177.72it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  169.61it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  174.29it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   13.66it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   13.91it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   15.63it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   16.09it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   16.82it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   17.48it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   17.52it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   18.31it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   17.98it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   18.82it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   18.32it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   19.20it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   18.53it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   19.48it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   18.70it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   19.73it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   18.79it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   19.93it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   18.92it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   18.70it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   20.10it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   19.81it/s]
 
-     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.51it/s]
+     75%|#######5  | n_interp : 3/4 [00:01<00:00,    1.59it/s]
 
       0%|          | Repairing epochs : 0/20 [00:00<?,       ?it/s]
 
-     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  339.18it/s]
+     30%|###       | Repairing epochs : 6/20 [00:00<00:00,  341.93it/s]
 
-     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  291.25it/s]
+     50%|#####     | Repairing epochs : 10/20 [00:00<00:00,  293.89it/s]
 
-     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  244.07it/s]
+     70%|#######   | Repairing epochs : 14/20 [00:00<00:00,  246.08it/s]
 
-     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  204.26it/s]
+     80%|########  | Repairing epochs : 16/20 [00:00<00:00,  205.99it/s]
 
-     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  185.03it/s]
+     90%|######### | Repairing epochs : 18/20 [00:00<00:00,  186.78it/s]
 
-    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  173.64it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  179.01it/s]
+    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  174.68it/s]    100%|##########| Repairing epochs : 20/20 [00:00<00:00,  180.08it/s]
 
 
 
       0%|          | Fold : 0/10 [00:00<?,       ?it/s]
 
 
-     10%|#         | Fold : 1/10 [00:00<00:00,   15.13it/s]
+     10%|#         | Fold : 1/10 [00:00<00:00,   15.86it/s]
 
 
-     20%|##        | Fold : 2/10 [00:00<00:00,   16.89it/s]
+     20%|##        | Fold : 2/10 [00:00<00:00,   17.66it/s]
 
 
-     30%|###       | Fold : 3/10 [00:00<00:00,   18.30it/s]
+     30%|###       | Fold : 3/10 [00:00<00:00,   19.37it/s]
 
 
-     40%|####      | Fold : 4/10 [00:00<00:00,   19.15it/s]
+     40%|####      | Fold : 4/10 [00:00<00:00,   20.37it/s]
 
 
-     50%|#####     | Fold : 5/10 [00:00<00:00,   19.63it/s]
+     50%|#####     | Fold : 5/10 [00:00<00:00,   21.03it/s]
 
 
-     60%|######    | Fold : 6/10 [00:00<00:00,   19.99it/s]
+     60%|######    | Fold : 6/10 [00:00<00:00,   21.50it/s]
 
 
-     70%|#######   | Fold : 7/10 [00:00<00:00,   20.20it/s]
+     70%|#######   | Fold : 7/10 [00:00<00:00,   21.85it/s]
 
 
-     80%|########  | Fold : 8/10 [00:00<00:00,   20.43it/s]
+     80%|########  | Fold : 8/10 [00:00<00:00,   22.09it/s]
 
 
-     90%|######### | Fold : 9/10 [00:00<00:00,   20.54it/s]
+     90%|######### | Fold : 9/10 [00:00<00:00,   22.27it/s]
 
 
-    100%|##########| Fold : 10/10 [00:00<00:00,   20.63it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   20.39it/s]
+    100%|##########| Fold : 10/10 [00:00<00:00,   22.44it/s]    100%|##########| Fold : 10/10 [00:00<00:00,   22.12it/s]
 
-    100%|##########| n_interp : 4/4 [00:02<00:00,    1.54it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.54it/s]
+    100%|##########| n_interp : 4/4 [00:02<00:00,    1.63it/s]    100%|##########| n_interp : 4/4 [00:02<00:00,    1.63it/s]
 
 
 
@@ -1381,79 +1377,79 @@ you optimize your use of ``autoreject`` in preprocessing.
 
       0%|          | Repairing epochs : 0/97 [00:00<?,       ?it/s]
 
-      6%|6         | Repairing epochs : 6/97 [00:00<00:00,  343.40it/s]
+      6%|6         | Repairing epochs : 6/97 [00:00<00:00,  353.37it/s]
 
-     10%|#         | Repairing epochs : 10/97 [00:00<00:00,  296.26it/s]
+     11%|#1        | Repairing epochs : 11/97 [00:00<00:00,  311.90it/s]
 
-     14%|#4        | Repairing epochs : 14/97 [00:00<00:00,  245.20it/s]
+     14%|#4        | Repairing epochs : 14/97 [00:00<00:00,  249.86it/s]
 
-     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  208.22it/s]
+     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  211.05it/s]
 
-     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  188.09it/s]
+     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  190.54it/s]
 
-     21%|##        | Repairing epochs : 20/97 [00:00<00:00,  174.83it/s]
+     21%|##        | Repairing epochs : 20/97 [00:00<00:00,  176.87it/s]
 
-     23%|##2       | Repairing epochs : 22/97 [00:00<00:00,  165.25it/s]
+     23%|##2       | Repairing epochs : 22/97 [00:00<00:00,  167.09it/s]
 
-     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  158.13it/s]
+     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  159.85it/s]
 
-     27%|##6       | Repairing epochs : 26/97 [00:00<00:00,  152.02it/s]
+     27%|##6       | Repairing epochs : 26/97 [00:00<00:00,  153.65it/s]
 
-     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  145.89it/s]
+     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  147.55it/s]
 
-     31%|###       | Repairing epochs : 30/97 [00:00<00:00,  142.42it/s]
+     31%|###       | Repairing epochs : 30/97 [00:00<00:00,  144.03it/s]
 
-     33%|###2      | Repairing epochs : 32/97 [00:00<00:00,  138.43it/s]
+     33%|###2      | Repairing epochs : 32/97 [00:00<00:00,  139.93it/s]
 
-     35%|###5      | Repairing epochs : 34/97 [00:00<00:00,  136.24it/s]
+     35%|###5      | Repairing epochs : 34/97 [00:00<00:00,  137.26it/s]
 
-     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  133.46it/s]
+     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  134.46it/s]
 
-     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  130.59it/s]
+     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  131.50it/s]
 
-     42%|####2     | Repairing epochs : 41/97 [00:00<00:00,  131.63it/s]
+     42%|####2     | Repairing epochs : 41/97 [00:00<00:00,  132.57it/s]
 
-     44%|####4     | Repairing epochs : 43/97 [00:00<00:00,  128.94it/s]
+     44%|####4     | Repairing epochs : 43/97 [00:00<00:00,  129.42it/s]
 
-     46%|####6     | Repairing epochs : 45/97 [00:00<00:00,  127.58it/s]
+     46%|####6     | Repairing epochs : 45/97 [00:00<00:00,  128.03it/s]
 
-     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  126.09it/s]
+     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  126.67it/s]
 
-     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  127.92it/s]
+     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  128.51it/s]
 
-     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  126.76it/s]
+     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  127.37it/s]
 
-     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  127.18it/s]
+     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  127.85it/s]
 
-     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  128.74it/s]
+     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  129.33it/s]
 
-     63%|######2   | Repairing epochs : 61/97 [00:00<00:00,  129.61it/s]
+     63%|######2   | Repairing epochs : 61/97 [00:00<00:00,  130.28it/s]
 
-     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  131.02it/s]
+     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  131.62it/s]
 
-     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  129.66it/s]
+     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  130.20it/s]
 
-     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  128.57it/s]
+     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  129.06it/s]
 
-     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  127.50it/s]
+     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  128.11it/s]
 
-     75%|#######5  | Repairing epochs : 73/97 [00:00<00:00,  129.04it/s]
+     75%|#######5  | Repairing epochs : 73/97 [00:00<00:00,  129.59it/s]
 
-     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  131.27it/s]
+     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  131.88it/s]
 
-     81%|########1 | Repairing epochs : 79/97 [00:00<00:00,  133.47it/s]
+     81%|########1 | Repairing epochs : 79/97 [00:00<00:00,  134.19it/s]
 
-     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  135.47it/s]
+     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  136.38it/s]
 
-     88%|########7 | Repairing epochs : 85/97 [00:00<00:00,  137.52it/s]
+     88%|########7 | Repairing epochs : 85/97 [00:00<00:00,  138.51it/s]
 
-     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  139.33it/s]
+     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  140.47it/s]
 
-     94%|#########3| Repairing epochs : 91/97 [00:00<00:00,  140.84it/s]
+     94%|#########3| Repairing epochs : 91/97 [00:00<00:00,  142.13it/s]
 
-     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  142.13it/s]
+     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  143.60it/s]
 
-    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  143.75it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  140.43it/s]
+    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  145.32it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  141.69it/s]
     Dropped 11 epochs: 62, 63, 64, 65, 69, 71, 72, 73, 80, 95, 96
 
     <MNEBrowseFigure size 800x800 with 4 Axes>
@@ -1574,79 +1570,79 @@ The modified reject log can be applied to the data as follows.
 
       0%|          | Repairing epochs : 0/97 [00:00<?,       ?it/s]
 
-      6%|6         | Repairing epochs : 6/97 [00:00<00:00,  341.22it/s]
+      6%|6         | Repairing epochs : 6/97 [00:00<00:00,  350.98it/s]
 
-     11%|#1        | Repairing epochs : 11/97 [00:00<00:00,  306.87it/s]
+     11%|#1        | Repairing epochs : 11/97 [00:00<00:00,  310.61it/s]
 
-     14%|#4        | Repairing epochs : 14/97 [00:00<00:00,  246.31it/s]
+     14%|#4        | Repairing epochs : 14/97 [00:00<00:00,  248.86it/s]
 
-     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  209.12it/s]
+     16%|#6        | Repairing epochs : 16/97 [00:00<00:00,  210.67it/s]
 
-     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  188.83it/s]
+     19%|#8        | Repairing epochs : 18/97 [00:00<00:00,  190.02it/s]
 
-     21%|##        | Repairing epochs : 20/97 [00:00<00:00,  175.31it/s]
+     21%|##        | Repairing epochs : 20/97 [00:00<00:00,  176.58it/s]
 
-     23%|##2       | Repairing epochs : 22/97 [00:00<00:00,  165.80it/s]
+     23%|##2       | Repairing epochs : 22/97 [00:00<00:00,  166.87it/s]
 
-     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  158.59it/s]
+     25%|##4       | Repairing epochs : 24/97 [00:00<00:00,  159.78it/s]
 
-     27%|##6       | Repairing epochs : 26/97 [00:00<00:00,  152.22it/s]
+     27%|##6       | Repairing epochs : 26/97 [00:00<00:00,  153.40it/s]
 
-     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  145.85it/s]
+     29%|##8       | Repairing epochs : 28/97 [00:00<00:00,  147.22it/s]
 
-     31%|###       | Repairing epochs : 30/97 [00:00<00:00,  142.34it/s]
+     31%|###       | Repairing epochs : 30/97 [00:00<00:00,  143.78it/s]
 
-     33%|###2      | Repairing epochs : 32/97 [00:00<00:00,  138.44it/s]
+     33%|###2      | Repairing epochs : 32/97 [00:00<00:00,  139.73it/s]
 
-     35%|###5      | Repairing epochs : 34/97 [00:00<00:00,  136.29it/s]
+     35%|###5      | Repairing epochs : 34/97 [00:00<00:00,  137.50it/s]
 
-     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  133.43it/s]
+     37%|###7      | Repairing epochs : 36/97 [00:00<00:00,  134.60it/s]
 
-     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  130.45it/s]
+     39%|###9      | Repairing epochs : 38/97 [00:00<00:00,  131.48it/s]
 
-     42%|####2     | Repairing epochs : 41/97 [00:00<00:00,  131.48it/s]
+     42%|####2     | Repairing epochs : 41/97 [00:00<00:00,  132.60it/s]
 
-     44%|####4     | Repairing epochs : 43/97 [00:00<00:00,  128.85it/s]
+     44%|####4     | Repairing epochs : 43/97 [00:00<00:00,  129.87it/s]
 
-     46%|####6     | Repairing epochs : 45/97 [00:00<00:00,  127.58it/s]
+     46%|####6     | Repairing epochs : 45/97 [00:00<00:00,  128.53it/s]
 
-     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  126.11it/s]
+     48%|####8     | Repairing epochs : 47/97 [00:00<00:00,  127.09it/s]
 
-     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  127.83it/s]
+     52%|#####1    | Repairing epochs : 50/97 [00:00<00:00,  128.86it/s]
 
-     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  126.71it/s]
+     54%|#####3    | Repairing epochs : 52/97 [00:00<00:00,  127.69it/s]
 
-     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  127.12it/s]
+     57%|#####6    | Repairing epochs : 55/97 [00:00<00:00,  128.05it/s]
 
-     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  128.66it/s]
+     60%|#####9    | Repairing epochs : 58/97 [00:00<00:00,  129.55it/s]
 
-     63%|######2   | Repairing epochs : 61/97 [00:00<00:00,  129.46it/s]
+     63%|######2   | Repairing epochs : 61/97 [00:00<00:00,  130.41it/s]
 
-     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  130.82it/s]
+     66%|######5   | Repairing epochs : 64/97 [00:00<00:00,  131.72it/s]
 
-     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  129.44it/s]
+     68%|######8   | Repairing epochs : 66/97 [00:00<00:00,  130.37it/s]
 
-     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  128.42it/s]
+     70%|#######   | Repairing epochs : 68/97 [00:00<00:00,  129.28it/s]
 
-     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  127.41it/s]
+     72%|#######2  | Repairing epochs : 70/97 [00:00<00:00,  128.28it/s]
 
-     75%|#######5  | Repairing epochs : 73/97 [00:00<00:00,  128.97it/s]
+     75%|#######5  | Repairing epochs : 73/97 [00:00<00:00,  129.80it/s]
 
-     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  131.18it/s]
+     78%|#######8  | Repairing epochs : 76/97 [00:00<00:00,  132.23it/s]
 
-     81%|########1 | Repairing epochs : 79/97 [00:00<00:00,  133.35it/s]
+     81%|########1 | Repairing epochs : 79/97 [00:00<00:00,  134.54it/s]
 
-     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  135.25it/s]
+     85%|########4 | Repairing epochs : 82/97 [00:00<00:00,  136.70it/s]
 
-     88%|########7 | Repairing epochs : 85/97 [00:00<00:00,  137.30it/s]
+     88%|########7 | Repairing epochs : 85/97 [00:00<00:00,  138.87it/s]
 
-     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  139.19it/s]
+     91%|######### | Repairing epochs : 88/97 [00:00<00:00,  140.68it/s]
 
-     94%|#########3| Repairing epochs : 91/97 [00:00<00:00,  140.71it/s]
+     94%|#########3| Repairing epochs : 91/97 [00:00<00:00,  142.22it/s]
 
-     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  142.03it/s]
+     97%|#########6| Repairing epochs : 94/97 [00:00<00:00,  143.75it/s]
 
-    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  143.70it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  140.41it/s]
+    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  145.24it/s]    100%|##########| Repairing epochs : 97/97 [00:00<00:00,  141.75it/s]
     No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
     Number of epochs originally: 97, after autoreject: 97
 
@@ -1670,7 +1666,7 @@ data before further analyses.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  52.594 seconds)
+   **Total running time of the script:** ( 0 minutes  51.175 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_autoreject_workflow.py:
