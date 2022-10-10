@@ -165,27 +165,15 @@ MEG and EEG.” arXiv preprint arXiv:1612.08194, 2016.</p>
 <dt class="sig sig-object py" id="autoreject.Ransac.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/ransac.html#Ransac.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.Ransac.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform RANSAC on the given epochs.</p>
-<dl>
-<dt>Steps:</dt><dd><ol class="arabic simple">
-<li><p>Interpolate all channels from a subset of channels</p></li>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li><p>Interpolate all channels from a subset of channels
+(fraction denoted as <cite>min_channels</cite>), repeat <cite>n_resample</cite> times.</p></li>
+<li><p>See if correlation of interpolated channels to original channel
+is above 75% per epoch (<cite>min_corr</cite>)</p></li>
+<li><p>If more than <cite>unbroken_time</cite> fraction of epochs have a lower
+correlation than that, add channel to <code class="docutils literal notranslate"><span class="pre">self.bad_chs_</span></code></p></li>
 </ol>
-<blockquote>
-<div><p>(fraction denoted as <cite>min_channels</cite>), repeat <cite>n_resample</cite> times.</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>See if correlation of interpolated channels to original channel</p></li>
-</ol>
-<blockquote>
-<div><p>is above 75% per epoch (<cite>min_corr</cite>)</p>
-</div></blockquote>
-<ol class="arabic simple" start="3">
-<li><p>if more than <cite>unbroken_time</cite> fraction of epochs have a lower</p></li>
-</ol>
-<blockquote>
-<div><p>correlation than that, add channel to <a href="#id1"><span class="problematic" id="id2">self.bad_chs_</span></a></p>
-</div></blockquote>
-</dd>
-</dl>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
@@ -228,7 +216,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-09.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-10.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br/>
     </p>
   </div>

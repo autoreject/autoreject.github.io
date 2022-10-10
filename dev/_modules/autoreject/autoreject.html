@@ -631,7 +631,7 @@
 <span class="sd">        If False, suppress all output messages.</span>
 
 <span class="sd">    Attributes</span>
-<span class="sd">    -----------</span>
+<span class="sd">    ----------</span>
 <span class="sd">    bad_segments : array, shape (n_epochs, n_channels)</span>
 <span class="sd">        A boolean matrix where 1 denotes a bad data segment</span>
 <span class="sd">        according to the sensor thresholds.</span>
@@ -974,37 +974,39 @@
     <span class="k">return</span> <span class="n">local_reject</span><span class="p">,</span> <span class="n">loss</span>
 
 
-<div class="viewcode-block" id="AutoReject"><a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject">[docs]</a><span class="k">class</span> <span class="nc">AutoReject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AutoReject"><a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject">[docs]</a><span class="k">class</span> <span class="nc">AutoReject</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Efficiently find n_interpolate and consensus.</span>
 
 <span class="sd">    .. note::</span>
-<span class="sd">       AutoReject by design supports multiple channels.</span>
-<span class="sd">       If no picks are passed, separate solutions will be computed for each</span>
-<span class="sd">       channel type and internally combined. This then readily supports</span>
-<span class="sd">       cleaning unseen epochs from the different channel types used during fit.</span>
+<span class="sd">        AutoReject by design supports multiple channels.</span>
+<span class="sd">        If no picks are passed, separate solutions will be computed for each</span>
+<span class="sd">        channel type and internally combined. This then readily supports</span>
+<span class="sd">        cleaning unseen epochs from the different channel types used during</span>
+<span class="sd">        fit.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    n_interpolate : array | None</span>
-<span class="sd">        The values to try for the number of channels for which to interpolate.</span>
-<span class="sd">        This is :math:`\\rho`. If None, defaults to np.array([1, 4, 32])</span>
+<span class="sd">        The values to try for the number of channels for which to</span>
+<span class="sd">        interpolate. This is :math:`\\rho`. If None, defaults to</span>
+<span class="sd">        ``np.array([1, 4, 32])``</span>
 <span class="sd">    consensus : array | None</span>
 <span class="sd">        The values to try for percentage of channels that must agree as a</span>
-<span class="sd">        fraction of the total number of channels. This sets :math:`\\kappa/Q`.</span>
-<span class="sd">        If None, defaults to `np.linspace(0, 1.0, 11)`</span>
+<span class="sd">        fraction of the total number of channels. This sets</span>
+<span class="sd">        :math:`\\kappa/Q`. If None, defaults to ``np.linspace(0, 1.0, 11)``</span>
 <span class="sd">    cv : int | sklearn.model_selection object</span>
 <span class="sd">        Defaults to cv=10.</span>
 <span class="sd">    picks : str | list | slice | None</span>
-<span class="sd">        Channels to include. Slices and lists of integers will be interpreted</span>
-<span class="sd">        as channel indices. In lists, channel *type* strings (e.g.,</span>
-<span class="sd">        ``[&#39;meg&#39;, &#39;eeg&#39;]``) will pick channels of those types, channel *name*</span>
-<span class="sd">        strings (e.g., ``[&#39;MEG0111&#39;, &#39;MEG2623&#39;]`` will pick the given channels.</span>
-<span class="sd">        Can also be the string values ``&#39;all&#39;`` to pick all channels, or</span>
-<span class="sd">        ``&#39;data&#39;`` to pick data channels. None (default) will pick data</span>
-<span class="sd">        channels {&#39;meg&#39;, &#39;eeg&#39;}, which will lead fitting and combining</span>
-<span class="sd">        autoreject solutions across these channel types. Note that channels in</span>
-<span class="sd">        ``info[&#39;bads&#39;]`` *will be included* if their names or indices are</span>
-<span class="sd">        explicitly provided.</span>
+<span class="sd">        Channels to include. Slices and lists of integers will be</span>
+<span class="sd">        interpreted as channel indices. In lists, channel *type* strings</span>
+<span class="sd">        (e.g., ``[&#39;meg&#39;, &#39;eeg&#39;]``) will pick channels of those types,</span>
+<span class="sd">        channel *name* strings (e.g., ``[&#39;MEG0111&#39;, &#39;MEG2623&#39;]`` will pick</span>
+<span class="sd">        the given channels. Can also be the string values ``&#39;all&#39;`` to pick</span>
+<span class="sd">        all channels, or ``&#39;data&#39;`` to pick data channels. None (default)</span>
+<span class="sd">        will pick data channels {&#39;meg&#39;, &#39;eeg&#39;}, which will lead fitting and</span>
+<span class="sd">        combining  autoreject solutions across these channel types. Note</span>
+<span class="sd">        that channels in ``info[&#39;bads&#39;]`` *will be included* if their names</span>
+<span class="sd">        or indices are explicitly provided.</span>
 <span class="sd">    thresh_method : str</span>
 <span class="sd">        &#39;bayesian_optimization&#39; or &#39;random_search&#39;</span>
 <span class="sd">    n_jobs : int</span>
@@ -1017,7 +1019,7 @@
 <span class="sd">        If False, suppress all output messages.</span>
 
 <span class="sd">    Attributes</span>
-<span class="sd">    -----------</span>
+<span class="sd">    ----------</span>
 <span class="sd">    local_reject_ : list</span>
 <span class="sd">        The instances of _AutoReject for each channel type.</span>
 <span class="sd">    threshes_ : dict</span>
@@ -1038,7 +1040,7 @@
                  <span class="n">thresh_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
                  <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Init it.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the AutoReject class.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_interpolate</span> <span class="o">=</span> <span class="n">n_interpolate</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">consensus</span> <span class="o">=</span> <span class="n">consensus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thresh_method</span> <span class="o">=</span> <span class="n">thresh_method</span>
@@ -1363,7 +1365,7 @@
     <span class="k">return</span> <span class="n">interp_channels</span>
 
 
-<div class="viewcode-block" id="RejectLog"><a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog">[docs]</a><span class="k">class</span> <span class="nc">RejectLog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="RejectLog"><a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog">[docs]</a><span class="k">class</span> <span class="nc">RejectLog</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The Rejection Log.</span>
 
 <span class="sd">    Parameters</span>
@@ -1379,6 +1381,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bad_epochs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the Rejection Log.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bad_epochs</span> <span class="o">=</span> <span class="n">bad_epochs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span>
@@ -1488,7 +1491,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        epochs : instance of Epochs</span>
+<span class="sd">        epochs : instance of mne.Epochs</span>
 <span class="sd">            The epochs.</span>
 <span class="sd">        scalings : dict | None</span>
 <span class="sd">            Scaling factors for the traces. If None, defaults to::</span>
@@ -1577,7 +1580,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-09.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-10.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br/>
     </p>
   </div>

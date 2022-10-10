@@ -125,7 +125,7 @@
 <dt><strong>bad_epochs</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/glossary.html#term-array_like" title="(in NumPy v1.24.dev0)"><span>array_like</span></a>, shape (n_epochs,)</span></dt><dd><p>The boolean array with entries True for epochs that
 are marked as bad.</p>
 </dd>
-<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (<code class="xref py py-obj docutils literal notranslate"><span class="pre">n_epochs</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">n_channels</span></code>)</span></dt><dd><p>It contains integers that encode if a channel in a given
+<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (n_epochs, n_channels)</span></dt><dd><p>It contains integers that encode if a channel in a given
 epoch is good (value 0), bad (1), or bad and interpolated (2).</p>
 </dd>
 <dt><strong>ch_names</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The list of channels corresponding to the rows of the labels.</p>
@@ -171,7 +171,7 @@ figure and axes.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>epochs</strong><span class="classifier">instance of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Epochs</span></code></span></dt><dd><p>The epochs.</p>
+<dt><strong>epochs</strong><span class="classifier">instance of <a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a></span></dt><dd><p>The epochs.</p>
 </dd>
 <dt><strong>scalings</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Scaling factors for the traces. If None, defaults to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">grad</span><span class="o">=</span><span class="mf">4e-11</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="mf">20e-6</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="mf">150e-6</span><span class="p">,</span> <span class="n">ecg</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">,</span>
@@ -237,7 +237,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-09.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-10.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br/>
     </p>
   </div>

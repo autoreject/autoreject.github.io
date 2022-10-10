@@ -125,30 +125,32 @@
 <p>AutoReject by design supports multiple channels.
 If no picks are passed, separate solutions will be computed for each
 channel type and internally combined. This then readily supports
-cleaning unseen epochs from the different channel types used during fit.</p>
+cleaning unseen epochs from the different channel types used during
+fit.</p>
 </div>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>n_interpolate</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values to try for the number of channels for which to interpolate.
-This is <span class="math notranslate nohighlight">\(\\rho\)</span>. If None, defaults to np.array([1, 4, 32])</p>
+<dt><strong>n_interpolate</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values to try for the number of channels for which to
+interpolate. This is <span class="math notranslate nohighlight">\(\\rho\)</span>. If None, defaults to
+<code class="docutils literal notranslate"><span class="pre">np.array([1,</span> <span class="pre">4,</span> <span class="pre">32])</span></code></p>
 </dd>
 <dt><strong>consensus</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values to try for percentage of channels that must agree as a
-fraction of the total number of channels. This sets <span class="math notranslate nohighlight">\(\\kappa/Q\)</span>.
-If None, defaults to <cite>np.linspace(0, 1.0, 11)</cite></p>
+fraction of the total number of channels. This sets
+<span class="math notranslate nohighlight">\(\\kappa/Q\)</span>. If None, defaults to <code class="docutils literal notranslate"><span class="pre">np.linspace(0,</span> <span class="pre">1.0,</span> <span class="pre">11)</span></code></p>
 </dd>
 <dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection" title="(in scikit-learn v1.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a> object</span></dt><dd><p>Defaults to cv=10.</p>
 </dd>
-<dt><strong>picks</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Channels to include. Slices and lists of integers will be interpreted
-as channel indices. In lists, channel <em>type</em> strings (e.g.,
-<code class="docutils literal notranslate"><span class="pre">['meg',</span> <span class="pre">'eeg']</span></code>) will pick channels of those types, channel <em>name</em>
-strings (e.g., <code class="docutils literal notranslate"><span class="pre">['MEG0111',</span> <span class="pre">'MEG2623']</span></code> will pick the given channels.
-Can also be the string values <code class="docutils literal notranslate"><span class="pre">'all'</span></code> to pick all channels, or
-<code class="docutils literal notranslate"><span class="pre">'data'</span></code> to pick data channels. None (default) will pick data
-channels {‘meg’, ‘eeg’}, which will lead fitting and combining
-autoreject solutions across these channel types. Note that channels in
-<code class="docutils literal notranslate"><span class="pre">info['bads']</span></code> <em>will be included</em> if their names or indices are
-explicitly provided.</p>
+<dt><strong>picks</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Channels to include. Slices and lists of integers will be
+interpreted as channel indices. In lists, channel <em>type</em> strings
+(e.g., <code class="docutils literal notranslate"><span class="pre">['meg',</span> <span class="pre">'eeg']</span></code>) will pick channels of those types,
+channel <em>name</em> strings (e.g., <code class="docutils literal notranslate"><span class="pre">['MEG0111',</span> <span class="pre">'MEG2623']</span></code> will pick
+the given channels. Can also be the string values <code class="docutils literal notranslate"><span class="pre">'all'</span></code> to pick
+all channels, or <code class="docutils literal notranslate"><span class="pre">'data'</span></code> to pick data channels. None (default)
+will pick data channels {‘meg’, ‘eeg’}, which will lead fitting and
+combining  autoreject solutions across these channel types. Note
+that channels in <code class="docutils literal notranslate"><span class="pre">info['bads']</span></code> <em>will be included</em> if their names
+or indices are explicitly provided.</p>
 </dd>
 <dt><strong>thresh_method</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>‘bayesian_optimization’ or ‘random_search’</p>
 </dd>
@@ -169,7 +171,7 @@ If False, suppress all output messages.</p>
 <dt><strong>threshes_</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>The sensor-level thresholds with channel names as keys
 and the peak-to-peak thresholds as the values.</p>
 </dd>
-<dt><strong>loss_</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (<a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a>(<code class="xref py py-obj docutils literal notranslate"><span class="pre">n_interpolate</span></code>), <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a>(<code class="xref py py-obj docutils literal notranslate"><span class="pre">consensus</span></code>))</span></dt><dd><p>The cross validation error for different parameter values.</p>
+<dt><strong>loss_</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (<a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a>(n_interpolate), <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a>(consensus))</span></dt><dd><p>The cross validation error for different parameter values.</p>
 </dd>
 <dt><strong>consensus_</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>The estimated consensus per channel type.</p>
 </dd>
@@ -335,7 +337,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-09.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-10.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br/>
     </p>
   </div>
