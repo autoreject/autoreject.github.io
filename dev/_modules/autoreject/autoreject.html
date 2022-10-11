@@ -738,7 +738,7 @@
         <span class="n">bad_sensor_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">bad_sensor_counts</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">n_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span>
         <span class="n">n_consensus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consensus_</span><span class="p">[</span><span class="n">ch_type</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_channels</span>
-        <span class="n">bad_epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bad_sensor_counts</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+        <span class="n">bad_epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bad_sensor_counts</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">bad_sensor_counts</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_consensus</span><span class="p">:</span>
             <span class="n">n_epochs_drop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bad_sensor_counts</span> <span class="o">&gt;=</span>
                                    <span class="n">n_consensus</span><span class="p">)</span>
@@ -1128,7 +1128,7 @@
             <span class="n">meg_picks</span> <span class="o">=</span> <span class="n">pick_types</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                    <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
             <span class="n">this_info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_info</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg_picks</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">this_info</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">this_info</span><span class="p">,</span> <span class="n">templates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
         <span class="n">thresh_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_compute_thresholds</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
                               <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thresh_method</span><span class="p">,</span>
@@ -1214,7 +1214,7 @@
         <span class="n">labels</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
         <span class="n">reject_log</span> <span class="o">=</span> <span class="n">RejectLog</span><span class="p">(</span>
             <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-            <span class="n">bad_epochs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">),</span>
+            <span class="n">bad_epochs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
             <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">)</span>
 
         <span class="n">picks_by_type</span> <span class="o">=</span> <span class="n">_get_picks_by_type</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">)</span>
@@ -1539,7 +1539,7 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">this_label</span><span class="p">):</span>
                     <span class="n">epoch_color</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color_map</span><span class="p">[</span><span class="n">this_label</span><span class="p">])</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">epoch_color</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                    <span class="n">epoch_color</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
             <span class="n">epoch_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epoch_color</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">plot_mne_epochs</span><span class="p">(</span>
@@ -1580,7 +1580,7 @@ data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_
       
     </p>
     <p>
-        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-10.<br/>
+        &copy; Copyright 2016-2022, autoreject developers. Last updated on 2022-10-11.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br/>
     </p>
   </div>
