@@ -1,135 +1,466 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html lang="en" data-theme="auto">
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.5.dev0 documentation</title>
+    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.4.2 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_ransac';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/master/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.4.2';
+        </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="next" title="Preprocessing workflow with autoreject and ICA" href="plot_autoreject_workflow.html" />
+    <link rel="prev" title="Plotting the cross-validation curve" href="plot_global_reject.html" />
+    <link rel="canonical" href="https://autoreject.github.io/stable/index.html" />
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/scrollfix.js"></script>
 
-  </head><body>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../index.html">
-          autoreject</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.5.dev0</b></span>
-      </div>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="index.html">Examples</a></li>
-                <li><a href="../explanation.html">Explanation</a></li>
-                <li><a href="../faq.html">FAQ</a></li>
-                <li><a href="../api.html">API</a></li>
-                <li><a href="../whats_new.html">What's new</a></li>
-                <li><a href="https://github.com/autoreject/autoreject">GitHub</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"></ul>
-</li>
-              
-            
-            
-            
-            
-            
-              <li class="hidden-sm"></li>
-            
-          </ul>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
 
-          
-<div class="navbar-form navbar-right navbar-btn dropdown btn-group-sm" style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px">
-  <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-    v0.5.dev0
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="https://autoreject.github.io/dev/index.html">Development</a></li>
-    <li><a href="https://autoreject.github.io/stable/index.html">Stable</a></li>
-    <li><a href="https://autoreject.github.io/v0.4/index.html">v0.4</a></li>
-    <li><a href="https://autoreject.github.io/v0.3/index.html">v0.3</a></li>
-    <li><a href="https://autoreject.github.io/v0.2/index.html">v0.2</a></li>
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">autoreject 0.4.2 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../explanation.html">
+                        Explanation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api.html">
+                        API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../whats_new.html">
+                        What's new
+                      </a>
+                    </li>
+                
   </ul>
-</div>
-
-
-            
-<form class="navbar-form navbar-right" action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
         </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.4.2  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
     </div>
   </div>
-
-<div class="container content-container">
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Quick Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/autoreject/autoreject" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
   
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../explanation.html">
+                        Explanation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../faq.html">
+                        FAQ
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../api.html">
+                        API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../whats_new.html">
+                        What's new
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.4.2  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Quick Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/autoreject/autoreject" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="plot_estimate_global_reject.html">Find global rejection threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_channel_thresholds.html">Plot channel-level thresholds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_auto_repair.html">Automatically repair epochs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_global_reject.html">Plotting the cross-validation curve</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Detect bad sensors using RANSAC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_autoreject_workflow.html">Preprocessing workflow with <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> and ICA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_visualize_bad_epochs.html">Visualize bad sensors per trial</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Examples Gallery</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Detect bad sensors using RANSAC</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-plot-ransac-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="detect-bad-sensors-using-ransac">
-<span id="sphx-glr-auto-examples-plot-ransac-py"></span><h1>Detect bad sensors using RANSAC<a class="headerlink" href="#detect-bad-sensors-using-ransac" title="Permalink to this heading">¶</a></h1>
+<span id="sphx-glr-auto-examples-plot-ransac-py"></span><h1>Detect bad sensors using RANSAC<a class="headerlink" href="#detect-bad-sensors-using-ransac" title="Permalink to this heading">#</a></h1>
 <p>This example demonstrates how to use RANSAC <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> from the PREP pipeline to
 detect bad sensors and repair them. Note that this implementation in
 <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> is an extension of the original implementation and
 works for MEG sensors as well.</p>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="note">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>Bigdely-Shamlo, N., Mullen, T., Kothe, C., Su, K. M., &amp; Robbins, K. A.
 (2015). The PREP pipeline: standardized preprocessing for large-scale
 EEG analysis. Frontiers in neuroinformatics, 9, 16.</p>
 </aside>
-<aside class="footnote brackets" id="id4" role="note">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>Jas, M., Engemann, D. A., Bekhti, Y., Raimondo, F., &amp; Gramfort, A.
 (2017). Autoreject: Automated artifact rejection for MEG and EEG data.
@@ -181,7 +512,7 @@ only one channel type at a time.</p>
 </div>
 <p>Now, we can create epochs. The <code class="docutils literal notranslate"><span class="pre">reject</span></code> params will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
 because we do not want epochs to be dropped when instantiating
-<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
+<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.del_proj" title="mne.io.Raw.del_proj" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">del_proj</span></a><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -202,144 +533,144 @@ because we do not want epochs to be dropped when instantiating
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
   0%|          | interpolating channels : 0/50 [00:00&lt;?,       ?it/s]
-  2%|2         | interpolating channels : 1/50 [00:01&lt;00:58,    1.19s/it]
-  4%|4         | interpolating channels : 2/50 [00:02&lt;00:57,    1.20s/it]
-  6%|6         | interpolating channels : 3/50 [00:03&lt;00:56,    1.20s/it]
-  8%|8         | interpolating channels : 4/50 [00:04&lt;00:55,    1.21s/it]
- 10%|#         | interpolating channels : 5/50 [00:06&lt;00:54,    1.21s/it]
- 12%|#2        | interpolating channels : 6/50 [00:07&lt;00:53,    1.21s/it]
- 14%|#4        | interpolating channels : 7/50 [00:08&lt;00:51,    1.21s/it]
- 16%|#6        | interpolating channels : 8/50 [00:09&lt;00:50,    1.21s/it]
- 18%|#8        | interpolating channels : 9/50 [00:10&lt;00:49,    1.21s/it]
- 20%|##        | interpolating channels : 10/50 [00:12&lt;00:48,    1.21s/it]
- 22%|##2       | interpolating channels : 11/50 [00:13&lt;00:47,    1.21s/it]
- 24%|##4       | interpolating channels : 12/50 [00:14&lt;00:46,    1.21s/it]
- 26%|##6       | interpolating channels : 13/50 [00:15&lt;00:44,    1.21s/it]
- 28%|##8       | interpolating channels : 14/50 [00:16&lt;00:43,    1.21s/it]
- 30%|###       | interpolating channels : 15/50 [00:18&lt;00:42,    1.21s/it]
- 32%|###2      | interpolating channels : 16/50 [00:19&lt;00:41,    1.21s/it]
- 34%|###4      | interpolating channels : 17/50 [00:20&lt;00:40,    1.21s/it]
- 36%|###6      | interpolating channels : 18/50 [00:21&lt;00:38,    1.21s/it]
- 38%|###8      | interpolating channels : 19/50 [00:23&lt;00:37,    1.21s/it]
- 40%|####      | interpolating channels : 20/50 [00:24&lt;00:36,    1.21s/it]
- 42%|####2     | interpolating channels : 21/50 [00:25&lt;00:35,    1.21s/it]
- 44%|####4     | interpolating channels : 22/50 [00:26&lt;00:33,    1.21s/it]
- 46%|####6     | interpolating channels : 23/50 [00:27&lt;00:32,    1.21s/it]
- 48%|####8     | interpolating channels : 24/50 [00:29&lt;00:31,    1.21s/it]
- 50%|#####     | interpolating channels : 25/50 [00:30&lt;00:30,    1.21s/it]
- 52%|#####2    | interpolating channels : 26/50 [00:31&lt;00:29,    1.21s/it]
- 54%|#####4    | interpolating channels : 27/50 [00:32&lt;00:27,    1.21s/it]
- 56%|#####6    | interpolating channels : 28/50 [00:33&lt;00:26,    1.21s/it]
- 58%|#####8    | interpolating channels : 29/50 [00:35&lt;00:25,    1.21s/it]
- 60%|######    | interpolating channels : 30/50 [00:36&lt;00:24,    1.21s/it]
- 62%|######2   | interpolating channels : 31/50 [00:37&lt;00:23,    1.21s/it]
- 64%|######4   | interpolating channels : 32/50 [00:38&lt;00:21,    1.21s/it]
- 66%|######6   | interpolating channels : 33/50 [00:40&lt;00:20,    1.21s/it]
- 68%|######8   | interpolating channels : 34/50 [00:41&lt;00:19,    1.21s/it]
- 70%|#######   | interpolating channels : 35/50 [00:42&lt;00:18,    1.21s/it]
- 72%|#######2  | interpolating channels : 36/50 [00:43&lt;00:16,    1.21s/it]
- 74%|#######4  | interpolating channels : 37/50 [00:44&lt;00:15,    1.21s/it]
- 76%|#######6  | interpolating channels : 38/50 [00:46&lt;00:14,    1.21s/it]
- 78%|#######8  | interpolating channels : 39/50 [00:47&lt;00:13,    1.21s/it]
- 80%|########  | interpolating channels : 40/50 [00:48&lt;00:12,    1.21s/it]
- 82%|########2 | interpolating channels : 41/50 [00:49&lt;00:10,    1.21s/it]
- 84%|########4 | interpolating channels : 42/50 [00:50&lt;00:09,    1.21s/it]
- 86%|########6 | interpolating channels : 43/50 [00:52&lt;00:08,    1.21s/it]
- 88%|########8 | interpolating channels : 44/50 [00:53&lt;00:07,    1.21s/it]
- 90%|######### | interpolating channels : 45/50 [00:54&lt;00:06,    1.21s/it]
- 92%|#########2| interpolating channels : 46/50 [00:55&lt;00:04,    1.21s/it]
- 94%|#########3| interpolating channels : 47/50 [00:56&lt;00:03,    1.21s/it]
- 96%|#########6| interpolating channels : 48/50 [00:58&lt;00:02,    1.21s/it]
- 98%|#########8| interpolating channels : 49/50 [00:59&lt;00:01,    1.21s/it]
-100%|##########| interpolating channels : 50/50 [01:00&lt;00:00,    1.21s/it]
-100%|##########| interpolating channels : 50/50 [01:00&lt;00:00,    1.21s/it]
+  2%|2         | interpolating channels : 1/50 [00:01&lt;00:58,    1.20s/it]
+  4%|4         | interpolating channels : 2/50 [00:02&lt;00:58,    1.22s/it]
+  6%|6         | interpolating channels : 3/50 [00:03&lt;00:58,    1.24s/it]
+  8%|8         | interpolating channels : 4/50 [00:04&lt;00:57,    1.24s/it]
+ 10%|#         | interpolating channels : 5/50 [00:06&lt;00:55,    1.24s/it]
+ 12%|#2        | interpolating channels : 6/50 [00:07&lt;00:54,    1.24s/it]
+ 14%|#4        | interpolating channels : 7/50 [00:08&lt;00:53,    1.25s/it]
+ 16%|#6        | interpolating channels : 8/50 [00:09&lt;00:52,    1.25s/it]
+ 18%|#8        | interpolating channels : 9/50 [00:11&lt;00:51,    1.25s/it]
+ 20%|##        | interpolating channels : 10/50 [00:12&lt;00:50,    1.25s/it]
+ 22%|##2       | interpolating channels : 11/50 [00:13&lt;00:48,    1.26s/it]
+ 24%|##4       | interpolating channels : 12/50 [00:15&lt;00:47,    1.26s/it]
+ 26%|##6       | interpolating channels : 13/50 [00:16&lt;00:46,    1.26s/it]
+ 28%|##8       | interpolating channels : 14/50 [00:17&lt;00:45,    1.26s/it]
+ 30%|###       | interpolating channels : 15/50 [00:18&lt;00:44,    1.26s/it]
+ 32%|###2      | interpolating channels : 16/50 [00:20&lt;00:42,    1.26s/it]
+ 34%|###4      | interpolating channels : 17/50 [00:21&lt;00:41,    1.26s/it]
+ 36%|###6      | interpolating channels : 18/50 [00:22&lt;00:40,    1.26s/it]
+ 38%|###8      | interpolating channels : 19/50 [00:23&lt;00:38,    1.26s/it]
+ 40%|####      | interpolating channels : 20/50 [00:25&lt;00:37,    1.25s/it]
+ 42%|####2     | interpolating channels : 21/50 [00:26&lt;00:36,    1.25s/it]
+ 44%|####4     | interpolating channels : 22/50 [00:27&lt;00:35,    1.25s/it]
+ 46%|####6     | interpolating channels : 23/50 [00:28&lt;00:33,    1.26s/it]
+ 48%|####8     | interpolating channels : 24/50 [00:30&lt;00:32,    1.26s/it]
+ 50%|#####     | interpolating channels : 25/50 [00:31&lt;00:31,    1.26s/it]
+ 52%|#####2    | interpolating channels : 26/50 [00:32&lt;00:30,    1.25s/it]
+ 54%|#####4    | interpolating channels : 27/50 [00:33&lt;00:28,    1.25s/it]
+ 56%|#####6    | interpolating channels : 28/50 [00:35&lt;00:27,    1.25s/it]
+ 58%|#####8    | interpolating channels : 29/50 [00:36&lt;00:26,    1.26s/it]
+ 60%|######    | interpolating channels : 30/50 [00:37&lt;00:25,    1.26s/it]
+ 62%|######2   | interpolating channels : 31/50 [00:38&lt;00:23,    1.26s/it]
+ 64%|######4   | interpolating channels : 32/50 [00:40&lt;00:22,    1.26s/it]
+ 66%|######6   | interpolating channels : 33/50 [00:41&lt;00:21,    1.26s/it]
+ 68%|######8   | interpolating channels : 34/50 [00:42&lt;00:20,    1.26s/it]
+ 70%|#######   | interpolating channels : 35/50 [00:43&lt;00:18,    1.26s/it]
+ 72%|#######2  | interpolating channels : 36/50 [00:45&lt;00:17,    1.26s/it]
+ 74%|#######4  | interpolating channels : 37/50 [00:46&lt;00:16,    1.26s/it]
+ 76%|#######6  | interpolating channels : 38/50 [00:47&lt;00:15,    1.26s/it]
+ 78%|#######8  | interpolating channels : 39/50 [00:48&lt;00:13,    1.26s/it]
+ 80%|########  | interpolating channels : 40/50 [00:50&lt;00:12,    1.25s/it]
+ 82%|########2 | interpolating channels : 41/50 [00:51&lt;00:11,    1.26s/it]
+ 84%|########4 | interpolating channels : 42/50 [00:52&lt;00:10,    1.26s/it]
+ 86%|########6 | interpolating channels : 43/50 [00:53&lt;00:08,    1.26s/it]
+ 88%|########8 | interpolating channels : 44/50 [00:55&lt;00:07,    1.26s/it]
+ 90%|######### | interpolating channels : 45/50 [00:56&lt;00:06,    1.25s/it]
+ 92%|#########2| interpolating channels : 46/50 [00:57&lt;00:05,    1.25s/it]
+ 94%|#########3| interpolating channels : 47/50 [00:58&lt;00:03,    1.25s/it]
+ 96%|#########6| interpolating channels : 48/50 [01:00&lt;00:02,    1.26s/it]
+ 98%|#########8| interpolating channels : 49/50 [01:01&lt;00:01,    1.26s/it]
+100%|##########| interpolating channels : 50/50 [01:02&lt;00:00,    1.26s/it]
+100%|##########| interpolating channels : 50/50 [01:02&lt;00:00,    1.26s/it]
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.0min remaining:    0.0s
 [Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.0min finished
 [Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
   0%|          | Iterating epochs : 0/72 [00:00&lt;?,       ?it/s]
-  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:04,   14.39it/s]
-  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:03,   18.73it/s]
-  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:03,   21.60it/s]
-  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:02,   23.41it/s]
-  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:02,   24.56it/s]
-  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:02,   25.44it/s]
- 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:02,   26.11it/s]
- 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:02,   26.64it/s]
- 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:02,   27.05it/s]
- 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:02,   27.38it/s]
- 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:02,   27.58it/s]
- 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:02,   27.76it/s]
- 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:02,   27.94it/s]
- 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:02,   28.12it/s]
- 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:02,   28.31it/s]
- 22%|##2       | Iterating epochs : 16/72 [00:00&lt;00:01,   28.51it/s]
- 24%|##3       | Iterating epochs : 17/72 [00:00&lt;00:01,   28.68it/s]
- 25%|##5       | Iterating epochs : 18/72 [00:00&lt;00:01,   28.83it/s]
- 26%|##6       | Iterating epochs : 19/72 [00:00&lt;00:01,   28.98it/s]
- 28%|##7       | Iterating epochs : 20/72 [00:00&lt;00:01,   29.05it/s]
- 29%|##9       | Iterating epochs : 21/72 [00:00&lt;00:01,   29.11it/s]
- 31%|###       | Iterating epochs : 22/72 [00:00&lt;00:01,   29.16it/s]
- 32%|###1      | Iterating epochs : 23/72 [00:00&lt;00:01,   29.20it/s]
- 33%|###3      | Iterating epochs : 24/72 [00:00&lt;00:01,   29.22it/s]
- 35%|###4      | Iterating epochs : 25/72 [00:00&lt;00:01,   29.24it/s]
- 36%|###6      | Iterating epochs : 26/72 [00:00&lt;00:01,   29.26it/s]
- 38%|###7      | Iterating epochs : 27/72 [00:00&lt;00:01,   29.30it/s]
- 39%|###8      | Iterating epochs : 28/72 [00:00&lt;00:01,   29.34it/s]
- 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:01,   29.40it/s]
- 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:01,   29.45it/s]
- 43%|####3     | Iterating epochs : 31/72 [00:01&lt;00:01,   29.50it/s]
- 44%|####4     | Iterating epochs : 32/72 [00:01&lt;00:01,   29.55it/s]
- 46%|####5     | Iterating epochs : 33/72 [00:01&lt;00:01,   29.60it/s]
- 47%|####7     | Iterating epochs : 34/72 [00:01&lt;00:01,   29.67it/s]
- 49%|####8     | Iterating epochs : 35/72 [00:01&lt;00:01,   29.70it/s]
- 50%|#####     | Iterating epochs : 36/72 [00:01&lt;00:01,   29.74it/s]
- 51%|#####1    | Iterating epochs : 37/72 [00:01&lt;00:01,   29.77it/s]
- 53%|#####2    | Iterating epochs : 38/72 [00:01&lt;00:01,   29.80it/s]
- 54%|#####4    | Iterating epochs : 39/72 [00:01&lt;00:01,   29.84it/s]
- 56%|#####5    | Iterating epochs : 40/72 [00:01&lt;00:01,   29.86it/s]
- 57%|#####6    | Iterating epochs : 41/72 [00:01&lt;00:01,   29.89it/s]
- 58%|#####8    | Iterating epochs : 42/72 [00:01&lt;00:01,   29.92it/s]
- 60%|#####9    | Iterating epochs : 43/72 [00:01&lt;00:00,   29.96it/s]
- 61%|######1   | Iterating epochs : 44/72 [00:01&lt;00:00,   30.01it/s]
- 62%|######2   | Iterating epochs : 45/72 [00:01&lt;00:00,   30.04it/s]
- 64%|######3   | Iterating epochs : 46/72 [00:01&lt;00:00,   30.08it/s]
- 65%|######5   | Iterating epochs : 47/72 [00:01&lt;00:00,   30.11it/s]
- 67%|######6   | Iterating epochs : 48/72 [00:01&lt;00:00,   30.10it/s]
- 68%|######8   | Iterating epochs : 49/72 [00:01&lt;00:00,   30.10it/s]
- 69%|######9   | Iterating epochs : 50/72 [00:01&lt;00:00,   30.07it/s]
- 71%|#######   | Iterating epochs : 51/72 [00:01&lt;00:00,   30.07it/s]
- 72%|#######2  | Iterating epochs : 52/72 [00:01&lt;00:00,   30.07it/s]
- 74%|#######3  | Iterating epochs : 53/72 [00:01&lt;00:00,   30.07it/s]
- 75%|#######5  | Iterating epochs : 54/72 [00:01&lt;00:00,   30.10it/s]
- 76%|#######6  | Iterating epochs : 55/72 [00:01&lt;00:00,   30.13it/s]
- 78%|#######7  | Iterating epochs : 56/72 [00:01&lt;00:00,   30.13it/s]
- 79%|#######9  | Iterating epochs : 57/72 [00:01&lt;00:00,   30.14it/s]
- 81%|########  | Iterating epochs : 58/72 [00:01&lt;00:00,   30.14it/s]
- 82%|########1 | Iterating epochs : 59/72 [00:01&lt;00:00,   30.16it/s]
- 83%|########3 | Iterating epochs : 60/72 [00:02&lt;00:00,   30.17it/s]
- 85%|########4 | Iterating epochs : 61/72 [00:02&lt;00:00,   30.18it/s]
- 86%|########6 | Iterating epochs : 62/72 [00:02&lt;00:00,   30.18it/s]
- 88%|########7 | Iterating epochs : 63/72 [00:02&lt;00:00,   30.19it/s]
- 89%|########8 | Iterating epochs : 64/72 [00:02&lt;00:00,   30.19it/s]
- 90%|######### | Iterating epochs : 65/72 [00:02&lt;00:00,   30.20it/s]
- 92%|#########1| Iterating epochs : 66/72 [00:02&lt;00:00,   30.23it/s]
- 93%|#########3| Iterating epochs : 67/72 [00:02&lt;00:00,   30.23it/s]
- 94%|#########4| Iterating epochs : 68/72 [00:02&lt;00:00,   30.24it/s]
- 96%|#########5| Iterating epochs : 69/72 [00:02&lt;00:00,   30.23it/s]
- 97%|#########7| Iterating epochs : 70/72 [00:02&lt;00:00,   30.22it/s]
- 99%|#########8| Iterating epochs : 71/72 [00:02&lt;00:00,   30.21it/s]
-100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   30.22it/s]
-100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   29.67it/s]
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.4s remaining:    0.0s
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.4s finished
+  1%|1         | Iterating epochs : 1/72 [00:00&lt;00:02,   24.36it/s]
+  3%|2         | Iterating epochs : 2/72 [00:00&lt;00:02,   23.51it/s]
+  4%|4         | Iterating epochs : 3/72 [00:00&lt;00:02,   24.42it/s]
+  6%|5         | Iterating epochs : 4/72 [00:00&lt;00:02,   24.95it/s]
+  7%|6         | Iterating epochs : 5/72 [00:00&lt;00:02,   25.32it/s]
+  8%|8         | Iterating epochs : 6/72 [00:00&lt;00:02,   25.59it/s]
+ 10%|9         | Iterating epochs : 7/72 [00:00&lt;00:02,   25.88it/s]
+ 11%|#1        | Iterating epochs : 8/72 [00:00&lt;00:02,   26.10it/s]
+ 12%|#2        | Iterating epochs : 9/72 [00:00&lt;00:02,   26.27it/s]
+ 14%|#3        | Iterating epochs : 10/72 [00:00&lt;00:02,   26.43it/s]
+ 15%|#5        | Iterating epochs : 11/72 [00:00&lt;00:02,   26.46it/s]
+ 17%|#6        | Iterating epochs : 12/72 [00:00&lt;00:02,   26.39it/s]
+ 18%|#8        | Iterating epochs : 13/72 [00:00&lt;00:02,   26.36it/s]
+ 19%|#9        | Iterating epochs : 14/72 [00:00&lt;00:02,   26.30it/s]
+ 21%|##        | Iterating epochs : 15/72 [00:00&lt;00:02,   26.27it/s]
+ 22%|##2       | Iterating epochs : 16/72 [00:00&lt;00:02,   26.23it/s]
+ 24%|##3       | Iterating epochs : 17/72 [00:00&lt;00:02,   26.21it/s]
+ 25%|##5       | Iterating epochs : 18/72 [00:00&lt;00:02,   26.23it/s]
+ 26%|##6       | Iterating epochs : 19/72 [00:00&lt;00:02,   26.27it/s]
+ 28%|##7       | Iterating epochs : 20/72 [00:00&lt;00:01,   26.30it/s]
+ 29%|##9       | Iterating epochs : 21/72 [00:00&lt;00:01,   26.26it/s]
+ 31%|###       | Iterating epochs : 22/72 [00:00&lt;00:01,   26.25it/s]
+ 32%|###1      | Iterating epochs : 23/72 [00:00&lt;00:01,   26.28it/s]
+ 33%|###3      | Iterating epochs : 24/72 [00:00&lt;00:01,   26.33it/s]
+ 35%|###4      | Iterating epochs : 25/72 [00:00&lt;00:01,   26.35it/s]
+ 36%|###6      | Iterating epochs : 26/72 [00:00&lt;00:01,   26.36it/s]
+ 38%|###7      | Iterating epochs : 27/72 [00:01&lt;00:01,   26.42it/s]
+ 39%|###8      | Iterating epochs : 28/72 [00:01&lt;00:01,   26.56it/s]
+ 40%|####      | Iterating epochs : 29/72 [00:01&lt;00:01,   26.67it/s]
+ 42%|####1     | Iterating epochs : 30/72 [00:01&lt;00:01,   26.77it/s]
+ 43%|####3     | Iterating epochs : 31/72 [00:01&lt;00:01,   26.86it/s]
+ 44%|####4     | Iterating epochs : 32/72 [00:01&lt;00:01,   26.96it/s]
+ 46%|####5     | Iterating epochs : 33/72 [00:01&lt;00:01,   27.04it/s]
+ 47%|####7     | Iterating epochs : 34/72 [00:01&lt;00:01,   27.07it/s]
+ 49%|####8     | Iterating epochs : 35/72 [00:01&lt;00:01,   27.13it/s]
+ 50%|#####     | Iterating epochs : 36/72 [00:01&lt;00:01,   27.19it/s]
+ 51%|#####1    | Iterating epochs : 37/72 [00:01&lt;00:01,   27.24it/s]
+ 53%|#####2    | Iterating epochs : 38/72 [00:01&lt;00:01,   27.25it/s]
+ 54%|#####4    | Iterating epochs : 39/72 [00:01&lt;00:01,   27.15it/s]
+ 56%|#####5    | Iterating epochs : 40/72 [00:01&lt;00:01,   26.95it/s]
+ 57%|#####6    | Iterating epochs : 41/72 [00:01&lt;00:01,   26.88it/s]
+ 58%|#####8    | Iterating epochs : 42/72 [00:01&lt;00:01,   26.82it/s]
+ 60%|#####9    | Iterating epochs : 43/72 [00:01&lt;00:01,   26.76it/s]
+ 61%|######1   | Iterating epochs : 44/72 [00:01&lt;00:01,   26.71it/s]
+ 62%|######2   | Iterating epochs : 45/72 [00:01&lt;00:01,   26.65it/s]
+ 64%|######3   | Iterating epochs : 46/72 [00:01&lt;00:00,   26.61it/s]
+ 65%|######5   | Iterating epochs : 47/72 [00:01&lt;00:00,   26.56it/s]
+ 67%|######6   | Iterating epochs : 48/72 [00:01&lt;00:00,   26.51it/s]
+ 68%|######8   | Iterating epochs : 49/72 [00:01&lt;00:00,   26.47it/s]
+ 69%|######9   | Iterating epochs : 50/72 [00:01&lt;00:00,   26.46it/s]
+ 71%|#######   | Iterating epochs : 51/72 [00:01&lt;00:00,   26.46it/s]
+ 72%|#######2  | Iterating epochs : 52/72 [00:01&lt;00:00,   26.45it/s]
+ 74%|#######3  | Iterating epochs : 53/72 [00:01&lt;00:00,   26.41it/s]
+ 75%|#######5  | Iterating epochs : 54/72 [00:02&lt;00:00,   26.39it/s]
+ 76%|#######6  | Iterating epochs : 55/72 [00:02&lt;00:00,   26.39it/s]
+ 78%|#######7  | Iterating epochs : 56/72 [00:02&lt;00:00,   26.40it/s]
+ 79%|#######9  | Iterating epochs : 57/72 [00:02&lt;00:00,   26.42it/s]
+ 81%|########  | Iterating epochs : 58/72 [00:02&lt;00:00,   26.51it/s]
+ 82%|########1 | Iterating epochs : 59/72 [00:02&lt;00:00,   26.62it/s]
+ 83%|########3 | Iterating epochs : 60/72 [00:02&lt;00:00,   26.71it/s]
+ 85%|########4 | Iterating epochs : 61/72 [00:02&lt;00:00,   26.82it/s]
+ 86%|########6 | Iterating epochs : 62/72 [00:02&lt;00:00,   26.93it/s]
+ 88%|########7 | Iterating epochs : 63/72 [00:02&lt;00:00,   27.03it/s]
+ 89%|########8 | Iterating epochs : 64/72 [00:02&lt;00:00,   27.13it/s]
+ 90%|######### | Iterating epochs : 65/72 [00:02&lt;00:00,   27.15it/s]
+ 92%|#########1| Iterating epochs : 66/72 [00:02&lt;00:00,   27.06it/s]
+ 93%|#########3| Iterating epochs : 67/72 [00:02&lt;00:00,   26.99it/s]
+ 94%|#########4| Iterating epochs : 68/72 [00:02&lt;00:00,   26.92it/s]
+ 96%|#########5| Iterating epochs : 69/72 [00:02&lt;00:00,   26.86it/s]
+ 97%|#########7| Iterating epochs : 70/72 [00:02&lt;00:00,   26.81it/s]
+ 99%|#########8| Iterating epochs : 71/72 [00:02&lt;00:00,   26.75it/s]
+100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   26.70it/s]
+100%|##########| Iterating epochs : 72/72 [00:02&lt;00:00,   26.64it/s]
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.7s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.7s finished
 [Done]
 Interpolating bad channels
     Automatic origin fit: head of radius 91.0 mm
     Computing dot products for 292 MEG channels...
 [Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.6s remaining:    0.0s
-[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.6s finished
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.8s remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.8s finished
     Computing cross products for 292 → 14 MEG channels...
     Preparing the mapping matrix...
     Truncating at 80/292 components to omit less than 0.0001 (9.4e-05)
@@ -370,6 +701,10 @@ MEG 2443
 <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span>
 </pre></div>
 </div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_channels() is a legacy function. New code should use inst.pick(...).
+NOTE: pick_channels() is a legacy function. New code should use inst.pick(...).
+</pre></div>
+</div>
 <p>We will manually mark the bad channels just for plotting.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
 <a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
@@ -396,7 +731,9 @@ MEG 2443
 <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.tight_layout" title="matplotlib.figure.Figure.tight_layout" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_001.png" srcset="../_images/sphx_glr_plot_ransac_001.png" alt="Before RANSAC, After RANSAC" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/plot_ransac.py:115: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<img src="../_images/sphx_glr_plot_ransac_001.png" srcset="../_images/sphx_glr_plot_ransac_001.png" alt="Before RANSAC, After RANSAC" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
+NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
+/home/circleci/project/examples/plot_ransac.py:115: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.tight_layout()
 </pre></div>
 </div>
@@ -418,7 +755,7 @@ a heatmap.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  7.459 seconds)</p>
+<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  10.364 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c46630e57be6fee69c36b69808826387/plot_ransac.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ransac.py</span></code></a></p>
@@ -432,24 +769,106 @@ a heatmap.</p>
 </section>
 
 
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="plot_global_reject.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Plotting the cross-validation curve</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="plot_autoreject_workflow.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Preprocessing workflow with <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> and ICA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
 </div>
 
-<!-- Github "fork me" ribbon -->
-<a href="https://github.com/autoreject/autoreject"><img style="position: absolute; top: 50px; right: 0; border: 0;" 
-src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
-alt="Fork me on GitHub"
-data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-    </p>
-    <p>
-        &copy; Copyright 2016-2023, autoreject developers. Last updated on 2023-05-04.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.0.<br/>
-    </p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-</footer>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2016-2023, autoreject developers. Last updated on 2023-05-28.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>
