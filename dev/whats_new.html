@@ -429,6 +429,12 @@ document.write(`
 <li><p>Nothing yet</p></li>
 </ul>
 </section>
+<section id="bug">
+<h3>Bug<a class="headerlink" href="#bug" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Fixed bug that arose if <cite>picks</cite> was specified with an unsorted list, by <a class="reference external" href="http://pbogdan.com/">Paul Bogdan</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/312">#312</a></p></li>
+</ul>
+</section>
 </section>
 <section id="id2">
 <span id="id3"></span><h2>0.4.2 (2023-05-28)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
@@ -485,8 +491,8 @@ modification or saving in <a class="reference internal" href="generated/autoreje
 <li><p><a class="reference internal" href="generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.RejectLog.plot()</span></code></a> now accepts an <code class="docutils literal notranslate"><span class="pre">ax</span></code> parameter to pass an existing Axes object, by <a class="reference external" href="https://stefanappelhoff.com/">Stefan Appelhoff</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/301">#301</a></p></li>
 </ul>
 </section>
-<section id="bug">
-<h3>Bug<a class="headerlink" href="#bug" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3>Bug<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Don’t reset <cite>epochs.info[‘bads’]</cite> within <a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a>, by <a class="reference external" href="https://perso.telecom-paristech.fr/mjas/">Mainak Jas</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/203">#203</a></p></li>
 <li><p>Adjust usage of a private MNE method used for interpolation that failed for newer MNE versions, by <a class="reference external" href="https://www.adina-wagner.com/">Adina Wagner</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/212">#212</a>.</p></li>
@@ -496,16 +502,16 @@ modification or saving in <a class="reference internal" href="generated/autoreje
 <h3>API<a class="headerlink" href="#api" title="Link to this heading">#</a></h3>
 </section>
 </section>
-<section id="id16">
-<span id="id17"></span><h2>0.2.2 (2020-12-23)<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<section id="id17">
+<span id="id18"></span><h2>0.2.2 (2020-12-23)<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 </section>
-<section id="id18">
-<span id="id19"></span><h2>0.2.1 (2019-11-07)<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<section id="id19">
+<span id="id20"></span><h2>0.2.1 (2019-11-07)<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
 </section>
-<section id="id20">
-<span id="id21"></span><h2>0.2 (2019-06-24)<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
-<section id="id22">
-<h3>Changelog<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<section id="id21">
+<span id="id22"></span><h2>0.2 (2019-06-24)<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<section id="id23">
+<h3>Changelog<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Introduced a new method <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject.save" title="autoreject.AutoReject.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">autoreject.AutoReject.save()</span></code></a> and function <a class="reference internal" href="generated/autoreject.read_auto_reject.html#autoreject.read_auto_reject" title="autoreject.read_auto_reject"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.read_auto_reject()</span></code></a>
 for IO of autoreject objects, by <a class="reference external" href="https://perso.telecom-paristech.fr/mjas/">Mainak Jas</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/120">#120</a></p></li>
@@ -515,8 +521,8 @@ in <a class="reference external" href="https://github.com/autoreject/autoreject/
 in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/129">#129</a></p></li>
 </ul>
 </section>
-<section id="id23">
-<h3>Bug<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<section id="id24">
+<h3>Bug<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Fixed bug in picking bad channels during interpolation. This bug only affects users who got an assertion
 error when running <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a>, by <a class="reference external" href="https://perso.telecom-paristech.fr/mjas/">Mainak Jas</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/115">#115</a></p></li>
@@ -526,18 +532,18 @@ hang when the channel positions are nan, by <a class="reference external" href="
 <li><p>Fixed pickling of <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a>, by <a class="reference external" href="https://hubertjb.github.io/">Hubert Banville</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/193">#193</a></p></li>
 </ul>
 </section>
-<section id="id24">
-<h3>API<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<section id="id25">
+<h3>API<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Added <cite>ch_types</cite> argument to <a class="reference internal" href="generated/autoreject.get_rejection_threshold.html#autoreject.get_rejection_threshold" title="autoreject.get_rejection_threshold"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.get_rejection_threshold()</span></code></a> to find
 rejection thresholds for only subset of channel types in the data, by <a class="reference external" href="https://perso.telecom-paristech.fr/mjas/">Mainak Jas</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/140">#140</a></p></li>
 </ul>
 </section>
 </section>
-<section id="id25">
-<span id="id26"></span><h2>0.1 (2018-06-11)<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
-<section id="id27">
-<h3>Changelog<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<section id="id26">
+<span id="id27"></span><h2>0.1 (2018-06-11)<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<section id="id28">
+<h3>Changelog<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Initial release</p></li>
 </ul>
@@ -585,6 +591,7 @@ rejection thresholds for only subset of channel types in the data, by <a class="
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unreleased">0.5 (unreleased)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bug">Bug</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">0.4.2 (2023-05-28)</a><ul class="nav section-nav flex-column">
@@ -602,20 +609,20 @@ rejection thresholds for only subset of channel types in the data, by <a class="
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">0.3.1 (2022-03-16)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">0.3 (2022-01-04)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Changelog</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bug">Bug</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Bug</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">0.2.2 (2020-12-23)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">0.2.1 (2019-11-07)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">0.2 (2019-06-24)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Changelog</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Bug</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">0.2.2 (2020-12-23)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">0.2.1 (2019-11-07)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">0.2 (2019-06-24)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">Changelog</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">Bug</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">API</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">0.1 (2018-06-11)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">Changelog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">0.1 (2018-06-11)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Changelog</a></li>
 </ul>
 </li>
 </ul>
