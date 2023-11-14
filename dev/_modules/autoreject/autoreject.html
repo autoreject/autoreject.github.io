@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.autoreject &#8212; autoreject 0.5.dev2 documentation</title>
+    <title>autoreject.autoreject &#8212; autoreject 0.4.3 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
   <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
-    <script src="../../_static/documentation_options.js?v=a75859d3"></script>
+    <script src="../../_static/documentation_options.js?v=d8242109"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -49,7 +49,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.14.3';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/master/doc/_static/versions.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.4.3';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.dev2 documentation</p>
+    <p class="title logo__title">autoreject 0.4.3 documentation</p>
   
 </a></div>
     
@@ -466,10 +466,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
-<span class="k">try</span><span class="p">:</span>  <span class="c1"># for mne &lt; 1.0</span>
-    <span class="kn">from</span> <span class="nn">mne.externals.h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
-<span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ModuleNotFoundError</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
+<span class="kn">from</span> <span class="nn">h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">pick_types</span>
@@ -482,8 +479,9 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">_clean_by_interp</span><span class="p">,</span> <span class="n">interpolate_bads</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">,</span>
                     <span class="n">_pbar</span><span class="p">,</span> <span class="n">_handle_picks</span><span class="p">,</span> <span class="n">_check_data</span><span class="p">,</span> <span class="n">_compute_dots</span><span class="p">,</span>
-                    <span class="n">_get_picks_by_type</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">)</span>
+                    <span class="n">_get_picks_by_type</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">,</span> <span class="n">_GDKW</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.bayesopt</span> <span class="kn">import</span> <span class="n">expected_improvement</span><span class="p">,</span> <span class="n">bayes_opt</span>
+
 
 <span class="n">_INIT_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;consensus&#39;</span><span class="p">,</span> <span class="s1">&#39;n_interpolate&#39;</span><span class="p">,</span> <span class="s1">&#39;picks&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="s1">&#39;n_jobs&#39;</span><span class="p">,</span> <span class="s1">&#39;cv&#39;</span><span class="p">,</span> <span class="s1">&#39;random_state&#39;</span><span class="p">,</span>
@@ -546,7 +544,7 @@ document.write(`
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only accepts MNE epochs objects.&#39;</span><span class="p">)</span>
 
     <span class="n">data_picks</span> <span class="o">=</span> <span class="n">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[:,</span> <span class="n">data_picks</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">data_picks</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">)</span>
     <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
 
     <span class="k">if</span> <span class="n">param_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -729,7 +727,7 @@ document.write(`
         <span class="k">elif</span> <span class="n">ch_type</span> <span class="o">==</span> <span class="s1">&#39;seeg&#39;</span><span class="p">:</span>
             <span class="n">picks</span> <span class="o">=</span> <span class="n">pick_types</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">seeg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[:,</span> <span class="n">picks</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">)</span>
         <span class="n">n_epochs</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
         <span class="n">all_threshes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">deltas</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
@@ -931,13 +929,13 @@ document.write(`
                 <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">n_epochs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="p">))</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">_GDKW</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="p">))</span>
         <span class="k">if</span> <span class="n">augment</span><span class="p">:</span>
             <span class="n">epochs_interp</span> <span class="o">=</span> <span class="n">_clean_by_interp</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
                                              <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
             <span class="c1"># non-data channels will be duplicate</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span>
-                                   <span class="n">epochs_interp</span><span class="o">.</span><span class="n">get_data</span><span class="p">()),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">_GDKW</span><span class="p">),</span>
+                                   <span class="n">epochs_interp</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">_GDKW</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_epochs</span><span class="p">,</span> <span class="p">))]</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
                                     <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
@@ -1042,7 +1040,7 @@ document.write(`
         <span class="n">bad_sensor_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),))</span>
 
         <span class="n">this_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>
-        <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[:,</span> <span class="n">picks</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="n">threshes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">threshes_</span><span class="p">[</span><span class="n">ch_name</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch_name</span> <span class="ow">in</span> <span class="n">this_ch_names</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">ch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">deltas</span><span class="p">,</span> <span class="n">threshes</span><span class="p">)):</span>
             <span class="n">bad_epochs_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">delta</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1070,7 +1068,7 @@ document.write(`
                     <span class="n">interp_chs_mask</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">epoch_idx</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># get peak-to-peak for channels in that epoch</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">epoch_idx</span><span class="p">]</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">epoch_idx</span><span class="p">]</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">_GDKW</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
                     <span class="n">peaks</span><span class="p">[</span><span class="n">non_picks</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
                     <span class="c1"># find channels which are bad by rejection threshold</span>
@@ -1193,7 +1191,7 @@ document.write(`
             <span class="n">epochs_copy</span><span class="p">,</span> <span class="n">interp_channels</span><span class="o">=</span><span class="n">interp_channels</span><span class="p">,</span>
             <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span>
-            <span class="n">epochs_copy</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span>
+            <span class="n">epochs_copy</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">_GDKW</span><span class="p">),</span>
             <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">epochs_copy</span>  <span class="c1"># I can&#39;t wait for garbage collection.</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -1302,7 +1300,7 @@ document.write(`
             <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen</span>
 
-        <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[:,</span> <span class="n">picks_</span><span class="p">]</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks_</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">)</span>
         <span class="n">cv_splits</span> <span class="o">=</span> <span class="n">CVSplits</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">n_folds</span><span class="p">)</span>
         <span class="n">pbar</span> <span class="o">=</span> <span class="n">_pbar</span><span class="p">(</span><span class="n">cv_splits</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Fold&#39;</span><span class="p">,</span>
                      <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
@@ -1322,7 +1320,7 @@ document.write(`
                 <span class="n">good_epochs_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">bad_epochs</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="n">local_reject</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span>
-                    <span class="n">epochs_interp</span><span class="p">[</span><span class="n">train</span><span class="p">]</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[:,</span> <span class="n">picks_</span><span class="p">],</span>
+                    <span class="n">epochs_interp</span><span class="p">[</span><span class="n">train</span><span class="p">]</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks_</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">),</span>
                     <span class="n">good_epochs_idx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                 <span class="n">loss</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">jdx</span><span class="p">,</span> <span class="n">fold</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">local_reject</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">test</span><span class="p">])</span>
 
@@ -1996,7 +1994,7 @@ document.write(`
         <div class="footer-item">
   <p class="copyright">
     
-      © Copyright 2016-2023, autoreject developers. Last updated on 2023-11-02.
+      © Copyright 2016-2023, autoreject developers. Last updated on 2023-11-14.
       <br/>
     
   </p>
