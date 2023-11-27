@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-theme="auto">
+<html lang="en" data-content_root="../" data-theme="auto">
 
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=ea06ca08" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script src="../_static/documentation_options.js?v=2c228a7f"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
@@ -48,7 +48,7 @@
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_ransac';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.3';
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.4';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/master/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
@@ -125,6 +125,7 @@
   <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -144,7 +145,8 @@
     
     <div class="me-auto navbar-header-items__center">
       
-        <div class="navbar-item"><nav class="navbar-nav">
+        <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -197,6 +199,7 @@
       
         <div class="navbar-item navbar-persistent--container">
           
+
  <script>
  document.write(`
    <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -210,6 +213,7 @@
       
       
         <div class="navbar-item">
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -266,6 +270,7 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
+
  <script>
  document.write(`
    <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -299,7 +304,8 @@ document.write(`
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
+          <div class="navbar-item">
+<nav class="navbar-nav">
   <p class="sidebar-header-items__title"
      role="heading"
      aria-level="1"
@@ -352,6 +358,7 @@ document.write(`
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -407,7 +414,8 @@ document.write(`
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
@@ -502,20 +510,20 @@ EEG analysis. Frontiers in neuroinformatics, 9, 16.</p>
 NeuroImage, 159, 417-429.</p>
 </aside>
 </aside>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
 <span class="c1"># License: BSD-3-Clause</span>
 </pre></div>
 </div>
 <p>For the purposes of this example, we shall use the MNE sample dataset.
 Therefore, let us make some MNE related imports.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">io</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a>
 <span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>
 </pre></div>
 </div>
 <p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path" title="mne.datasets.sample.data_path" class="sphx-glr-backref-module-mne-datasets-sample sphx-glr-backref-type-py-function"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path" title="mne.datasets.sample.data_path" class="sphx-glr-backref-module-mne-datasets-sample sphx-glr-backref-type-py-function"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">/</span> <span class="s1">&#39;MEG&#39;</span> <span class="o">/</span> <span class="s1">&#39;sample&#39;</span>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">&#39;sample_audvis_filt-0-40_raw.fif&#39;</span>
 <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -533,7 +541,7 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 </pre></div>
 </div>
 <p>We can then read in the events</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">&#39;sample_audvis_filt-0-40_raw-eve.fif&#39;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">&#39;sample_audvis_filt-0-40_raw-eve.fif&#39;</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Auditory/Left&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
 
@@ -542,23 +550,23 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 </div>
 <p>And pick MEG channels for repairing. Currently, <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> can repair
 only one channel type at a time.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
 </div>
 <p>Now, we can create epochs. The <code class="docutils literal notranslate"><span class="pre">reject</span></code> params will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
 because we do not want epochs to be dropped when instantiating
-<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.del_proj" title="mne.io.Raw.del_proj" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">del_proj</span></a><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
+<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.del_proj" title="mne.io.Raw.del_proj" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">del_proj</span></a><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="s1">&#39;grad&#39;</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">include</span><span class="o">=</span><span class="p">[],</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 </pre></div>
 </div>
 <p>We import <code class="docutils literal notranslate"><span class="pre">Ransac</span></code> and run the familiar <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> method.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a>  <span class="c1"># noqa</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">interpolate_bads</span>  <span class="c1"># noqa</span>
 
 <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span></a> <span class="o">=</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -566,138 +574,139 @@ because we do not want epochs to be dropped when instantiating
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | interpolating channels : 0/50 [00:00&lt;?,       ?it/s]
-  2%|▏         | interpolating channels : 1/50 [00:01&lt;01:12,    1.47s/it]
-  4%|▍         | interpolating channels : 2/50 [00:03&lt;01:12,    1.52s/it]
-  6%|▌         | interpolating channels : 3/50 [00:04&lt;01:11,    1.53s/it]
-  8%|▊         | interpolating channels : 4/50 [00:06&lt;01:10,    1.54s/it]
- 10%|█         | interpolating channels : 5/50 [00:07&lt;01:09,    1.55s/it]
- 12%|█▏        | interpolating channels : 6/50 [00:09&lt;01:08,    1.55s/it]
- 14%|█▍        | interpolating channels : 7/50 [00:10&lt;01:06,    1.55s/it]
- 16%|█▌        | interpolating channels : 8/50 [00:12&lt;01:05,    1.56s/it]
- 18%|█▊        | interpolating channels : 9/50 [00:14&lt;01:03,    1.56s/it]
- 20%|██        | interpolating channels : 10/50 [00:15&lt;01:02,    1.56s/it]
- 22%|██▏       | interpolating channels : 11/50 [00:17&lt;01:00,    1.56s/it]
- 24%|██▍       | interpolating channels : 12/50 [00:18&lt;00:59,    1.56s/it]
- 26%|██▌       | interpolating channels : 13/50 [00:20&lt;00:57,    1.57s/it]
- 28%|██▊       | interpolating channels : 14/50 [00:21&lt;00:56,    1.57s/it]
- 30%|███       | interpolating channels : 15/50 [00:23&lt;00:54,    1.57s/it]
- 32%|███▏      | interpolating channels : 16/50 [00:25&lt;00:53,    1.57s/it]
- 34%|███▍      | interpolating channels : 17/50 [00:26&lt;00:51,    1.57s/it]
- 36%|███▌      | interpolating channels : 18/50 [00:28&lt;00:50,    1.57s/it]
- 38%|███▊      | interpolating channels : 19/50 [00:29&lt;00:48,    1.57s/it]
- 40%|████      | interpolating channels : 20/50 [00:31&lt;00:47,    1.57s/it]
- 42%|████▏     | interpolating channels : 21/50 [00:32&lt;00:45,    1.57s/it]
- 44%|████▍     | interpolating channels : 22/50 [00:34&lt;00:43,    1.57s/it]
- 46%|████▌     | interpolating channels : 23/50 [00:35&lt;00:42,    1.57s/it]
- 48%|████▊     | interpolating channels : 24/50 [00:37&lt;00:40,    1.57s/it]
- 50%|█████     | interpolating channels : 25/50 [00:39&lt;00:39,    1.57s/it]
- 52%|█████▏    | interpolating channels : 26/50 [00:40&lt;00:37,    1.57s/it]
- 54%|█████▍    | interpolating channels : 27/50 [00:42&lt;00:36,    1.57s/it]
- 56%|█████▌    | interpolating channels : 28/50 [00:43&lt;00:34,    1.57s/it]
- 58%|█████▊    | interpolating channels : 29/50 [00:45&lt;00:32,    1.57s/it]
- 60%|██████    | interpolating channels : 30/50 [00:46&lt;00:31,    1.57s/it]
- 62%|██████▏   | interpolating channels : 31/50 [00:48&lt;00:29,    1.56s/it]
- 64%|██████▍   | interpolating channels : 32/50 [00:50&lt;00:28,    1.56s/it]
- 66%|██████▌   | interpolating channels : 33/50 [00:51&lt;00:26,    1.57s/it]
- 68%|██████▊   | interpolating channels : 34/50 [00:53&lt;00:25,    1.57s/it]
- 70%|███████   | interpolating channels : 35/50 [00:54&lt;00:23,    1.57s/it]
- 72%|███████▏  | interpolating channels : 36/50 [00:56&lt;00:21,    1.57s/it]
- 74%|███████▍  | interpolating channels : 37/50 [00:57&lt;00:20,    1.57s/it]
- 76%|███████▌  | interpolating channels : 38/50 [00:59&lt;00:18,    1.57s/it]
- 78%|███████▊  | interpolating channels : 39/50 [01:01&lt;00:17,    1.57s/it]
- 80%|████████  | interpolating channels : 40/50 [01:02&lt;00:15,    1.57s/it]
- 82%|████████▏ | interpolating channels : 41/50 [01:04&lt;00:14,    1.57s/it]
- 84%|████████▍ | interpolating channels : 42/50 [01:05&lt;00:12,    1.57s/it]
- 86%|████████▌ | interpolating channels : 43/50 [01:07&lt;00:10,    1.57s/it]
- 88%|████████▊ | interpolating channels : 44/50 [01:08&lt;00:09,    1.57s/it]
- 90%|█████████ | interpolating channels : 45/50 [01:10&lt;00:07,    1.57s/it]
- 92%|█████████▏| interpolating channels : 46/50 [01:12&lt;00:06,    1.57s/it]
- 94%|█████████▍| interpolating channels : 47/50 [01:13&lt;00:04,    1.58s/it]
- 96%|█████████▌| interpolating channels : 48/50 [01:15&lt;00:03,    1.58s/it]
- 98%|█████████▊| interpolating channels : 49/50 [01:16&lt;00:01,    1.58s/it]
-100%|██████████| interpolating channels : 50/50 [01:18&lt;00:00,    1.58s/it]
-100%|██████████| interpolating channels : 50/50 [01:18&lt;00:00,    1.57s/it]
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.3min
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.3min
+  2%|▏         | interpolating channels : 1/50 [00:01&lt;01:01,    1.26s/it]
+  4%|▍         | interpolating channels : 2/50 [00:02&lt;01:00,    1.27s/it]
+  6%|▌         | interpolating channels : 3/50 [00:03&lt;00:59,    1.27s/it]
+  8%|▊         | interpolating channels : 4/50 [00:05&lt;00:58,    1.28s/it]
+ 10%|█         | interpolating channels : 5/50 [00:06&lt;00:57,    1.29s/it]
+ 12%|█▏        | interpolating channels : 6/50 [00:07&lt;00:56,    1.29s/it]
+ 14%|█▍        | interpolating channels : 7/50 [00:09&lt;00:55,    1.30s/it]
+ 16%|█▌        | interpolating channels : 8/50 [00:10&lt;00:54,    1.30s/it]
+ 18%|█▊        | interpolating channels : 9/50 [00:11&lt;00:53,    1.30s/it]
+ 20%|██        | interpolating channels : 10/50 [00:12&lt;00:51,    1.29s/it]
+ 22%|██▏       | interpolating channels : 11/50 [00:14&lt;00:50,    1.29s/it]
+ 24%|██▍       | interpolating channels : 12/50 [00:15&lt;00:48,    1.28s/it]
+ 26%|██▌       | interpolating channels : 13/50 [00:16&lt;00:47,    1.28s/it]
+ 28%|██▊       | interpolating channels : 14/50 [00:17&lt;00:46,    1.28s/it]
+ 30%|███       | interpolating channels : 15/50 [00:19&lt;00:44,    1.28s/it]
+ 32%|███▏      | interpolating channels : 16/50 [00:20&lt;00:43,    1.28s/it]
+ 34%|███▍      | interpolating channels : 17/50 [00:21&lt;00:42,    1.28s/it]
+ 36%|███▌      | interpolating channels : 18/50 [00:23&lt;00:41,    1.28s/it]
+ 38%|███▊      | interpolating channels : 19/50 [00:24&lt;00:39,    1.28s/it]
+ 40%|████      | interpolating channels : 20/50 [00:25&lt;00:38,    1.28s/it]
+ 42%|████▏     | interpolating channels : 21/50 [00:26&lt;00:36,    1.28s/it]
+ 44%|████▍     | interpolating channels : 22/50 [00:28&lt;00:35,    1.28s/it]
+ 46%|████▌     | interpolating channels : 23/50 [00:29&lt;00:34,    1.28s/it]
+ 48%|████▊     | interpolating channels : 24/50 [00:30&lt;00:33,    1.28s/it]
+ 50%|█████     | interpolating channels : 25/50 [00:31&lt;00:31,    1.27s/it]
+ 52%|█████▏    | interpolating channels : 26/50 [00:33&lt;00:30,    1.27s/it]
+ 54%|█████▍    | interpolating channels : 27/50 [00:34&lt;00:29,    1.27s/it]
+ 56%|█████▌    | interpolating channels : 28/50 [00:35&lt;00:27,    1.27s/it]
+ 58%|█████▊    | interpolating channels : 29/50 [00:36&lt;00:26,    1.27s/it]
+ 60%|██████    | interpolating channels : 30/50 [00:38&lt;00:25,    1.27s/it]
+ 62%|██████▏   | interpolating channels : 31/50 [00:39&lt;00:24,    1.27s/it]
+ 64%|██████▍   | interpolating channels : 32/50 [00:40&lt;00:22,    1.27s/it]
+ 66%|██████▌   | interpolating channels : 33/50 [00:42&lt;00:21,    1.27s/it]
+ 68%|██████▊   | interpolating channels : 34/50 [00:43&lt;00:20,    1.27s/it]
+ 70%|███████   | interpolating channels : 35/50 [00:44&lt;00:19,    1.27s/it]
+ 72%|███████▏  | interpolating channels : 36/50 [00:45&lt;00:17,    1.27s/it]
+ 74%|███████▍  | interpolating channels : 37/50 [00:47&lt;00:16,    1.27s/it]
+ 76%|███████▌  | interpolating channels : 38/50 [00:48&lt;00:15,    1.27s/it]
+ 78%|███████▊  | interpolating channels : 39/50 [00:49&lt;00:14,    1.27s/it]
+ 80%|████████  | interpolating channels : 40/50 [00:51&lt;00:12,    1.27s/it]
+ 82%|████████▏ | interpolating channels : 41/50 [00:52&lt;00:11,    1.27s/it]
+ 84%|████████▍ | interpolating channels : 42/50 [00:53&lt;00:10,    1.27s/it]
+ 86%|████████▌ | interpolating channels : 43/50 [00:54&lt;00:08,    1.27s/it]
+ 88%|████████▊ | interpolating channels : 44/50 [00:56&lt;00:07,    1.27s/it]
+ 90%|█████████ | interpolating channels : 45/50 [00:57&lt;00:06,    1.27s/it]
+ 92%|█████████▏| interpolating channels : 46/50 [00:58&lt;00:05,    1.27s/it]
+ 94%|█████████▍| interpolating channels : 47/50 [00:59&lt;00:03,    1.27s/it]
+ 96%|█████████▌| interpolating channels : 48/50 [01:01&lt;00:02,    1.27s/it]
+ 98%|█████████▊| interpolating channels : 49/50 [01:02&lt;00:01,    1.27s/it]
+100%|██████████| interpolating channels : 50/50 [01:03&lt;00:00,    1.27s/it]
+100%|██████████| interpolating channels : 50/50 [01:03&lt;00:00,    1.27s/it]
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.1min
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.1min
 
   0%|          | Iterating epochs : 0/72 [00:00&lt;?,       ?it/s]
-  1%|▏         | Iterating epochs : 1/72 [00:00&lt;00:07,    9.97it/s]
-  3%|▎         | Iterating epochs : 2/72 [00:00&lt;00:05,   13.11it/s]
-  4%|▍         | Iterating epochs : 3/72 [00:00&lt;00:04,   14.66it/s]
-  6%|▌         | Iterating epochs : 4/72 [00:00&lt;00:04,   15.57it/s]
-  7%|▋         | Iterating epochs : 5/72 [00:00&lt;00:04,   16.17it/s]
-  8%|▊         | Iterating epochs : 6/72 [00:00&lt;00:03,   16.60it/s]
- 10%|▉         | Iterating epochs : 7/72 [00:00&lt;00:03,   16.93it/s]
- 11%|█         | Iterating epochs : 8/72 [00:00&lt;00:03,   17.17it/s]
- 12%|█▎        | Iterating epochs : 9/72 [00:00&lt;00:03,   17.38it/s]
- 14%|█▍        | Iterating epochs : 10/72 [00:00&lt;00:03,   17.54it/s]
- 15%|█▌        | Iterating epochs : 11/72 [00:00&lt;00:03,   17.66it/s]
- 17%|█▋        | Iterating epochs : 12/72 [00:00&lt;00:03,   17.78it/s]
- 18%|█▊        | Iterating epochs : 13/72 [00:00&lt;00:03,   17.86it/s]
- 19%|█▉        | Iterating epochs : 14/72 [00:00&lt;00:03,   17.92it/s]
- 21%|██        | Iterating epochs : 15/72 [00:00&lt;00:03,   17.99it/s]
- 22%|██▏       | Iterating epochs : 16/72 [00:00&lt;00:03,   18.06it/s]
- 24%|██▎       | Iterating epochs : 17/72 [00:00&lt;00:03,   18.12it/s]
- 25%|██▌       | Iterating epochs : 18/72 [00:01&lt;00:02,   18.15it/s]
- 26%|██▋       | Iterating epochs : 19/72 [00:01&lt;00:02,   18.21it/s]
- 28%|██▊       | Iterating epochs : 20/72 [00:01&lt;00:02,   18.27it/s]
- 29%|██▉       | Iterating epochs : 21/72 [00:01&lt;00:02,   18.32it/s]
- 31%|███       | Iterating epochs : 22/72 [00:01&lt;00:02,   18.38it/s]
- 32%|███▏      | Iterating epochs : 23/72 [00:01&lt;00:02,   18.41it/s]
- 33%|███▎      | Iterating epochs : 24/72 [00:01&lt;00:02,   18.43it/s]
- 35%|███▍      | Iterating epochs : 25/72 [00:01&lt;00:02,   18.46it/s]
- 36%|███▌      | Iterating epochs : 26/72 [00:01&lt;00:02,   18.50it/s]
- 38%|███▊      | Iterating epochs : 27/72 [00:01&lt;00:02,   18.54it/s]
- 39%|███▉      | Iterating epochs : 28/72 [00:01&lt;00:02,   18.56it/s]
- 40%|████      | Iterating epochs : 29/72 [00:01&lt;00:02,   18.59it/s]
- 42%|████▏     | Iterating epochs : 30/72 [00:01&lt;00:02,   18.61it/s]
- 43%|████▎     | Iterating epochs : 31/72 [00:01&lt;00:02,   18.63it/s]
- 44%|████▍     | Iterating epochs : 32/72 [00:01&lt;00:02,   18.65it/s]
- 46%|████▌     | Iterating epochs : 33/72 [00:01&lt;00:02,   18.67it/s]
- 47%|████▋     | Iterating epochs : 34/72 [00:01&lt;00:02,   18.68it/s]
- 49%|████▊     | Iterating epochs : 35/72 [00:01&lt;00:01,   18.68it/s]
- 50%|█████     | Iterating epochs : 36/72 [00:01&lt;00:01,   18.69it/s]
- 51%|█████▏    | Iterating epochs : 37/72 [00:02&lt;00:01,   18.71it/s]
- 53%|█████▎    | Iterating epochs : 38/72 [00:02&lt;00:01,   18.72it/s]
- 54%|█████▍    | Iterating epochs : 39/72 [00:02&lt;00:01,   18.74it/s]
- 56%|█████▌    | Iterating epochs : 40/72 [00:02&lt;00:01,   18.75it/s]
- 57%|█████▋    | Iterating epochs : 41/72 [00:02&lt;00:01,   18.76it/s]
- 58%|█████▊    | Iterating epochs : 42/72 [00:02&lt;00:01,   18.77it/s]
- 60%|█████▉    | Iterating epochs : 43/72 [00:02&lt;00:01,   18.78it/s]
- 61%|██████    | Iterating epochs : 44/72 [00:02&lt;00:01,   18.79it/s]
- 62%|██████▎   | Iterating epochs : 45/72 [00:02&lt;00:01,   18.80it/s]
- 64%|██████▍   | Iterating epochs : 46/72 [00:02&lt;00:01,   18.80it/s]
- 65%|██████▌   | Iterating epochs : 47/72 [00:02&lt;00:01,   18.81it/s]
- 67%|██████▋   | Iterating epochs : 48/72 [00:02&lt;00:01,   18.82it/s]
- 68%|██████▊   | Iterating epochs : 49/72 [00:02&lt;00:01,   18.82it/s]
- 69%|██████▉   | Iterating epochs : 50/72 [00:02&lt;00:01,   18.81it/s]
- 71%|███████   | Iterating epochs : 51/72 [00:02&lt;00:01,   18.83it/s]
- 72%|███████▏  | Iterating epochs : 52/72 [00:02&lt;00:01,   18.84it/s]
- 74%|███████▎  | Iterating epochs : 53/72 [00:02&lt;00:01,   18.84it/s]
- 75%|███████▌  | Iterating epochs : 54/72 [00:02&lt;00:00,   18.83it/s]
- 76%|███████▋  | Iterating epochs : 55/72 [00:02&lt;00:00,   18.83it/s]
- 78%|███████▊  | Iterating epochs : 56/72 [00:03&lt;00:00,   18.83it/s]
- 79%|███████▉  | Iterating epochs : 57/72 [00:03&lt;00:00,   18.83it/s]
- 81%|████████  | Iterating epochs : 58/72 [00:03&lt;00:00,   18.82it/s]
- 82%|████████▏ | Iterating epochs : 59/72 [00:03&lt;00:00,   18.83it/s]
- 83%|████████▎ | Iterating epochs : 60/72 [00:03&lt;00:00,   18.83it/s]
- 85%|████████▍ | Iterating epochs : 61/72 [00:03&lt;00:00,   18.84it/s]
- 86%|████████▌ | Iterating epochs : 62/72 [00:03&lt;00:00,   18.85it/s]
- 88%|████████▊ | Iterating epochs : 63/72 [00:03&lt;00:00,   18.85it/s]
- 89%|████████▉ | Iterating epochs : 64/72 [00:03&lt;00:00,   18.86it/s]
- 90%|█████████ | Iterating epochs : 65/72 [00:03&lt;00:00,   18.87it/s]
- 92%|█████████▏| Iterating epochs : 66/72 [00:03&lt;00:00,   18.86it/s]
- 93%|█████████▎| Iterating epochs : 67/72 [00:03&lt;00:00,   18.87it/s]
- 94%|█████████▍| Iterating epochs : 68/72 [00:03&lt;00:00,   18.88it/s]
- 96%|█████████▌| Iterating epochs : 69/72 [00:03&lt;00:00,   18.87it/s]
- 97%|█████████▋| Iterating epochs : 70/72 [00:03&lt;00:00,   18.87it/s]
- 99%|█████████▊| Iterating epochs : 71/72 [00:03&lt;00:00,   18.88it/s]
-100%|██████████| Iterating epochs : 72/72 [00:03&lt;00:00,   18.87it/s]
-100%|██████████| Iterating epochs : 72/72 [00:03&lt;00:00,   18.63it/s]
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    3.9s
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    3.9s
+  1%|▏         | Iterating epochs : 1/72 [00:00&lt;00:04,   14.98it/s]
+  3%|▎         | Iterating epochs : 2/72 [00:00&lt;00:03,   18.80it/s]
+  4%|▍         | Iterating epochs : 3/72 [00:00&lt;00:03,   21.46it/s]
+  6%|▌         | Iterating epochs : 4/72 [00:00&lt;00:02,   23.11it/s]
+  7%|▋         | Iterating epochs : 5/72 [00:00&lt;00:02,   24.20it/s]
+  8%|▊         | Iterating epochs : 6/72 [00:00&lt;00:02,   25.01it/s]
+ 10%|▉         | Iterating epochs : 7/72 [00:00&lt;00:02,   25.61it/s]
+ 11%|█         | Iterating epochs : 8/72 [00:00&lt;00:02,   26.06it/s]
+ 12%|█▎        | Iterating epochs : 9/72 [00:00&lt;00:02,   26.42it/s]
+ 14%|█▍        | Iterating epochs : 10/72 [00:00&lt;00:02,   26.73it/s]
+ 15%|█▌        | Iterating epochs : 11/72 [00:00&lt;00:02,   26.97it/s]
+ 17%|█▋        | Iterating epochs : 12/72 [00:00&lt;00:02,   27.12it/s]
+ 18%|█▊        | Iterating epochs : 13/72 [00:00&lt;00:02,   27.27it/s]
+ 19%|█▉        | Iterating epochs : 14/72 [00:00&lt;00:02,   27.43it/s]
+ 21%|██        | Iterating epochs : 15/72 [00:00&lt;00:02,   27.57it/s]
+ 22%|██▏       | Iterating epochs : 16/72 [00:00&lt;00:02,   27.72it/s]
+ 24%|██▎       | Iterating epochs : 17/72 [00:00&lt;00:01,   27.84it/s]
+ 25%|██▌       | Iterating epochs : 18/72 [00:00&lt;00:01,   27.93it/s]
+ 26%|██▋       | Iterating epochs : 19/72 [00:00&lt;00:01,   28.03it/s]
+ 28%|██▊       | Iterating epochs : 20/72 [00:00&lt;00:01,   28.10it/s]
+ 29%|██▉       | Iterating epochs : 21/72 [00:00&lt;00:01,   28.18it/s]
+ 31%|███       | Iterating epochs : 22/72 [00:00&lt;00:01,   28.26it/s]
+ 32%|███▏      | Iterating epochs : 23/72 [00:00&lt;00:01,   28.31it/s]
+ 33%|███▎      | Iterating epochs : 24/72 [00:00&lt;00:01,   28.32it/s]
+ 35%|███▍      | Iterating epochs : 25/72 [00:00&lt;00:01,   28.37it/s]
+ 36%|███▌      | Iterating epochs : 26/72 [00:00&lt;00:01,   28.41it/s]
+ 38%|███▊      | Iterating epochs : 27/72 [00:00&lt;00:01,   28.46it/s]
+ 39%|███▉      | Iterating epochs : 28/72 [00:01&lt;00:01,   28.50it/s]
+ 40%|████      | Iterating epochs : 29/72 [00:01&lt;00:01,   28.52it/s]
+ 42%|████▏     | Iterating epochs : 30/72 [00:01&lt;00:01,   28.55it/s]
+ 43%|████▎     | Iterating epochs : 31/72 [00:01&lt;00:01,   28.58it/s]
+ 44%|████▍     | Iterating epochs : 32/72 [00:01&lt;00:01,   28.60it/s]
+ 46%|████▌     | Iterating epochs : 33/72 [00:01&lt;00:01,   28.63it/s]
+ 47%|████▋     | Iterating epochs : 34/72 [00:01&lt;00:01,   28.65it/s]
+ 49%|████▊     | Iterating epochs : 35/72 [00:01&lt;00:01,   28.65it/s]
+ 50%|█████     | Iterating epochs : 36/72 [00:01&lt;00:01,   28.66it/s]
+ 51%|█████▏    | Iterating epochs : 37/72 [00:01&lt;00:01,   28.67it/s]
+ 53%|█████▎    | Iterating epochs : 38/72 [00:01&lt;00:01,   28.68it/s]
+ 54%|█████▍    | Iterating epochs : 39/72 [00:01&lt;00:01,   28.69it/s]
+ 56%|█████▌    | Iterating epochs : 40/72 [00:01&lt;00:01,   28.71it/s]
+ 57%|█████▋    | Iterating epochs : 41/72 [00:01&lt;00:01,   28.65it/s]
+ 58%|█████▊    | Iterating epochs : 42/72 [00:01&lt;00:01,   28.66it/s]
+ 60%|█████▉    | Iterating epochs : 43/72 [00:01&lt;00:01,   28.68it/s]
+ 61%|██████    | Iterating epochs : 44/72 [00:01&lt;00:00,   28.69it/s]
+ 62%|██████▎   | Iterating epochs : 45/72 [00:01&lt;00:00,   28.71it/s]
+ 64%|██████▍   | Iterating epochs : 46/72 [00:01&lt;00:00,   28.72it/s]
+ 65%|██████▌   | Iterating epochs : 47/72 [00:01&lt;00:00,   28.73it/s]
+ 67%|██████▋   | Iterating epochs : 48/72 [00:01&lt;00:00,   28.74it/s]
+ 68%|██████▊   | Iterating epochs : 49/72 [00:01&lt;00:00,   28.74it/s]
+ 69%|██████▉   | Iterating epochs : 50/72 [00:01&lt;00:00,   28.74it/s]
+ 71%|███████   | Iterating epochs : 51/72 [00:01&lt;00:00,   28.75it/s]
+ 72%|███████▏  | Iterating epochs : 52/72 [00:01&lt;00:00,   28.75it/s]
+ 74%|███████▎  | Iterating epochs : 53/72 [00:01&lt;00:00,   28.74it/s]
+ 75%|███████▌  | Iterating epochs : 54/72 [00:01&lt;00:00,   28.76it/s]
+ 76%|███████▋  | Iterating epochs : 55/72 [00:01&lt;00:00,   28.77it/s]
+ 78%|███████▊  | Iterating epochs : 56/72 [00:01&lt;00:00,   28.77it/s]
+ 79%|███████▉  | Iterating epochs : 57/72 [00:02&lt;00:00,   28.78it/s]
+ 81%|████████  | Iterating epochs : 58/72 [00:02&lt;00:00,   28.78it/s]
+ 82%|████████▏ | Iterating epochs : 59/72 [00:02&lt;00:00,   28.79it/s]
+ 83%|████████▎ | Iterating epochs : 60/72 [00:02&lt;00:00,   28.78it/s]
+ 85%|████████▍ | Iterating epochs : 61/72 [00:02&lt;00:00,   28.77it/s]
+ 86%|████████▌ | Iterating epochs : 62/72 [00:02&lt;00:00,   28.76it/s]
+ 88%|████████▊ | Iterating epochs : 63/72 [00:02&lt;00:00,   28.76it/s]
+ 89%|████████▉ | Iterating epochs : 64/72 [00:02&lt;00:00,   28.75it/s]
+ 90%|█████████ | Iterating epochs : 65/72 [00:02&lt;00:00,   28.75it/s]
+ 92%|█████████▏| Iterating epochs : 66/72 [00:02&lt;00:00,   28.75it/s]
+ 93%|█████████▎| Iterating epochs : 67/72 [00:02&lt;00:00,   28.75it/s]
+ 94%|█████████▍| Iterating epochs : 68/72 [00:02&lt;00:00,   28.75it/s]
+ 96%|█████████▌| Iterating epochs : 69/72 [00:02&lt;00:00,   28.75it/s]
+ 97%|█████████▋| Iterating epochs : 70/72 [00:02&lt;00:00,   28.75it/s]
+ 99%|█████████▊| Iterating epochs : 71/72 [00:02&lt;00:00,   28.75it/s]
+100%|██████████| Iterating epochs : 72/72 [00:02&lt;00:00,   28.76it/s]
+100%|██████████| Iterating epochs : 72/72 [00:02&lt;00:00,   28.45it/s]
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    2.5s
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    2.5s
 [Done]
-Interpolating bad channels
+Setting channel interpolation method to {&#39;eeg&#39;: &#39;spline&#39;, &#39;meg&#39;: &#39;MNE&#39;}.
+Interpolating bad channels.
     Automatic origin fit: head of radius 91.0 mm
     Computing dot products for 292 MEG channels...
     Computing cross products for 292 → 14 MEG channels...
@@ -706,7 +715,7 @@ Interpolating bad channels
 </pre></div>
 </div>
 <p>We can also get the list of bad channels computed by <code class="docutils literal notranslate"><span class="pre">Ransac</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_chs_</span></a><span class="p">))</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_chs_</span></a><span class="p">))</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MEG 0722
@@ -726,21 +735,17 @@ MEG 2443
 </pre></div>
 </div>
 <p>Then we compute the <code class="docutils literal notranslate"><span class="pre">evoked</span></code> before and after interpolation.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span>
 <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_clean</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NOTE: pick_channels() is a legacy function. New code should use inst.pick(...).
-NOTE: pick_channels() is a legacy function. New code should use inst.pick(...).
-</pre></div>
-</div>
 <p>We will manually mark the bad channels just for plotting.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
-<a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne.Info" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
+<a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_clean</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">&#39;bads&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MEG 2443&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Let us plot the results.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
 <span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">)</span>
 
@@ -768,7 +773,7 @@ NOTE: pick_types() is a legacy function. New code should use inst.pick(...).
 </div>
 <p>To top things up, we can also visualize the bad sensors for each trial using
 a heatmap.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ch_names</span></a> <span class="o">=</span> <span class="p">[</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.ch_names" title="mne.Epochs.ch_names" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span></a><span class="p">][</span><span class="mi">7</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ch_names</span></a> <span class="o">=</span> <span class="p">[</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.ch_names" title="mne.Epochs.ch_names" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">picks</span></a><span class="p">][</span><span class="mi">7</span><span class="p">::</span><span class="mi">10</span><span class="p">]</span>
 <a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.imshow.html#matplotlib.axes.Axes.imshow" title="matplotlib.axes.Axes.imshow" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span><span class="o">.</span><span class="n">bad_log</span></a><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span>
           <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
@@ -784,13 +789,13 @@ a heatmap.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 28.868 seconds)</p>
+<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 11.332 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/c46630e57be6fee69c36b69808826387/plot_ransac.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ransac.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/eed3f885ba83c61c9448cf1df4b6e6d1/plot_ransac.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ransac.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/c46630e57be6fee69c36b69808826387/plot_ransac.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ransac.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -805,7 +810,7 @@ a heatmap.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="plot_global_reject.html"
@@ -835,6 +840,7 @@ a heatmap.</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
@@ -857,8 +863,8 @@ a heatmap.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -866,15 +872,17 @@ a heatmap.</p>
     <div class="footer-items__start">
       
         <div class="footer-item">
+
   <p class="copyright">
     
-      © Copyright 2016-2023, autoreject developers. Last updated on 2023-11-14.
+      © Copyright 2016-2023, autoreject developers. Last updated on 2023-11-27.
       <br/>
     
   </p>
 </div>
       
         <div class="footer-item">
+
   <p class="sphinx-version">
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     <br/>
@@ -887,8 +895,9 @@ a heatmap.</p>
   
     <div class="footer-items__end">
       
-        <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.3.
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.4.
 </p></div>
       
     </div>
