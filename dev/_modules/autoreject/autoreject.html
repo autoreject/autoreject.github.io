@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.autoreject &#8212; autoreject 0.5.0.dev19+ge32e9e8 documentation</title>
+    <title>autoreject.autoreject &#8212; autoreject 0.5.0.dev20+gf9675cd78 documentation</title>
   
   
   
@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "auto";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,10 +26,10 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -38,22 +38,23 @@
     <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=664adccb" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=7420fcc5"></script>
+    <script src="../../_static/documentation_options.js?v=badf4ad2"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/autoreject/autoreject';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -63,7 +64,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev19+ge32e9e8" />
+  <meta name="docsearch:version" content="0.5.0.dev20+gf9675cd78" />
 
   </head>
   
@@ -126,7 +127,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev19+ge32e9e8 documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev20+gf9675cd78 documentation</p>
   
 </a></div>
     
@@ -375,9 +376,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -430,29 +436,29 @@
 <span class="c1">#          Alexandre Gramfort &lt;alexandre.gramfort@telecom-paristech.fr&gt;</span>
 <span class="c1">#          Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
 
-<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">op</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">uniform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform</span>
 
-<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
 
-<span class="kn">from</span> <span class="nn">h5io</span> <span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">h5io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_hdf5</span><span class="p">,</span> <span class="n">write_hdf5</span>
 
-<span class="kn">import</span> <span class="nn">mne</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">pick_types</span>
-<span class="kn">from</span> <span class="nn">mne.viz</span> <span class="kn">import</span> <span class="n">plot_epochs</span> <span class="k">as</span> <span class="n">plot_mne_epochs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">pick_types</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_epochs</span> <span class="k">as</span> <span class="n">plot_mne_epochs</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">check_cv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEstimator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">check_cv</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">_clean_by_interp</span><span class="p">,</span> <span class="n">interpolate_bads</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">,</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">_clean_by_interp</span><span class="p">,</span> <span class="n">interpolate_bads</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">,</span>
                     <span class="n">_pbar</span><span class="p">,</span> <span class="n">_handle_picks</span><span class="p">,</span> <span class="n">_check_data</span><span class="p">,</span> <span class="n">_compute_dots</span><span class="p">,</span>
                     <span class="n">_get_picks_by_type</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">,</span> <span class="n">_GDKW</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.bayesopt</span> <span class="kn">import</span> <span class="n">expected_improvement</span><span class="p">,</span> <span class="n">bayes_opt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.bayesopt</span><span class="w"> </span><span class="kn">import</span> <span class="n">expected_improvement</span><span class="p">,</span> <span class="n">bayes_opt</span>
 
 
 <span class="n">_INIT_PARAMS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;consensus&#39;</span><span class="p">,</span> <span class="s1">&#39;n_interpolate&#39;</span><span class="p">,</span> <span class="s1">&#39;picks&#39;</span><span class="p">,</span>
@@ -463,7 +469,7 @@
                <span class="s1">&#39;dots&#39;</span><span class="p">,</span> <span class="s1">&#39;picks_&#39;</span><span class="p">,</span> <span class="s1">&#39;loss_&#39;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_slicemean</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">this_slice</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_slicemean</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">this_slice</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">this_slice</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">this_slice</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
@@ -472,7 +478,7 @@
 
 <div class="viewcode-block" id="validation_curve">
 <a class="viewcode-back" href="../../generated/autoreject.validation_curve.html#autoreject.validation_curve">[docs]</a>
-<span class="k">def</span> <span class="nf">validation_curve</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param_name</span><span class="o">=</span><span class="s2">&quot;thresh&quot;</span><span class="p">,</span> <span class="n">param_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validation_curve</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param_name</span><span class="o">=</span><span class="s2">&quot;thresh&quot;</span><span class="p">,</span> <span class="n">param_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">cv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_param_range</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validation curve on epochs for global autoreject.</span>
 
@@ -508,7 +514,7 @@
 <span class="sd">        The thresholds used to build the validation curve.</span>
 <span class="sd">        Only returned if `return_param_range` is True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">validation_curve</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">validation_curve</span>
     <span class="n">estimator</span> <span class="o">=</span> <span class="n">_GlobalAutoReject</span><span class="p">()</span>
 
     <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">_get_epochs_type</span><span class="p">()</span>
@@ -541,7 +547,7 @@
 
 <div class="viewcode-block" id="read_auto_reject">
 <a class="viewcode-back" href="../../generated/autoreject.read_auto_reject.html#autoreject.read_auto_reject">[docs]</a>
-<span class="k">def</span> <span class="nf">read_auto_reject</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_auto_reject</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read AutoReject object.</span>
 
 <span class="sd">    Parameters</span>
@@ -562,7 +568,7 @@
 
 <div class="viewcode-block" id="read_reject_log">
 <a class="viewcode-back" href="../../generated/autoreject.read_reject_log.html#autoreject.read_reject_log">[docs]</a>
-<span class="k">def</span> <span class="nf">read_reject_log</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_reject_log</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read a reject log.</span>
 
 <span class="sd">    Parameters</span>
@@ -582,10 +588,10 @@
 
 
 
-<span class="k">class</span> <span class="nc">BaseAutoReject</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseAutoReject</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for rejection.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Score it.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;n_channels&#39;</span><span class="p">):</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span><span class="p">)</span>
@@ -595,7 +601,7 @@
             <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">_GlobalAutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_GlobalAutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to compute global rejection thresholds.</span>
 
 <span class="sd">    Parameters</span>
@@ -608,13 +614,13 @@
 <span class="sd">        Boilerplate API. The rejection threshold.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Init it.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thresh</span> <span class="o">=</span> <span class="n">thresh</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_channels</span> <span class="o">=</span> <span class="n">n_channels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="o">=</span> <span class="n">n_times</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit it.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_channels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot fit without knowing n_channels&#39;</span>
@@ -629,7 +635,7 @@
 
 <div class="viewcode-block" id="get_rejection_threshold">
 <a class="viewcode-back" href="../../generated/autoreject.get_rejection_threshold.html#autoreject.get_rejection_threshold">[docs]</a>
-<span class="k">def</span> <span class="nf">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">decim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">decim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">ch_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute global rejection thresholds.</span>
 
@@ -709,7 +715,7 @@
         <span class="n">cache</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">est</span> <span class="o">=</span> <span class="n">_GlobalAutoReject</span><span class="p">(</span><span class="n">n_channels</span><span class="o">=</span><span class="n">n_channels</span><span class="p">,</span> <span class="n">n_times</span><span class="o">=</span><span class="n">n_times</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">thresh</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">thresh</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">thresh</span> <span class="o">-</span> <span class="n">all_threshes</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">thresh</span> <span class="o">=</span> <span class="n">all_threshes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">thresh</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
@@ -735,13 +741,13 @@
 
 
 
-<span class="k">class</span> <span class="nc">_ChannelAutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_ChannelAutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;docstring for AutoReject.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thresh</span> <span class="o">=</span> <span class="n">thresh</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit it.</span>
 
 <span class="sd">        Parameters</span>
@@ -764,7 +770,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 
-<span class="k">def</span> <span class="nf">_compute_thresh</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_compute_thresh</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
                     <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the rejection threshold for one channel.</span>
 
@@ -806,7 +812,7 @@
     <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">:</span>
         <span class="n">cache</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">thresh</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">thresh</span><span class="p">):</span>
             <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">thresh</span> <span class="o">-</span> <span class="n">all_threshes</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">thresh</span> <span class="o">=</span> <span class="n">all_threshes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">thresh</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
@@ -832,7 +838,7 @@
 
 <div class="viewcode-block" id="compute_thresholds">
 <a class="viewcode-back" href="../../generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds">[docs]</a>
-<span class="k">def</span> <span class="nf">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
                        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">augment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute thresholds for each channel.</span>
@@ -882,7 +888,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_compute_thresholds</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
                         <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">augment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span> <span class="s1">&#39;random_search&#39;</span><span class="p">]:</span>
@@ -925,7 +931,7 @@
     <span class="k">return</span> <span class="n">threshes</span>
 
 
-<span class="k">class</span> <span class="nc">_AutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_AutoReject</span><span class="p">(</span><span class="n">BaseAutoReject</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Automatically reject bad epochs and repair bad trials.</span>
 
 <span class="sd">    Parameters</span>
@@ -972,7 +978,7 @@
 <span class="sd">        and the peak-to-peak thresholds as the values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">consensus</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">thresh_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">consensus</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">thresh_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Init it.&quot;&quot;&quot;</span>
@@ -988,7 +994,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="n">dots</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;repr.&quot;&quot;&quot;</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_interpolate</span><span class="p">,</span>
@@ -997,7 +1003,7 @@
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
                                                <span class="n">offset</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">class_name</span><span class="p">),),)</span>
 
-    <span class="k">def</span> <span class="nf">_vote_bad_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_vote_bad_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Each channel votes for an epoch as good or bad.</span>
 
 <span class="sd">        Parameters</span>
@@ -1022,7 +1028,7 @@
         <span class="n">bad_sensor_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">bad_sensor_counts</span>
 
-    <span class="k">def</span> <span class="nf">_get_epochs_interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_epochs_interpolation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span>
                                   <span class="n">picks</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="p">,</span>
                                   <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolate the bad epochs.&quot;&quot;&quot;</span>
@@ -1056,7 +1062,7 @@
             <span class="n">labels</span><span class="p">[</span><span class="n">epoch_idx</span><span class="p">][</span><span class="n">interp_chs_mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="k">return</span> <span class="n">labels</span>
 
-    <span class="k">def</span> <span class="nf">_get_bad_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bad_sensor_counts</span><span class="p">,</span> <span class="n">ch_type</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_bad_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bad_sensor_counts</span><span class="p">,</span> <span class="n">ch_type</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the mask of bad epochs.&quot;&quot;&quot;</span>
         <span class="c1"># XXX : avoid sorting twice</span>
         <span class="n">sorted_epoch_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">bad_sensor_counts</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1071,7 +1077,7 @@
             <span class="n">bad_epochs</span><span class="p">[</span><span class="n">bad_epochs_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">bad_epochs</span>
 
-    <span class="k">def</span> <span class="nf">get_reject_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_reject_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get rejection logs from epochs.</span>
 
 <span class="sd">        .. note::</span>
@@ -1121,7 +1127,7 @@
                                <span class="n">ch_names</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reject_log</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the thresholds.</span>
 
 <span class="sd">        Parameters</span>
@@ -1168,7 +1174,7 @@
         <span class="k">del</span> <span class="n">epochs_copy</span>  <span class="c1"># I can&#39;t wait for garbage collection.</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fix and find the bad epochs.</span>
 
 <span class="sd">        Parameters</span>
@@ -1208,7 +1214,7 @@
             <span class="k">return</span> <span class="n">epochs_clean</span>
 
 
-<span class="k">def</span> <span class="nf">_interpolate_bad_epochs</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_interpolate_bad_epochs</span><span class="p">(</span>
         <span class="n">epochs</span><span class="p">,</span> <span class="n">interp_channels</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Actually do the interpolation.&quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">interp_channels</span><span class="p">)</span>
@@ -1224,7 +1230,7 @@
         <span class="n">epochs</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">epoch_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">_data</span>
 
 
-<span class="k">def</span> <span class="nf">_run_local_reject_cv</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">thresh_func</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_local_reject_cv</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">thresh_func</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span>
                          <span class="n">consensus</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="n">n_folds</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">get_n_splits</span><span class="p">()</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">consensus</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">n_interpolate</span><span class="p">),</span>
@@ -1261,15 +1267,15 @@
         <span class="c1"># Hack to allow len(self.cv_.split(X)) as ProgressBar</span>
         <span class="c1"># assumes an iterable whereas self.cv_.split(X) is a</span>
         <span class="c1"># generator</span>
-        <span class="k">class</span> <span class="nc">CVSplits</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gen</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">CVSplits</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gen</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">gen</span> <span class="o">=</span> <span class="n">gen</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
 
-            <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
 
-            <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen</span>
 
         <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">picks_</span><span class="p">,</span> <span class="o">**</span><span class="n">_GDKW</span><span class="p">)</span>
@@ -1301,7 +1307,7 @@
 
 <div class="viewcode-block" id="AutoReject">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject">[docs]</a>
-<span class="k">class</span> <span class="nc">AutoReject</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AutoReject</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Efficiently find n_interpolate and consensus.</span>
 
 <span class="sd">    .. note::</span>
@@ -1363,7 +1369,7 @@
 <span class="sd">        only data channels, not already marked as bads are considered.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">consensus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">consensus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">thresh_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">thresh_method</span><span class="o">=</span><span class="s1">&#39;bayesian_optimization&#39;</span><span class="p">,</span>
                  <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -1380,7 +1386,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">consensus</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">consensus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;repr.&quot;&quot;&quot;</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_interpolate</span><span class="p">,</span>
@@ -1391,7 +1397,7 @@
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">(</span><span class="n">params</span><span class="p">,</span>
                                                <span class="n">offset</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">class_name</span><span class="p">),),)</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the state of autoreject as a dictionary.&quot;&quot;&quot;</span>
         <span class="n">state</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
@@ -1410,7 +1416,7 @@
                         <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_reject_</span><span class="p">[</span><span class="n">ch_type</span><span class="p">],</span> <span class="n">param</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
 
-    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the state of autoreject.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;local_reject_&#39;</span><span class="p">:</span>
@@ -1430,7 +1436,7 @@
 
 <div class="viewcode-block" id="AutoReject.fit">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit the epochs on the AutoReject object.</span>
 
 <span class="sd">        Parameters</span>
@@ -1514,7 +1520,7 @@
 
 <div class="viewcode-block" id="AutoReject.get_reject_log">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject.get_reject_log">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_reject_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_reject_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get rejection logs of epochs.</span>
 
 <span class="sd">        .. note::</span>
@@ -1564,7 +1570,7 @@
 
 <div class="viewcode-block" id="AutoReject.transform">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform">[docs]</a>
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reject_log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reject_log</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove bad epochs, repairs sensors and returns clean epochs.</span>
 
 <span class="sd">        Parameters</span>
@@ -1613,7 +1619,7 @@
 
 <div class="viewcode-block" id="AutoReject.fit_transform">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit_transform">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Estimate the rejection params and finds bad epochs.</span>
 
 <span class="sd">        Parameters</span>
@@ -1637,7 +1643,7 @@
 
 <div class="viewcode-block" id="AutoReject.save">
 <a class="viewcode-back" href="../../generated/autoreject.AutoReject.html#autoreject.AutoReject.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save autoreject object with the HDF5 format.</span>
 
 <span class="sd">        Parameters</span>
@@ -1659,7 +1665,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_check_fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">):</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;You are passing channels which were not present &#39;</span>
            <span class="s1">&#39;at fit-time. Please fit it again, this time &#39;</span>
            <span class="s1">&#39;correctly.&#39;</span><span class="p">)</span>
@@ -1668,7 +1674,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_apply_interp</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_interp</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span>
                   <span class="n">verbose</span><span class="p">):</span>
     <span class="n">_check_fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">)</span>
     <span class="n">interp_channels</span> <span class="o">=</span> <span class="n">_get_interp_chs</span><span class="p">(</span>
@@ -1678,7 +1684,7 @@
         <span class="n">picks</span><span class="o">=</span><span class="n">picks_</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_apply_drop</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_drop</span><span class="p">(</span><span class="n">reject_log</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span>
                 <span class="n">verbose</span><span class="p">):</span>
     <span class="n">_check_fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">):</span>
@@ -1690,7 +1696,7 @@
               <span class="s2">&quot;may have been done.&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_get_interp_chs</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_interp_chs</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">picks</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert labels to channel names.</span>
 <span class="sd">    It returns a list of length n_epochs. Each entry contains</span>
 <span class="sd">    the names of the channels to interpolate.</span>
@@ -1711,7 +1717,7 @@
 
 <div class="viewcode-block" id="RejectLog">
 <a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog">[docs]</a>
-<span class="k">class</span> <span class="nc">RejectLog</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RejectLog</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The Rejection Log.</span>
 
 <span class="sd">    Parameters</span>
@@ -1726,7 +1732,7 @@
 <span class="sd">        The list of channels corresponding to the rows of the labels.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bad_epochs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bad_epochs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the Rejection Log.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bad_epochs</span> <span class="o">=</span> <span class="n">bad_epochs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
@@ -1736,7 +1742,7 @@
 
 <div class="viewcode-block" id="RejectLog.plot">
 <a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot">[docs]</a>
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">show_names</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">show_names</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span>
              <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot an image of good, bad and interpolated channels for each epoch.</span>
 
@@ -1765,9 +1771,9 @@
 <span class="sd">        figure : matplotlib.figure.Figure</span>
 <span class="sd">            The figure object containing the plot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
 
         <span class="k">if</span> <span class="n">show_names</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
             <span class="n">show_names</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">25</span> <span class="k">else</span> <span class="mi">5</span>
@@ -1842,7 +1848,7 @@
 
 <div class="viewcode-block" id="RejectLog.plot_epochs">
 <a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot_epochs">[docs]</a>
-    <span class="k">def</span> <span class="nf">plot_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">scalings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">scalings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot interpolated and dropped epochs.</span>
 
 <span class="sd">        Parameters</span>
@@ -1907,7 +1913,7 @@
 
 <div class="viewcode-block" id="RejectLog.save">
 <a class="viewcode-back" href="../../generated/autoreject.RejectLog.html#autoreject.RejectLog.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a reject log.</span>
 
 <span class="sd">        Parameters</span>
@@ -1955,8 +1961,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1967,7 +1973,7 @@
 
   <p class="copyright">
     
-      © Copyright 2016-2024, autoreject developers. Last updated on 2024-11-19.
+      © Copyright 2016-2025, autoreject developers. Last updated on 2025-08-12.
       <br/>
     
   </p>
@@ -1976,7 +1982,7 @@
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
@@ -1989,7 +1995,8 @@
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

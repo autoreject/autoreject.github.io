@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.5.0.dev19+ge32e9e8 documentation</title>
+    <title>Detect bad sensors using RANSAC &#8212; autoreject 0.5.0.dev20+gf9675cd78 documentation</title>
   
   
   
@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "auto";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,10 +27,10 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -39,22 +39,23 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=664adccb" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=7420fcc5"></script>
+    <script src="../_static/documentation_options.js?v=badf4ad2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_ransac';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -66,7 +67,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev19+ge32e9e8" />
+  <meta name="docsearch:version" content="0.5.0.dev20+gf9675cd78" />
 
   </head>
   
@@ -129,7 +130,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev19+ge32e9e8 documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev20+gf9675cd78 documentation</p>
   
 </a></div>
     
@@ -398,9 +399,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -479,10 +485,10 @@ NeuroImage, 159, 417-429.</p>
 </div>
 <p>For the purposes of this example, we shall use the MNE sample dataset.
 Therefore, let us make some MNE related imports.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">io</span>
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a>
-<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <span class="n">sample</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample</span>
 </pre></div>
 </div>
 <p>Let us now read in the raw <cite>fif</cite> file for MNE sample dataset.</p>
@@ -518,7 +524,7 @@ only one channel type at a time.</p>
 </div>
 <p>Now, we can create epochs. The <code class="docutils literal notranslate"><span class="pre">reject</span></code> params will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>
 because we do not want epochs to be dropped when instantiating
-<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
+<a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.del_proj" title="mne.io.Raw.del_proj" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">del_proj</span></a><span class="p">()</span>  <span class="c1"># remove proj, don&#39;t proj while interpolating</span>
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -529,148 +535,148 @@ because we do not want epochs to be dropped when instantiating
 </pre></div>
 </div>
 <p>We import <code class="docutils literal notranslate"><span class="pre">Ransac</span></code> and run the familiar <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> method.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a>  <span class="c1"># noqa</span>
-<span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">interpolate_bads</span>  <span class="c1"># noqa</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">autoreject</span><span class="w"> </span><span class="kn">import</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a>  <span class="c1"># noqa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">autoreject.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate_bads</span>  <span class="c1"># noqa</span>
 
 <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span></a> <span class="o">=</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">Ransac</span></a><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_clean</span></a> <span class="o">=</span> <a href="../generated/autoreject.Ransac.html#autoreject.Ransac" title="autoreject.Ransac" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ransac</span></a><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | interpolating channels : 0/50 [00:00&lt;?,       ?it/s]
-  2%|▏         | interpolating channels : 1/50 [00:01&lt;01:22,    1.69s/it]
-  4%|▍         | interpolating channels : 2/50 [00:03&lt;01:21,    1.71s/it]
-  6%|▌         | interpolating channels : 3/50 [00:05&lt;01:20,    1.71s/it]
-  8%|▊         | interpolating channels : 4/50 [00:06&lt;01:18,    1.71s/it]
- 10%|█         | interpolating channels : 5/50 [00:08&lt;01:16,    1.70s/it]
- 12%|█▏        | interpolating channels : 6/50 [00:10&lt;01:14,    1.70s/it]
- 14%|█▍        | interpolating channels : 7/50 [00:11&lt;01:13,    1.70s/it]
- 16%|█▌        | interpolating channels : 8/50 [00:13&lt;01:11,    1.71s/it]
- 18%|█▊        | interpolating channels : 9/50 [00:15&lt;01:09,    1.71s/it]
- 20%|██        | interpolating channels : 10/50 [00:17&lt;01:08,    1.71s/it]
- 22%|██▏       | interpolating channels : 11/50 [00:18&lt;01:06,    1.70s/it]
- 24%|██▍       | interpolating channels : 12/50 [00:20&lt;01:04,    1.71s/it]
- 26%|██▌       | interpolating channels : 13/50 [00:22&lt;01:03,    1.71s/it]
- 28%|██▊       | interpolating channels : 14/50 [00:23&lt;01:01,    1.71s/it]
- 30%|███       | interpolating channels : 15/50 [00:25&lt;01:00,    1.72s/it]
- 32%|███▏      | interpolating channels : 16/50 [00:27&lt;00:58,    1.72s/it]
- 34%|███▍      | interpolating channels : 17/50 [00:29&lt;00:56,    1.72s/it]
- 36%|███▌      | interpolating channels : 18/50 [00:30&lt;00:55,    1.73s/it]
- 38%|███▊      | interpolating channels : 19/50 [00:32&lt;00:53,    1.73s/it]
- 40%|████      | interpolating channels : 20/50 [00:34&lt;00:51,    1.73s/it]
- 42%|████▏     | interpolating channels : 21/50 [00:36&lt;00:50,    1.74s/it]
- 44%|████▍     | interpolating channels : 22/50 [00:38&lt;00:48,    1.74s/it]
- 46%|████▌     | interpolating channels : 23/50 [00:39&lt;00:47,    1.74s/it]
- 48%|████▊     | interpolating channels : 24/50 [00:41&lt;00:45,    1.74s/it]
- 50%|█████     | interpolating channels : 25/50 [00:43&lt;00:43,    1.75s/it]
- 52%|█████▏    | interpolating channels : 26/50 [00:45&lt;00:42,    1.75s/it]
- 54%|█████▍    | interpolating channels : 27/50 [00:47&lt;00:40,    1.76s/it]
- 56%|█████▌    | interpolating channels : 28/50 [00:48&lt;00:38,    1.76s/it]
- 58%|█████▊    | interpolating channels : 29/50 [00:50&lt;00:37,    1.77s/it]
- 60%|██████    | interpolating channels : 30/50 [00:52&lt;00:35,    1.77s/it]
- 62%|██████▏   | interpolating channels : 31/50 [00:54&lt;00:33,    1.78s/it]
- 64%|██████▍   | interpolating channels : 32/50 [00:56&lt;00:31,    1.78s/it]
- 66%|██████▌   | interpolating channels : 33/50 [00:57&lt;00:30,    1.78s/it]
- 68%|██████▊   | interpolating channels : 34/50 [00:59&lt;00:28,    1.78s/it]
- 70%|███████   | interpolating channels : 35/50 [01:01&lt;00:26,    1.78s/it]
- 72%|███████▏  | interpolating channels : 36/50 [01:03&lt;00:24,    1.78s/it]
- 74%|███████▍  | interpolating channels : 37/50 [01:05&lt;00:23,    1.79s/it]
- 76%|███████▌  | interpolating channels : 38/50 [01:07&lt;00:21,    1.79s/it]
- 78%|███████▊  | interpolating channels : 39/50 [01:08&lt;00:19,    1.79s/it]
- 80%|████████  | interpolating channels : 40/50 [01:10&lt;00:17,    1.79s/it]
- 82%|████████▏ | interpolating channels : 41/50 [01:12&lt;00:16,    1.79s/it]
- 84%|████████▍ | interpolating channels : 42/50 [01:14&lt;00:14,    1.78s/it]
- 86%|████████▌ | interpolating channels : 43/50 [01:15&lt;00:12,    1.79s/it]
- 88%|████████▊ | interpolating channels : 44/50 [01:17&lt;00:10,    1.79s/it]
- 90%|█████████ | interpolating channels : 45/50 [01:19&lt;00:08,    1.79s/it]
- 92%|█████████▏| interpolating channels : 46/50 [01:21&lt;00:07,    1.79s/it]
- 94%|█████████▍| interpolating channels : 47/50 [01:23&lt;00:05,    1.79s/it]
- 96%|█████████▌| interpolating channels : 48/50 [01:24&lt;00:03,    1.79s/it]
- 98%|█████████▊| interpolating channels : 49/50 [01:26&lt;00:01,    1.79s/it]
-100%|██████████| interpolating channels : 50/50 [01:28&lt;00:00,    1.79s/it]
-100%|██████████| interpolating channels : 50/50 [01:28&lt;00:00,    1.77s/it]
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.5min
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:  1.5min
+  2%|▏         | interpolating channels : 1/50 [00:01&lt;00:53,    1.09s/it]
+  4%|▍         | interpolating channels : 2/50 [00:02&lt;00:53,    1.10s/it]
+  6%|▌         | interpolating channels : 3/50 [00:03&lt;00:52,    1.11s/it]
+  8%|▊         | interpolating channels : 4/50 [00:04&lt;00:50,    1.11s/it]
+ 10%|█         | interpolating channels : 5/50 [00:05&lt;00:49,    1.11s/it]
+ 12%|█▏        | interpolating channels : 6/50 [00:06&lt;00:48,    1.11s/it]
+ 14%|█▍        | interpolating channels : 7/50 [00:07&lt;00:47,    1.11s/it]
+ 16%|█▌        | interpolating channels : 8/50 [00:08&lt;00:46,    1.11s/it]
+ 18%|█▊        | interpolating channels : 9/50 [00:09&lt;00:45,    1.11s/it]
+ 20%|██        | interpolating channels : 10/50 [00:11&lt;00:44,    1.11s/it]
+ 22%|██▏       | interpolating channels : 11/50 [00:12&lt;00:43,    1.11s/it]
+ 24%|██▍       | interpolating channels : 12/50 [00:13&lt;00:42,    1.11s/it]
+ 26%|██▌       | interpolating channels : 13/50 [00:14&lt;00:41,    1.11s/it]
+ 28%|██▊       | interpolating channels : 14/50 [00:15&lt;00:39,    1.11s/it]
+ 30%|███       | interpolating channels : 15/50 [00:16&lt;00:38,    1.11s/it]
+ 32%|███▏      | interpolating channels : 16/50 [00:17&lt;00:37,    1.11s/it]
+ 34%|███▍      | interpolating channels : 17/50 [00:18&lt;00:36,    1.11s/it]
+ 36%|███▌      | interpolating channels : 18/50 [00:19&lt;00:35,    1.11s/it]
+ 38%|███▊      | interpolating channels : 19/50 [00:21&lt;00:34,    1.11s/it]
+ 40%|████      | interpolating channels : 20/50 [00:22&lt;00:33,    1.11s/it]
+ 42%|████▏     | interpolating channels : 21/50 [00:23&lt;00:32,    1.11s/it]
+ 44%|████▍     | interpolating channels : 22/50 [00:24&lt;00:31,    1.11s/it]
+ 46%|████▌     | interpolating channels : 23/50 [00:25&lt;00:30,    1.11s/it]
+ 48%|████▊     | interpolating channels : 24/50 [00:26&lt;00:28,    1.11s/it]
+ 50%|█████     | interpolating channels : 25/50 [00:27&lt;00:27,    1.11s/it]
+ 52%|█████▏    | interpolating channels : 26/50 [00:28&lt;00:26,    1.11s/it]
+ 54%|█████▍    | interpolating channels : 27/50 [00:30&lt;00:25,    1.11s/it]
+ 56%|█████▌    | interpolating channels : 28/50 [00:31&lt;00:24,    1.12s/it]
+ 58%|█████▊    | interpolating channels : 29/50 [00:32&lt;00:23,    1.12s/it]
+ 60%|██████    | interpolating channels : 30/50 [00:33&lt;00:22,    1.12s/it]
+ 62%|██████▏   | interpolating channels : 31/50 [00:34&lt;00:21,    1.12s/it]
+ 64%|██████▍   | interpolating channels : 32/50 [00:35&lt;00:20,    1.12s/it]
+ 66%|██████▌   | interpolating channels : 33/50 [00:36&lt;00:18,    1.11s/it]
+ 68%|██████▊   | interpolating channels : 34/50 [00:37&lt;00:17,    1.11s/it]
+ 70%|███████   | interpolating channels : 35/50 [00:38&lt;00:16,    1.11s/it]
+ 72%|███████▏  | interpolating channels : 36/50 [00:40&lt;00:15,    1.11s/it]
+ 74%|███████▍  | interpolating channels : 37/50 [00:41&lt;00:14,    1.11s/it]
+ 76%|███████▌  | interpolating channels : 38/50 [00:42&lt;00:13,    1.11s/it]
+ 78%|███████▊  | interpolating channels : 39/50 [00:43&lt;00:12,    1.12s/it]
+ 80%|████████  | interpolating channels : 40/50 [00:44&lt;00:11,    1.12s/it]
+ 82%|████████▏ | interpolating channels : 41/50 [00:45&lt;00:10,    1.12s/it]
+ 84%|████████▍ | interpolating channels : 42/50 [00:46&lt;00:08,    1.12s/it]
+ 86%|████████▌ | interpolating channels : 43/50 [00:47&lt;00:07,    1.12s/it]
+ 88%|████████▊ | interpolating channels : 44/50 [00:49&lt;00:06,    1.12s/it]
+ 90%|█████████ | interpolating channels : 45/50 [00:50&lt;00:05,    1.12s/it]
+ 92%|█████████▏| interpolating channels : 46/50 [00:51&lt;00:04,    1.12s/it]
+ 94%|█████████▍| interpolating channels : 47/50 [00:52&lt;00:03,    1.12s/it]
+ 96%|█████████▌| interpolating channels : 48/50 [00:53&lt;00:02,    1.12s/it]
+ 98%|█████████▊| interpolating channels : 49/50 [00:54&lt;00:01,    1.12s/it]
+100%|██████████| interpolating channels : 50/50 [00:55&lt;00:00,    1.12s/it]
+100%|██████████| interpolating channels : 50/50 [00:55&lt;00:00,    1.11s/it]
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:   55.8s
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:   55.8s finished
 
   0%|          | Iterating epochs : 0/72 [00:00&lt;?,       ?it/s]
-  1%|▏         | Iterating epochs : 1/72 [00:00&lt;00:06,   10.93it/s]
-  3%|▎         | Iterating epochs : 2/72 [00:00&lt;00:04,   15.08it/s]
-  4%|▍         | Iterating epochs : 3/72 [00:00&lt;00:03,   17.31it/s]
-  6%|▌         | Iterating epochs : 4/72 [00:00&lt;00:03,   18.35it/s]
-  7%|▋         | Iterating epochs : 5/72 [00:00&lt;00:03,   19.30it/s]
-  8%|▊         | Iterating epochs : 6/72 [00:00&lt;00:03,   20.00it/s]
- 10%|▉         | Iterating epochs : 7/72 [00:00&lt;00:03,   20.54it/s]
- 11%|█         | Iterating epochs : 8/72 [00:00&lt;00:03,   20.96it/s]
- 12%|█▎        | Iterating epochs : 9/72 [00:00&lt;00:02,   21.29it/s]
- 14%|█▍        | Iterating epochs : 10/72 [00:00&lt;00:02,   21.57it/s]
- 15%|█▌        | Iterating epochs : 11/72 [00:00&lt;00:02,   21.80it/s]
- 17%|█▋        | Iterating epochs : 12/72 [00:00&lt;00:02,   22.00it/s]
- 18%|█▊        | Iterating epochs : 13/72 [00:00&lt;00:02,   22.17it/s]
- 19%|█▉        | Iterating epochs : 14/72 [00:00&lt;00:02,   22.31it/s]
- 21%|██        | Iterating epochs : 15/72 [00:00&lt;00:02,   22.45it/s]
- 22%|██▏       | Iterating epochs : 16/72 [00:00&lt;00:02,   22.59it/s]
- 24%|██▎       | Iterating epochs : 17/72 [00:00&lt;00:02,   22.69it/s]
- 25%|██▌       | Iterating epochs : 18/72 [00:00&lt;00:02,   22.78it/s]
- 26%|██▋       | Iterating epochs : 19/72 [00:00&lt;00:02,   22.86it/s]
- 28%|██▊       | Iterating epochs : 20/72 [00:00&lt;00:02,   22.93it/s]
- 29%|██▉       | Iterating epochs : 21/72 [00:00&lt;00:02,   23.00it/s]
- 31%|███       | Iterating epochs : 22/72 [00:00&lt;00:02,   23.07it/s]
- 32%|███▏      | Iterating epochs : 23/72 [00:01&lt;00:02,   23.12it/s]
- 33%|███▎      | Iterating epochs : 24/72 [00:01&lt;00:02,   23.16it/s]
- 35%|███▍      | Iterating epochs : 25/72 [00:01&lt;00:02,   23.18it/s]
- 36%|███▌      | Iterating epochs : 26/72 [00:01&lt;00:01,   23.21it/s]
- 38%|███▊      | Iterating epochs : 27/72 [00:01&lt;00:01,   23.25it/s]
- 39%|███▉      | Iterating epochs : 28/72 [00:01&lt;00:01,   23.28it/s]
- 40%|████      | Iterating epochs : 29/72 [00:01&lt;00:01,   23.30it/s]
- 42%|████▏     | Iterating epochs : 30/72 [00:01&lt;00:01,   23.33it/s]
- 43%|████▎     | Iterating epochs : 31/72 [00:01&lt;00:01,   23.38it/s]
- 44%|████▍     | Iterating epochs : 32/72 [00:01&lt;00:01,   23.41it/s]
- 46%|████▌     | Iterating epochs : 33/72 [00:01&lt;00:01,   23.44it/s]
- 47%|████▋     | Iterating epochs : 34/72 [00:01&lt;00:01,   23.45it/s]
- 49%|████▊     | Iterating epochs : 35/72 [00:01&lt;00:01,   23.48it/s]
- 50%|█████     | Iterating epochs : 36/72 [00:01&lt;00:01,   23.51it/s]
- 51%|█████▏    | Iterating epochs : 37/72 [00:01&lt;00:01,   23.53it/s]
- 53%|█████▎    | Iterating epochs : 38/72 [00:01&lt;00:01,   23.54it/s]
- 54%|█████▍    | Iterating epochs : 39/72 [00:01&lt;00:01,   23.55it/s]
- 56%|█████▌    | Iterating epochs : 40/72 [00:01&lt;00:01,   23.56it/s]
- 57%|█████▋    | Iterating epochs : 41/72 [00:01&lt;00:01,   23.57it/s]
- 58%|█████▊    | Iterating epochs : 42/72 [00:01&lt;00:01,   23.58it/s]
- 60%|█████▉    | Iterating epochs : 43/72 [00:01&lt;00:01,   23.59it/s]
- 61%|██████    | Iterating epochs : 44/72 [00:01&lt;00:01,   23.59it/s]
- 62%|██████▎   | Iterating epochs : 45/72 [00:01&lt;00:01,   23.61it/s]
- 64%|██████▍   | Iterating epochs : 46/72 [00:01&lt;00:01,   23.63it/s]
- 65%|██████▌   | Iterating epochs : 47/72 [00:02&lt;00:01,   23.65it/s]
- 67%|██████▋   | Iterating epochs : 48/72 [00:02&lt;00:01,   23.66it/s]
- 68%|██████▊   | Iterating epochs : 49/72 [00:02&lt;00:00,   23.66it/s]
- 69%|██████▉   | Iterating epochs : 50/72 [00:02&lt;00:00,   23.67it/s]
- 71%|███████   | Iterating epochs : 51/72 [00:02&lt;00:00,   23.68it/s]
- 72%|███████▏  | Iterating epochs : 52/72 [00:02&lt;00:00,   23.70it/s]
- 74%|███████▎  | Iterating epochs : 53/72 [00:02&lt;00:00,   23.70it/s]
- 75%|███████▌  | Iterating epochs : 54/72 [00:02&lt;00:00,   23.71it/s]
- 76%|███████▋  | Iterating epochs : 55/72 [00:02&lt;00:00,   23.71it/s]
- 78%|███████▊  | Iterating epochs : 56/72 [00:02&lt;00:00,   23.70it/s]
- 79%|███████▉  | Iterating epochs : 57/72 [00:02&lt;00:00,   23.71it/s]
- 81%|████████  | Iterating epochs : 58/72 [00:02&lt;00:00,   23.72it/s]
- 82%|████████▏ | Iterating epochs : 59/72 [00:02&lt;00:00,   23.73it/s]
- 83%|████████▎ | Iterating epochs : 60/72 [00:02&lt;00:00,   23.73it/s]
- 85%|████████▍ | Iterating epochs : 61/72 [00:02&lt;00:00,   23.73it/s]
- 86%|████████▌ | Iterating epochs : 62/72 [00:02&lt;00:00,   23.74it/s]
- 88%|████████▊ | Iterating epochs : 63/72 [00:02&lt;00:00,   23.72it/s]
- 89%|████████▉ | Iterating epochs : 64/72 [00:02&lt;00:00,   23.70it/s]
- 90%|█████████ | Iterating epochs : 65/72 [00:02&lt;00:00,   23.70it/s]
- 92%|█████████▏| Iterating epochs : 66/72 [00:02&lt;00:00,   23.70it/s]
- 93%|█████████▎| Iterating epochs : 67/72 [00:02&lt;00:00,   23.70it/s]
- 94%|█████████▍| Iterating epochs : 68/72 [00:02&lt;00:00,   23.69it/s]
- 96%|█████████▌| Iterating epochs : 69/72 [00:02&lt;00:00,   23.69it/s]
- 97%|█████████▋| Iterating epochs : 70/72 [00:02&lt;00:00,   23.68it/s]
- 99%|█████████▊| Iterating epochs : 71/72 [00:03&lt;00:00,   23.68it/s]
-100%|██████████| Iterating epochs : 72/72 [00:03&lt;00:00,   23.68it/s]
-100%|██████████| Iterating epochs : 72/72 [00:03&lt;00:00,   23.35it/s]
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    3.1s
-[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    3.1s
+  1%|▏         | Iterating epochs : 1/72 [00:00&lt;00:04,   17.22it/s]
+  3%|▎         | Iterating epochs : 2/72 [00:00&lt;00:03,   19.89it/s]
+  4%|▍         | Iterating epochs : 3/72 [00:00&lt;00:02,   23.33it/s]
+  6%|▌         | Iterating epochs : 4/72 [00:00&lt;00:02,   25.54it/s]
+  7%|▋         | Iterating epochs : 5/72 [00:00&lt;00:02,   27.07it/s]
+  8%|▊         | Iterating epochs : 6/72 [00:00&lt;00:02,   28.19it/s]
+ 10%|▉         | Iterating epochs : 7/72 [00:00&lt;00:02,   28.94it/s]
+ 11%|█         | Iterating epochs : 8/72 [00:00&lt;00:02,   29.51it/s]
+ 12%|█▎        | Iterating epochs : 9/72 [00:00&lt;00:02,   30.02it/s]
+ 14%|█▍        | Iterating epochs : 10/72 [00:00&lt;00:02,   30.49it/s]
+ 15%|█▌        | Iterating epochs : 11/72 [00:00&lt;00:01,   30.88it/s]
+ 17%|█▋        | Iterating epochs : 12/72 [00:00&lt;00:01,   31.18it/s]
+ 18%|█▊        | Iterating epochs : 13/72 [00:00&lt;00:01,   31.41it/s]
+ 19%|█▉        | Iterating epochs : 14/72 [00:00&lt;00:01,   31.63it/s]
+ 21%|██        | Iterating epochs : 15/72 [00:00&lt;00:01,   31.79it/s]
+ 22%|██▏       | Iterating epochs : 16/72 [00:00&lt;00:01,   31.95it/s]
+ 24%|██▎       | Iterating epochs : 17/72 [00:00&lt;00:01,   32.13it/s]
+ 25%|██▌       | Iterating epochs : 18/72 [00:00&lt;00:01,   32.29it/s]
+ 26%|██▋       | Iterating epochs : 19/72 [00:00&lt;00:01,   32.45it/s]
+ 28%|██▊       | Iterating epochs : 20/72 [00:00&lt;00:01,   32.59it/s]
+ 29%|██▉       | Iterating epochs : 21/72 [00:00&lt;00:01,   32.72it/s]
+ 31%|███       | Iterating epochs : 22/72 [00:00&lt;00:01,   32.84it/s]
+ 32%|███▏      | Iterating epochs : 23/72 [00:00&lt;00:01,   32.95it/s]
+ 33%|███▎      | Iterating epochs : 24/72 [00:00&lt;00:01,   33.04it/s]
+ 35%|███▍      | Iterating epochs : 25/72 [00:00&lt;00:01,   33.13it/s]
+ 36%|███▌      | Iterating epochs : 26/72 [00:00&lt;00:01,   33.21it/s]
+ 38%|███▊      | Iterating epochs : 27/72 [00:00&lt;00:01,   33.26it/s]
+ 39%|███▉      | Iterating epochs : 28/72 [00:00&lt;00:01,   33.32it/s]
+ 40%|████      | Iterating epochs : 29/72 [00:00&lt;00:01,   33.39it/s]
+ 42%|████▏     | Iterating epochs : 30/72 [00:00&lt;00:01,   33.46it/s]
+ 43%|████▎     | Iterating epochs : 31/72 [00:00&lt;00:01,   33.52it/s]
+ 44%|████▍     | Iterating epochs : 32/72 [00:00&lt;00:01,   33.58it/s]
+ 46%|████▌     | Iterating epochs : 33/72 [00:01&lt;00:01,   33.64it/s]
+ 47%|████▋     | Iterating epochs : 34/72 [00:01&lt;00:01,   33.69it/s]
+ 49%|████▊     | Iterating epochs : 35/72 [00:01&lt;00:01,   33.73it/s]
+ 50%|█████     | Iterating epochs : 36/72 [00:01&lt;00:01,   33.77it/s]
+ 51%|█████▏    | Iterating epochs : 37/72 [00:01&lt;00:01,   33.80it/s]
+ 53%|█████▎    | Iterating epochs : 38/72 [00:01&lt;00:01,   33.84it/s]
+ 54%|█████▍    | Iterating epochs : 39/72 [00:01&lt;00:00,   33.87it/s]
+ 56%|█████▌    | Iterating epochs : 40/72 [00:01&lt;00:00,   33.91it/s]
+ 57%|█████▋    | Iterating epochs : 41/72 [00:01&lt;00:00,   33.94it/s]
+ 58%|█████▊    | Iterating epochs : 42/72 [00:01&lt;00:00,   33.95it/s]
+ 60%|█████▉    | Iterating epochs : 43/72 [00:01&lt;00:00,   33.96it/s]
+ 61%|██████    | Iterating epochs : 44/72 [00:01&lt;00:00,   33.96it/s]
+ 62%|██████▎   | Iterating epochs : 45/72 [00:01&lt;00:00,   33.94it/s]
+ 64%|██████▍   | Iterating epochs : 46/72 [00:01&lt;00:00,   33.96it/s]
+ 65%|██████▌   | Iterating epochs : 47/72 [00:01&lt;00:00,   33.98it/s]
+ 67%|██████▋   | Iterating epochs : 48/72 [00:01&lt;00:00,   34.00it/s]
+ 68%|██████▊   | Iterating epochs : 49/72 [00:01&lt;00:00,   34.02it/s]
+ 69%|██████▉   | Iterating epochs : 50/72 [00:01&lt;00:00,   34.02it/s]
+ 71%|███████   | Iterating epochs : 51/72 [00:01&lt;00:00,   34.03it/s]
+ 72%|███████▏  | Iterating epochs : 52/72 [00:01&lt;00:00,   34.06it/s]
+ 74%|███████▎  | Iterating epochs : 53/72 [00:01&lt;00:00,   34.08it/s]
+ 75%|███████▌  | Iterating epochs : 54/72 [00:01&lt;00:00,   34.10it/s]
+ 76%|███████▋  | Iterating epochs : 55/72 [00:01&lt;00:00,   34.12it/s]
+ 78%|███████▊  | Iterating epochs : 56/72 [00:01&lt;00:00,   34.14it/s]
+ 79%|███████▉  | Iterating epochs : 57/72 [00:01&lt;00:00,   34.16it/s]
+ 81%|████████  | Iterating epochs : 58/72 [00:01&lt;00:00,   34.17it/s]
+ 82%|████████▏ | Iterating epochs : 59/72 [00:01&lt;00:00,   34.18it/s]
+ 83%|████████▎ | Iterating epochs : 60/72 [00:01&lt;00:00,   34.18it/s]
+ 85%|████████▍ | Iterating epochs : 61/72 [00:01&lt;00:00,   34.17it/s]
+ 86%|████████▌ | Iterating epochs : 62/72 [00:01&lt;00:00,   34.16it/s]
+ 88%|████████▊ | Iterating epochs : 63/72 [00:01&lt;00:00,   34.16it/s]
+ 89%|████████▉ | Iterating epochs : 64/72 [00:01&lt;00:00,   34.16it/s]
+ 90%|█████████ | Iterating epochs : 65/72 [00:01&lt;00:00,   34.14it/s]
+ 92%|█████████▏| Iterating epochs : 66/72 [00:01&lt;00:00,   34.09it/s]
+ 93%|█████████▎| Iterating epochs : 67/72 [00:02&lt;00:00,   34.06it/s]
+ 94%|█████████▍| Iterating epochs : 68/72 [00:02&lt;00:00,   34.03it/s]
+ 96%|█████████▌| Iterating epochs : 69/72 [00:02&lt;00:00,   34.02it/s]
+ 97%|█████████▋| Iterating epochs : 70/72 [00:02&lt;00:00,   34.02it/s]
+ 99%|█████████▊| Iterating epochs : 71/72 [00:02&lt;00:00,   34.04it/s]
+100%|██████████| Iterating epochs : 72/72 [00:02&lt;00:00,   34.04it/s]
+100%|██████████| Iterating epochs : 72/72 [00:02&lt;00:00,   33.49it/s]
+[Parallel(n_jobs=1)]: Done   1 tasks      | elapsed:    2.2s
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:    2.2s finished
 [Done]
 Setting channel interpolation method to {&#39;eeg&#39;: &#39;spline&#39;, &#39;meg&#39;: &#39;MNE&#39;}.
 Interpolating bad channels.
-    Automatic origin fit: head of radius 91.0 mm
+    Automatic origin fit: head of radius 91.2 mm
     Computing dot products for 292 MEG channels...
     Computing cross products for 292 → 14 MEG channels...
     Preparing the mapping matrix...
@@ -708,8 +714,8 @@ MEG 2443
 </pre></div>
 </div>
 <p>Let us plot the results.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoreject.utils</span> <span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">autoreject.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># noqa</span>
 <span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">)</span>
 
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -752,7 +758,7 @@ a heatmap.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 38.987 seconds)</p>
+<img src="../_images/sphx_glr_plot_ransac_002.png" srcset="../_images/sphx_glr_plot_ransac_002.png" alt="plot ransac" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 2.568 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-ransac-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/eed3f885ba83c61c9448cf1df4b6e6d1/plot_ransac.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ransac.ipynb</span></code></a></p>
@@ -832,8 +838,8 @@ a heatmap.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -844,7 +850,7 @@ a heatmap.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2024, autoreject developers. Last updated on 2024-11-19.
+      © Copyright 2016-2025, autoreject developers. Last updated on 2025-08-12.
       <br/>
     
   </p>
@@ -853,7 +859,7 @@ a heatmap.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>
@@ -866,7 +872,8 @@ a heatmap.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
