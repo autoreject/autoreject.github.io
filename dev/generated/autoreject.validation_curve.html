@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>autoreject.validation_curve &#8212; autoreject 0.5.0.dev21+g68f3097fe documentation</title>
+    <title>autoreject.validation_curve &#8212; autoreject 0.5.0.dev22+g256b41632 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=31287b87"></script>
+    <script src="../_static/documentation_options.js?v=e992bd28"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +67,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev21+g68f3097fe" />
+  <meta name="docsearch:version" content="0.5.0.dev22+g256b41632" />
 
   </head>
   
@@ -130,7 +130,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev21+g68f3097fe documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev22+g256b41632 documentation</p>
   
 </a></div>
     
@@ -467,24 +467,24 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>epochs</strong><span class="classifier">instance of <a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a></span></dt><dd><p>The epochs.</p>
+<dt><strong>epochs</strong><span class="classifier">instance of <a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="(in MNE v1.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mne.Epochs</span></code></a></span></dt><dd><p>The epochs.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The labels.</p>
+<dt><strong>y</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The labels.</p>
 </dd>
-<dt><strong>param_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Name of the parameter that will be varied.
+<dt><strong>param_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Name of the parameter that will be varied.
 Defaults to ‘thresh’.</p>
 </dd>
-<dt><strong>param_range</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values of the parameter that will be evaluated.
+<dt><strong>param_range</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The values of the parameter that will be evaluated.
 If None, 15 values between the min and the max threshold
 will be tested.</p>
 </dd>
-<dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.model_selection.html#module-sklearn.model_selection" title="(in scikit-learn v1.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a> object | <a class="reference external" href="https://docs.python.org/3/glossary.html#term-iterable" title="(in Python v3.13)"><span>iterable</span></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Determines the cross-validation strategy.
+<dt><strong>cv</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.model_selection.html#module-sklearn.model_selection" title="(in scikit-learn v1.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a> object | <a class="reference external" href="https://docs.python.org/3/glossary.html#term-iterable" title="(in Python v3.14)"><span>iterable</span></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Determines the cross-validation strategy.
 Defaults to None.</p>
 </dd>
-<dt><strong>return_param_range</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.13)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True the used param_range is returned.
+<dt><strong>return_param_range</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True the used param_range is returned.
 Defaults to False.</p>
 </dd>
-<dt><strong>n_jobs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>The number of thresholds to compute in parallel.</p>
+<dt><strong>n_jobs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>The number of thresholds to compute in parallel.</p>
 </dd>
 </dl>
 </dd>
@@ -587,7 +587,7 @@ Only returned if <cite>return_param_range</cite> is True.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2025, autoreject developers. Last updated on 2025-09-10.
+      © Copyright 2016-2025, autoreject developers. Last updated on 2025-11-25.
       <br/>
     
   </p>
