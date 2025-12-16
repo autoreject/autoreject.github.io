@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>autoreject.RejectLog &#8212; autoreject 0.5.0.dev22+g256b41632 documentation</title>
+    <title>autoreject.RejectLog &#8212; autoreject 0.5.0.dev24+gaf14df6c0 documentation</title>
   
   
   
@@ -44,9 +44,9 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=e992bd28"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=28635b13"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'generated/autoreject.RejectLog';</script>
@@ -67,7 +67,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev22+g256b41632" />
+  <meta name="docsearch:version" content="0.5.0.dev24+gaf14df6c0" />
 
   </head>
   
@@ -130,7 +130,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev22+g256b41632 documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev24+gaf14df6c0 documentation</p>
   
 </a></div>
     
@@ -462,16 +462,16 @@
 <h1>autoreject.RejectLog<a class="headerlink" href="#autoreject-rejectlog" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="autoreject.RejectLog">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autoreject.</span></span><span class="sig-name descname"><span class="pre">RejectLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bad_epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">autoreject.</span></span><span class="sig-name descname"><span class="pre">RejectLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bad_epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/autoreject/autoreject.html#RejectLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoreject.RejectLog" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Rejection Log.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>bad_epochs</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/glossary.html#term-array_like" title="(in NumPy v2.4.dev0)"><span>array_like</span></a>, shape (n_epochs,)</span></dt><dd><p>The boolean array with entries True for epochs that
+<dt><strong>bad_epochs</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/glossary.html#term-array_like" title="(in NumPy v2.5.dev0)"><span>array_like</span></a>, shape (n_epochs,)</span></dt><dd><p>The boolean array with entries True for epochs that
 are marked as bad.</p>
 </dd>
-<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (n_epochs, n_channels)</span></dt><dd><p>It contains integers that encode if a channel in a given
+<dt><strong>labels</strong><span class="classifier"><a class="reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, shape (n_epochs, n_channels)</span></dt><dd><p>It contains integers that encode if a channel in a given
 epoch is good (value 0), bad (1), or bad and interpolated (2).</p>
 </dd>
 <dt><strong>ch_names</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The list of channels corresponding to the rows of the labels.</p>
@@ -500,14 +500,14 @@ of plt.imshow() for more details.</p>
 </dd>
 <dt><strong>show</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a></span></dt><dd><p>If True (default), display the figure immediately.</p>
 </dd>
-<dt><strong>ax</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.10.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The axes to plot to. In <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), create a new
+<dt><strong>ax</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="(in Matplotlib v3.10.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.axes.Axes</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>The axes to plot to. In <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), create a new
 figure and axes.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>figure</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>The figure object containing the plot.</p>
+<dt><strong>figure</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>The figure object containing the plot.</p>
 </dd>
 </dl>
 </dd>
@@ -536,7 +536,7 @@ figure and axes.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>fig</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>Epochs traces.</p>
+<dt><strong>fig</strong><span class="classifier"><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="(in Matplotlib v3.10.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></a></span></dt><dd><p>Epochs traces.</p>
 </dd>
 </dl>
 </dd>
@@ -564,10 +564,10 @@ figure and axes.</p>
 <section id="examples-using-autoreject-rejectlog">
 <span id="sphx-glr-backreferences-autoreject-rejectlog"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">autoreject.RejectLog</span></code><a class="headerlink" href="#examples-using-autoreject-rejectlog" title="Link to this heading">#</a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="tldr: We recommend that you first highpass filter the data, then run autoreject (local) and supply the artifact-free epochs to the ICA algorithm for a robust fit, and finally run autoreject (local) again."><img alt="" src="../_images/sphx_glr_plot_autoreject_workflow_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/plot_autoreject_workflow.html#sphx-glr-auto-examples-plot-autoreject-workflow-py"><span class="std std-ref">Preprocessing workflow with autoreject and ICA</span></a></p>
+<p><a class="reference internal" href="../auto_examples/plot_autoreject_workflow.html"><span class="doc">Preprocessing workflow with autoreject and ICA</span></a></p>
   <div class="sphx-glr-thumbnail-title">Preprocessing workflow with autoreject and ICA</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use autoreject to visualize the bad sensors in each trial"><img alt="" src="../_images/sphx_glr_plot_visualize_bad_epochs_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/plot_visualize_bad_epochs.html#sphx-glr-auto-examples-plot-visualize-bad-epochs-py"><span class="std std-ref">Visualize bad sensors per trial</span></a></p>
+<p><a class="reference internal" href="../auto_examples/plot_visualize_bad_epochs.html"><span class="doc">Visualize bad sensors per trial</span></a></p>
   <div class="sphx-glr-thumbnail-title">Visualize bad sensors per trial</div>
 </div></div></section>
 </section>
@@ -654,7 +654,7 @@ figure and axes.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2025, autoreject developers. Last updated on 2025-11-25.
+      © Copyright 2016-2025, autoreject developers. Last updated on 2025-12-16.
       <br/>
     
   </p>
@@ -663,7 +663,7 @@ figure and axes.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
     <br/>
   </p>
 </div>
