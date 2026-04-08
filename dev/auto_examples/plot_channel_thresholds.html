@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plot channel-level thresholds &#8212; autoreject 0.5.0.dev24+gaf14df6c0 documentation</title>
+    <title>Plot channel-level thresholds &#8212; autoreject 0.5.0.dev25+g16be71c84 documentation</title>
   
   
   
@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -39,24 +39,25 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=664adccb" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
 
-    <script src="../_static/documentation_options.js?v=28635b13"></script>
+    <script src="../_static/documentation_options.js?v=98d3b380"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_channel_thresholds';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             false;
         </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Automatically repair epochs" href="plot_auto_repair.html" />
@@ -67,16 +68,20 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev24+gaf14df6c0" />
+  <meta name="docsearch:version" content="0.5.0.dev25+g16be71c84" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
 
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="auto">
-
+  <body data-default-mode="auto">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
@@ -108,7 +113,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -130,7 +135,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev24+gaf14df6c0 documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev25+g16be71c84 documentation</p>
   
 </a></div>
     
@@ -376,7 +381,14 @@
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
         <div class="sidebar-primary-item">
+
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
@@ -461,7 +473,7 @@ channel-wise thresholds.</p>
 <span class="c1"># License: BSD-3-Clause</span>
 </pre></div>
 </div>
-<p>Let us first load the <cite>raw</cite> data using <a class="reference external" href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="(in MNE v1.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mne.io.read_raw_fif()</span></code></a>.</p>
+<p>Let us first load the <cite>raw</cite> data using <a class="reference external" href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="(in MNE v1.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mne.io.read_raw_fif()</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">io</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample</span>
@@ -516,210 +528,210 @@ how we will search for thresholds over a range of potential candidates.</p>
   warnings.warn(
 
   0%|          | Computing thresholds ... : 0/203 [00:00&lt;?,       ?it/s]
-  0%|          | Computing thresholds ... : 1/203 [00:00&lt;00:19,   10.15it/s]
-  1%|          | Computing thresholds ... : 2/203 [00:00&lt;00:18,   10.98it/s]
-  1%|▏         | Computing thresholds ... : 3/203 [00:00&lt;00:17,   11.28it/s]
-  2%|▏         | Computing thresholds ... : 4/203 [00:00&lt;00:17,   11.40it/s]
-  2%|▏         | Computing thresholds ... : 5/203 [00:00&lt;00:17,   11.51it/s]
-  3%|▎         | Computing thresholds ... : 6/203 [00:00&lt;00:16,   11.59it/s]
-  3%|▎         | Computing thresholds ... : 7/203 [00:00&lt;00:16,   11.66it/s]
-  4%|▍         | Computing thresholds ... : 8/203 [00:00&lt;00:16,   11.71it/s]
-  4%|▍         | Computing thresholds ... : 9/203 [00:00&lt;00:16,   11.75it/s]
-  5%|▍         | Computing thresholds ... : 10/203 [00:00&lt;00:16,   11.77it/s]
-  5%|▌         | Computing thresholds ... : 11/203 [00:00&lt;00:16,   11.79it/s]
-  6%|▌         | Computing thresholds ... : 12/203 [00:01&lt;00:16,   11.82it/s]
-  6%|▋         | Computing thresholds ... : 13/203 [00:01&lt;00:16,   11.83it/s]
-  7%|▋         | Computing thresholds ... : 14/203 [00:01&lt;00:15,   11.83it/s]
-  7%|▋         | Computing thresholds ... : 15/203 [00:01&lt;00:15,   11.84it/s]
-  8%|▊         | Computing thresholds ... : 16/203 [00:01&lt;00:15,   11.84it/s]
-  8%|▊         | Computing thresholds ... : 17/203 [00:01&lt;00:15,   11.84it/s]
-  9%|▉         | Computing thresholds ... : 18/203 [00:01&lt;00:15,   11.84it/s]
-  9%|▉         | Computing thresholds ... : 19/203 [00:01&lt;00:15,   11.85it/s]
- 10%|▉         | Computing thresholds ... : 20/203 [00:01&lt;00:15,   11.85it/s]
- 10%|█         | Computing thresholds ... : 21/203 [00:01&lt;00:15,   11.86it/s]
- 11%|█         | Computing thresholds ... : 22/203 [00:01&lt;00:15,   11.87it/s]
- 11%|█▏        | Computing thresholds ... : 23/203 [00:01&lt;00:15,   11.88it/s]
- 12%|█▏        | Computing thresholds ... : 24/203 [00:02&lt;00:15,   11.88it/s]
- 12%|█▏        | Computing thresholds ... : 25/203 [00:02&lt;00:14,   11.89it/s]
- 13%|█▎        | Computing thresholds ... : 26/203 [00:02&lt;00:14,   11.89it/s]
- 13%|█▎        | Computing thresholds ... : 27/203 [00:02&lt;00:14,   11.89it/s]
- 14%|█▍        | Computing thresholds ... : 28/203 [00:02&lt;00:14,   11.90it/s]
- 14%|█▍        | Computing thresholds ... : 29/203 [00:02&lt;00:14,   11.91it/s]
- 15%|█▍        | Computing thresholds ... : 30/203 [00:02&lt;00:14,   11.91it/s]
- 15%|█▌        | Computing thresholds ... : 31/203 [00:02&lt;00:14,   11.91it/s]
- 16%|█▌        | Computing thresholds ... : 32/203 [00:02&lt;00:14,   11.92it/s]
- 16%|█▋        | Computing thresholds ... : 33/203 [00:02&lt;00:14,   11.92it/s]
- 17%|█▋        | Computing thresholds ... : 34/203 [00:02&lt;00:14,   11.92it/s]
- 17%|█▋        | Computing thresholds ... : 35/203 [00:02&lt;00:14,   11.93it/s]
- 18%|█▊        | Computing thresholds ... : 36/203 [00:03&lt;00:13,   11.93it/s]
- 18%|█▊        | Computing thresholds ... : 37/203 [00:03&lt;00:13,   11.94it/s]
- 19%|█▊        | Computing thresholds ... : 38/203 [00:03&lt;00:13,   11.93it/s]
- 19%|█▉        | Computing thresholds ... : 39/203 [00:03&lt;00:13,   11.94it/s]
- 20%|█▉        | Computing thresholds ... : 40/203 [00:03&lt;00:13,   11.94it/s]
- 20%|██        | Computing thresholds ... : 41/203 [00:03&lt;00:13,   11.94it/s]
- 21%|██        | Computing thresholds ... : 42/203 [00:03&lt;00:13,   11.95it/s]
- 21%|██        | Computing thresholds ... : 43/203 [00:03&lt;00:13,   11.96it/s]
- 22%|██▏       | Computing thresholds ... : 44/203 [00:03&lt;00:13,   11.95it/s]
- 22%|██▏       | Computing thresholds ... : 45/203 [00:03&lt;00:13,   11.95it/s]
- 23%|██▎       | Computing thresholds ... : 46/203 [00:03&lt;00:13,   11.96it/s]
- 23%|██▎       | Computing thresholds ... : 47/203 [00:03&lt;00:13,   11.96it/s]
- 24%|██▎       | Computing thresholds ... : 48/203 [00:04&lt;00:12,   11.96it/s]
- 24%|██▍       | Computing thresholds ... : 49/203 [00:04&lt;00:12,   11.97it/s]
- 25%|██▍       | Computing thresholds ... : 50/203 [00:04&lt;00:12,   11.97it/s]
- 25%|██▌       | Computing thresholds ... : 51/203 [00:04&lt;00:12,   11.97it/s]
- 26%|██▌       | Computing thresholds ... : 52/203 [00:04&lt;00:12,   11.97it/s]
- 26%|██▌       | Computing thresholds ... : 53/203 [00:04&lt;00:12,   11.97it/s]
- 27%|██▋       | Computing thresholds ... : 54/203 [00:04&lt;00:12,   11.97it/s]
- 27%|██▋       | Computing thresholds ... : 55/203 [00:04&lt;00:12,   11.97it/s]
- 28%|██▊       | Computing thresholds ... : 56/203 [00:04&lt;00:12,   11.96it/s]
- 28%|██▊       | Computing thresholds ... : 57/203 [00:04&lt;00:12,   11.97it/s]
- 29%|██▊       | Computing thresholds ... : 58/203 [00:04&lt;00:12,   11.97it/s]
- 29%|██▉       | Computing thresholds ... : 59/203 [00:04&lt;00:12,   11.97it/s]
- 30%|██▉       | Computing thresholds ... : 60/203 [00:05&lt;00:11,   11.96it/s]
- 30%|███       | Computing thresholds ... : 61/203 [00:05&lt;00:11,   11.96it/s]
- 31%|███       | Computing thresholds ... : 62/203 [00:05&lt;00:11,   11.96it/s]
- 31%|███       | Computing thresholds ... : 63/203 [00:05&lt;00:11,   11.95it/s]
- 32%|███▏      | Computing thresholds ... : 64/203 [00:05&lt;00:11,   11.96it/s]
- 32%|███▏      | Computing thresholds ... : 65/203 [00:05&lt;00:11,   11.96it/s]
- 33%|███▎      | Computing thresholds ... : 66/203 [00:05&lt;00:11,   11.96it/s]
- 33%|███▎      | Computing thresholds ... : 67/203 [00:05&lt;00:11,   11.96it/s]
- 33%|███▎      | Computing thresholds ... : 68/203 [00:05&lt;00:11,   11.96it/s]
- 34%|███▍      | Computing thresholds ... : 69/203 [00:05&lt;00:11,   11.96it/s]
- 34%|███▍      | Computing thresholds ... : 70/203 [00:05&lt;00:11,   11.97it/s]
- 35%|███▍      | Computing thresholds ... : 71/203 [00:05&lt;00:11,   11.97it/s]
- 35%|███▌      | Computing thresholds ... : 72/203 [00:06&lt;00:10,   11.97it/s]
- 36%|███▌      | Computing thresholds ... : 73/203 [00:06&lt;00:10,   11.97it/s]
- 36%|███▋      | Computing thresholds ... : 74/203 [00:06&lt;00:10,   11.96it/s]
- 37%|███▋      | Computing thresholds ... : 75/203 [00:06&lt;00:10,   11.96it/s]
- 37%|███▋      | Computing thresholds ... : 76/203 [00:06&lt;00:10,   11.96it/s]
- 38%|███▊      | Computing thresholds ... : 77/203 [00:06&lt;00:10,   11.96it/s]
- 38%|███▊      | Computing thresholds ... : 78/203 [00:06&lt;00:10,   11.95it/s]
- 39%|███▉      | Computing thresholds ... : 79/203 [00:06&lt;00:10,   11.95it/s]
- 39%|███▉      | Computing thresholds ... : 80/203 [00:06&lt;00:10,   11.95it/s]
- 40%|███▉      | Computing thresholds ... : 81/203 [00:06&lt;00:10,   11.95it/s]
- 40%|████      | Computing thresholds ... : 82/203 [00:06&lt;00:10,   11.96it/s]
- 41%|████      | Computing thresholds ... : 83/203 [00:06&lt;00:10,   11.95it/s]
- 41%|████▏     | Computing thresholds ... : 84/203 [00:07&lt;00:09,   11.95it/s]
- 42%|████▏     | Computing thresholds ... : 85/203 [00:07&lt;00:09,   11.95it/s]
- 42%|████▏     | Computing thresholds ... : 86/203 [00:07&lt;00:09,   11.95it/s]
- 43%|████▎     | Computing thresholds ... : 87/203 [00:07&lt;00:09,   11.94it/s]
- 43%|████▎     | Computing thresholds ... : 88/203 [00:07&lt;00:09,   11.94it/s]
- 44%|████▍     | Computing thresholds ... : 89/203 [00:07&lt;00:09,   11.94it/s]
- 44%|████▍     | Computing thresholds ... : 90/203 [00:07&lt;00:09,   11.95it/s]
- 45%|████▍     | Computing thresholds ... : 91/203 [00:07&lt;00:09,   11.95it/s]
- 45%|████▌     | Computing thresholds ... : 92/203 [00:07&lt;00:09,   11.95it/s]
- 46%|████▌     | Computing thresholds ... : 93/203 [00:07&lt;00:09,   11.95it/s]
- 46%|████▋     | Computing thresholds ... : 94/203 [00:07&lt;00:09,   11.95it/s]
- 47%|████▋     | Computing thresholds ... : 95/203 [00:07&lt;00:09,   11.95it/s]
- 47%|████▋     | Computing thresholds ... : 96/203 [00:08&lt;00:08,   11.95it/s]
- 48%|████▊     | Computing thresholds ... : 97/203 [00:08&lt;00:08,   11.95it/s]
- 48%|████▊     | Computing thresholds ... : 98/203 [00:08&lt;00:08,   11.95it/s]
- 49%|████▉     | Computing thresholds ... : 99/203 [00:08&lt;00:08,   11.95it/s]
- 49%|████▉     | Computing thresholds ... : 100/203 [00:08&lt;00:08,   11.94it/s]
- 50%|████▉     | Computing thresholds ... : 101/203 [00:08&lt;00:08,   11.95it/s]
- 50%|█████     | Computing thresholds ... : 102/203 [00:08&lt;00:08,   11.95it/s]
- 51%|█████     | Computing thresholds ... : 103/203 [00:08&lt;00:08,   11.95it/s]
- 51%|█████     | Computing thresholds ... : 104/203 [00:08&lt;00:08,   11.95it/s]
- 52%|█████▏    | Computing thresholds ... : 105/203 [00:08&lt;00:08,   11.95it/s]
- 52%|█████▏    | Computing thresholds ... : 106/203 [00:08&lt;00:08,   11.95it/s]
- 53%|█████▎    | Computing thresholds ... : 107/203 [00:08&lt;00:08,   11.95it/s]
- 53%|█████▎    | Computing thresholds ... : 108/203 [00:09&lt;00:08,   11.54it/s]
- 54%|█████▎    | Computing thresholds ... : 109/203 [00:09&lt;00:08,   11.56it/s]
- 54%|█████▍    | Computing thresholds ... : 110/203 [00:09&lt;00:08,   11.57it/s]
- 55%|█████▍    | Computing thresholds ... : 111/203 [00:09&lt;00:07,   11.59it/s]
- 55%|█████▌    | Computing thresholds ... : 112/203 [00:09&lt;00:07,   11.62it/s]
- 56%|█████▌    | Computing thresholds ... : 113/203 [00:09&lt;00:07,   11.64it/s]
- 56%|█████▌    | Computing thresholds ... : 114/203 [00:09&lt;00:07,   11.66it/s]
- 57%|█████▋    | Computing thresholds ... : 115/203 [00:09&lt;00:07,   11.67it/s]
- 57%|█████▋    | Computing thresholds ... : 116/203 [00:09&lt;00:07,   11.70it/s]
- 58%|█████▊    | Computing thresholds ... : 117/203 [00:09&lt;00:07,   11.71it/s]
- 58%|█████▊    | Computing thresholds ... : 118/203 [00:09&lt;00:07,   11.73it/s]
- 59%|█████▊    | Computing thresholds ... : 119/203 [00:10&lt;00:07,   11.74it/s]
- 59%|█████▉    | Computing thresholds ... : 120/203 [00:10&lt;00:07,   11.75it/s]
- 60%|█████▉    | Computing thresholds ... : 121/203 [00:10&lt;00:06,   11.76it/s]
- 60%|██████    | Computing thresholds ... : 122/203 [00:10&lt;00:06,   11.77it/s]
- 61%|██████    | Computing thresholds ... : 123/203 [00:10&lt;00:06,   11.78it/s]
- 61%|██████    | Computing thresholds ... : 124/203 [00:10&lt;00:06,   11.80it/s]
- 62%|██████▏   | Computing thresholds ... : 125/203 [00:10&lt;00:06,   11.81it/s]
- 62%|██████▏   | Computing thresholds ... : 126/203 [00:10&lt;00:06,   11.83it/s]
- 63%|██████▎   | Computing thresholds ... : 127/203 [00:10&lt;00:06,   11.83it/s]
- 63%|██████▎   | Computing thresholds ... : 128/203 [00:10&lt;00:06,   11.84it/s]
- 64%|██████▎   | Computing thresholds ... : 129/203 [00:10&lt;00:06,   11.84it/s]
- 64%|██████▍   | Computing thresholds ... : 130/203 [00:10&lt;00:06,   11.85it/s]
- 65%|██████▍   | Computing thresholds ... : 131/203 [00:11&lt;00:06,   11.86it/s]
- 65%|██████▌   | Computing thresholds ... : 132/203 [00:11&lt;00:05,   11.86it/s]
- 66%|██████▌   | Computing thresholds ... : 133/203 [00:11&lt;00:05,   11.86it/s]
- 66%|██████▌   | Computing thresholds ... : 134/203 [00:11&lt;00:05,   11.87it/s]
- 67%|██████▋   | Computing thresholds ... : 135/203 [00:11&lt;00:05,   11.87it/s]
- 67%|██████▋   | Computing thresholds ... : 136/203 [00:11&lt;00:05,   11.87it/s]
- 67%|██████▋   | Computing thresholds ... : 137/203 [00:11&lt;00:05,   11.88it/s]
- 68%|██████▊   | Computing thresholds ... : 138/203 [00:11&lt;00:05,   11.88it/s]
- 68%|██████▊   | Computing thresholds ... : 139/203 [00:11&lt;00:05,   11.88it/s]
- 69%|██████▉   | Computing thresholds ... : 140/203 [00:11&lt;00:05,   11.89it/s]
- 69%|██████▉   | Computing thresholds ... : 141/203 [00:11&lt;00:05,   11.89it/s]
- 70%|██████▉   | Computing thresholds ... : 142/203 [00:11&lt;00:05,   11.90it/s]
- 70%|███████   | Computing thresholds ... : 143/203 [00:12&lt;00:05,   11.90it/s]
- 71%|███████   | Computing thresholds ... : 144/203 [00:12&lt;00:04,   11.91it/s]
- 71%|███████▏  | Computing thresholds ... : 145/203 [00:12&lt;00:04,   11.91it/s]
- 72%|███████▏  | Computing thresholds ... : 146/203 [00:12&lt;00:04,   11.92it/s]
- 72%|███████▏  | Computing thresholds ... : 147/203 [00:12&lt;00:04,   11.92it/s]
- 73%|███████▎  | Computing thresholds ... : 148/203 [00:12&lt;00:04,   11.91it/s]
- 73%|███████▎  | Computing thresholds ... : 149/203 [00:12&lt;00:04,   11.91it/s]
- 74%|███████▍  | Computing thresholds ... : 150/203 [00:12&lt;00:04,   11.92it/s]
- 74%|███████▍  | Computing thresholds ... : 151/203 [00:12&lt;00:04,   11.92it/s]
- 75%|███████▍  | Computing thresholds ... : 152/203 [00:12&lt;00:04,   11.92it/s]
- 75%|███████▌  | Computing thresholds ... : 153/203 [00:12&lt;00:04,   11.91it/s]
- 76%|███████▌  | Computing thresholds ... : 154/203 [00:12&lt;00:04,   11.91it/s]
- 76%|███████▋  | Computing thresholds ... : 155/203 [00:13&lt;00:04,   11.91it/s]
- 77%|███████▋  | Computing thresholds ... : 156/203 [00:13&lt;00:03,   11.92it/s]
- 77%|███████▋  | Computing thresholds ... : 157/203 [00:13&lt;00:03,   11.91it/s]
- 78%|███████▊  | Computing thresholds ... : 158/203 [00:13&lt;00:03,   11.92it/s]
- 78%|███████▊  | Computing thresholds ... : 159/203 [00:13&lt;00:03,   11.92it/s]
- 79%|███████▉  | Computing thresholds ... : 160/203 [00:13&lt;00:03,   11.93it/s]
- 79%|███████▉  | Computing thresholds ... : 161/203 [00:13&lt;00:03,   11.93it/s]
- 80%|███████▉  | Computing thresholds ... : 162/203 [00:13&lt;00:03,   11.94it/s]
- 80%|████████  | Computing thresholds ... : 163/203 [00:13&lt;00:03,   11.94it/s]
- 81%|████████  | Computing thresholds ... : 164/203 [00:13&lt;00:03,   11.81it/s]
- 81%|████████▏ | Computing thresholds ... : 165/203 [00:13&lt;00:03,   11.62it/s]
- 82%|████████▏ | Computing thresholds ... : 166/203 [00:13&lt;00:03,   11.64it/s]
- 82%|████████▏ | Computing thresholds ... : 167/203 [00:14&lt;00:03,   11.66it/s]
- 83%|████████▎ | Computing thresholds ... : 168/203 [00:14&lt;00:02,   11.68it/s]
- 83%|████████▎ | Computing thresholds ... : 169/203 [00:14&lt;00:02,   11.69it/s]
- 84%|████████▎ | Computing thresholds ... : 170/203 [00:14&lt;00:02,   11.70it/s]
- 84%|████████▍ | Computing thresholds ... : 171/203 [00:14&lt;00:02,   11.72it/s]
- 85%|████████▍ | Computing thresholds ... : 172/203 [00:14&lt;00:02,   11.73it/s]
- 85%|████████▌ | Computing thresholds ... : 173/203 [00:14&lt;00:02,   11.75it/s]
- 86%|████████▌ | Computing thresholds ... : 174/203 [00:14&lt;00:02,   11.75it/s]
- 86%|████████▌ | Computing thresholds ... : 175/203 [00:14&lt;00:02,   11.77it/s]
- 87%|████████▋ | Computing thresholds ... : 176/203 [00:14&lt;00:02,   11.78it/s]
- 87%|████████▋ | Computing thresholds ... : 177/203 [00:14&lt;00:02,   11.79it/s]
- 88%|████████▊ | Computing thresholds ... : 178/203 [00:15&lt;00:02,   11.80it/s]
- 88%|████████▊ | Computing thresholds ... : 179/203 [00:15&lt;00:02,   11.81it/s]
- 89%|████████▊ | Computing thresholds ... : 180/203 [00:15&lt;00:01,   11.82it/s]
- 89%|████████▉ | Computing thresholds ... : 181/203 [00:15&lt;00:01,   11.83it/s]
- 90%|████████▉ | Computing thresholds ... : 182/203 [00:15&lt;00:01,   11.82it/s]
- 90%|█████████ | Computing thresholds ... : 183/203 [00:15&lt;00:01,   11.83it/s]
- 91%|█████████ | Computing thresholds ... : 184/203 [00:15&lt;00:01,   11.84it/s]
- 91%|█████████ | Computing thresholds ... : 185/203 [00:15&lt;00:01,   11.84it/s]
- 92%|█████████▏| Computing thresholds ... : 186/203 [00:15&lt;00:01,   11.84it/s]
- 92%|█████████▏| Computing thresholds ... : 187/203 [00:15&lt;00:01,   11.85it/s]
- 93%|█████████▎| Computing thresholds ... : 188/203 [00:15&lt;00:01,   11.86it/s]
- 93%|█████████▎| Computing thresholds ... : 189/203 [00:15&lt;00:01,   11.86it/s]
- 94%|█████████▎| Computing thresholds ... : 190/203 [00:16&lt;00:01,   11.87it/s]
- 94%|█████████▍| Computing thresholds ... : 191/203 [00:16&lt;00:01,   11.88it/s]
- 95%|█████████▍| Computing thresholds ... : 192/203 [00:16&lt;00:00,   11.89it/s]
- 95%|█████████▌| Computing thresholds ... : 193/203 [00:16&lt;00:00,   11.89it/s]
- 96%|█████████▌| Computing thresholds ... : 194/203 [00:16&lt;00:00,   11.90it/s]
- 96%|█████████▌| Computing thresholds ... : 195/203 [00:16&lt;00:00,   11.91it/s]
- 97%|█████████▋| Computing thresholds ... : 196/203 [00:16&lt;00:00,   11.92it/s]
- 97%|█████████▋| Computing thresholds ... : 197/203 [00:16&lt;00:00,   11.93it/s]
- 98%|█████████▊| Computing thresholds ... : 198/203 [00:16&lt;00:00,   11.93it/s]
- 98%|█████████▊| Computing thresholds ... : 199/203 [00:16&lt;00:00,   11.93it/s]
- 99%|█████████▊| Computing thresholds ... : 200/203 [00:16&lt;00:00,   11.94it/s]
- 99%|█████████▉| Computing thresholds ... : 201/203 [00:16&lt;00:00,   11.94it/s]
-100%|█████████▉| Computing thresholds ... : 202/203 [00:17&lt;00:00,   11.94it/s]
-100%|██████████| Computing thresholds ... : 203/203 [00:17&lt;00:00,   11.95it/s]
-100%|██████████| Computing thresholds ... : 203/203 [00:17&lt;00:00,   11.88it/s]
+  0%|          | Computing thresholds ... : 1/203 [00:00&lt;00:19,   10.41it/s]
+  1%|          | Computing thresholds ... : 2/203 [00:00&lt;00:17,   11.30it/s]
+  1%|▏         | Computing thresholds ... : 3/203 [00:00&lt;00:17,   11.64it/s]
+  2%|▏         | Computing thresholds ... : 4/203 [00:00&lt;00:16,   11.80it/s]
+  2%|▏         | Computing thresholds ... : 5/203 [00:00&lt;00:16,   11.93it/s]
+  3%|▎         | Computing thresholds ... : 6/203 [00:00&lt;00:16,   12.02it/s]
+  3%|▎         | Computing thresholds ... : 7/203 [00:00&lt;00:16,   12.07it/s]
+  4%|▍         | Computing thresholds ... : 8/203 [00:00&lt;00:16,   12.12it/s]
+  4%|▍         | Computing thresholds ... : 9/203 [00:00&lt;00:15,   12.16it/s]
+  5%|▍         | Computing thresholds ... : 10/203 [00:00&lt;00:15,   12.19it/s]
+  5%|▌         | Computing thresholds ... : 11/203 [00:00&lt;00:15,   12.22it/s]
+  6%|▌         | Computing thresholds ... : 12/203 [00:00&lt;00:15,   12.23it/s]
+  6%|▋         | Computing thresholds ... : 13/203 [00:01&lt;00:15,   12.25it/s]
+  7%|▋         | Computing thresholds ... : 14/203 [00:01&lt;00:15,   12.26it/s]
+  7%|▋         | Computing thresholds ... : 15/203 [00:01&lt;00:15,   12.28it/s]
+  8%|▊         | Computing thresholds ... : 16/203 [00:01&lt;00:15,   12.29it/s]
+  8%|▊         | Computing thresholds ... : 17/203 [00:01&lt;00:15,   12.30it/s]
+  9%|▉         | Computing thresholds ... : 18/203 [00:01&lt;00:15,   12.31it/s]
+  9%|▉         | Computing thresholds ... : 19/203 [00:01&lt;00:14,   12.32it/s]
+ 10%|▉         | Computing thresholds ... : 20/203 [00:01&lt;00:14,   12.32it/s]
+ 10%|█         | Computing thresholds ... : 21/203 [00:01&lt;00:14,   12.32it/s]
+ 11%|█         | Computing thresholds ... : 22/203 [00:01&lt;00:14,   12.32it/s]
+ 11%|█▏        | Computing thresholds ... : 23/203 [00:01&lt;00:14,   12.32it/s]
+ 12%|█▏        | Computing thresholds ... : 24/203 [00:01&lt;00:14,   12.33it/s]
+ 12%|█▏        | Computing thresholds ... : 25/203 [00:02&lt;00:14,   12.33it/s]
+ 13%|█▎        | Computing thresholds ... : 26/203 [00:02&lt;00:14,   12.33it/s]
+ 13%|█▎        | Computing thresholds ... : 27/203 [00:02&lt;00:14,   12.34it/s]
+ 14%|█▍        | Computing thresholds ... : 28/203 [00:02&lt;00:14,   12.34it/s]
+ 14%|█▍        | Computing thresholds ... : 29/203 [00:02&lt;00:14,   12.34it/s]
+ 15%|█▍        | Computing thresholds ... : 30/203 [00:02&lt;00:14,   12.35it/s]
+ 15%|█▌        | Computing thresholds ... : 31/203 [00:02&lt;00:13,   12.36it/s]
+ 16%|█▌        | Computing thresholds ... : 32/203 [00:02&lt;00:13,   12.36it/s]
+ 16%|█▋        | Computing thresholds ... : 33/203 [00:02&lt;00:13,   12.37it/s]
+ 17%|█▋        | Computing thresholds ... : 34/203 [00:02&lt;00:13,   12.36it/s]
+ 17%|█▋        | Computing thresholds ... : 35/203 [00:02&lt;00:13,   12.36it/s]
+ 18%|█▊        | Computing thresholds ... : 36/203 [00:02&lt;00:13,   12.36it/s]
+ 18%|█▊        | Computing thresholds ... : 37/203 [00:03&lt;00:13,   12.36it/s]
+ 19%|█▊        | Computing thresholds ... : 38/203 [00:03&lt;00:13,   12.36it/s]
+ 19%|█▉        | Computing thresholds ... : 39/203 [00:03&lt;00:13,   12.36it/s]
+ 20%|█▉        | Computing thresholds ... : 40/203 [00:03&lt;00:13,   12.36it/s]
+ 20%|██        | Computing thresholds ... : 41/203 [00:03&lt;00:13,   12.36it/s]
+ 21%|██        | Computing thresholds ... : 42/203 [00:03&lt;00:13,   12.37it/s]
+ 21%|██        | Computing thresholds ... : 43/203 [00:03&lt;00:12,   12.37it/s]
+ 22%|██▏       | Computing thresholds ... : 44/203 [00:03&lt;00:12,   12.37it/s]
+ 22%|██▏       | Computing thresholds ... : 45/203 [00:03&lt;00:12,   12.37it/s]
+ 23%|██▎       | Computing thresholds ... : 46/203 [00:03&lt;00:12,   12.36it/s]
+ 23%|██▎       | Computing thresholds ... : 47/203 [00:03&lt;00:12,   12.36it/s]
+ 24%|██▎       | Computing thresholds ... : 48/203 [00:03&lt;00:12,   12.36it/s]
+ 24%|██▍       | Computing thresholds ... : 49/203 [00:03&lt;00:12,   12.36it/s]
+ 25%|██▍       | Computing thresholds ... : 50/203 [00:04&lt;00:12,   12.37it/s]
+ 25%|██▌       | Computing thresholds ... : 51/203 [00:04&lt;00:12,   12.37it/s]
+ 26%|██▌       | Computing thresholds ... : 52/203 [00:04&lt;00:12,   12.37it/s]
+ 26%|██▌       | Computing thresholds ... : 53/203 [00:04&lt;00:12,   12.37it/s]
+ 27%|██▋       | Computing thresholds ... : 54/203 [00:04&lt;00:12,   12.37it/s]
+ 27%|██▋       | Computing thresholds ... : 55/203 [00:04&lt;00:11,   12.36it/s]
+ 28%|██▊       | Computing thresholds ... : 56/203 [00:04&lt;00:11,   12.36it/s]
+ 28%|██▊       | Computing thresholds ... : 57/203 [00:04&lt;00:11,   12.36it/s]
+ 29%|██▊       | Computing thresholds ... : 58/203 [00:04&lt;00:11,   12.36it/s]
+ 29%|██▉       | Computing thresholds ... : 59/203 [00:04&lt;00:11,   12.36it/s]
+ 30%|██▉       | Computing thresholds ... : 60/203 [00:04&lt;00:11,   12.36it/s]
+ 30%|███       | Computing thresholds ... : 61/203 [00:04&lt;00:11,   12.35it/s]
+ 31%|███       | Computing thresholds ... : 62/203 [00:05&lt;00:11,   12.36it/s]
+ 31%|███       | Computing thresholds ... : 63/203 [00:05&lt;00:11,   12.36it/s]
+ 32%|███▏      | Computing thresholds ... : 64/203 [00:05&lt;00:11,   12.36it/s]
+ 32%|███▏      | Computing thresholds ... : 65/203 [00:05&lt;00:11,   12.35it/s]
+ 33%|███▎      | Computing thresholds ... : 66/203 [00:05&lt;00:11,   12.36it/s]
+ 33%|███▎      | Computing thresholds ... : 67/203 [00:05&lt;00:11,   12.36it/s]
+ 33%|███▎      | Computing thresholds ... : 68/203 [00:05&lt;00:10,   12.35it/s]
+ 34%|███▍      | Computing thresholds ... : 69/203 [00:05&lt;00:10,   12.35it/s]
+ 34%|███▍      | Computing thresholds ... : 70/203 [00:05&lt;00:10,   12.35it/s]
+ 35%|███▍      | Computing thresholds ... : 71/203 [00:05&lt;00:10,   12.35it/s]
+ 35%|███▌      | Computing thresholds ... : 72/203 [00:05&lt;00:10,   12.35it/s]
+ 36%|███▌      | Computing thresholds ... : 73/203 [00:05&lt;00:10,   12.35it/s]
+ 36%|███▋      | Computing thresholds ... : 74/203 [00:05&lt;00:10,   12.36it/s]
+ 37%|███▋      | Computing thresholds ... : 75/203 [00:06&lt;00:10,   12.36it/s]
+ 37%|███▋      | Computing thresholds ... : 76/203 [00:06&lt;00:10,   12.36it/s]
+ 38%|███▊      | Computing thresholds ... : 77/203 [00:06&lt;00:10,   12.36it/s]
+ 38%|███▊      | Computing thresholds ... : 78/203 [00:06&lt;00:10,   12.36it/s]
+ 39%|███▉      | Computing thresholds ... : 79/203 [00:06&lt;00:10,   12.36it/s]
+ 39%|███▉      | Computing thresholds ... : 80/203 [00:06&lt;00:09,   12.36it/s]
+ 40%|███▉      | Computing thresholds ... : 81/203 [00:06&lt;00:09,   12.37it/s]
+ 40%|████      | Computing thresholds ... : 82/203 [00:06&lt;00:09,   12.37it/s]
+ 41%|████      | Computing thresholds ... : 83/203 [00:06&lt;00:09,   12.37it/s]
+ 41%|████▏     | Computing thresholds ... : 84/203 [00:06&lt;00:09,   12.37it/s]
+ 42%|████▏     | Computing thresholds ... : 85/203 [00:06&lt;00:09,   12.38it/s]
+ 42%|████▏     | Computing thresholds ... : 86/203 [00:06&lt;00:09,   12.38it/s]
+ 43%|████▎     | Computing thresholds ... : 87/203 [00:07&lt;00:09,   12.38it/s]
+ 43%|████▎     | Computing thresholds ... : 88/203 [00:07&lt;00:09,   12.38it/s]
+ 44%|████▍     | Computing thresholds ... : 89/203 [00:07&lt;00:09,   12.38it/s]
+ 44%|████▍     | Computing thresholds ... : 90/203 [00:07&lt;00:09,   12.38it/s]
+ 45%|████▍     | Computing thresholds ... : 91/203 [00:07&lt;00:09,   12.38it/s]
+ 45%|████▌     | Computing thresholds ... : 92/203 [00:07&lt;00:08,   12.38it/s]
+ 46%|████▌     | Computing thresholds ... : 93/203 [00:07&lt;00:08,   12.38it/s]
+ 46%|████▋     | Computing thresholds ... : 94/203 [00:07&lt;00:08,   12.37it/s]
+ 47%|████▋     | Computing thresholds ... : 95/203 [00:07&lt;00:08,   12.37it/s]
+ 47%|████▋     | Computing thresholds ... : 96/203 [00:07&lt;00:08,   12.37it/s]
+ 48%|████▊     | Computing thresholds ... : 97/203 [00:07&lt;00:08,   12.37it/s]
+ 48%|████▊     | Computing thresholds ... : 98/203 [00:07&lt;00:08,   12.36it/s]
+ 49%|████▉     | Computing thresholds ... : 99/203 [00:08&lt;00:08,   12.35it/s]
+ 49%|████▉     | Computing thresholds ... : 100/203 [00:08&lt;00:08,   12.35it/s]
+ 50%|████▉     | Computing thresholds ... : 101/203 [00:08&lt;00:08,   12.35it/s]
+ 50%|█████     | Computing thresholds ... : 102/203 [00:08&lt;00:08,   12.35it/s]
+ 51%|█████     | Computing thresholds ... : 103/203 [00:08&lt;00:08,   12.35it/s]
+ 51%|█████     | Computing thresholds ... : 104/203 [00:08&lt;00:08,   12.34it/s]
+ 52%|█████▏    | Computing thresholds ... : 105/203 [00:08&lt;00:07,   12.34it/s]
+ 52%|█████▏    | Computing thresholds ... : 106/203 [00:08&lt;00:07,   12.34it/s]
+ 53%|█████▎    | Computing thresholds ... : 107/203 [00:08&lt;00:07,   12.34it/s]
+ 53%|█████▎    | Computing thresholds ... : 108/203 [00:08&lt;00:07,   12.34it/s]
+ 54%|█████▎    | Computing thresholds ... : 109/203 [00:08&lt;00:07,   12.34it/s]
+ 54%|█████▍    | Computing thresholds ... : 110/203 [00:08&lt;00:07,   12.34it/s]
+ 55%|█████▍    | Computing thresholds ... : 111/203 [00:08&lt;00:07,   12.34it/s]
+ 55%|█████▌    | Computing thresholds ... : 112/203 [00:09&lt;00:07,   12.34it/s]
+ 56%|█████▌    | Computing thresholds ... : 113/203 [00:09&lt;00:07,   12.35it/s]
+ 56%|█████▌    | Computing thresholds ... : 114/203 [00:09&lt;00:07,   12.35it/s]
+ 57%|█████▋    | Computing thresholds ... : 115/203 [00:09&lt;00:07,   12.29it/s]
+ 57%|█████▋    | Computing thresholds ... : 116/203 [00:09&lt;00:07,   12.30it/s]
+ 58%|█████▊    | Computing thresholds ... : 117/203 [00:09&lt;00:06,   12.30it/s]
+ 58%|█████▊    | Computing thresholds ... : 118/203 [00:09&lt;00:06,   12.30it/s]
+ 59%|█████▊    | Computing thresholds ... : 119/203 [00:09&lt;00:06,   12.31it/s]
+ 59%|█████▉    | Computing thresholds ... : 120/203 [00:09&lt;00:06,   12.31it/s]
+ 60%|█████▉    | Computing thresholds ... : 121/203 [00:09&lt;00:06,   12.31it/s]
+ 60%|██████    | Computing thresholds ... : 122/203 [00:09&lt;00:06,   12.32it/s]
+ 61%|██████    | Computing thresholds ... : 123/203 [00:09&lt;00:06,   12.32it/s]
+ 61%|██████    | Computing thresholds ... : 124/203 [00:10&lt;00:06,   12.31it/s]
+ 62%|██████▏   | Computing thresholds ... : 125/203 [00:10&lt;00:06,   12.32it/s]
+ 62%|██████▏   | Computing thresholds ... : 126/203 [00:10&lt;00:06,   12.32it/s]
+ 63%|██████▎   | Computing thresholds ... : 127/203 [00:10&lt;00:06,   12.33it/s]
+ 63%|██████▎   | Computing thresholds ... : 128/203 [00:10&lt;00:06,   12.33it/s]
+ 64%|██████▎   | Computing thresholds ... : 129/203 [00:10&lt;00:06,   12.33it/s]
+ 64%|██████▍   | Computing thresholds ... : 130/203 [00:10&lt;00:05,   12.33it/s]
+ 65%|██████▍   | Computing thresholds ... : 131/203 [00:10&lt;00:05,   12.33it/s]
+ 65%|██████▌   | Computing thresholds ... : 132/203 [00:10&lt;00:05,   12.33it/s]
+ 66%|██████▌   | Computing thresholds ... : 133/203 [00:10&lt;00:05,   12.33it/s]
+ 66%|██████▌   | Computing thresholds ... : 134/203 [00:10&lt;00:05,   12.33it/s]
+ 67%|██████▋   | Computing thresholds ... : 135/203 [00:10&lt;00:05,   12.33it/s]
+ 67%|██████▋   | Computing thresholds ... : 136/203 [00:11&lt;00:05,   12.33it/s]
+ 67%|██████▋   | Computing thresholds ... : 137/203 [00:11&lt;00:05,   12.34it/s]
+ 68%|██████▊   | Computing thresholds ... : 138/203 [00:11&lt;00:05,   12.34it/s]
+ 68%|██████▊   | Computing thresholds ... : 139/203 [00:11&lt;00:05,   12.35it/s]
+ 69%|██████▉   | Computing thresholds ... : 140/203 [00:11&lt;00:05,   12.35it/s]
+ 69%|██████▉   | Computing thresholds ... : 141/203 [00:11&lt;00:05,   12.35it/s]
+ 70%|██████▉   | Computing thresholds ... : 142/203 [00:11&lt;00:04,   12.35it/s]
+ 70%|███████   | Computing thresholds ... : 143/203 [00:11&lt;00:04,   12.35it/s]
+ 71%|███████   | Computing thresholds ... : 144/203 [00:11&lt;00:04,   12.35it/s]
+ 71%|███████▏  | Computing thresholds ... : 145/203 [00:11&lt;00:04,   12.35it/s]
+ 72%|███████▏  | Computing thresholds ... : 146/203 [00:11&lt;00:04,   12.34it/s]
+ 72%|███████▏  | Computing thresholds ... : 147/203 [00:11&lt;00:04,   12.34it/s]
+ 73%|███████▎  | Computing thresholds ... : 148/203 [00:11&lt;00:04,   12.34it/s]
+ 73%|███████▎  | Computing thresholds ... : 149/203 [00:12&lt;00:04,   12.34it/s]
+ 74%|███████▍  | Computing thresholds ... : 150/203 [00:12&lt;00:04,   12.34it/s]
+ 74%|███████▍  | Computing thresholds ... : 151/203 [00:12&lt;00:04,   12.34it/s]
+ 75%|███████▍  | Computing thresholds ... : 152/203 [00:12&lt;00:04,   12.34it/s]
+ 75%|███████▌  | Computing thresholds ... : 153/203 [00:12&lt;00:04,   12.34it/s]
+ 76%|███████▌  | Computing thresholds ... : 154/203 [00:12&lt;00:03,   12.34it/s]
+ 76%|███████▋  | Computing thresholds ... : 155/203 [00:12&lt;00:03,   12.34it/s]
+ 77%|███████▋  | Computing thresholds ... : 156/203 [00:12&lt;00:03,   12.34it/s]
+ 77%|███████▋  | Computing thresholds ... : 157/203 [00:12&lt;00:03,   12.34it/s]
+ 78%|███████▊  | Computing thresholds ... : 158/203 [00:12&lt;00:03,   12.34it/s]
+ 78%|███████▊  | Computing thresholds ... : 159/203 [00:12&lt;00:03,   12.34it/s]
+ 79%|███████▉  | Computing thresholds ... : 160/203 [00:12&lt;00:03,   12.34it/s]
+ 79%|███████▉  | Computing thresholds ... : 161/203 [00:13&lt;00:03,   12.34it/s]
+ 80%|███████▉  | Computing thresholds ... : 162/203 [00:13&lt;00:03,   12.34it/s]
+ 80%|████████  | Computing thresholds ... : 163/203 [00:13&lt;00:03,   12.34it/s]
+ 81%|████████  | Computing thresholds ... : 164/203 [00:13&lt;00:03,   12.34it/s]
+ 81%|████████▏ | Computing thresholds ... : 165/203 [00:13&lt;00:03,   12.35it/s]
+ 82%|████████▏ | Computing thresholds ... : 166/203 [00:13&lt;00:02,   12.34it/s]
+ 82%|████████▏ | Computing thresholds ... : 167/203 [00:13&lt;00:02,   12.34it/s]
+ 83%|████████▎ | Computing thresholds ... : 168/203 [00:13&lt;00:02,   12.34it/s]
+ 83%|████████▎ | Computing thresholds ... : 169/203 [00:13&lt;00:02,   12.34it/s]
+ 84%|████████▎ | Computing thresholds ... : 170/203 [00:13&lt;00:02,   12.35it/s]
+ 84%|████████▍ | Computing thresholds ... : 171/203 [00:13&lt;00:02,   12.31it/s]
+ 85%|████████▍ | Computing thresholds ... : 172/203 [00:13&lt;00:02,   12.29it/s]
+ 85%|████████▌ | Computing thresholds ... : 173/203 [00:14&lt;00:02,   12.29it/s]
+ 86%|████████▌ | Computing thresholds ... : 174/203 [00:14&lt;00:02,   12.29it/s]
+ 86%|████████▌ | Computing thresholds ... : 175/203 [00:14&lt;00:02,   12.30it/s]
+ 87%|████████▋ | Computing thresholds ... : 176/203 [00:14&lt;00:02,   12.30it/s]
+ 87%|████████▋ | Computing thresholds ... : 177/203 [00:14&lt;00:02,   12.29it/s]
+ 88%|████████▊ | Computing thresholds ... : 178/203 [00:14&lt;00:02,   12.30it/s]
+ 88%|████████▊ | Computing thresholds ... : 179/203 [00:14&lt;00:01,   12.31it/s]
+ 89%|████████▊ | Computing thresholds ... : 180/203 [00:14&lt;00:01,   12.31it/s]
+ 89%|████████▉ | Computing thresholds ... : 181/203 [00:14&lt;00:01,   12.31it/s]
+ 90%|████████▉ | Computing thresholds ... : 182/203 [00:14&lt;00:01,   12.31it/s]
+ 90%|█████████ | Computing thresholds ... : 183/203 [00:14&lt;00:01,   12.31it/s]
+ 91%|█████████ | Computing thresholds ... : 184/203 [00:14&lt;00:01,   12.31it/s]
+ 91%|█████████ | Computing thresholds ... : 185/203 [00:14&lt;00:01,   12.31it/s]
+ 92%|█████████▏| Computing thresholds ... : 186/203 [00:15&lt;00:01,   12.31it/s]
+ 92%|█████████▏| Computing thresholds ... : 187/203 [00:15&lt;00:01,   12.31it/s]
+ 93%|█████████▎| Computing thresholds ... : 188/203 [00:15&lt;00:01,   12.31it/s]
+ 93%|█████████▎| Computing thresholds ... : 189/203 [00:15&lt;00:01,   12.32it/s]
+ 94%|█████████▎| Computing thresholds ... : 190/203 [00:15&lt;00:01,   12.32it/s]
+ 94%|█████████▍| Computing thresholds ... : 191/203 [00:15&lt;00:00,   12.32it/s]
+ 95%|█████████▍| Computing thresholds ... : 192/203 [00:15&lt;00:00,   12.33it/s]
+ 95%|█████████▌| Computing thresholds ... : 193/203 [00:15&lt;00:00,   12.33it/s]
+ 96%|█████████▌| Computing thresholds ... : 194/203 [00:15&lt;00:00,   12.34it/s]
+ 96%|█████████▌| Computing thresholds ... : 195/203 [00:15&lt;00:00,   12.34it/s]
+ 97%|█████████▋| Computing thresholds ... : 196/203 [00:15&lt;00:00,   12.35it/s]
+ 97%|█████████▋| Computing thresholds ... : 197/203 [00:15&lt;00:00,   12.35it/s]
+ 98%|█████████▊| Computing thresholds ... : 198/203 [00:16&lt;00:00,   12.35it/s]
+ 98%|█████████▊| Computing thresholds ... : 199/203 [00:16&lt;00:00,   12.35it/s]
+ 99%|█████████▊| Computing thresholds ... : 200/203 [00:16&lt;00:00,   12.35it/s]
+ 99%|█████████▉| Computing thresholds ... : 201/203 [00:16&lt;00:00,   12.35it/s]
+100%|█████████▉| Computing thresholds ... : 202/203 [00:16&lt;00:00,   12.35it/s]
+100%|██████████| Computing thresholds ... : 203/203 [00:16&lt;00:00,   12.35it/s]
+100%|██████████| Computing thresholds ... : 203/203 [00:16&lt;00:00,   12.34it/s]
 </pre></div>
 </div>
 <p>Finally, let us plot a histogram of the channel-level thresholds to verify
@@ -744,7 +756,7 @@ that the thresholds are indeed different for different sensors.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_channel_thresholds_001.png" srcset="../_images/sphx_glr_plot_channel_thresholds_001.png" alt="plot channel thresholds" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 17.591 seconds)</p>
+<img src="../_images/sphx_glr_plot_channel_thresholds_001.png" srcset="../_images/sphx_glr_plot_channel_thresholds_001.png" alt="plot channel thresholds" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 16.924 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-channel-thresholds-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b0829a63d8aefd1b0bb182ddf1ea54b2/plot_channel_thresholds.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_channel_thresholds.ipynb</span></code></a></p>
@@ -805,8 +817,8 @@ that the thresholds are indeed different for different sensors.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -817,7 +829,7 @@ that the thresholds are indeed different for different sensors.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2025, autoreject developers. Last updated on 2025-12-16.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-04-08.
       <br/>
     
   </p>
@@ -826,7 +838,7 @@ that the thresholds are indeed different for different sensors.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     <br/>
   </p>
 </div>
@@ -840,7 +852,7 @@ that the thresholds are indeed different for different sensors.</p>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
 </p></div>
       
     </div>
