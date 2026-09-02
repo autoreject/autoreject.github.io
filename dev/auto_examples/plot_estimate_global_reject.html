@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Find global rejection threshold &#8212; autoreject 0.5.0.dev5+gb4e218e6d documentation</title>
+    <title>Find global rejection threshold &#8212; autoreject 0.5.0.dev6+g74f0bed81 documentation</title>
   
   
   
@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -39,12 +39,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=664adccb" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=809d67ff"></script>
+    <script src="../_static/documentation_options.js?v=0c1f82fc"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -52,7 +52,7 @@
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_estimate_global_reject';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -69,7 +69,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev5+gb4e218e6d" />
+  <meta name="docsearch:version" content="0.5.0.dev6+g74f0bed81" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -138,7 +138,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev5+gb4e218e6d documentation</p>
+    <p class="title logo__title">autoreject 0.5.0.dev6+g74f0bed81 documentation</p>
   
 </a></div>
     
@@ -494,20 +494,20 @@ find global rejection thresholds.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">io</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample</span>
 
-<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Visual/Left&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">'Visual/Left'</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span>
 
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.datasets.sample.data_path.html#mne.datasets.sample.data_path" title="mne.datasets.sample.data_path" class="sphx-glr-backref-module-mne-datasets-sample sphx-glr-backref-type-py-function"><span class="n">sample</span><span class="o">.</span><span class="n">data_path</span></a><span class="p">()</span>
-<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">/</span> <span class="s1">&#39;MEG&#39;</span> <span class="o">/</span> <span class="s1">&#39;sample&#39;</span>
-<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">&#39;sample_audvis_filt-0-40_raw.fif&#39;</span>
-<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">&#39;sample_audvis_filt-0-40_raw-eve.fif&#39;</span>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_path</span></a> <span class="o">/</span> <span class="s1">'MEG'</span> <span class="o">/</span> <span class="s1">'sample'</span>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">'sample_audvis_filt-0-40_raw.fif'</span>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">meg_path</span></a> <span class="o">/</span> <span class="s1">'sample_audvis_filt-0-40_raw-eve.fif'</span>
 
 <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.read_events.html#mne.read_events" title="mne.read_events" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">read_events</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_fname</span></a><span class="p">)</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">include</span></a> <span class="o">=</span> <span class="p">[]</span>
 <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                       <span class="n">eog</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">include</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">include</span></a><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
+                       <span class="n">eog</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">include</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">include</span></a><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">'bads'</span><span class="p">)</span>
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">event_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span>
                     <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject</span></a><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -529,13 +529,13 @@ Reading 0 ... 41699  =      0.000 ...   277.709 secs...
 
 <span class="c1"># We can use the `decim` parameter to only take every nth time slice.</span>
 <span class="c1"># This speeds up the computation time. Note however that for low sampling</span>
-<span class="c1"># rates and high decimation parameters, you might not detect &quot;peaky artifacts&quot;</span>
+<span class="c1"># rates and high decimation parameters, you might not detect "peaky artifacts"</span>
 <span class="c1"># (with a fast timecourse) in your data. A low amount of decimation however is</span>
 <span class="c1"># almost always beneficial at no decrease of accuracy.</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject</span></a> <span class="o">=</span> <a href="../generated/autoreject.get_rejection_threshold.html#autoreject.get_rejection_threshold" title="autoreject.get_rejection_threshold" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-function"><span class="n">get_rejection_threshold</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">decim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/autoreject/autoreject.py:242: RuntimeWarning: The measurement information indicates a low-pass frequency of 40.0 Hz. The decim=2 parameter will result in a sampling frequency of 75.07687377929688 Hz, which can cause aliasing artifacts.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/autoreject/autoreject.py:240: RuntimeWarning: The measurement information indicates a low-pass frequency of 40.0 Hz. The decim=2 parameter will result in a sampling frequency of 75.07687377929688 Hz, which can cause aliasing artifacts.
   epochs.decimate(decim=decim)
 Estimating rejection dictionary for mag
 Estimating rejection dictionary for grad
@@ -544,10 +544,10 @@ Estimating rejection dictionary for eog
 </pre></div>
 </div>
 <p>and print it</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The rejection dictionary is </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject</span></a><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'The rejection dictionary is </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The rejection dictionary is {&#39;mag&#39;: np.float64(3.284586001851895e-12), &#39;grad&#39;: np.float64(1.0357642173052411e-10), &#39;eeg&#39;: np.float64(5.844322373549318e-05), &#39;eog&#39;: np.float64(6.559782003227096e-05)}
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The rejection dictionary is {'mag': np.float64(3.284586001851895e-12), 'grad': np.float64(1.0357642173052411e-10), 'eeg': np.float64(5.844322373549318e-05), 'eog': np.float64(6.559782003227096e-05)}
 </pre></div>
 </div>
 <p>Finally, the cleaned epochs</p>
@@ -555,29 +555,29 @@ Estimating rejection dictionary for eog
 <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_plot_estimate_global_reject_001.png" srcset="../_images/sphx_glr_plot_estimate_global_reject_001.png" alt="EEG (59 channels), Gradiometers (203 channels), Magnetometers (102 channels)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 006&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 006&#39;, &#39;EEG 007&#39;, &#39;EEG 014&#39;, &#39;EEG 015&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 007&#39;]
-    Rejecting  epoch based on EOG : [&#39;EOG 061&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 003&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 025&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 006&#39;, &#39;EEG 007&#39;, &#39;EEG 008&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 004&#39;, &#39;EEG 007&#39;, &#39;EEG 015&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 006&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on MAG : [&#39;MEG 1331&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 004&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 001&#39;, &#39;EEG 002&#39;, &#39;EEG 003&#39;, &#39;EEG 007&#39;]
-    Rejecting  epoch based on EEG : [&#39;EEG 007&#39;, &#39;EEG 016&#39;, &#39;EEG 024&#39;]
+<img src="../_images/sphx_glr_plot_estimate_global_reject_001.png" srcset="../_images/sphx_glr_plot_estimate_global_reject_001.png" alt="EEG (59 channels), Gradiometers (203 channels), Magnetometers (102 channels)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 006', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 006', 'EEG 007', 'EEG 014', 'EEG 015']
+    Rejecting  epoch based on EEG : ['EEG 007']
+    Rejecting  epoch based on EOG : ['EOG 061']
+    Rejecting  epoch based on EEG : ['EEG 002', 'EEG 003', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 003', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 025']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 006', 'EEG 007', 'EEG 008']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 004', 'EEG 007', 'EEG 015']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 006', 'EEG 007']
+    Rejecting  epoch based on MAG : ['MEG 1331']
+    Rejecting  epoch based on EEG : ['EEG 004']
+    Rejecting  epoch based on EEG : ['EEG 001', 'EEG 002', 'EEG 003', 'EEG 007']
+    Rejecting  epoch based on EEG : ['EEG 007', 'EEG 016', 'EEG 024']
 17 bad epochs dropped
 
 &lt;Figure size 640x500 with 6 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.285 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.189 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-estimate-global-reject-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/8bc60be7efa55633c503453b8c46dfa9/plot_estimate_global_reject.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_estimate_global_reject.ipynb</span></code></a></p>
@@ -638,8 +638,8 @@ Estimating rejection dictionary for eog
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -650,7 +650,7 @@ Estimating rejection dictionary for eog
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-07-29.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-02.
       <br/>
     
   </p>
@@ -673,7 +673,7 @@ Estimating rejection dictionary for eog
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
 </p></div>
       
     </div>
