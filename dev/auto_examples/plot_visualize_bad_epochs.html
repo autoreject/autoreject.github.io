@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Visualize bad sensors per trial &#8212; autoreject 0.5.0.dev6+g74f0bed81 documentation</title>
+    <title>Visualize bad sensors per trial &#8212; autoreject 0.6.0.dev1+g480693a29 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=0c1f82fc"></script>
+    <script src="../_static/documentation_options.js?v=eec57d9d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -69,7 +69,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev6+g74f0bed81" />
+  <meta name="docsearch:version" content="0.6.0.dev1+g480693a29" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -138,7 +138,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev6+g74f0bed81 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev1+g480693a29 documentation</p>
   
 </a></div>
     
@@ -485,87 +485,83 @@ to download the full example code.</p>
 <span id="sphx-glr-auto-examples-plot-visualize-bad-epochs-py"></span><h1>Visualize bad sensors per trial<a class="headerlink" href="#visualize-bad-sensors-per-trial" title="Link to this heading">#</a></h1>
 <p>This example demonstrates how to use <a class="reference internal" href="../api.html#module-autoreject" title="autoreject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">autoreject</span></code></a> to
 visualize the bad sensors in each trial</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
-<span class="c1">#         Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
-<span class="c1"># License: BSD-3-Clause</span>
-
-<span class="c1"># sphinx_gallery_thumbnail_number = 2</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Author: Mainak Jas &lt;mainak.jas&#64;telecom-paristech.fr&gt;</span><span class="w">
+</span><span class="c1">#         Denis A. Engemann &lt;denis.engemann&#64;gmail.com&gt;</span><span class="w">
+</span><span class="c1"># License: BSD-3-Clause</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># sphinx_gallery_thumbnail_number = 2</span><span class="w">
+</span></pre></div></div>
 <p>First, we download the data from OpenfMRI which is hosted on OpenNeuro.
 We will do this using <code class="docutils literal notranslate"><span class="pre">openneuro-py</span></code> which can be installed using pip
 (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">openneuro-py</span></code>).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">openneuro</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">autoreject</span>
-
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a> <span class="o">=</span> <span class="s1">'ds000117'</span>  <span class="c1"># The id code on OpenNeuro for this example dataset</span>
-<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a> <span class="o">=</span> <span class="mi">16</span>  <span class="c1"># OpenfMRI format of subject numbering</span>
-
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span>
-    <a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" title="os.path.dirname" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span></a><span class="p">(</span><span class="n">autoreject</span><span class="o">.</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">'..'</span><span class="p">,</span> <span class="s1">'examples'</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">)</span>
-<a href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">openneuro</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span>
-                   <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">'sub-</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">/ses-meg/'</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>👋 Hello! This is openneuro-py 2026.7.1. Great to see you! 🤗
-
-   👉 Please report problems 🤯 and bugs 🪲 at
-      https://github.com/openneuro-py/openneuro-py/issues
-
-🌍 Preparing to download ds000117 …
-📥 Checking 23 files, downloading as needed (5 concurrent downloads).
-
-Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 5.2/5.2 GB 74.3 MB/s 0:00:00
-✅ Finished downloading ds000117 (downloaded 23 files and 4.9 GB).
-
-🧠 Please enjoy your brains.
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">openneuro</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">autoreject</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a> <span class="o">=</span> <span class="s1">'</span><span class="s1">ds000117</span><span class="s1">'</span>  <span class="c1"># The id code on OpenNeuro for this example dataset</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">subject_id</span></a> <span class="o">=</span> <span class="mi">16</span>  <span class="c1"># OpenfMRI format of subject numbering</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.dirname" title="os.path.dirname"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">autoreject</span><span class="o">.</span><span class="vm">__file__</span></a><span class="p">)</span><span class="p">,</span> <span class="s1">'</span><span class="s1">..</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">examples</span><span class="s1">'</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">openneuro</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span><span class="w">
+</span>                   <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="s1">sub-</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">/ses-meg/</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>🌍 Preparing to download ds000117 …
+📥 Checking 39 files, downloading as needed (5 concurrent downloads).
+Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 5.2/5.2 GB 117.6 MB/s 0:00:00
+✅ Finished downloading ds000117 (downloaded 39 files and 4.9 GB).
 </pre></div>
 </div>
 <p>We will create epochs with data starting 200 ms before trigger onset
 and continuing up to 800 ms after that. The data contains visual stimuli for
 famous faces, unfamiliar faces, as well as scrambled faces.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">'famous/first'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'famous/immediate'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">'famous/long'</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">tmin</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">tmax</span></a> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">events_id</span></a> <span class="o">=</span> <span class="p">{</span><span class="s1">'</span><span class="s1">famous/first</span><span class="s1">'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'</span><span class="s1">famous/immediate</span><span class="s1">'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">'</span><span class="s1">famous/long</span><span class="s1">'</span><span class="p">:</span> <span class="mi">7</span><span class="p">}</span><span class="w">
+</span></pre></div></div>
 <p>Let us now load all the epochs into memory and concatenate them</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>  <span class="c1"># noqa</span>
-
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">run</span></a> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
-    <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">run_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span> <span class="sa">f</span><span class="s1">'sub-</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'ses-meg'</span><span class="p">,</span> <span class="s1">'meg'</span><span class="p">,</span>
-                             <span class="sa">f</span><span class="s1">'sub-</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">_ses-meg_task-facerecognition'</span>
-                             <span class="s1">'_run-</span><span class="si">{:02d}</span><span class="s1">_meg.fif'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">run</span></a><span class="p">))</span>
-    <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">run_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.pick_types" title="mne.io.Raw.pick_types" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># less memory + computation</span>
-    <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.filter" title="mne.io.Raw.filter" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">filter</span></a><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">40.</span><span class="p">,</span> <span class="n">l_trans_bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
-
-    <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.set_channel_types" title="mne.io.Raw.set_channel_types" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span></a><span class="p">({</span><span class="s1">'EEG061'</span><span class="p">:</span> <span class="s1">'eog'</span><span class="p">,</span> <span class="s1">'EEG062'</span><span class="p">:</span> <span class="s1">'eog'</span><span class="p">,</span>
-                           <span class="s1">'EEG063'</span><span class="p">:</span> <span class="s1">'ecg'</span><span class="p">,</span> <span class="s1">'EEG064'</span><span class="p">:</span> <span class="s1">'misc'</span><span class="p">})</span>
-    <a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.rename_channels" title="mne.io.Raw.rename_channels" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method"><span class="n">raw</span><span class="o">.</span><span class="n">rename_channels</span></a><span class="p">({</span><span class="s1">'EEG061'</span><span class="p">:</span> <span class="s1">'EOG061'</span><span class="p">,</span> <span class="s1">'EEG062'</span><span class="p">:</span> <span class="s1">'EOG062'</span><span class="p">,</span>
-                         <span class="s1">'EEG063'</span><span class="p">:</span> <span class="s1">'ECG063'</span><span class="p">,</span> <span class="s1">'EEG064'</span><span class="p">:</span> <span class="s1">'MISC'</span><span class="p">})</span>
-
-    <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.find_events.html#mne.find_events" title="mne.find_events" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">find_events</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <span class="n">stim_channel</span><span class="o">=</span><span class="s1">'STI101'</span><span class="p">,</span>
-                             <span class="n">consecutive</span><span class="o">=</span><span class="s1">'increasing'</span><span class="p">,</span>
-                             <span class="n">min_duration</span><span class="o">=</span><span class="mf">0.003</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># Read epochs</span>
-    <a href="https://mne.tools/dev/generated/mne.set_eeg_reference.html#mne.set_eeg_reference" title="mne.set_eeg_reference" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">set_eeg_reference</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">)</span>
-
-    <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epoch</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">events_id</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tmax</span></a><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">decim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-    <a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span><span class="o">.</span><span class="n">append</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epoch</span></a><span class="p">)</span>
-
-    <span class="c1"># Same `dev_head_t` for all runs so that we can concatenate them.</span>
-    <a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epoch</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">'dev_head_t'</span><span class="p">]</span> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'dev_head_t'</span><span class="p">]</span>
-
-
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.concatenate_epochs.html#mne.concatenate_epochs" title="mne.concatenate_epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">concatenate_epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>  <span class="c1"># noqa</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span></a> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">run</span></a> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">run_fname</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="s1">sub-</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">ses-meg</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">meg</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                             <span class="sa">f</span><span class="s1">'</span><span class="s1">sub-</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">_ses-meg_task-facerecognition</span><span class="s1">'</span><span class="w">
+</span>                             <span class="s1">'</span><span class="s1">_run-</span><span class="si">{:02d}</span><span class="s1">_meg.fif</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">run</span></a><span class="p">)</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw"><span class="n">raw</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">run_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span>    <span class="c1"># keep EEG061-064 regardless of how the dataset has them typed, since</span><span class="w">
+</span>    <span class="c1"># newer releases of ds000117 already ship them as eog/ecg/misc</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.pick_types" title="mne.io.Raw.pick_types"><span class="n">raw</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>                   <span class="n">eog</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ecg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">misc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># less memory + computation</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.filter" title="mne.io.Raw.filter"><span class="n">raw</span><span class="o">.</span><span class="n">filter</span></a><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">40.</span><span class="p">,</span> <span class="n">l_trans_bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">'</span><span class="s1">INFO</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="c1"># only retype/rename channels still using the old EEG06x naming</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ch_types</span></a> <span class="o">=</span> <span class="p">{</span><span class="n">ch</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">ch</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">'</span><span class="s1">EEG061</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">eog</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">EEG062</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">eog</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                                    <span class="s1">'</span><span class="s1">EEG063</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">ecg</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">EEG064</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">misc</span><span class="s1">'</span><span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>                <span class="k">if</span> <span class="n">ch</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-property reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.ch_names" title="mne.io.Raw.ch_names"><span class="n">raw</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">}</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.set_channel_types" title="mne.io.Raw.set_channel_types"><span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ch_types</span></a><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ch_names</span></a> <span class="o">=</span> <span class="p">{</span><span class="n">ch</span><span class="p">:</span> <span class="n">new</span> <span class="k">for</span> <span class="n">ch</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">'</span><span class="s1">EEG061</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">EOG061</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">EEG062</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">EOG062</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                                        <span class="s1">'</span><span class="s1">EEG063</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">ECG063</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">EEG064</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">MISC</span><span class="s1">'</span><span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>                <span class="k">if</span> <span class="n">ch</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-property reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.ch_names" title="mne.io.Raw.ch_names"><span class="n">raw</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">}</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw.rename_channels" title="mne.io.Raw.rename_channels"><span class="n">raw</span><span class="o">.</span><span class="n">rename_channels</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ch_names</span></a><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">events</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.find_events.html#mne.find_events" title="mne.find_events"><span class="n">mne</span><span class="o">.</span><span class="n">find_events</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw"><span class="n">raw</span></a><span class="p">,</span> <span class="n">stim_channel</span><span class="o">=</span><span class="s1">'</span><span class="s1">STI101</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                             <span class="n">consecutive</span><span class="o">=</span><span class="s1">'</span><span class="s1">increasing</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                             <span class="n">min_duration</span><span class="o">=</span><span class="mf">0.003</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span>    <span class="c1"># Read epochs</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.set_eeg_reference.html#mne.set_eeg_reference" title="mne.set_eeg_reference"><span class="n">mne</span><span class="o">.</span><span class="n">set_eeg_reference</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw"><span class="n">raw</span></a><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epoch</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.io.Raw.html#mne.io.Raw" title="mne.io.Raw"><span class="n">raw</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">events</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">events_id</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">tmin</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">tmax</span></a><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>                       <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="w">
+</span>                       <span class="n">preload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">decim</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span><span class="o">.</span><span class="n">append</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epoch</span></a><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="c1"># Same `dev_head_t` for all runs so that we can concatenate them.</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info"><span class="n">epoch</span><span class="o">.</span><span class="n">info</span></a><span class="p">[</span><span class="s1">'</span><span class="s1">dev_head_t</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'</span><span class="s1">dev_head_t</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.concatenate_epochs.html#mne.concatenate_epochs" title="mne.concatenate_epochs"><span class="n">mne</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">concatenate_epochs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Opening raw data file /home/circleci/project/autoreject/../examples/ds000117/sub-16/ses-meg/meg/sub-16_ses-meg_task-facerecognition_run-03_meg.fif...
     Read a total of 8 projection items:
         mag_ssp_upright.fif : PCA-mags-v1 (1 x 306)  idle
@@ -594,8 +590,6 @@ Designing a one-pass, zero-phase, non-causal bandpass filter:
 - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
 - Filter length: 7261 samples (6.601 s)
 
-/home/circleci/project/examples/plot_visualize_bad_epochs.py:57: RuntimeWarning: The unit for channel(s) EEG064 has changed from V to NA.
-  raw.set_channel_types({'EEG061': 'eog', 'EEG062': 'eog',
 Finding events on: STI101
 296 events found on stim channel STI101
 Event IDs: [   5    6    7   13   14   15   17   18   19  261  262  263  269  271
@@ -635,8 +629,6 @@ Designing a one-pass, zero-phase, non-causal bandpass filter:
 - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
 - Filter length: 7261 samples (6.601 s)
 
-/home/circleci/project/examples/plot_visualize_bad_epochs.py:57: RuntimeWarning: The unit for channel(s) EEG064 has changed from V to NA.
-  raw.set_channel_types({'EEG061': 'eog', 'EEG062': 'eog',
 Finding events on: STI101
 296 events found on stim channel STI101
 Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
@@ -676,8 +668,6 @@ Designing a one-pass, zero-phase, non-causal bandpass filter:
 - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
 - Filter length: 7261 samples (6.601 s)
 
-/home/circleci/project/examples/plot_visualize_bad_epochs.py:57: RuntimeWarning: The unit for channel(s) EEG064 has changed from V to NA.
-  raw.set_channel_types({'EEG061': 'eog', 'EEG062': 'eog',
 Finding events on: STI101
 292 events found on stim channel STI101
 Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  269  271  273
@@ -717,8 +707,6 @@ Designing a one-pass, zero-phase, non-causal bandpass filter:
 - Upper transition bandwidth: 10.00 Hz (-6 dB cutoff frequency: 45.00 Hz)
 - Filter length: 7261 samples (6.601 s)
 
-/home/circleci/project/examples/plot_visualize_bad_epochs.py:57: RuntimeWarning: The unit for channel(s) EEG064 has changed from V to NA.
-  raw.set_channel_types({'EEG061': 'eog', 'EEG062': 'eog',
 Finding events on: STI101
 295 events found on stim channel STI101
 Event IDs: [   5    6    7   13   14   15   17   18   19  256  261  262  263  269
@@ -731,6 +719,8 @@ Not setting metadata
 50 matching events found
 No baseline correction applied
 0 projection items activated
+/home/circleci/project/examples/plot_visualize_bad_epochs.py:85: RuntimeWarning: Concatenation of Annotations within Epochs is not supported yet. All annotations will be dropped.
+  epochs = mne.epochs.concatenate_epochs(epochs)
 Using data from preloaded Raw for 49 events and 1101 original time points (prior to decimation) ...
 0 bad epochs dropped
 Using data from preloaded Raw for 49 events and 1101 original time points (prior to decimation) ...
@@ -749,14 +739,13 @@ No baseline correction applied
 </pre></div>
 </div>
 <p>Now, we apply autoreject</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">autoreject</span><span class="w"> </span><span class="kn">import</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">AutoReject</span></a><span class="p">,</span> <span class="n">compute_thresholds</span>  <span class="c1"># noqa</span>
-
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">this_epoch</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">'famous'</span><span class="p">]</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># XXX</span>
-<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info" class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                       <span class="n">eog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">from</span><span class="w"> </span><span class="nn">autoreject</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">AutoReject</span></a><span class="p">,</span> <span class="n">compute_thresholds</span>  <span class="c1"># noqa</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">this_epoch</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs</span></a><span class="p">[</span><span class="s1">'</span><span class="s1">famous</span><span class="s1">'</span><span class="p">]</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>  <span class="c1"># XXX</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">picks</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.pick_types.html#mne.pick_types" title="mne.pick_types"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne-_fiff-meas_info sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Info.html#mne.Info" title="mne._fiff.meas_info.Info"><span class="n">epochs</span><span class="o">.</span><span class="n">info</span></a><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="w">
+</span>                       <span class="n">eog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <p>Note that <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> by design supports multiple
 channels. If no picks are passed separate solutions will be computed for each
 channel type and internally combines. This then readily supports cleaning
@@ -766,118 +755,104 @@ Here we only use a subset of channels to save time.</p>
 that contains channels that were used during fit. This also means that time
 may be saved by fitting <a class="reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> on a
 representative subsample of the data.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">AutoReject</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="o">=</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">picks</span></a><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a><span class="p">,</span> <a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit_transform" title="autoreject.AutoReject.fit_transform" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">this_epoch</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">ar</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">AutoReject</span></a><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">picks</span></a><span class="o">=</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">picks</span></a><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">epochs_ar</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit_transform" title="autoreject.AutoReject.fit_transform"><span class="n">ar</span><span class="o">.</span><span class="n">fit_transform</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">this_epoch</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/70 [00:00&lt;?,       ?it/s]
-  3%|▎         | Creating augmented epochs : 2/70 [00:00&lt;00:00,  124.07it/s]
-  6%|▌         | Creating augmented epochs : 4/70 [00:00&lt;00:00,  117.67it/s]
-  9%|▊         | Creating augmented epochs : 6/70 [00:00&lt;00:00,  114.85it/s]
- 11%|█▏        | Creating augmented epochs : 8/70 [00:00&lt;00:00,  116.13it/s]
- 16%|█▌        | Creating augmented epochs : 11/70 [00:00&lt;00:00,  120.30it/s]
- 19%|█▊        | Creating augmented epochs : 13/70 [00:00&lt;00:00,  117.48it/s]
- 21%|██▏       | Creating augmented epochs : 15/70 [00:00&lt;00:00,  117.89it/s]
- 26%|██▌       | Creating augmented epochs : 18/70 [00:00&lt;00:00,  120.11it/s]
- 29%|██▊       | Creating augmented epochs : 20/70 [00:00&lt;00:00,  120.21it/s]
- 31%|███▏      | Creating augmented epochs : 22/70 [00:00&lt;00:00,  118.63it/s]
- 34%|███▍      | Creating augmented epochs : 24/70 [00:00&lt;00:00,  119.05it/s]
- 39%|███▊      | Creating augmented epochs : 27/70 [00:00&lt;00:00,  120.28it/s]
- 41%|████▏     | Creating augmented epochs : 29/70 [00:00&lt;00:00,  119.24it/s]
- 44%|████▍     | Creating augmented epochs : 31/70 [00:00&lt;00:00,  118.19it/s]
- 47%|████▋     | Creating augmented epochs : 33/70 [00:00&lt;00:00,  118.57it/s]
- 51%|█████▏    | Creating augmented epochs : 36/70 [00:00&lt;00:00,  119.40it/s]
- 54%|█████▍    | Creating augmented epochs : 38/70 [00:00&lt;00:00,  117.75it/s]
- 57%|█████▋    | Creating augmented epochs : 40/70 [00:00&lt;00:00,  118.18it/s]
- 61%|██████▏   | Creating augmented epochs : 43/70 [00:00&lt;00:00,  119.33it/s]
- 64%|██████▍   | Creating augmented epochs : 45/70 [00:00&lt;00:00,  118.94it/s]
- 67%|██████▋   | Creating augmented epochs : 47/70 [00:00&lt;00:00,  118.72it/s]
- 70%|███████   | Creating augmented epochs : 49/70 [00:00&lt;00:00,  119.07it/s]
- 74%|███████▍  | Creating augmented epochs : 52/70 [00:00&lt;00:00,  119.90it/s]
- 77%|███████▋  | Creating augmented epochs : 54/70 [00:00&lt;00:00,  119.25it/s]
- 80%|████████  | Creating augmented epochs : 56/70 [00:00&lt;00:00,  119.28it/s]
- 84%|████████▍ | Creating augmented epochs : 59/70 [00:00&lt;00:00,  119.87it/s]
- 89%|████████▊ | Creating augmented epochs : 62/70 [00:00&lt;00:00,  119.98it/s]
- 91%|█████████▏| Creating augmented epochs : 64/70 [00:00&lt;00:00,  119.81it/s]
- 94%|█████████▍| Creating augmented epochs : 66/70 [00:00&lt;00:00,  119.73it/s]
- 99%|█████████▊| Creating augmented epochs : 69/70 [00:00&lt;00:00,  120.04it/s]
-100%|██████████| Creating augmented epochs : 70/70 [00:00&lt;00:00,  119.29it/s]
+  4%|▍         | Creating augmented epochs : 3/70 [00:00&lt;00:00,  175.56it/s]
+ 10%|█         | Creating augmented epochs : 7/70 [00:00&lt;00:00,  191.48it/s]
+ 16%|█▌        | Creating augmented epochs : 11/70 [00:00&lt;00:00,  196.30it/s]
+ 21%|██▏       | Creating augmented epochs : 15/70 [00:00&lt;00:00,  200.93it/s]
+ 27%|██▋       | Creating augmented epochs : 19/70 [00:00&lt;00:00,  203.78it/s]
+ 33%|███▎      | Creating augmented epochs : 23/70 [00:00&lt;00:00,  205.51it/s]
+ 39%|███▊      | Creating augmented epochs : 27/70 [00:00&lt;00:00,  206.75it/s]
+ 44%|████▍     | Creating augmented epochs : 31/70 [00:00&lt;00:00,  207.35it/s]
+ 50%|█████     | Creating augmented epochs : 35/70 [00:00&lt;00:00,  207.82it/s]
+ 56%|█████▌    | Creating augmented epochs : 39/70 [00:00&lt;00:00,  207.96it/s]
+ 61%|██████▏   | Creating augmented epochs : 43/70 [00:00&lt;00:00,  208.16it/s]
+ 67%|██████▋   | Creating augmented epochs : 47/70 [00:00&lt;00:00,  208.18it/s]
+ 73%|███████▎  | Creating augmented epochs : 51/70 [00:00&lt;00:00,  208.15it/s]
+ 79%|███████▊  | Creating augmented epochs : 55/70 [00:00&lt;00:00,  208.14it/s]
+ 84%|████████▍ | Creating augmented epochs : 59/70 [00:00&lt;00:00,  207.96it/s]
+ 90%|█████████ | Creating augmented epochs : 63/70 [00:00&lt;00:00,  207.84it/s]
+ 96%|█████████▌| Creating augmented epochs : 67/70 [00:00&lt;00:00,  207.69it/s]
+100%|██████████| Creating augmented epochs : 70/70 [00:00&lt;00:00,  207.08it/s]
 
   0%|          | Computing thresholds ... : 0/70 [00:00&lt;?,       ?it/s]
-  1%|▏         | Computing thresholds ... : 1/70 [00:00&lt;00:02,   31.77it/s]
-  3%|▎         | Computing thresholds ... : 2/70 [00:00&lt;00:01,   34.85it/s]
-  4%|▍         | Computing thresholds ... : 3/70 [00:00&lt;00:01,   34.90it/s]
-  6%|▌         | Computing thresholds ... : 4/70 [00:00&lt;00:01,   35.84it/s]
-  7%|▋         | Computing thresholds ... : 5/70 [00:00&lt;00:01,   35.92it/s]
-  9%|▊         | Computing thresholds ... : 6/70 [00:00&lt;00:01,   36.10it/s]
- 10%|█         | Computing thresholds ... : 7/70 [00:00&lt;00:01,   36.20it/s]
- 11%|█▏        | Computing thresholds ... : 8/70 [00:00&lt;00:01,   36.27it/s]
- 13%|█▎        | Computing thresholds ... : 9/70 [00:00&lt;00:01,   36.02it/s]
- 14%|█▍        | Computing thresholds ... : 10/70 [00:00&lt;00:01,   35.49it/s]
- 16%|█▌        | Computing thresholds ... : 11/70 [00:00&lt;00:01,   35.70it/s]
- 17%|█▋        | Computing thresholds ... : 12/70 [00:00&lt;00:01,   35.83it/s]
- 19%|█▊        | Computing thresholds ... : 13/70 [00:00&lt;00:01,   36.02it/s]
- 20%|██        | Computing thresholds ... : 14/70 [00:00&lt;00:01,   35.92it/s]
- 21%|██▏       | Computing thresholds ... : 15/70 [00:00&lt;00:01,   36.06it/s]
- 23%|██▎       | Computing thresholds ... : 16/70 [00:00&lt;00:01,   36.07it/s]
- 24%|██▍       | Computing thresholds ... : 17/70 [00:00&lt;00:01,   36.18it/s]
- 26%|██▌       | Computing thresholds ... : 18/70 [00:00&lt;00:01,   36.44it/s]
- 27%|██▋       | Computing thresholds ... : 19/70 [00:00&lt;00:01,   36.28it/s]
- 29%|██▊       | Computing thresholds ... : 20/70 [00:00&lt;00:01,   36.28it/s]
- 30%|███       | Computing thresholds ... : 21/70 [00:00&lt;00:01,   36.18it/s]
- 31%|███▏      | Computing thresholds ... : 22/70 [00:00&lt;00:01,   36.10it/s]
- 33%|███▎      | Computing thresholds ... : 23/70 [00:00&lt;00:01,   36.04it/s]
- 34%|███▍      | Computing thresholds ... : 24/70 [00:00&lt;00:01,   35.93it/s]
- 36%|███▌      | Computing thresholds ... : 25/70 [00:00&lt;00:01,   35.94it/s]
- 37%|███▋      | Computing thresholds ... : 26/70 [00:00&lt;00:01,   35.84it/s]
- 39%|███▊      | Computing thresholds ... : 27/70 [00:00&lt;00:01,   35.84it/s]
- 40%|████      | Computing thresholds ... : 28/70 [00:00&lt;00:01,   35.94it/s]
- 41%|████▏     | Computing thresholds ... : 29/70 [00:00&lt;00:01,   35.99it/s]
- 43%|████▎     | Computing thresholds ... : 30/70 [00:00&lt;00:01,   36.16it/s]
- 44%|████▍     | Computing thresholds ... : 31/70 [00:00&lt;00:01,   36.11it/s]
- 46%|████▌     | Computing thresholds ... : 32/70 [00:00&lt;00:01,   36.18it/s]
- 47%|████▋     | Computing thresholds ... : 33/70 [00:00&lt;00:01,   36.20it/s]
- 49%|████▊     | Computing thresholds ... : 34/70 [00:00&lt;00:00,   36.22it/s]
- 50%|█████     | Computing thresholds ... : 35/70 [00:00&lt;00:00,   36.28it/s]
- 51%|█████▏    | Computing thresholds ... : 36/70 [00:00&lt;00:00,   36.25it/s]
- 53%|█████▎    | Computing thresholds ... : 37/70 [00:01&lt;00:00,   36.33it/s]
- 54%|█████▍    | Computing thresholds ... : 38/70 [00:01&lt;00:00,   36.31it/s]
- 56%|█████▌    | Computing thresholds ... : 39/70 [00:01&lt;00:00,   36.43it/s]
- 57%|█████▋    | Computing thresholds ... : 40/70 [00:01&lt;00:00,   36.49it/s]
- 59%|█████▊    | Computing thresholds ... : 41/70 [00:01&lt;00:00,   36.39it/s]
- 60%|██████    | Computing thresholds ... : 42/70 [00:01&lt;00:00,   36.36it/s]
- 61%|██████▏   | Computing thresholds ... : 43/70 [00:01&lt;00:00,   36.28it/s]
- 63%|██████▎   | Computing thresholds ... : 44/70 [00:01&lt;00:00,   36.31it/s]
- 64%|██████▍   | Computing thresholds ... : 45/70 [00:01&lt;00:00,   36.32it/s]
- 66%|██████▌   | Computing thresholds ... : 46/70 [00:01&lt;00:00,   36.37it/s]
- 67%|██████▋   | Computing thresholds ... : 47/70 [00:01&lt;00:00,   36.44it/s]
- 69%|██████▊   | Computing thresholds ... : 48/70 [00:01&lt;00:00,   36.36it/s]
- 70%|███████   | Computing thresholds ... : 49/70 [00:01&lt;00:00,   36.43it/s]
- 71%|███████▏  | Computing thresholds ... : 50/70 [00:01&lt;00:00,   36.45it/s]
- 73%|███████▎  | Computing thresholds ... : 51/70 [00:01&lt;00:00,   36.46it/s]
- 74%|███████▍  | Computing thresholds ... : 52/70 [00:01&lt;00:00,   36.48it/s]
- 76%|███████▌  | Computing thresholds ... : 53/70 [00:01&lt;00:00,   36.47it/s]
- 77%|███████▋  | Computing thresholds ... : 54/70 [00:01&lt;00:00,   36.54it/s]
- 79%|███████▊  | Computing thresholds ... : 55/70 [00:01&lt;00:00,   36.48it/s]
- 80%|████████  | Computing thresholds ... : 56/70 [00:01&lt;00:00,   36.51it/s]
- 81%|████████▏ | Computing thresholds ... : 57/70 [00:01&lt;00:00,   36.49it/s]
- 83%|████████▎ | Computing thresholds ... : 58/70 [00:01&lt;00:00,   36.50it/s]
- 84%|████████▍ | Computing thresholds ... : 59/70 [00:01&lt;00:00,   36.60it/s]
- 86%|████████▌ | Computing thresholds ... : 60/70 [00:01&lt;00:00,   36.55it/s]
- 87%|████████▋ | Computing thresholds ... : 61/70 [00:01&lt;00:00,   36.59it/s]
- 89%|████████▊ | Computing thresholds ... : 62/70 [00:01&lt;00:00,   36.58it/s]
- 90%|█████████ | Computing thresholds ... : 63/70 [00:01&lt;00:00,   36.64it/s]
- 91%|█████████▏| Computing thresholds ... : 64/70 [00:01&lt;00:00,   36.70it/s]
- 93%|█████████▎| Computing thresholds ... : 65/70 [00:01&lt;00:00,   36.68it/s]
- 94%|█████████▍| Computing thresholds ... : 66/70 [00:01&lt;00:00,   36.70it/s]
- 96%|█████████▌| Computing thresholds ... : 67/70 [00:01&lt;00:00,   36.81it/s]
- 97%|█████████▋| Computing thresholds ... : 68/70 [00:01&lt;00:00,   36.89it/s]
- 99%|█████████▊| Computing thresholds ... : 69/70 [00:01&lt;00:00,   36.95it/s]
-100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   36.94it/s]
-100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   36.49it/s]
+  1%|▏         | Computing thresholds ... : 1/70 [00:00&lt;00:01,   35.48it/s]
+  3%|▎         | Computing thresholds ... : 2/70 [00:00&lt;00:01,   37.75it/s]
+  4%|▍         | Computing thresholds ... : 3/70 [00:00&lt;00:01,   37.67it/s]
+  6%|▌         | Computing thresholds ... : 4/70 [00:00&lt;00:01,   38.17it/s]
+  7%|▋         | Computing thresholds ... : 5/70 [00:00&lt;00:01,   38.46it/s]
+  9%|▊         | Computing thresholds ... : 6/70 [00:00&lt;00:01,   38.69it/s]
+ 10%|█         | Computing thresholds ... : 7/70 [00:00&lt;00:01,   38.65it/s]
+ 11%|█▏        | Computing thresholds ... : 8/70 [00:00&lt;00:01,   38.68it/s]
+ 13%|█▎        | Computing thresholds ... : 9/70 [00:00&lt;00:01,   38.80it/s]
+ 14%|█▍        | Computing thresholds ... : 10/70 [00:00&lt;00:01,   38.79it/s]
+ 16%|█▌        | Computing thresholds ... : 11/70 [00:00&lt;00:01,   38.87it/s]
+ 17%|█▋        | Computing thresholds ... : 12/70 [00:00&lt;00:01,   38.87it/s]
+ 19%|█▊        | Computing thresholds ... : 13/70 [00:00&lt;00:01,   38.88it/s]
+ 20%|██        | Computing thresholds ... : 14/70 [00:00&lt;00:01,   38.84it/s]
+ 21%|██▏       | Computing thresholds ... : 15/70 [00:00&lt;00:01,   38.72it/s]
+ 23%|██▎       | Computing thresholds ... : 16/70 [00:00&lt;00:01,   38.58it/s]
+ 24%|██▍       | Computing thresholds ... : 17/70 [00:00&lt;00:01,   38.64it/s]
+ 26%|██▌       | Computing thresholds ... : 18/70 [00:00&lt;00:01,   38.76it/s]
+ 27%|██▋       | Computing thresholds ... : 19/70 [00:00&lt;00:01,   38.78it/s]
+ 29%|██▊       | Computing thresholds ... : 20/70 [00:00&lt;00:01,   38.76it/s]
+ 30%|███       | Computing thresholds ... : 21/70 [00:00&lt;00:01,   38.79it/s]
+ 31%|███▏      | Computing thresholds ... : 22/70 [00:00&lt;00:01,   38.77it/s]
+ 33%|███▎      | Computing thresholds ... : 23/70 [00:00&lt;00:01,   38.67it/s]
+ 34%|███▍      | Computing thresholds ... : 24/70 [00:00&lt;00:01,   38.65it/s]
+ 36%|███▌      | Computing thresholds ... : 25/70 [00:00&lt;00:01,   38.60it/s]
+ 37%|███▋      | Computing thresholds ... : 26/70 [00:00&lt;00:01,   38.60it/s]
+ 39%|███▊      | Computing thresholds ... : 27/70 [00:00&lt;00:01,   38.57it/s]
+ 40%|████      | Computing thresholds ... : 28/70 [00:00&lt;00:01,   38.61it/s]
+ 41%|████▏     | Computing thresholds ... : 29/70 [00:00&lt;00:01,   38.57it/s]
+ 43%|████▎     | Computing thresholds ... : 30/70 [00:00&lt;00:01,   38.59it/s]
+ 44%|████▍     | Computing thresholds ... : 31/70 [00:00&lt;00:01,   38.49it/s]
+ 46%|████▌     | Computing thresholds ... : 32/70 [00:00&lt;00:00,   38.47it/s]
+ 47%|████▋     | Computing thresholds ... : 33/70 [00:00&lt;00:00,   38.43it/s]
+ 49%|████▊     | Computing thresholds ... : 34/70 [00:00&lt;00:00,   38.38it/s]
+ 50%|█████     | Computing thresholds ... : 35/70 [00:00&lt;00:00,   38.28it/s]
+ 51%|█████▏    | Computing thresholds ... : 36/70 [00:00&lt;00:00,   38.22it/s]
+ 53%|█████▎    | Computing thresholds ... : 37/70 [00:00&lt;00:00,   38.23it/s]
+ 54%|█████▍    | Computing thresholds ... : 38/70 [00:00&lt;00:00,   38.16it/s]
+ 56%|█████▌    | Computing thresholds ... : 39/70 [00:01&lt;00:00,   38.22it/s]
+ 57%|█████▋    | Computing thresholds ... : 40/70 [00:01&lt;00:00,   38.17it/s]
+ 59%|█████▊    | Computing thresholds ... : 41/70 [00:01&lt;00:00,   38.04it/s]
+ 60%|██████    | Computing thresholds ... : 42/70 [00:01&lt;00:00,   37.90it/s]
+ 61%|██████▏   | Computing thresholds ... : 43/70 [00:01&lt;00:00,   37.84it/s]
+ 63%|██████▎   | Computing thresholds ... : 44/70 [00:01&lt;00:00,   37.83it/s]
+ 64%|██████▍   | Computing thresholds ... : 45/70 [00:01&lt;00:00,   37.77it/s]
+ 66%|██████▌   | Computing thresholds ... : 46/70 [00:01&lt;00:00,   37.83it/s]
+ 67%|██████▋   | Computing thresholds ... : 47/70 [00:01&lt;00:00,   37.85it/s]
+ 69%|██████▊   | Computing thresholds ... : 48/70 [00:01&lt;00:00,   37.83it/s]
+ 70%|███████   | Computing thresholds ... : 49/70 [00:01&lt;00:00,   37.84it/s]
+ 71%|███████▏  | Computing thresholds ... : 50/70 [00:01&lt;00:00,   37.89it/s]
+ 73%|███████▎  | Computing thresholds ... : 51/70 [00:01&lt;00:00,   37.91it/s]
+ 74%|███████▍  | Computing thresholds ... : 52/70 [00:01&lt;00:00,   37.91it/s]
+ 76%|███████▌  | Computing thresholds ... : 53/70 [00:01&lt;00:00,   37.94it/s]
+ 77%|███████▋  | Computing thresholds ... : 54/70 [00:01&lt;00:00,   37.95it/s]
+ 79%|███████▊  | Computing thresholds ... : 55/70 [00:01&lt;00:00,   37.90it/s]
+ 80%|████████  | Computing thresholds ... : 56/70 [00:01&lt;00:00,   37.91it/s]
+ 81%|████████▏ | Computing thresholds ... : 57/70 [00:01&lt;00:00,   37.87it/s]
+ 83%|████████▎ | Computing thresholds ... : 58/70 [00:01&lt;00:00,   37.85it/s]
+ 84%|████████▍ | Computing thresholds ... : 59/70 [00:01&lt;00:00,   37.88it/s]
+ 86%|████████▌ | Computing thresholds ... : 60/70 [00:01&lt;00:00,   37.84it/s]
+ 87%|████████▋ | Computing thresholds ... : 61/70 [00:01&lt;00:00,   37.78it/s]
+ 89%|████████▊ | Computing thresholds ... : 62/70 [00:01&lt;00:00,   37.71it/s]
+ 90%|█████████ | Computing thresholds ... : 63/70 [00:01&lt;00:00,   37.70it/s]
+ 91%|█████████▏| Computing thresholds ... : 64/70 [00:01&lt;00:00,   37.69it/s]
+ 93%|█████████▎| Computing thresholds ... : 65/70 [00:01&lt;00:00,   37.67it/s]
+ 94%|█████████▍| Computing thresholds ... : 66/70 [00:01&lt;00:00,   37.63it/s]
+ 96%|█████████▌| Computing thresholds ... : 67/70 [00:01&lt;00:00,   37.69it/s]
+ 97%|█████████▋| Computing thresholds ... : 68/70 [00:01&lt;00:00,   37.76it/s]
+ 99%|█████████▊| Computing thresholds ... : 69/70 [00:01&lt;00:00,   37.79it/s]
+100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   37.83it/s]
+100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   38.06it/s]
 
 
 
@@ -891,38 +866,14 @@ representative subsample of the data.</p>
   0%|          | Repairing epochs : 0/27 [00:00&lt;?,       ?it/s]
 
 
-  7%|▋         | Repairing epochs : 2/27 [00:00&lt;00:00,  106.05it/s]
+ 19%|█▊        | Repairing epochs : 5/27 [00:00&lt;00:00,  307.37it/s]
 
 
- 15%|█▍        | Repairing epochs : 4/27 [00:00&lt;00:00,  111.64it/s]
+ 44%|████▍     | Repairing epochs : 12/27 [00:00&lt;00:00,  359.79it/s]
 
 
- 22%|██▏       | Repairing epochs : 6/27 [00:00&lt;00:00,  112.19it/s]
-
-
- 33%|███▎      | Repairing epochs : 9/27 [00:00&lt;00:00,  117.35it/s]
-
-
- 44%|████▍     | Repairing epochs : 12/27 [00:00&lt;00:00,  119.12it/s]
-
-
- 52%|█████▏    | Repairing epochs : 14/27 [00:00&lt;00:00,  116.94it/s]
-
-
- 63%|██████▎   | Repairing epochs : 17/27 [00:00&lt;00:00,  118.29it/s]
-
-
- 74%|███████▍  | Repairing epochs : 20/27 [00:00&lt;00:00,  120.54it/s]
-
-
- 81%|████████▏ | Repairing epochs : 22/27 [00:00&lt;00:00,  119.25it/s]
-
-
- 89%|████████▉ | Repairing epochs : 24/27 [00:00&lt;00:00,  119.78it/s]
-
-
-100%|██████████| Repairing epochs : 27/27 [00:00&lt;00:00,  121.21it/s]
-100%|██████████| Repairing epochs : 27/27 [00:00&lt;00:00,  120.45it/s]
+ 74%|███████▍  | Repairing epochs : 20/27 [00:00&lt;00:00,  390.41it/s]
+100%|██████████| Repairing epochs : 27/27 [00:00&lt;00:00,  403.24it/s]
 
 
 
@@ -931,226 +882,108 @@ representative subsample of the data.</p>
 
 
 
- 10%|█         | Fold : 1/10 [00:00&lt;00:00,   43.07it/s]
+ 10%|█         | Fold : 1/10 [00:00&lt;00:00,   51.28it/s]
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   47.28it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   53.28it/s]
 
 
 
- 30%|███       | Fold : 3/10 [00:00&lt;00:00,   51.06it/s]
+ 30%|███       | Fold : 3/10 [00:00&lt;00:00,   56.06it/s]
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   52.03it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   57.10it/s]
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   52.50it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   57.83it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   54.08it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   58.38it/s]
 
 
 
- 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   52.23it/s]
+ 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   58.39it/s]
 
 
 
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   52.27it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   52.17it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   57.65it/s]
 
 
- 33%|███▎      | n_interp : 1/3 [00:00&lt;00:00,    2.34it/s]
+
+ 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   57.64it/s]
+
+
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   57.49it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   57.41it/s]
+
+
+ 33%|███▎      | n_interp : 1/3 [00:00&lt;00:00,    3.91it/s]
 
 
   0%|          | Repairing epochs : 0/155 [00:00&lt;?,       ?it/s]
 
 
-  2%|▏         | Repairing epochs : 3/155 [00:00&lt;00:01,  126.73it/s]
+  5%|▌         | Repairing epochs : 8/155 [00:00&lt;00:00,  441.60it/s]
 
 
-  3%|▎         | Repairing epochs : 5/155 [00:00&lt;00:01,  119.06it/s]
+ 10%|█         | Repairing epochs : 16/155 [00:00&lt;00:00,  455.49it/s]
 
 
-  5%|▌         | Repairing epochs : 8/155 [00:00&lt;00:01,  124.38it/s]
+ 15%|█▌        | Repairing epochs : 24/155 [00:00&lt;00:00,  458.71it/s]
 
 
-  7%|▋         | Repairing epochs : 11/155 [00:00&lt;00:01,  128.24it/s]
+ 21%|██        | Repairing epochs : 32/155 [00:00&lt;00:00,  462.03it/s]
 
 
-  8%|▊         | Repairing epochs : 13/155 [00:00&lt;00:01,  123.71it/s]
+ 26%|██▌       | Repairing epochs : 40/155 [00:00&lt;00:00,  463.51it/s]
 
 
- 10%|▉         | Repairing epochs : 15/155 [00:00&lt;00:01,  122.52it/s]
+ 31%|███       | Repairing epochs : 48/155 [00:00&lt;00:00,  464.58it/s]
 
 
- 12%|█▏        | Repairing epochs : 18/155 [00:00&lt;00:01,  125.31it/s]
+ 36%|███▌      | Repairing epochs : 56/155 [00:00&lt;00:00,  465.37it/s]
 
 
- 14%|█▎        | Repairing epochs : 21/155 [00:00&lt;00:01,  125.86it/s]
+ 41%|████▏     | Repairing epochs : 64/155 [00:00&lt;00:00,  465.50it/s]
 
 
- 15%|█▍        | Repairing epochs : 23/155 [00:00&lt;00:01,  124.50it/s]
+ 46%|████▋     | Repairing epochs : 72/155 [00:00&lt;00:00,  466.02it/s]
 
 
- 16%|█▌        | Repairing epochs : 25/155 [00:00&lt;00:01,  123.65it/s]
+ 52%|█████▏    | Repairing epochs : 80/155 [00:00&lt;00:00,  466.20it/s]
 
 
- 18%|█▊        | Repairing epochs : 28/155 [00:00&lt;00:01,  125.02it/s]
+ 57%|█████▋    | Repairing epochs : 88/155 [00:00&lt;00:00,  466.14it/s]
 
 
- 19%|█▉        | Repairing epochs : 30/155 [00:00&lt;00:01,  124.54it/s]
+ 62%|██████▏   | Repairing epochs : 96/155 [00:00&lt;00:00,  466.22it/s]
 
 
- 21%|██        | Repairing epochs : 32/155 [00:00&lt;00:00,  124.00it/s]
+ 67%|██████▋   | Repairing epochs : 104/155 [00:00&lt;00:00,  466.33it/s]
 
 
- 23%|██▎       | Repairing epochs : 35/155 [00:00&lt;00:00,  125.32it/s]
+ 72%|███████▏  | Repairing epochs : 112/155 [00:00&lt;00:00,  466.34it/s]
 
 
- 25%|██▍       | Repairing epochs : 38/155 [00:00&lt;00:00,  126.11it/s]
+ 77%|███████▋  | Repairing epochs : 120/155 [00:00&lt;00:00,  466.41it/s]
 
 
- 26%|██▌       | Repairing epochs : 40/155 [00:00&lt;00:00,  124.59it/s]
+ 83%|████████▎ | Repairing epochs : 128/155 [00:00&lt;00:00,  466.55it/s]
 
 
- 28%|██▊       | Repairing epochs : 43/155 [00:00&lt;00:00,  124.52it/s]
+ 88%|████████▊ | Repairing epochs : 136/155 [00:00&lt;00:00,  466.75it/s]
 
 
- 30%|██▉       | Repairing epochs : 46/155 [00:00&lt;00:00,  125.41it/s]
+ 93%|█████████▎| Repairing epochs : 144/155 [00:00&lt;00:00,  466.68it/s]
 
 
- 31%|███       | Repairing epochs : 48/155 [00:00&lt;00:00,  124.42it/s]
-
-
- 32%|███▏      | Repairing epochs : 50/155 [00:00&lt;00:00,  124.32it/s]
-
-
- 34%|███▍      | Repairing epochs : 53/155 [00:00&lt;00:00,  125.56it/s]
-
-
- 36%|███▌      | Repairing epochs : 56/155 [00:00&lt;00:00,  125.07it/s]
-
-
- 37%|███▋      | Repairing epochs : 58/155 [00:00&lt;00:00,  124.71it/s]
-
-
- 39%|███▉      | Repairing epochs : 61/155 [00:00&lt;00:00,  125.71it/s]
-
-
- 41%|████▏     | Repairing epochs : 64/155 [00:00&lt;00:00,  126.43it/s]
-
-
- 43%|████▎     | Repairing epochs : 66/155 [00:00&lt;00:00,  125.43it/s]
-
-
- 45%|████▍     | Repairing epochs : 69/155 [00:00&lt;00:00,  126.11it/s]
-
-
- 46%|████▋     | Repairing epochs : 72/155 [00:00&lt;00:00,  127.13it/s]
-
-
- 48%|████▊     | Repairing epochs : 74/155 [00:00&lt;00:00,  126.39it/s]
-
-
- 49%|████▉     | Repairing epochs : 76/155 [00:00&lt;00:00,  124.58it/s]
-
-
- 51%|█████     | Repairing epochs : 79/155 [00:00&lt;00:00,  125.38it/s]
-
-
- 53%|█████▎    | Repairing epochs : 82/155 [00:00&lt;00:00,  125.56it/s]
-
-
- 54%|█████▍    | Repairing epochs : 84/155 [00:00&lt;00:00,  125.35it/s]
-
-
- 56%|█████▌    | Repairing epochs : 87/155 [00:00&lt;00:00,  126.19it/s]
-
-
- 58%|█████▊    | Repairing epochs : 90/155 [00:00&lt;00:00,  125.81it/s]
-
-
- 59%|█████▉    | Repairing epochs : 92/155 [00:00&lt;00:00,  124.86it/s]
-
-
- 61%|██████▏   | Repairing epochs : 95/155 [00:00&lt;00:00,  125.56it/s]
-
-
- 63%|██████▎   | Repairing epochs : 98/155 [00:00&lt;00:00,  126.45it/s]
-
-
- 65%|██████▍   | Repairing epochs : 100/155 [00:00&lt;00:00,  125.85it/s]
-
-
- 66%|██████▌   | Repairing epochs : 102/155 [00:00&lt;00:00,  125.67it/s]
-
-
- 68%|██████▊   | Repairing epochs : 105/155 [00:00&lt;00:00,  126.59it/s]
-
-
- 70%|██████▉   | Repairing epochs : 108/155 [00:00&lt;00:00,  126.05it/s]
-
-
- 71%|███████   | Repairing epochs : 110/155 [00:00&lt;00:00,  125.74it/s]
-
-
- 73%|███████▎  | Repairing epochs : 113/155 [00:00&lt;00:00,  126.35it/s]
-
-
- 75%|███████▍  | Repairing epochs : 116/155 [00:00&lt;00:00,  127.08it/s]
-
-
- 76%|███████▌  | Repairing epochs : 118/155 [00:00&lt;00:00,  126.29it/s]
-
-
- 77%|███████▋  | Repairing epochs : 120/155 [00:00&lt;00:00,  126.22it/s]
-
-
- 79%|███████▉  | Repairing epochs : 123/155 [00:00&lt;00:00,  126.97it/s]
-
-
- 81%|████████  | Repairing epochs : 125/155 [00:00&lt;00:00,  126.59it/s]
-
-
- 82%|████████▏ | Repairing epochs : 127/155 [00:01&lt;00:00,  125.73it/s]
-
-
- 84%|████████▍ | Repairing epochs : 130/155 [00:01&lt;00:00,  126.25it/s]
-
-
- 86%|████████▌ | Repairing epochs : 133/155 [00:01&lt;00:00,  127.10it/s]
-
-
- 87%|████████▋ | Repairing epochs : 135/155 [00:01&lt;00:00,  126.59it/s]
-
-
- 88%|████████▊ | Repairing epochs : 137/155 [00:01&lt;00:00,  126.33it/s]
-
-
- 90%|█████████ | Repairing epochs : 140/155 [00:01&lt;00:00,  127.09it/s]
-
-
- 92%|█████████▏| Repairing epochs : 143/155 [00:01&lt;00:00,  127.46it/s]
-
-
- 94%|█████████▎| Repairing epochs : 145/155 [00:01&lt;00:00,  126.12it/s]
-
-
- 95%|█████████▍| Repairing epochs : 147/155 [00:01&lt;00:00,  125.95it/s]
-
-
- 97%|█████████▋| Repairing epochs : 150/155 [00:01&lt;00:00,  126.67it/s]
-
-
- 98%|█████████▊| Repairing epochs : 152/155 [00:01&lt;00:00,  126.53it/s]
-
-
- 99%|█████████▉| Repairing epochs : 154/155 [00:01&lt;00:00,  126.25it/s]
-100%|██████████| Repairing epochs : 155/155 [00:01&lt;00:00,  125.94it/s]
+ 98%|█████████▊| Repairing epochs : 152/155 [00:00&lt;00:00,  466.59it/s]
+100%|██████████| Repairing epochs : 155/155 [00:00&lt;00:00,  465.99it/s]
 
 
 
@@ -1159,229 +992,111 @@ representative subsample of the data.</p>
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   63.43it/s]
+ 10%|█         | Fold : 1/10 [00:00&lt;00:00,   54.89it/s]
 
 
 
- 30%|███       | Fold : 3/10 [00:00&lt;00:00,   62.20it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   55.28it/s]
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   62.35it/s]
+ 30%|███       | Fold : 3/10 [00:00&lt;00:00,   54.74it/s]
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   58.33it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   54.87it/s]
 
 
 
- 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   56.81it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   54.63it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   57.27it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   55.00it/s]
 
 
 
- 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   57.53it/s]
+ 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   54.93it/s]
 
 
 
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   54.65it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   55.29it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   54.37it/s]
 
 
- 67%|██████▋   | n_interp : 2/3 [00:01&lt;00:00,    1.06it/s]
+
+ 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   54.50it/s]
+
+
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   54.28it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   54.32it/s]
+
+
+ 67%|██████▋   | n_interp : 2/3 [00:00&lt;00:00,    2.52it/s]
 
 
   0%|          | Repairing epochs : 0/162 [00:00&lt;?,       ?it/s]
 
 
-  2%|▏         | Repairing epochs : 3/162 [00:00&lt;00:01,  127.55it/s]
+  4%|▍         | Repairing epochs : 7/162 [00:00&lt;00:00,  430.66it/s]
 
 
-  4%|▎         | Repairing epochs : 6/162 [00:00&lt;00:01,  125.24it/s]
+  9%|▉         | Repairing epochs : 15/162 [00:00&lt;00:00,  455.47it/s]
 
 
-  5%|▍         | Repairing epochs : 8/162 [00:00&lt;00:01,  121.02it/s]
+ 14%|█▍        | Repairing epochs : 23/162 [00:00&lt;00:00,  466.59it/s]
 
 
-  7%|▋         | Repairing epochs : 11/162 [00:00&lt;00:01,  125.12it/s]
+ 19%|█▉        | Repairing epochs : 31/162 [00:00&lt;00:00,  470.07it/s]
 
 
-  9%|▊         | Repairing epochs : 14/162 [00:00&lt;00:01,  126.92it/s]
+ 24%|██▍       | Repairing epochs : 39/162 [00:00&lt;00:00,  473.26it/s]
 
 
- 10%|▉         | Repairing epochs : 16/162 [00:00&lt;00:01,  123.61it/s]
+ 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  474.35it/s]
 
 
- 12%|█▏        | Repairing epochs : 19/162 [00:00&lt;00:01,  125.39it/s]
+ 34%|███▍      | Repairing epochs : 55/162 [00:00&lt;00:00,  475.71it/s]
 
 
- 14%|█▎        | Repairing epochs : 22/162 [00:00&lt;00:01,  127.40it/s]
+ 39%|███▉      | Repairing epochs : 63/162 [00:00&lt;00:00,  476.85it/s]
 
 
- 15%|█▍        | Repairing epochs : 24/162 [00:00&lt;00:01,  125.36it/s]
+ 44%|████▍     | Repairing epochs : 71/162 [00:00&lt;00:00,  477.15it/s]
 
 
- 16%|█▌        | Repairing epochs : 26/162 [00:00&lt;00:01,  124.13it/s]
+ 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  479.10it/s]
 
 
- 18%|█▊        | Repairing epochs : 29/162 [00:00&lt;00:01,  125.75it/s]
+ 54%|█████▎    | Repairing epochs : 87/162 [00:00&lt;00:00,  478.27it/s]
 
 
- 20%|█▉        | Repairing epochs : 32/162 [00:00&lt;00:01,  126.40it/s]
+ 59%|█████▊    | Repairing epochs : 95/162 [00:00&lt;00:00,  477.29it/s]
 
 
- 21%|██        | Repairing epochs : 34/162 [00:00&lt;00:01,  125.15it/s]
+ 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  477.29it/s]
 
 
- 22%|██▏       | Repairing epochs : 36/162 [00:00&lt;00:01,  125.03it/s]
+ 69%|██████▊   | Repairing epochs : 111/162 [00:00&lt;00:00,  477.84it/s]
 
 
- 24%|██▍       | Repairing epochs : 39/162 [00:00&lt;00:00,  126.42it/s]
+ 73%|███████▎  | Repairing epochs : 119/162 [00:00&lt;00:00,  478.03it/s]
 
 
- 25%|██▌       | Repairing epochs : 41/162 [00:00&lt;00:00,  126.03it/s]
+ 78%|███████▊  | Repairing epochs : 127/162 [00:00&lt;00:00,  479.41it/s]
 
 
- 27%|██▋       | Repairing epochs : 43/162 [00:00&lt;00:00,  125.31it/s]
+ 83%|████████▎ | Repairing epochs : 135/162 [00:00&lt;00:00,  480.33it/s]
 
 
- 28%|██▊       | Repairing epochs : 46/162 [00:00&lt;00:00,  125.92it/s]
+ 88%|████████▊ | Repairing epochs : 143/162 [00:00&lt;00:00,  480.17it/s]
 
 
- 30%|███       | Repairing epochs : 49/162 [00:00&lt;00:00,  126.45it/s]
+ 93%|█████████▎| Repairing epochs : 151/162 [00:00&lt;00:00,  480.45it/s]
 
 
- 31%|███▏      | Repairing epochs : 51/162 [00:00&lt;00:00,  125.13it/s]
-
-
- 33%|███▎      | Repairing epochs : 54/162 [00:00&lt;00:00,  125.81it/s]
-
-
- 35%|███▌      | Repairing epochs : 57/162 [00:00&lt;00:00,  126.94it/s]
-
-
- 36%|███▋      | Repairing epochs : 59/162 [00:00&lt;00:00,  125.91it/s]
-
-
- 38%|███▊      | Repairing epochs : 61/162 [00:00&lt;00:00,  125.14it/s]
-
-
- 40%|███▉      | Repairing epochs : 64/162 [00:00&lt;00:00,  126.35it/s]
-
-
- 41%|████▏     | Repairing epochs : 67/162 [00:00&lt;00:00,  126.45it/s]
-
-
- 43%|████▎     | Repairing epochs : 69/162 [00:00&lt;00:00,  125.71it/s]
-
-
- 44%|████▍     | Repairing epochs : 72/162 [00:00&lt;00:00,  125.84it/s]
-
-
- 46%|████▋     | Repairing epochs : 75/162 [00:00&lt;00:00,  126.96it/s]
-
-
- 48%|████▊     | Repairing epochs : 77/162 [00:00&lt;00:00,  126.00it/s]
-
-
- 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  125.94it/s]
-
-
- 51%|█████     | Repairing epochs : 82/162 [00:00&lt;00:00,  126.77it/s]
-
-
- 52%|█████▏    | Repairing epochs : 85/162 [00:00&lt;00:00,  126.32it/s]
-
-
- 54%|█████▎    | Repairing epochs : 87/162 [00:00&lt;00:00,  125.80it/s]
-
-
- 56%|█████▌    | Repairing epochs : 90/162 [00:00&lt;00:00,  126.45it/s]
-
-
- 57%|█████▋    | Repairing epochs : 92/162 [00:00&lt;00:00,  126.33it/s]
-
-
- 59%|█████▊    | Repairing epochs : 95/162 [00:00&lt;00:00,  126.05it/s]
-
-
- 60%|█████▉    | Repairing epochs : 97/162 [00:00&lt;00:00,  125.60it/s]
-
-
- 62%|██████▏   | Repairing epochs : 100/162 [00:00&lt;00:00,  126.15it/s]
-
-
- 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  126.33it/s]
-
-
- 65%|██████▍   | Repairing epochs : 105/162 [00:00&lt;00:00,  125.37it/s]
-
-
- 67%|██████▋   | Repairing epochs : 108/162 [00:00&lt;00:00,  125.80it/s]
-
-
- 69%|██████▊   | Repairing epochs : 111/162 [00:00&lt;00:00,  126.62it/s]
-
-
- 70%|██████▉   | Repairing epochs : 113/162 [00:00&lt;00:00,  125.90it/s]
-
-
- 71%|███████   | Repairing epochs : 115/162 [00:00&lt;00:00,  125.34it/s]
-
-
- 73%|███████▎  | Repairing epochs : 118/162 [00:00&lt;00:00,  125.87it/s]
-
-
- 75%|███████▍  | Repairing epochs : 121/162 [00:00&lt;00:00,  125.77it/s]
-
-
- 76%|███████▌  | Repairing epochs : 123/162 [00:00&lt;00:00,  125.13it/s]
-
-
- 78%|███████▊  | Repairing epochs : 126/162 [00:01&lt;00:00,  125.69it/s]
-
-
- 80%|███████▉  | Repairing epochs : 129/162 [00:01&lt;00:00,  126.51it/s]
-
-
- 81%|████████  | Repairing epochs : 131/162 [00:01&lt;00:00,  125.69it/s]
-
-
- 83%|████████▎ | Repairing epochs : 134/162 [00:01&lt;00:00,  126.06it/s]
-
-
- 85%|████████▍ | Repairing epochs : 137/162 [00:01&lt;00:00,  126.75it/s]
-
-
- 86%|████████▋ | Repairing epochs : 140/162 [00:01&lt;00:00,  126.51it/s]
-
-
- 88%|████████▊ | Repairing epochs : 142/162 [00:01&lt;00:00,  126.05it/s]
-
-
- 90%|████████▉ | Repairing epochs : 145/162 [00:01&lt;00:00,  126.74it/s]
-
-
- 91%|█████████▏| Repairing epochs : 148/162 [00:01&lt;00:00,  126.99it/s]
-
-
- 93%|█████████▎| Repairing epochs : 150/162 [00:01&lt;00:00,  126.25it/s]
-
-
- 94%|█████████▍| Repairing epochs : 153/162 [00:01&lt;00:00,  126.64it/s]
-
-
- 96%|█████████▋| Repairing epochs : 156/162 [00:01&lt;00:00,  127.55it/s]
-
-
- 98%|█████████▊| Repairing epochs : 158/162 [00:01&lt;00:00,  126.92it/s]
-
-
- 99%|█████████▉| Repairing epochs : 160/162 [00:01&lt;00:00,  126.64it/s]
-100%|██████████| Repairing epochs : 162/162 [00:01&lt;00:00,  126.33it/s]
+ 99%|█████████▉| Repairing epochs : 160/162 [00:00&lt;00:00,  482.71it/s]
+100%|██████████| Repairing epochs : 162/162 [00:00&lt;00:00,  480.66it/s]
 
 
 
@@ -1390,32 +1105,28 @@ representative subsample of the data.</p>
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   76.70it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   75.94it/s]
 
 
 
- 30%|███       | Fold : 3/10 [00:00&lt;00:00,   68.33it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   77.96it/s]
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   70.36it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   78.05it/s]
 
 
 
- 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   73.79it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   78.12it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   71.13it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   77.85it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   77.76it/s]
 
 
-
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   70.80it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   70.84it/s]
-
-
-100%|██████████| n_interp : 3/3 [00:03&lt;00:00,    1.11s/it]
-100%|██████████| n_interp : 3/3 [00:03&lt;00:00,    1.10s/it]
+100%|██████████| n_interp : 3/3 [00:01&lt;00:00,    2.35it/s]
+100%|██████████| n_interp : 3/3 [00:01&lt;00:00,    2.37it/s]
 
 
 
@@ -1427,221 +1138,116 @@ Estimated consensus=1.00 and n_interpolate=32
   0%|          | Repairing epochs : 0/162 [00:00&lt;?,       ?it/s]
 
 
-  1%|          | Repairing epochs : 2/162 [00:00&lt;00:01,  120.87it/s]
+  4%|▍         | Repairing epochs : 7/162 [00:00&lt;00:00,  421.91it/s]
 
 
-  3%|▎         | Repairing epochs : 5/162 [00:00&lt;00:01,  131.18it/s]
+  9%|▉         | Repairing epochs : 15/162 [00:00&lt;00:00,  449.43it/s]
 
 
-  5%|▍         | Repairing epochs : 8/162 [00:00&lt;00:01,  134.87it/s]
+ 14%|█▍        | Repairing epochs : 23/162 [00:00&lt;00:00,  461.70it/s]
 
 
-  7%|▋         | Repairing epochs : 11/162 [00:00&lt;00:01,  136.77it/s]
+ 19%|█▉        | Repairing epochs : 31/162 [00:00&lt;00:00,  465.91it/s]
 
 
-  9%|▊         | Repairing epochs : 14/162 [00:00&lt;00:01,  137.51it/s]
+ 24%|██▍       | Repairing epochs : 39/162 [00:00&lt;00:00,  468.73it/s]
 
 
- 10%|█         | Repairing epochs : 17/162 [00:00&lt;00:01,  137.81it/s]
+ 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  470.18it/s]
 
 
- 12%|█▏        | Repairing epochs : 20/162 [00:00&lt;00:01,  137.15it/s]
+ 34%|███▍      | Repairing epochs : 55/162 [00:00&lt;00:00,  470.47it/s]
 
 
- 14%|█▍        | Repairing epochs : 23/162 [00:00&lt;00:01,  136.06it/s]
+ 39%|███▉      | Repairing epochs : 63/162 [00:00&lt;00:00,  471.61it/s]
 
 
- 16%|█▌        | Repairing epochs : 26/162 [00:00&lt;00:01,  135.61it/s]
+ 44%|████▍     | Repairing epochs : 71/162 [00:00&lt;00:00,  471.94it/s]
 
 
- 18%|█▊        | Repairing epochs : 29/162 [00:00&lt;00:00,  134.64it/s]
+ 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  473.41it/s]
 
 
- 20%|█▉        | Repairing epochs : 32/162 [00:00&lt;00:00,  134.11it/s]
+ 54%|█████▎    | Repairing epochs : 87/162 [00:00&lt;00:00,  473.00it/s]
 
 
- 22%|██▏       | Repairing epochs : 35/162 [00:00&lt;00:00,  133.99it/s]
+ 59%|█████▊    | Repairing epochs : 95/162 [00:00&lt;00:00,  472.55it/s]
 
 
- 23%|██▎       | Repairing epochs : 38/162 [00:00&lt;00:00,  133.86it/s]
+ 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  472.87it/s]
 
 
- 25%|██▌       | Repairing epochs : 41/162 [00:00&lt;00:00,  133.88it/s]
+ 69%|██████▊   | Repairing epochs : 111/162 [00:00&lt;00:00,  473.29it/s]
 
 
- 27%|██▋       | Repairing epochs : 44/162 [00:00&lt;00:00,  133.83it/s]
+ 73%|███████▎  | Repairing epochs : 119/162 [00:00&lt;00:00,  473.72it/s]
 
 
- 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  133.81it/s]
+ 78%|███████▊  | Repairing epochs : 127/162 [00:00&lt;00:00,  474.85it/s]
 
 
- 31%|███       | Repairing epochs : 50/162 [00:00&lt;00:00,  133.74it/s]
+ 83%|████████▎ | Repairing epochs : 135/162 [00:00&lt;00:00,  475.64it/s]
 
 
- 33%|███▎      | Repairing epochs : 53/162 [00:00&lt;00:00,  133.85it/s]
+ 88%|████████▊ | Repairing epochs : 143/162 [00:00&lt;00:00,  475.67it/s]
 
 
- 35%|███▍      | Repairing epochs : 56/162 [00:00&lt;00:00,  133.71it/s]
+ 93%|█████████▎| Repairing epochs : 151/162 [00:00&lt;00:00,  475.74it/s]
 
 
- 36%|███▋      | Repairing epochs : 59/162 [00:00&lt;00:00,  133.65it/s]
-
-
- 38%|███▊      | Repairing epochs : 62/162 [00:00&lt;00:00,  133.56it/s]
-
-
- 40%|████      | Repairing epochs : 65/162 [00:00&lt;00:00,  133.40it/s]
-
-
- 42%|████▏     | Repairing epochs : 68/162 [00:00&lt;00:00,  133.06it/s]
-
-
- 44%|████▍     | Repairing epochs : 71/162 [00:00&lt;00:00,  133.52it/s]
-
-
- 46%|████▌     | Repairing epochs : 74/162 [00:00&lt;00:00,  134.10it/s]
-
-
- 48%|████▊     | Repairing epochs : 77/162 [00:00&lt;00:00,  133.84it/s]
-
-
- 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  133.37it/s]
-
-
- 51%|█████     | Repairing epochs : 82/162 [00:00&lt;00:00,  132.91it/s]
-
-
- 52%|█████▏    | Repairing epochs : 84/162 [00:00&lt;00:00,  132.50it/s]
-
-
- 53%|█████▎    | Repairing epochs : 86/162 [00:00&lt;00:00,  132.13it/s]
-
-
- 55%|█████▍    | Repairing epochs : 89/162 [00:00&lt;00:00,  131.83it/s]
-
-
- 56%|█████▌    | Repairing epochs : 91/162 [00:00&lt;00:00,  131.37it/s]
-
-
- 58%|█████▊    | Repairing epochs : 94/162 [00:00&lt;00:00,  131.31it/s]
-
-
- 60%|█████▉    | Repairing epochs : 97/162 [00:00&lt;00:00,  131.42it/s]
-
-
- 62%|██████▏   | Repairing epochs : 100/162 [00:00&lt;00:00,  131.70it/s]
-
-
- 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  132.02it/s]
-
-
- 65%|██████▌   | Repairing epochs : 106/162 [00:00&lt;00:00,  132.61it/s]
-
-
- 67%|██████▋   | Repairing epochs : 109/162 [00:00&lt;00:00,  133.33it/s]
-
-
- 69%|██████▉   | Repairing epochs : 112/162 [00:00&lt;00:00,  133.56it/s]
-
-
- 71%|███████   | Repairing epochs : 115/162 [00:00&lt;00:00,  133.69it/s]
-
-
- 73%|███████▎  | Repairing epochs : 118/162 [00:00&lt;00:00,  133.70it/s]
-
-
- 75%|███████▍  | Repairing epochs : 121/162 [00:00&lt;00:00,  133.80it/s]
-
-
- 77%|███████▋  | Repairing epochs : 124/162 [00:00&lt;00:00,  133.92it/s]
-
-
- 78%|███████▊  | Repairing epochs : 127/162 [00:00&lt;00:00,  133.83it/s]
-
-
- 80%|████████  | Repairing epochs : 130/162 [00:00&lt;00:00,  134.17it/s]
-
-
- 82%|████████▏ | Repairing epochs : 133/162 [00:00&lt;00:00,  134.66it/s]
-
-
- 84%|████████▍ | Repairing epochs : 136/162 [00:01&lt;00:00,  135.10it/s]
-
-
- 86%|████████▌ | Repairing epochs : 139/162 [00:01&lt;00:00,  135.20it/s]
-
-
- 88%|████████▊ | Repairing epochs : 142/162 [00:01&lt;00:00,  135.60it/s]
-
-
- 90%|████████▉ | Repairing epochs : 145/162 [00:01&lt;00:00,  135.98it/s]
-
-
- 91%|█████████▏| Repairing epochs : 148/162 [00:01&lt;00:00,  136.25it/s]
-
-
- 93%|█████████▎| Repairing epochs : 151/162 [00:01&lt;00:00,  136.62it/s]
-
-
- 95%|█████████▌| Repairing epochs : 154/162 [00:01&lt;00:00,  111.36it/s]
-
-
- 97%|█████████▋| Repairing epochs : 157/162 [00:01&lt;00:00,  112.33it/s]
-
-
- 99%|█████████▉| Repairing epochs : 160/162 [00:01&lt;00:00,  113.56it/s]
-100%|██████████| Repairing epochs : 162/162 [00:01&lt;00:00,  125.43it/s]
+ 98%|█████████▊| Repairing epochs : 159/162 [00:00&lt;00:00,  477.12it/s]
+100%|██████████| Repairing epochs : 162/162 [00:00&lt;00:00,  475.59it/s]
 No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
 </pre></div>
 </div>
 <p>We can visualize the cross validation curve over two variables</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># noqa</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># noqa</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>  <span class="c1"># noqa</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">autoreject</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span>
-
-<span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">plt</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">'default'</span><span class="p">)</span>
-<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">loss</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span><span class="o">.</span><span class="n">loss_</span></a><span class="p">[</span><span class="s1">'eeg'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># losses are stored by channel type.</span>
-
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.matshow.html#matplotlib.pyplot.matshow" title="matplotlib.pyplot.matshow" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">matshow</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">loss</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.get_cmap.html#matplotlib.pyplot.get_cmap" title="matplotlib.pyplot.get_cmap" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span></a><span class="p">(</span><span class="s1">'viridis'</span><span class="p">))</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html#matplotlib.pyplot.xticks" title="matplotlib.pyplot.xticks" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span><span class="o">.</span><span class="n">consensus</span></a><span class="p">)),</span> <span class="p">[</span><span class="s1">'</span><span class="si">%.1f</span><span class="s1">'</span> <span class="o">%</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span><span class="o">.</span><span class="n">consensus</span></a><span class="p">])</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yticks.html#matplotlib.pyplot.yticks" title="matplotlib.pyplot.yticks" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span><span class="o">.</span><span class="n">n_interpolate</span></a><span class="p">)),</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span><span class="o">.</span><span class="n">n_interpolate</span></a><span class="p">)</span>
-
-<span class="c1"># Draw rectangle at location of best parameters</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">()</span>
-<a href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">idx</span></a><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">jdx</span></a> <span class="o">=</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.unravel_index.html#numpy.unravel_index" title="numpy.unravel_index" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span></a><span class="p">(</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">loss</span></a><span class="o">.</span><span class="n">argmin</span><span class="p">(),</span> <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">loss</span><span class="o">.</span><span class="n">shape</span></a><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle" class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rect</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle" class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class"><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span></a><span class="p">((</span><a href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">idx</span></a> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <a href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">jdx</span></a> <span class="o">-</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.add_patch.html#matplotlib.axes.Axes.add_patch" title="matplotlib.axes.Axes.add_patch" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span></a><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle" class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rect</span></a><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axis.XAxis.set_ticks_position.html#matplotlib.axis.XAxis.set_ticks_position" title="matplotlib.axis.XAxis.set_ticks_position" class="sphx-glr-backref-module-matplotlib-axis sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span></a><span class="p">(</span><span class="s1">'bottom'</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s1">'Consensus percentage $\kappa$'</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s1">'Max sensors interpolated $\rho$'</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s1">'Mean cross validation error (x 1e6)'</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html#matplotlib.pyplot.colorbar" title="matplotlib.pyplot.colorbar" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">()</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># noqa</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><a class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module reference external" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">plt</span></a>  <span class="c1"># noqa</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>  <span class="c1"># noqa</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">autoreject</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_matplotlib_defaults</span>  <span class="c1"># noqa</span><span class="w">
+</span><span class="w">
+</span><span class="n">set_matplotlib_defaults</span><span class="p">(</span><a class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module reference external" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="n">plt</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">'</span><span class="s1">default</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">loss</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ar</span><span class="o">.</span><span class="n">loss_</span></a><span class="p">[</span><span class="s1">'</span><span class="s1">eeg</span><span class="s1">'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># losses are stored by channel type.</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.matshow.html#matplotlib.pyplot.matshow" title="matplotlib.pyplot.matshow"><span class="n">plt</span><span class="o">.</span><span class="n">matshow</span></a><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">loss</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.get_cmap.html#matplotlib.pyplot.get_cmap" title="matplotlib.pyplot.get_cmap"><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">viridis</span><span class="s1">'</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html#matplotlib.pyplot.xticks" title="matplotlib.pyplot.xticks"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">ar</span><span class="o">.</span><span class="n">consensus</span></a><span class="p">)</span><span class="p">)</span><span class="p">,</span> <span class="p">[</span><span class="s1">'</span><span class="si">%.1f</span><span class="s1">'</span> <span class="o">%</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">ar</span><span class="o">.</span><span class="n">consensus</span></a><span class="p">]</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yticks.html#matplotlib.pyplot.yticks" title="matplotlib.pyplot.yticks"><span class="n">plt</span><span class="o">.</span><span class="n">yticks</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">ar</span><span class="o">.</span><span class="n">n_interpolate</span></a><span class="p">)</span><span class="p">)</span><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">ar</span><span class="o">.</span><span class="n">n_interpolate</span></a><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Draw rectangle at location of best parameters</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes"><span class="n">ax</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute reference external" href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64"><span class="n">idx</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute reference external" href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64"><span class="n">jdx</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function reference external" href="https://numpy.org/devdocs/reference/generated/numpy.unravel_index.html#numpy.unravel_index" title="numpy.unravel_index"><span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span></a><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">loss</span></a><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">loss</span><span class="o">.</span><span class="n">shape</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle"><span class="n">rect</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle"><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span></a><span class="p">(</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute reference external" href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64"><span class="n">idx</span></a> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute reference external" href="https://numpy.org/devdocs/reference/arrays.scalars.html#numpy.int64" title="numpy.int64"><span class="n">jdx</span></a> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span>                         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'</span><span class="s1">r</span><span class="s1">'</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">'</span><span class="s1">none</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.add_patch.html#matplotlib.axes.Axes.add_patch" title="matplotlib.axes.Axes.add_patch"><span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span></a><span class="p">(</span><a class="sphx-glr-backref-module-matplotlib-patches sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Rectangle.html#matplotlib.patches.Rectangle" title="matplotlib.patches.Rectangle"><span class="n">rect</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-axis sphx-glr-backref-type-py-method reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axis.XAxis.set_ticks_position.html#matplotlib.axis.XAxis.set_ticks_position" title="matplotlib.axis.XAxis.set_ticks_position"><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">bottom</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s1">'</span><span class="s1">Consensus percentage $</span><span class="s1">\</span><span class="s1">kappa$</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s1">'</span><span class="s1">Max sensors interpolated $</span><span class="s1">\</span><span class="s1">rho$</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">Mean cross validation error (x 1e6)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html#matplotlib.pyplot.colorbar" title="matplotlib.pyplot.colorbar"><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_001.png" alt="Mean cross validation error (x 1e6)" class = "sphx-glr-single-img"/><p>… and visualize the bad epochs and sensors. Bad sensors which have been
 interpolated are in blue. Bad sensors which are not interpolated are in red.
 Bad trials are also in red.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scalings</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">)</span>
-<a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot_epochs" title="autoreject.RejectLog.plot_epochs" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot_epochs</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">this_epoch</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scalings</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scalings</span></a><span class="p">)</span>
-</pre></div>
-</div>
-<img src="../_images/sphx_glr_plot_visualize_bad_epochs_002.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_002.png" alt="plot visualize bad epochs" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">scalings</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">40e-6</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot_epochs" title="autoreject.RejectLog.plot_epochs"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot_epochs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray" title="mne.EpochsArray"><span class="n">this_epoch</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">scalings</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">scalings</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../_images/sphx_glr_plot_visualize_bad_epochs_002.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_002.png" alt="plot visualize bad epochs" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
+
+&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>… and the epochs after cleaning with autoreject</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.plot" title="mne.EpochsArray.plot" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scalings</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scalings</span></a><span class="p">)</span>
-</pre></div>
-</div>
-<img src="../_images/sphx_glr_plot_visualize_bad_epochs_003.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_003.png" alt="plot visualize bad epochs" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.plot" title="mne.EpochsArray.plot"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">scalings</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">scalings</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../_images/sphx_glr_plot_visualize_bad_epochs_003.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_003.png" alt="plot visualize bad epochs" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
+
+&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>The epochs dropped by autoreject are also stored in epochs.drop_log</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.plot_drop_log" title="mne.EpochsArray.plot_drop_log" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">plot_drop_log</span></a><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.plot_drop_log" title="mne.EpochsArray.plot_drop_log"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">plot_drop_log</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_visualize_bad_epochs_004.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_004.png" alt="0 of 197 epochs removed (0.0%)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 1 Axes&gt;
 </pre></div>
 </div>
@@ -1649,19 +1255,18 @@ Bad trials are also in red.</p>
 the <code class="docutils literal notranslate"><span class="pre">spatial_colors</span></code> argument from MNE as it allows us to see that
 the eyeblinks have not yet been cleaned but the bad channels have been
 repaired.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.average" title="mne.EpochsArray.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="p">,</span> <span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.average" title="mne.EpochsArray.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ylim</span></a><span class="p">,</span> <span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ylim</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.average" title="mne.EpochsArray.average"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ylim</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ylim</span></a><span class="p">,</span> <span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.EpochsArray.html#mne.EpochsArray.average" title="mne.EpochsArray.average"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ylim</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ylim</span></a><span class="p">,</span> <span class="n">spatial_colors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <ul class="sphx-glr-horizontal">
 <li><img src="../_images/sphx_glr_plot_visualize_bad_epochs_005.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_005.png" alt="EEG (70 channels)" class = "sphx-glr-multi-img"/></li>
 <li><img src="../_images/sphx_glr_plot_visualize_bad_epochs_006.png" srcset="../_images/sphx_glr_plot_visualize_bad_epochs_006.png" alt="EEG (70 channels)" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x300 with 2 Axes&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNELineFigure size 640x300 with 2 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 35.861 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.003 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-visualize-bad-epochs-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/9d3e69826a86abb695c16aa2b83fb4a2/plot_visualize_bad_epochs.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_visualize_bad_epochs.ipynb</span></code></a></p>
@@ -1734,7 +1339,7 @@ repaired.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-02.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-23.
       <br/>
     
   </p>

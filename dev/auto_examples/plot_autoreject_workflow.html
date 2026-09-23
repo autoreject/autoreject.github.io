@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.5.0.dev6+g74f0bed81 documentation</title>
+    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.6.0.dev1+g480693a29 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
 
-    <script src="../_static/documentation_options.js?v=0c1f82fc"></script>
+    <script src="../_static/documentation_options.js?v=eec57d9d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -69,7 +69,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.5.0.dev6+g74f0bed81" />
+  <meta name="docsearch:version" content="0.6.0.dev1+g480693a29" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -138,7 +138,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.0.dev6+g74f0bed81 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev1+g480693a29 documentation</p>
   
 </a></div>
     
@@ -494,15 +494,14 @@ other preprocessing steps to use in combination.</p>
 then run autoreject (local) and supply the artifact-free epochs
 to the ICA algorithm for a robust fit, and finally run
 autoreject (local) again.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Alex Rockhill &lt;aprockhill@mailbox.org&gt;</span>
-<span class="c1">#         Mainak Jas &lt;mjas@mgh.harvard.edu&gt;</span>
-<span class="c1">#         Apoorva Karekal &lt;apoorvak@uoregon.edu&gt;</span>
-<span class="c1">#</span>
-<span class="c1"># License: BSD-3-Clause</span>
-
-<span class="c1"># sphinx_gallery_thumbnail_number = 9</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Author: Alex Rockhill &lt;aprockhill&#64;mailbox.org&gt;</span><span class="w">
+</span><span class="c1">#         Mainak Jas &lt;mjas&#64;mgh.harvard.edu&gt;</span><span class="w">
+</span><span class="c1">#         Apoorva Karekal &lt;apoorvak&#64;uoregon.edu&gt;</span><span class="w">
+</span><span class="c1">#</span><span class="w">
+</span><span class="c1"># License: BSD-3-Clause</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># sphinx_gallery_thumbnail_number = 9</span><span class="w">
+</span></pre></div></div>
 <nav class="contents local" id="table-of-contents">
 <p class="topic-title">Table of Contents</p>
 <ul class="simple">
@@ -515,36 +514,27 @@ autoreject (local) again.</p>
 <p>First, we download resting-state EEG data from a Parkinson’s patient
 from OpenNeuro. We will do this using <code class="docutils literal notranslate"><span class="pre">openneuro-py</span></code> which can be
 installed with the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">openneuro-py</span></code>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">openneuro</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">autoreject</span>
-
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a> <span class="o">=</span> <span class="s1">'ds002778'</span>  <span class="c1"># The id code on OpenNeuro for this example dataset</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a> <span class="o">=</span> <span class="s1">'pd14'</span>
-
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span>
-    <a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" title="os.path.dirname" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span></a><span class="p">(</span><span class="n">autoreject</span><span class="o">.</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">'..'</span><span class="p">,</span> <span class="s1">'examples'</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">)</span>
-<a href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">openneuro</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span>
-                   <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">'sub-</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">/ses-off'</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>👋 Hello! This is openneuro-py 2026.7.1. Great to see you! 🤗
-
-   👉 Please report problems 🤯 and bugs 🪲 at
-      https://github.com/openneuro-py/openneuro-py/issues
-
-🌍 Preparing to download ds002778 …
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">openneuro</span><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">mne</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">autoreject</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a> <span class="o">=</span> <span class="s1">'</span><span class="s1">ds002778</span><span class="s1">'</span>  <span class="c1"># The id code on OpenNeuro for this example dataset</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">subject_id</span></a> <span class="o">=</span> <span class="s1">'</span><span class="s1">pd14</span><span class="s1">'</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.dirname" title="os.path.dirname"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">autoreject</span><span class="o">.</span><span class="vm">__file__</span></a><span class="p">)</span><span class="p">,</span> <span class="s1">'</span><span class="s1">..</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">examples</span><span class="s1">'</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">openneuro</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">dataset</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span><span class="w">
+</span>                   <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="s1">sub-</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">/ses-off</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>🌍 Preparing to download ds002778 …
 📥 Checking 12 files, downloading as needed (5 concurrent downloads).
-
-Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18.4/18.4 MB 47.8 MB/s 0:00:00
+Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18.4/18.4 MB 16.6 MB/s 0:00:00
 ✅ Finished downloading ds002778 (downloaded 12 files and 17.6 MB).
-
-🧠 Please enjoy your brains.
 </pre></div>
 </div>
 <p>We will now load in the raw data from the bdf file downloaded from OpenNeuro
@@ -553,19 +543,18 @@ spaced events with which to epoch the raw data. In the averaged plot,
 we can see that there may be some eyeblink
 artifact contamination but, overall, the data is typical of
 resting-state EEG.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">target_dir</span></a><span class="p">,</span> <span class="sa">f</span><span class="s1">'sub-</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'ses-off'</span><span class="p">,</span> <span class="s1">'eeg'</span><span class="p">,</span>
-                         <span class="s1">'sub-pd14_ses-off_task-rest_eeg.bdf'</span><span class="p">)</span>
-<span class="n">raw</span> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.io.read_raw_bdf.html#mne.io.read_raw_bdf" title="mne.io.read_raw_bdf" class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_bdf</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.channels.DigMontage.html#mne.channels.DigMontage" title="mne.channels.DigMontage" class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dig_montage</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.channels.make_standard_montage.html#mne.channels.make_standard_montage" title="mne.channels.make_standard_montage" class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">channels</span><span class="o">.</span><span class="n">make_standard_montage</span></a><span class="p">(</span><span class="s1">'biosemi32'</span><span class="p">)</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">drop_channels</span><span class="p">([</span><span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">ch_names</span>
-                   <span class="k">if</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dig_montage</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">])</span>
-<span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.channels.DigMontage.html#mne.channels.DigMontage" title="mne.channels.DigMontage" class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dig_montage</span></a><span class="p">)</span>  <span class="c1"># use the standard montage</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.make_fixed_length_epochs.html#mne.make_fixed_length_epochs" title="mne.make_fixed_length_epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">make_fixed_length_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># plot the data</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">detrend</span><span class="p">()</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">raw_fname</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">target_dir</span></a><span class="p">,</span> <span class="sa">f</span><span class="s1">'</span><span class="s1">sub-</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">subject_id</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">ses-off</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">eeg</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>                         <span class="s1">'</span><span class="s1">sub-pd14_ses-off_task-rest_eeg.bdf</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">raw</span> <span class="o">=</span> <a class="sphx-glr-backref-module-mne-io sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.io.read_raw_bdf.html#mne.io.read_raw_bdf" title="mne.io.read_raw_bdf"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_bdf</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">raw_fname</span></a><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.channels.DigMontage.html#mne.channels.DigMontage" title="mne.channels.DigMontage"><span class="n">dig_montage</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.channels.make_standard_montage.html#mne.channels.make_standard_montage" title="mne.channels.make_standard_montage"><span class="n">mne</span><span class="o">.</span><span class="n">channels</span><span class="o">.</span><span class="n">make_standard_montage</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">biosemi32</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">raw</span><span class="o">.</span><span class="n">drop_channels</span><span class="p">(</span><span class="p">[</span><span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">ch_names</span><span class="w">
+</span>                   <span class="k">if</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">dig_montage</span><span class="o">.</span><span class="n">ch_names</span></a><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><a class="sphx-glr-backref-module-mne-channels sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.channels.DigMontage.html#mne.channels.DigMontage" title="mne.channels.DigMontage"><span class="n">dig_montage</span></a><span class="p">)</span>  <span class="c1"># use the standard montage</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.make_fixed_length_epochs.html#mne.make_fixed_length_epochs" title="mne.make_fixed_length_epochs"><span class="n">mne</span><span class="o">.</span><span class="n">make_fixed_length_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># plot the data</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_001.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_001.png" alt="EEG (32 channels), 0.006 s, 0.979 s, 2.699 s" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Extracting BDF parameters from /home/circleci/project/autoreject/../examples/ds002778/sub-pd14/ses-off/eeg/sub-pd14_ses-off_task-rest_eeg.bdf...
 Setting channel info structure...
 Creating raw.info structure...
@@ -590,47 +579,52 @@ being lost.</p>
 <p>The data looks fairly clean already and we don’t want to interpolate
 more than a few sensors since we only have 32 to start, so the
 number of channels to interpolate was set to check some low numbers</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
-                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[:</span><span class="mi">20</span><span class="p">])</span>  <span class="c1"># fit on a few epochs to save time</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a><span class="p">,</span> <a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">ar</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="w">
+</span>                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="p">)</span>  <span class="c1"># fit on a few epochs to save time</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs_ar</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 22%|██▏       | Creating augmented epochs : 7/32 [00:00&lt;00:00,  385.74it/s]
- 41%|████      | Creating augmented epochs : 13/32 [00:00&lt;00:00,  374.99it/s]
- 62%|██████▎   | Creating augmented epochs : 20/32 [00:00&lt;00:00,  377.25it/s]
- 84%|████████▍ | Creating augmented epochs : 27/32 [00:00&lt;00:00,  387.37it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  389.14it/s]
+ 34%|███▍      | Creating augmented epochs : 11/32 [00:00&lt;00:00,  636.48it/s]
+ 72%|███████▏  | Creating augmented epochs : 23/32 [00:00&lt;00:00,  682.17it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  679.20it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   54.60it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   58.18it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   59.30it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   59.80it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   59.78it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   59.52it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   59.74it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   60.45it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   60.35it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   60.86it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   60.78it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   60.71it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   60.71it/s]
- 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   60.87it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   61.20it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   61.11it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   61.11it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   61.19it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   61.17it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   61.33it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   61.35it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   61.22it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   61.20it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.27it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.07it/s]
+  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   57.10it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   57.84it/s]
+  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   58.09it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   58.82it/s]
+ 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   59.52it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   59.89it/s]
+ 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   60.21it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   60.45it/s]
+ 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   60.53it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   60.57it/s]
+ 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   60.65it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   60.81it/s]
+ 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   60.82it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   60.96it/s]
+ 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   61.00it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   61.08it/s]
+ 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   61.13it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   61.15it/s]
+ 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   61.12it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   61.17it/s]
+ 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   61.16it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   61.13it/s]
+ 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   61.19it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   61.14it/s]
+ 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   61.12it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   61.12it/s]
+ 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   61.10it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   61.12it/s]
+ 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   61.08it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   61.12it/s]
+ 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   61.17it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.22it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.04it/s]
 
 
 
@@ -642,7 +636,7 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
   0%|          | Repairing epochs : 0/3 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 3/3 [00:00&lt;00:00,  326.85it/s]
+100%|██████████| Repairing epochs : 3/3 [00:00&lt;00:00,  658.07it/s]
 
 
 
@@ -651,19 +645,15 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  301.24it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  291.45it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  303.50it/s]
 
 
-
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  303.72it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  302.45it/s]
-
-
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   22.07it/s]
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   24.56it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  338.40it/s]
+100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  682.42it/s]
 
 
 
@@ -672,15 +662,15 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  317.37it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  314.46it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  316.42it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  316.35it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   21.51it/s]
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   24.36it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  299.82it/s]
+100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  713.71it/s]
 
 
 
@@ -689,15 +679,19 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  312.56it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  312.83it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  302.26it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   21.12it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  306.48it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  304.96it/s]
+
+
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   24.22it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  266.58it/s]
+100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  656.31it/s]
 
 
 
@@ -706,12 +700,12 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  340.05it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  342.65it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  342.84it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  340.87it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   21.10it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   21.12it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   24.68it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   24.65it/s]
 
 
 
@@ -723,39 +717,23 @@ Estimated consensus=0.10 and n_interpolate=1
   0%|          | Repairing epochs : 0/17 [00:00&lt;?,       ?it/s]
 
 
- 12%|█▏        | Repairing epochs : 2/17 [00:00&lt;00:00,  121.05it/s]
-
-
- 29%|██▉       | Repairing epochs : 5/17 [00:00&lt;00:00,  128.89it/s]
-
-
- 41%|████      | Repairing epochs : 7/17 [00:00&lt;00:00,  125.52it/s]
-
-
- 53%|█████▎    | Repairing epochs : 9/17 [00:00&lt;00:00,  120.19it/s]
-
-
- 71%|███████   | Repairing epochs : 12/17 [00:00&lt;00:00,  126.21it/s]
-
-
- 88%|████████▊ | Repairing epochs : 15/17 [00:00&lt;00:00,  127.62it/s]
-100%|██████████| Repairing epochs : 17/17 [00:00&lt;00:00,  127.45it/s]
+ 65%|██████▍   | Repairing epochs : 11/17 [00:00&lt;00:00,  673.43it/s]
+100%|██████████| Repairing epochs : 17/17 [00:00&lt;00:00,  701.99it/s]
 Dropped 27 epochs: 54, 58, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
 <p>visualize the dropped epochs</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">))</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_002.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_002.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Using matplotlib as 2D backend.
+For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
 
 &lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>and the reject log</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'horizontal'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">horizontal</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_003.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_003.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 1 Axes&gt;
 </pre></div>
 </div>
@@ -773,14 +751,13 @@ distort the phase of the signal. Most evoked response potential
 analyses use filtering since the interest is in the time series, but
 if you are doing a frequency based analysis, filtering before the
 Fourier transform could potentially be avoided by detrending instead.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">l_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.make_fixed_length_epochs.html#mne.make_fixed_length_epochs" title="mne.make_fixed_length_epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">make_fixed_length_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
-                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[:</span><span class="mi">20</span><span class="p">])</span>  <span class="c1"># fit on a few epochs to save time</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a><span class="p">,</span> <a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">raw</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">l_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-function reference external" href="https://mne.tools/dev/generated/mne.make_fixed_length_epochs.html#mne.make_fixed_length_epochs" title="mne.make_fixed_length_epochs"><span class="n">mne</span><span class="o">.</span><span class="n">make_fixed_length_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">ar</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="w">
+</span>                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="p">)</span>  <span class="c1"># fit on a few epochs to save time</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs_ar</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filtering raw data in 1 contiguous segment
 Setting up high-pass filter at 1 Hz
 
@@ -802,46 +779,45 @@ Using data from preloaded Raw for 97 events and 1536 original time points ...
 Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 19%|█▉        | Creating augmented epochs : 6/32 [00:00&lt;00:00,  345.82it/s]
- 41%|████      | Creating augmented epochs : 13/32 [00:00&lt;00:00,  367.10it/s]
- 62%|██████▎   | Creating augmented epochs : 20/32 [00:00&lt;00:00,  385.37it/s]
- 84%|████████▍ | Creating augmented epochs : 27/32 [00:00&lt;00:00,  387.94it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  384.04it/s]
+ 31%|███▏      | Creating augmented epochs : 10/32 [00:00&lt;00:00,  621.78it/s]
+ 66%|██████▌   | Creating augmented epochs : 21/32 [00:00&lt;00:00,  645.82it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  649.81it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  647.31it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   54.50it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   56.15it/s]
-  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   55.86it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   56.41it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   56.78it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   56.56it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   56.62it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   56.75it/s]
- 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   56.69it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   56.81it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   56.97it/s]
- 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   56.77it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   56.85it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   57.01it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   56.85it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   56.86it/s]
- 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   56.95it/s]
- 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   56.87it/s]
- 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   56.86it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   56.93it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   56.87it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   56.84it/s]
- 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   56.88it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   56.79it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   56.76it/s]
- 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   56.76it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   56.67it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   56.57it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   56.60it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   56.62it/s]
- 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   56.61it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   56.59it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   56.66it/s]
+  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   53.21it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   54.80it/s]
+  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   55.54it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   55.80it/s]
+ 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   55.80it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   55.84it/s]
+ 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   56.02it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   55.96it/s]
+ 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   55.66it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   55.85it/s]
+ 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   56.03it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   56.21it/s]
+ 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   56.38it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   56.55it/s]
+ 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   56.61it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   56.75it/s]
+ 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   56.88it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   56.99it/s]
+ 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   57.11it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   57.11it/s]
+ 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   57.19it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   57.28it/s]
+ 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   57.37it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   57.44it/s]
+ 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   57.51it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   57.56it/s]
+ 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   57.60it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   57.63it/s]
+ 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   57.62it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   57.65it/s]
+ 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   57.71it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   57.76it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   57.35it/s]
 
 
 
@@ -853,10 +829,7 @@ Running autoreject on ch_type=eeg
 
 
   0%|          | Repairing epochs : 0/7 [00:00&lt;?,       ?it/s]
-
-
- 71%|███████▏  | Repairing epochs : 5/7 [00:00&lt;00:00,  298.30it/s]
-100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  307.03it/s]
+100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  658.31it/s]
 
 
 
@@ -865,21 +838,15 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  320.16it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  323.70it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  301.07it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  315.04it/s]
 
 
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   17.40it/s]
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   21.82it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-
-
- 45%|████▌     | Repairing epochs : 5/11 [00:00&lt;00:00,  301.09it/s]
-
-
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  322.81it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  320.81it/s]
+100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  747.47it/s]
 
 
 
@@ -888,21 +855,18 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  315.35it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  317.16it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  327.07it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  325.62it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   15.65it/s]
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   20.96it/s]
 
 
   0%|          | Repairing epochs : 0/15 [00:00&lt;?,       ?it/s]
 
 
- 40%|████      | Repairing epochs : 6/15 [00:00&lt;00:00,  336.72it/s]
-
-
- 80%|████████  | Repairing epochs : 12/15 [00:00&lt;00:00,  333.32it/s]
-100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  319.09it/s]
+ 87%|████████▋ | Repairing epochs : 13/15 [00:00&lt;00:00,  779.34it/s]
+100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  776.87it/s]
 
 
 
@@ -911,21 +875,18 @@ Running autoreject on ch_type=eeg
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  306.85it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  314.12it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  325.20it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  325.99it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   14.20it/s]
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   20.11it/s]
 
 
   0%|          | Repairing epochs : 0/15 [00:00&lt;?,       ?it/s]
 
 
- 40%|████      | Repairing epochs : 6/15 [00:00&lt;00:00,  312.87it/s]
-
-
- 73%|███████▎  | Repairing epochs : 11/15 [00:00&lt;00:00,  309.88it/s]
-100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  321.13it/s]
+ 87%|████████▋ | Repairing epochs : 13/15 [00:00&lt;00:00,  777.81it/s]
+100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  776.17it/s]
 
 
 
@@ -934,12 +895,12 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  339.24it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  333.10it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  338.29it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  337.71it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   13.69it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   13.79it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   19.83it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   19.88it/s]
 
 
 
@@ -951,70 +912,31 @@ Estimated consensus=0.40 and n_interpolate=4
   0%|          | Repairing epochs : 0/43 [00:00&lt;?,       ?it/s]
 
 
-  5%|▍         | Repairing epochs : 2/43 [00:00&lt;00:00,  119.39it/s]
+ 26%|██▌       | Repairing epochs : 11/43 [00:00&lt;00:00,  670.42it/s]
 
 
- 12%|█▏        | Repairing epochs : 5/43 [00:00&lt;00:00,  127.74it/s]
+ 53%|█████▎    | Repairing epochs : 23/43 [00:00&lt;00:00,  706.60it/s]
 
 
- 16%|█▋        | Repairing epochs : 7/43 [00:00&lt;00:00,  125.52it/s]
-
-
- 23%|██▎       | Repairing epochs : 10/43 [00:00&lt;00:00,  129.86it/s]
-
-
- 30%|███       | Repairing epochs : 13/43 [00:00&lt;00:00,  128.72it/s]
-
-
- 35%|███▍      | Repairing epochs : 15/43 [00:00&lt;00:00,  127.56it/s]
-
-
- 42%|████▏     | Repairing epochs : 18/43 [00:00&lt;00:00,  129.28it/s]
-
-
- 49%|████▉     | Repairing epochs : 21/43 [00:00&lt;00:00,  128.71it/s]
-
-
- 56%|█████▌    | Repairing epochs : 24/43 [00:00&lt;00:00,  129.27it/s]
-
-
- 63%|██████▎   | Repairing epochs : 27/43 [00:00&lt;00:00,  130.57it/s]
-
-
- 67%|██████▋   | Repairing epochs : 29/43 [00:00&lt;00:00,  129.26it/s]
-
-
- 74%|███████▍  | Repairing epochs : 32/43 [00:00&lt;00:00,  130.07it/s]
-
-
- 81%|████████▏ | Repairing epochs : 35/43 [00:00&lt;00:00,  131.15it/s]
-
-
- 86%|████████▌ | Repairing epochs : 37/43 [00:00&lt;00:00,  130.26it/s]
-
-
- 93%|█████████▎| Repairing epochs : 40/43 [00:00&lt;00:00,  131.20it/s]
-
-
-100%|██████████| Repairing epochs : 43/43 [00:00&lt;00:00,  131.99it/s]
-100%|██████████| Repairing epochs : 43/43 [00:00&lt;00:00,  131.21it/s]
+ 84%|████████▎ | Repairing epochs : 36/43 [00:00&lt;00:00,  736.92it/s]
+100%|██████████| Repairing epochs : 43/43 [00:00&lt;00:00,  745.83it/s]
 Dropped 23 epochs: 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
 <p>visualize the dropped epochs</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">))</span>
-</pre></div>
-</div>
-<img src="../_images/sphx_glr_plot_autoreject_workflow_004.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_004.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../_images/sphx_glr_plot_autoreject_workflow_004.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_004.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
+
+&lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
 </pre></div>
 </div>
 <p>and the reject log. As we can see in the plot, high-pass filtering reduced
 the number of epochs marked as bad by autoreject. This is because
 low-frequency drifts can inflate peak-to-peak amplitude when an upward
 drift aligns with a peak.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'horizontal'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">horizontal</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_005.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_005.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 1 Axes&gt;
 </pre></div>
 </div>
@@ -1030,12 +952,12 @@ eyeblink artifacts.</p>
 <p>Note that ICA works best if bad segments of the data are removed
 Hence, we will remove the bad segments from the
 previous run of autoreject for the benefit of the ICA algorithm.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute ICA</span>
-<a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="mne.preprocessing.ICA" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="mne.preprocessing.ICA" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class"><span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">ICA</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.fit" title="mne.preprocessing.ICA.fit" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><span class="o">~</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">])</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Fitting ICA to data using 32 channels (please be patient, this may take a while)
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># compute ICA</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="mne.preprocessing.ICA"><span class="n">ica</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="mne.preprocessing.ICA"><span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">ICA</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.fit" title="mne.preprocessing.ICA.fit"><span class="n">ica</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><span class="o">~</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Use rng= instead of random_state= in new code
+Fitting ICA to data using 32 channels (please be patient, this may take a while)
 Selecting by non-zero PCA components: 32 components
 Fitting ICA took 1.0s.
 </pre></div>
@@ -1078,18 +1000,16 @@ Fitting ICA took 1.0s.
 <br /><p>We can see in the plots below that ICA effectively removed eyeblink
 artifact.</p>
 <p>plot source components to see which is made up of blinks</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># blinks</span>
-           <span class="mi">2</span>  <span class="c1"># saccades</span>
-           <span class="p">]</span>
-<a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.plot_components" title="mne.preprocessing.ICA.plot_components" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a>
-</pre></div>
-</div>
-<img src="../_images/sphx_glr_plot_autoreject_workflow_006.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_006.png" alt="ICA components, ICA000, ICA002" class = "sphx-glr-single-img"/><p>plot with and without eyeblink component</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.plot_overlay" title="mne.preprocessing.ICA.plot_overlay" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">plot_overlay</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">(),</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.apply" title="mne.preprocessing.ICA.apply" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method"><span class="n">ica</span><span class="o">.</span><span class="n">apply</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">exclude</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># blinks</span><span class="w">
+</span>           <span class="mi">2</span>  <span class="c1"># saccades</span><span class="w">
+</span>           <span class="p">]</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.plot_components" title="mne.preprocessing.ICA.plot_components"><span class="n">ica</span><span class="o">.</span><span class="n">plot_components</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="w">
+</span></pre></div></div>
+<img src="../_images/sphx_glr_plot_autoreject_workflow_006.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_006.png" alt="ICA000, ICA002" class = "sphx-glr-single-img"/><p>plot with and without eyeblink component</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.plot_overlay" title="mne.preprocessing.ICA.plot_overlay"><span class="n">ica</span><span class="o">.</span><span class="n">plot_overlay</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average"><span class="n">epochs</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="p">)</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA.apply" title="mne.preprocessing.ICA.apply"><span class="n">ica</span><span class="o">.</span><span class="n">apply</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">exclude</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">ica</span><span class="o">.</span><span class="n">exclude</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_007.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_007.png" alt="Signals before (red) and after (black) cleaning, EEG (32 channels)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Applying ICA to Evoked instance
     Transforming to ICA space (32 components)
     Zeroing out 2 ICA components
@@ -1248,9 +1168,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021"
+<tr class="mne-repr-section-header general-a504a5a9-991c-4558-aae6-1df8ec4fd828"
      title="Hide section"
-    onclick="toggleVisibility('general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021')">
+    onclick="toggleVisibility('general-a504a5a9-991c-4558-aae6-1df8ec4fd828')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1262,19 +1182,19 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021 ">
+<tr class="repr-element general-a504a5a9-991c-4558-aae6-1df8ec4fd828 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021 ">
+<tr class="repr-element general-a504a5a9-991c-4558-aae6-1df8ec4fd828 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>2011-04-06 at 12:43:10 UTC</td>
 
 </tr>
-<tr class="repr-element general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021 ">
+<tr class="repr-element general-a504a5a9-991c-4558-aae6-1df8ec4fd828 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
@@ -1283,7 +1203,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 </tr>
-<tr class="repr-element general-47a1a41e-11b2-4a3a-b1ee-aaaa75c72021 ">
+<tr class="repr-element general-a504a5a9-991c-4558-aae6-1df8ec4fd828 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -1298,9 +1218,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-70bc85c7-6651-456a-a311-b5bfc3305843"
+<tr class="mne-repr-section-header acquisition-9fafaf83-4281-4106-932e-db9215163e9f"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-70bc85c7-6651-456a-a311-b5bfc3305843')">
+    onclick="toggleVisibility('acquisition-9fafaf83-4281-4106-932e-db9215163e9f')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1315,14 +1235,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>97</td>
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -1336,35 +1256,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>0.000 – 2.998 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>512.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>1,536</td>
 </tr>
 
 
-<tr class="repr-element acquisition-70bc85c7-6651-456a-a311-b5bfc3305843 ">
+<tr class="repr-element acquisition-9fafaf83-4281-4106-932e-db9215163e9f ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -1378,9 +1298,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-76bdf377-69da-4ea5-9cdf-30c11bab6bb2"
+<tr class="mne-repr-section-header channels-3faa4934-63e1-495f-a1a3-3017b2e6535c"
      title="Hide section"
-    onclick="toggleVisibility('channels-76bdf377-69da-4ea5-9cdf-30c11bab6bb2')">
+    onclick="toggleVisibility('channels-3faa4934-63e1-495f-a1a3-3017b2e6535c')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1393,7 +1313,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-76bdf377-69da-4ea5-9cdf-30c11bab6bb2 ">
+<tr class="repr-element channels-3faa4934-63e1-495f-a1a3-3017b2e6535c ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -1406,7 +1326,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-76bdf377-69da-4ea5-9cdf-30c11bab6bb2 ">
+<tr class="repr-element channels-3faa4934-63e1-495f-a1a3-3017b2e6535c ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -1421,9 +1341,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-f379297f-0780-400e-9ecc-77cc03823511"
+<tr class="mne-repr-section-header filters-0065b7e8-e05f-45e1-92d9-488412be7cb6"
      title="Hide section"
-    onclick="toggleVisibility('filters-f379297f-0780-400e-9ecc-77cc03823511')">
+    onclick="toggleVisibility('filters-0065b7e8-e05f-45e1-92d9-488412be7cb6')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1435,14 +1355,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-f379297f-0780-400e-9ecc-77cc03823511 ">
+<tr class="repr-element filters-0065b7e8-e05f-45e1-92d9-488412be7cb6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-f379297f-0780-400e-9ecc-77cc03823511 ">
+<tr class="repr-element filters-0065b7e8-e05f-45e1-92d9-488412be7cb6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>104.00 Hz</td>
@@ -1465,57 +1385,54 @@ jaw clenches and gross movement artifact that could still impact analyses.</p>
 <p>These are the basic steps for a workflow with decisions that must be
 made based on what the data is being used for. Following this may help
 you optimize your use of <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> in preprocessing.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute channel-level rejections</span>
-<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
-                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[:</span><span class="mi">20</span><span class="p">])</span>  <span class="c1"># fit on the first 20 epochs to save time</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a><span class="p">,</span> <a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">))</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># compute channel-level rejections</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">ar</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><span class="n">autoreject</span><span class="o">.</span><span class="n">AutoReject</span></a><span class="p">(</span><span class="n">n_interpolate</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="w">
+</span>                           <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit"><span class="n">ar</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span><span class="p">)</span>  <span class="c1"># fit on the first 20 epochs to save time</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs_ar</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">,</span> <span class="n">return_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="mf">100e-6</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_008.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_008.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 19%|█▉        | Creating augmented epochs : 6/32 [00:00&lt;00:00,  350.06it/s]
- 41%|████      | Creating augmented epochs : 13/32 [00:00&lt;00:00,  367.59it/s]
- 62%|██████▎   | Creating augmented epochs : 20/32 [00:00&lt;00:00,  383.22it/s]
- 84%|████████▍ | Creating augmented epochs : 27/32 [00:00&lt;00:00,  379.47it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  377.90it/s]
+ 34%|███▍      | Creating augmented epochs : 11/32 [00:00&lt;00:00,  665.37it/s]
+ 72%|███████▏  | Creating augmented epochs : 23/32 [00:00&lt;00:00,  690.77it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  697.03it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   54.49it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   55.87it/s]
-  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   55.63it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   56.28it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   56.66it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   56.39it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   56.63it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   56.74it/s]
- 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   56.69it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   56.89it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   57.04it/s]
- 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   56.89it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   56.96it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   57.03it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   56.90it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   56.88it/s]
- 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   56.93it/s]
- 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   56.86it/s]
- 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   56.84it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   56.93it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   56.82it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   56.76it/s]
- 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   56.78it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   56.68it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   56.60it/s]
- 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   56.63it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   56.50it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   56.47it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   56.55it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   56.49it/s]
- 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   56.48it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   56.55it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   56.61it/s]
+  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   54.03it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   55.74it/s]
+  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   56.46it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   56.84it/s]
+ 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   57.13it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   57.36it/s]
+ 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   57.51it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   57.58it/s]
+ 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   57.65it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   57.78it/s]
+ 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   57.84it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   57.93it/s]
+ 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   58.00it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   58.07it/s]
+ 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   58.14it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   58.18it/s]
+ 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   58.21it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   58.29it/s]
+ 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   58.35it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   58.35it/s]
+ 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   58.36it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   58.35it/s]
+ 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   57.57it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   57.21it/s]
+ 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   56.92it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   56.69it/s]
+ 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   56.53it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   56.40it/s]
+ 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   56.21it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   56.11it/s]
+ 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   56.08it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   55.99it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   56.66it/s]
 
 
 
@@ -1527,10 +1444,7 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
   0%|          | Repairing epochs : 0/7 [00:00&lt;?,       ?it/s]
-
-
- 71%|███████▏  | Repairing epochs : 5/7 [00:00&lt;00:00,  303.86it/s]
-100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  313.09it/s]
+100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  684.47it/s]
 
 
 
@@ -1539,21 +1453,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  323.06it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  317.69it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  281.87it/s]
 
 
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   17.40it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  289.24it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  287.72it/s]
+
+
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   20.82it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-
-
- 45%|████▌     | Repairing epochs : 5/11 [00:00&lt;00:00,  301.96it/s]
-
-
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  321.48it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  319.58it/s]
+100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  693.44it/s]
 
 
 
@@ -1562,22 +1474,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  304.89it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  296.10it/s]
 
 
 
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  308.24it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  306.90it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  300.18it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  298.63it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   15.56it/s]
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   19.80it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-
-
- 55%|█████▍    | Repairing epochs : 6/11 [00:00&lt;00:00,  326.62it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  331.28it/s]
+100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  731.32it/s]
 
 
 
@@ -1586,21 +1495,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  286.16it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  302.66it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  305.52it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   15.10it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  308.01it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  306.61it/s]
+
+
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   19.71it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-
-
- 55%|█████▍    | Repairing epochs : 6/11 [00:00&lt;00:00,  335.76it/s]
-
-
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  315.90it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  315.02it/s]
+100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  739.10it/s]
 
 
 
@@ -1609,12 +1516,12 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  339.69it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  344.40it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  315.56it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  325.40it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   15.03it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   15.07it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   19.87it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   19.87it/s]
 
 
 
@@ -1626,51 +1533,16 @@ Estimated consensus=0.40 and n_interpolate=2
   0%|          | Repairing epochs : 0/37 [00:00&lt;?,       ?it/s]
 
 
-  5%|▌         | Repairing epochs : 2/37 [00:00&lt;00:00,  114.91it/s]
+ 30%|██▉       | Repairing epochs : 11/37 [00:00&lt;00:00,  686.27it/s]
 
 
- 14%|█▎        | Repairing epochs : 5/37 [00:00&lt;00:00,  122.04it/s]
+ 65%|██████▍   | Repairing epochs : 24/37 [00:00&lt;00:00,  730.58it/s]
 
 
- 22%|██▏       | Repairing epochs : 8/37 [00:00&lt;00:00,  121.67it/s]
-
-
- 27%|██▋       | Repairing epochs : 10/37 [00:00&lt;00:00,  121.39it/s]
-
-
- 35%|███▌      | Repairing epochs : 13/37 [00:00&lt;00:00,  123.86it/s]
-
-
- 41%|████      | Repairing epochs : 15/37 [00:00&lt;00:00,  122.85it/s]
-
-
- 46%|████▌     | Repairing epochs : 17/37 [00:00&lt;00:00,  122.82it/s]
-
-
- 54%|█████▍    | Repairing epochs : 20/37 [00:00&lt;00:00,  124.40it/s]
-
-
- 59%|█████▉    | Repairing epochs : 22/37 [00:00&lt;00:00,  123.74it/s]
-
-
- 65%|██████▍   | Repairing epochs : 24/37 [00:00&lt;00:00,  123.36it/s]
-
-
- 73%|███████▎  | Repairing epochs : 27/37 [00:00&lt;00:00,  124.60it/s]
-
-
- 81%|████████  | Repairing epochs : 30/37 [00:00&lt;00:00,  123.97it/s]
-
-
- 86%|████████▋ | Repairing epochs : 32/37 [00:00&lt;00:00,  123.80it/s]
-
-
- 95%|█████████▍| Repairing epochs : 35/37 [00:00&lt;00:00,  124.28it/s]
-
-
-100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  122.87it/s]
-100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  122.98it/s]
+100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  752.62it/s]
+100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  748.69it/s]
 Dropped 11 epochs: 62, 63, 64, 65, 69, 71, 72, 73, 80, 95, 96
+For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
 
 &lt;MNEBrowseFigure size 800x800 with 4 Axes&gt;
 </pre></div>
@@ -1682,20 +1554,18 @@ such as looking for bursting activity. We’ll visualize why autoreject
 excluded these epochs and the effect that including these bad epochs would
 have on the data.</p>
 <p>First, we will visualize the reject log</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'horizontal'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog.plot" title="autoreject.RejectLog.plot"><span class="n">reject_log</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">horizontal</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_009.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_009.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 1 Axes&gt;
 </pre></div>
 </div>
 <p>Next, we will visualize the cleaned average data and compare it against
 the bad segments.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evoked_bad</span></a> <span class="o">=</span> <a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">[</span><a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">()</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">()</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.times" title="mne.EvokedArray.times" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">times</span></a><span class="p">,</span> <a href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.data" title="mne.EvokedArray.data" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">())</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray" title="mne.EvokedArray"><span class="n">evoked_bad</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">]</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property reference external" href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.times" title="mne.EvokedArray.times"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">times</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-property reference external" href="https://mne.tools/dev/generated/mne.EvokedArray.html#mne.EvokedArray.data" title="mne.EvokedArray.data"><span class="n">evoked_bad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span></a> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">'</span><span class="s1">r</span><span class="s1">'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-method reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.average" title="mne.Epochs.average"><span class="n">epochs_ar</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_plot_autoreject_workflow_010.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_010.png" alt="EEG (32 channels)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 2 Axes&gt;
 </pre></div>
 </div>
@@ -1703,58 +1573,23 @@ the bad segments.</p>
 corrections to the reject_log. For instance, if data is limited, we may
 not want to drop epochs but retain the list of bad epochs for quality
 assurance metrics.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.get_reject_log" title="autoreject.AutoReject.get_reject_log" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">)</span>
-<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bad_epochs</span></a> <span class="o">=</span> <a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<a href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">[:]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># no bad epochs</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.get_reject_log" title="autoreject.AutoReject.get_reject_log"><span class="n">ar</span><span class="o">.</span><span class="n">get_reject_log</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bad_epochs</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/devdocs/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span></a><span class="p">[</span><span class="p">:</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># no bad epochs</span><span class="w">
+</span></pre></div></div>
 <p>The modified reject log can be applied to the data as follows.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a> <span class="o">=</span> <a href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a><span class="o">=</span><a href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog" class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reject_log</span></a><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Number of epochs originally: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">)</span><span class="si">}</span><span class="s1">, '</span>
-      <span class="sa">f</span><span class="s1">'after autoreject: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs_ar</span></a><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs_ar</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-method reference internal" href="../generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform"><span class="n">ar</span><span class="o">.</span><span class="n">transform</span></a><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a><span class="o">=</span><a class="sphx-glr-backref-module-autoreject sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../generated/autoreject.RejectLog.html#autoreject.RejectLog" title="autoreject.RejectLog"><span class="n">reject_log</span></a><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">Number of epochs originally: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs</span></a><span class="p">)</span><span class="si">}</span><span class="s1">, </span><span class="s1">'</span><span class="w">
+</span>      <span class="sa">f</span><span class="s1">'</span><span class="s1">after autoreject: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs" title="mne.Epochs"><span class="n">epochs_ar</span></a><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Repairing epochs : 0/37 [00:00&lt;?,       ?it/s]
 
 
-  8%|▊         | Repairing epochs : 3/37 [00:00&lt;00:00,  135.97it/s]
+ 32%|███▏      | Repairing epochs : 12/37 [00:00&lt;00:00,  710.78it/s]
 
 
- 14%|█▎        | Repairing epochs : 5/37 [00:00&lt;00:00,  126.81it/s]
-
-
- 22%|██▏       | Repairing epochs : 8/37 [00:00&lt;00:00,  130.01it/s]
-
-
- 30%|██▉       | Repairing epochs : 11/37 [00:00&lt;00:00,  129.44it/s]
-
-
- 35%|███▌      | Repairing epochs : 13/37 [00:00&lt;00:00,  127.49it/s]
-
-
- 43%|████▎     | Repairing epochs : 16/37 [00:00&lt;00:00,  129.21it/s]
-
-
- 51%|█████▏    | Repairing epochs : 19/37 [00:00&lt;00:00,  129.03it/s]
-
-
- 59%|█████▉    | Repairing epochs : 22/37 [00:00&lt;00:00,  129.55it/s]
-
-
- 68%|██████▊   | Repairing epochs : 25/37 [00:00&lt;00:00,  131.26it/s]
-
-
- 73%|███████▎  | Repairing epochs : 27/37 [00:00&lt;00:00,  129.91it/s]
-
-
- 81%|████████  | Repairing epochs : 30/37 [00:00&lt;00:00,  129.89it/s]
-
-
- 89%|████████▉ | Repairing epochs : 33/37 [00:00&lt;00:00,  131.06it/s]
-
-
- 95%|█████████▍| Repairing epochs : 35/37 [00:00&lt;00:00,  130.15it/s]
-100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  130.46it/s]
+ 68%|██████▊   | Repairing epochs : 25/37 [00:00&lt;00:00,  747.45it/s]
+100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  760.17it/s]
 No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
 Number of epochs originally: 97, after autoreject: 97
 </pre></div>
@@ -1770,7 +1605,7 @@ time-frequency analysis. We want to emphasize that there
 is no subsitute for visual inspection. Irrespective of the rejection
 method used, we highly recommend users to inspect their preprocessed
 data before further analyses.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 8.922 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 8.232 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-autoreject-workflow-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/88aa0ebf52f0f32e2f92cc901577e2ba/plot_autoreject_workflow.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_autoreject_workflow.ipynb</span></code></a></p>
@@ -1865,7 +1700,7 @@ data before further analyses.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-02.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-23.
       <br/>
     
   </p>
