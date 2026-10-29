@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev3+ga80fc7329 documentation</title>
+    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev4+g1050f875f documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=c70791eb"></script>
+    <script src="../../_static/documentation_options.js?v=4660e831"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev3+ga80fc7329" />
+  <meta name="docsearch:version" content="0.6.0.dev4+g1050f875f" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev3+ga80fc7329 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev4+g1050f875f documentation</p>
   
 </a></div>
     
@@ -452,6 +452,7 @@
 <span class="c1">#          Alexandre Gramfort &lt;alexandre.gramfort@telecom-paristech.fr&gt;</span>
 <span class="c1">#          Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">op</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 
@@ -464,6 +465,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">mne</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne</span><span class="w"> </span><span class="kn">import</span> <span class="n">pick_types</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mne.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mne.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_epochs</span> <span class="k">as</span> <span class="n">plot_mne_epochs</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEstimator</span>
@@ -1723,8 +1725,16 @@
                 <span class="n">verbose</span><span class="p">):</span>
     <span class="n">_check_fit</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">threshes_</span><span class="p">,</span> <span class="n">picks_</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">):</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">'All epochs were marked as bad by autoreject and '</span>
+                 <span class="s1">'will be dropped.'</span><span class="p">)</span>
+            <span class="c1"># MNE 1.14+ also warns about this by default, avoid duplicates</span>
+            <span class="c1"># (check the signature, version metadata is stale in dev installs)</span>
+            <span class="k">if</span> <span class="s1">'on_drop_all'</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">drop</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">'on_drop_all'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'ignore'</span>
         <span class="n">epochs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">reject_log</span><span class="o">.</span><span class="n">bad_epochs</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="n">reason</span><span class="o">=</span><span class="s1">'AUTOREJECT'</span><span class="p">)</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s1">'AUTOREJECT'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"No bad epochs were found for your data. Returning "</span>
               <span class="s2">"a copy of the data you wanted to clean. Interpolation "</span>
