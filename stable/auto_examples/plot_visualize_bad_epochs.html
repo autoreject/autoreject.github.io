@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Visualize bad sensors per trial &#8212; autoreject 0.5.1 documentation</title>
+    <title>Visualize bad sensors per trial &#8212; autoreject 0.5.2 documentation</title>
   
   
   
@@ -27,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -39,12 +38,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=ab2538f3" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../_static/documentation_options.js?v=037dbd9b"></script>
+    <script src="../_static/documentation_options.js?v=ae2dcd57"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -52,7 +51,7 @@
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_visualize_bad_epochs';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -65,6 +64,7 @@
     <link rel="next" title="Explanation" href="../explanation.html" />
     <link rel="prev" title="Preprocessing workflow with autoreject and ICA" href="plot_autoreject_workflow.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.5" />
   
@@ -114,7 +114,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -134,7 +134,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.1 documentation</p>
+    <p class="title logo__title">autoreject 0.5.2 documentation</p>
   
 </a></div>
     
@@ -193,7 +193,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -204,15 +204,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -258,7 +258,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -277,7 +277,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -340,15 +340,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -392,7 +392,7 @@
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
   <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
     <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
   </svg>
@@ -411,7 +411,7 @@
 <li class="toctree-l1"><a class="reference internal" href="plot_global_reject.html">Plotting the cross-validation curve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_ransac.html">Detect bad sensors using RANSAC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_autoreject_workflow.html">Preprocessing workflow with <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> and ICA</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualize bad sensors per trial</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Visualize bad sensors per trial</a></li>
 </ul>
 </div>
 </nav></div>
@@ -449,7 +449,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -506,7 +506,7 @@ We will do this using <code class="docutils literal notranslate"><span class="pr
 </span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>🌍 Preparing to download ds000117 …
 📥 Checking 39 files, downloading as needed (5 concurrent downloads).
-Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 5.2/5.2 GB 824.8 MB/s 0:00:00
+Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 5.2/5.2 GB 810.8 MB/s 0:00:00
 ✅ Finished downloading ds000117 (downloaded 0 files and 0 B).
 </pre></div>
 </div>
@@ -758,102 +758,49 @@ representative subsample of the data.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/70 [00:00&lt;?,       ?it/s]
-  4%|▍         | Creating augmented epochs : 3/70 [00:00&lt;00:00,  176.93it/s]
- 10%|█         | Creating augmented epochs : 7/70 [00:00&lt;00:00,  191.41it/s]
- 16%|█▌        | Creating augmented epochs : 11/70 [00:00&lt;00:00,  196.64it/s]
- 21%|██▏       | Creating augmented epochs : 15/70 [00:00&lt;00:00,  198.95it/s]
- 27%|██▋       | Creating augmented epochs : 19/70 [00:00&lt;00:00,  200.30it/s]
- 33%|███▎      | Creating augmented epochs : 23/70 [00:00&lt;00:00,  200.81it/s]
- 39%|███▊      | Creating augmented epochs : 27/70 [00:00&lt;00:00,  201.34it/s]
- 44%|████▍     | Creating augmented epochs : 31/70 [00:00&lt;00:00,  201.73it/s]
- 50%|█████     | Creating augmented epochs : 35/70 [00:00&lt;00:00,  202.09it/s]
- 56%|█████▌    | Creating augmented epochs : 39/70 [00:00&lt;00:00,  202.61it/s]
- 61%|██████▏   | Creating augmented epochs : 43/70 [00:00&lt;00:00,  202.94it/s]
- 67%|██████▋   | Creating augmented epochs : 47/70 [00:00&lt;00:00,  203.20it/s]
- 73%|███████▎  | Creating augmented epochs : 51/70 [00:00&lt;00:00,  203.34it/s]
- 79%|███████▊  | Creating augmented epochs : 55/70 [00:00&lt;00:00,  203.35it/s]
- 84%|████████▍ | Creating augmented epochs : 59/70 [00:00&lt;00:00,  204.41it/s]
- 90%|█████████ | Creating augmented epochs : 63/70 [00:00&lt;00:00,  205.22it/s]
- 96%|█████████▌| Creating augmented epochs : 67/70 [00:00&lt;00:00,  205.89it/s]
-100%|██████████| Creating augmented epochs : 70/70 [00:00&lt;00:00,  204.96it/s]
+ 20%|██        | Creating augmented epochs : 14/70 [00:00&lt;00:00,  859.90it/s]
+ 41%|████▏     | Creating augmented epochs : 29/70 [00:00&lt;00:00,  880.77it/s]
+ 63%|██████▎   | Creating augmented epochs : 44/70 [00:00&lt;00:00,  889.82it/s]
+ 84%|████████▍ | Creating augmented epochs : 59/70 [00:00&lt;00:00,  894.12it/s]
+100%|██████████| Creating augmented epochs : 70/70 [00:00&lt;00:00,  894.82it/s]
 
   0%|          | Computing thresholds ... : 0/70 [00:00&lt;?,       ?it/s]
-  1%|▏         | Computing thresholds ... : 1/70 [00:00&lt;00:01,   35.23it/s]
-  3%|▎         | Computing thresholds ... : 2/70 [00:00&lt;00:01,   37.86it/s]
-  4%|▍         | Computing thresholds ... : 3/70 [00:00&lt;00:01,   37.12it/s]
-  6%|▌         | Computing thresholds ... : 4/70 [00:00&lt;00:01,   37.78it/s]
-  7%|▋         | Computing thresholds ... : 5/70 [00:00&lt;00:01,   38.18it/s]
-  9%|▊         | Computing thresholds ... : 6/70 [00:00&lt;00:01,   38.28it/s]
- 10%|█         | Computing thresholds ... : 7/70 [00:00&lt;00:01,   38.22it/s]
- 11%|█▏        | Computing thresholds ... : 8/70 [00:00&lt;00:01,   38.41it/s]
- 13%|█▎        | Computing thresholds ... : 9/70 [00:00&lt;00:01,   38.57it/s]
- 14%|█▍        | Computing thresholds ... : 10/70 [00:00&lt;00:01,   38.56it/s]
- 16%|█▌        | Computing thresholds ... : 11/70 [00:00&lt;00:01,   38.67it/s]
- 17%|█▋        | Computing thresholds ... : 12/70 [00:00&lt;00:01,   38.58it/s]
- 19%|█▊        | Computing thresholds ... : 13/70 [00:00&lt;00:01,   38.51it/s]
- 20%|██        | Computing thresholds ... : 14/70 [00:00&lt;00:01,   38.44it/s]
- 21%|██▏       | Computing thresholds ... : 15/70 [00:00&lt;00:01,   38.44it/s]
- 23%|██▎       | Computing thresholds ... : 16/70 [00:00&lt;00:01,   38.51it/s]
- 24%|██▍       | Computing thresholds ... : 17/70 [00:00&lt;00:01,   38.66it/s]
- 26%|██▌       | Computing thresholds ... : 18/70 [00:00&lt;00:01,   38.82it/s]
- 27%|██▋       | Computing thresholds ... : 19/70 [00:00&lt;00:01,   38.88it/s]
- 29%|██▊       | Computing thresholds ... : 20/70 [00:00&lt;00:01,   38.90it/s]
- 30%|███       | Computing thresholds ... : 21/70 [00:00&lt;00:01,   38.90it/s]
- 31%|███▏      | Computing thresholds ... : 22/70 [00:00&lt;00:01,   38.86it/s]
- 33%|███▎      | Computing thresholds ... : 23/70 [00:00&lt;00:01,   38.73it/s]
- 34%|███▍      | Computing thresholds ... : 24/70 [00:00&lt;00:01,   38.77it/s]
- 36%|███▌      | Computing thresholds ... : 25/70 [00:00&lt;00:01,   38.78it/s]
- 37%|███▋      | Computing thresholds ... : 26/70 [00:00&lt;00:01,   38.84it/s]
- 39%|███▊      | Computing thresholds ... : 27/70 [00:00&lt;00:01,   38.84it/s]
- 40%|████      | Computing thresholds ... : 28/70 [00:00&lt;00:01,   38.91it/s]
- 41%|████▏     | Computing thresholds ... : 29/70 [00:00&lt;00:01,   38.99it/s]
- 43%|████▎     | Computing thresholds ... : 30/70 [00:00&lt;00:01,   39.14it/s]
- 44%|████▍     | Computing thresholds ... : 31/70 [00:00&lt;00:00,   39.15it/s]
- 46%|████▌     | Computing thresholds ... : 32/70 [00:00&lt;00:00,   39.18it/s]
- 47%|████▋     | Computing thresholds ... : 33/70 [00:00&lt;00:00,   39.17it/s]
- 49%|████▊     | Computing thresholds ... : 34/70 [00:00&lt;00:00,   39.15it/s]
- 50%|█████     | Computing thresholds ... : 35/70 [00:00&lt;00:00,   39.08it/s]
- 51%|█████▏    | Computing thresholds ... : 36/70 [00:00&lt;00:00,   39.03it/s]
- 53%|█████▎    | Computing thresholds ... : 37/70 [00:00&lt;00:00,   39.04it/s]
- 54%|█████▍    | Computing thresholds ... : 38/70 [00:00&lt;00:00,   38.99it/s]
- 56%|█████▌    | Computing thresholds ... : 39/70 [00:01&lt;00:00,   39.07it/s]
- 57%|█████▋    | Computing thresholds ... : 40/70 [00:01&lt;00:00,   39.05it/s]
- 59%|█████▊    | Computing thresholds ... : 41/70 [00:01&lt;00:00,   38.98it/s]
- 60%|██████    | Computing thresholds ... : 42/70 [00:01&lt;00:00,   38.85it/s]
- 61%|██████▏   | Computing thresholds ... : 43/70 [00:01&lt;00:00,   38.80it/s]
- 63%|██████▎   | Computing thresholds ... : 44/70 [00:01&lt;00:00,   38.78it/s]
- 64%|██████▍   | Computing thresholds ... : 45/70 [00:01&lt;00:00,   38.71it/s]
- 66%|██████▌   | Computing thresholds ... : 46/70 [00:01&lt;00:00,   38.75it/s]
- 67%|██████▋   | Computing thresholds ... : 47/70 [00:01&lt;00:00,   38.73it/s]
- 69%|██████▊   | Computing thresholds ... : 48/70 [00:01&lt;00:00,   38.67it/s]
- 70%|███████   | Computing thresholds ... : 49/70 [00:01&lt;00:00,   38.69it/s]
- 71%|███████▏  | Computing thresholds ... : 50/70 [00:01&lt;00:00,   38.70it/s]
- 73%|███████▎  | Computing thresholds ... : 51/70 [00:01&lt;00:00,   38.67it/s]
- 74%|███████▍  | Computing thresholds ... : 52/70 [00:01&lt;00:00,   38.63it/s]
- 76%|███████▌  | Computing thresholds ... : 53/70 [00:01&lt;00:00,   38.64it/s]
- 77%|███████▋  | Computing thresholds ... : 54/70 [00:01&lt;00:00,   38.65it/s]
- 79%|███████▊  | Computing thresholds ... : 55/70 [00:01&lt;00:00,   38.61it/s]
- 80%|████████  | Computing thresholds ... : 56/70 [00:01&lt;00:00,   38.64it/s]
- 81%|████████▏ | Computing thresholds ... : 57/70 [00:01&lt;00:00,   38.59it/s]
- 83%|████████▎ | Computing thresholds ... : 58/70 [00:01&lt;00:00,   38.58it/s]
- 84%|████████▍ | Computing thresholds ... : 59/70 [00:01&lt;00:00,   38.66it/s]
- 86%|████████▌ | Computing thresholds ... : 60/70 [00:01&lt;00:00,   38.69it/s]
- 87%|████████▋ | Computing thresholds ... : 61/70 [00:01&lt;00:00,   38.68it/s]
- 89%|████████▊ | Computing thresholds ... : 62/70 [00:01&lt;00:00,   38.62it/s]
- 90%|█████████ | Computing thresholds ... : 63/70 [00:01&lt;00:00,   38.64it/s]
- 91%|█████████▏| Computing thresholds ... : 64/70 [00:01&lt;00:00,   38.66it/s]
- 93%|█████████▎| Computing thresholds ... : 65/70 [00:01&lt;00:00,   38.68it/s]
- 94%|█████████▍| Computing thresholds ... : 66/70 [00:01&lt;00:00,   38.68it/s]
- 96%|█████████▌| Computing thresholds ... : 67/70 [00:01&lt;00:00,   38.74it/s]
- 97%|█████████▋| Computing thresholds ... : 68/70 [00:01&lt;00:00,   38.81it/s]
- 99%|█████████▊| Computing thresholds ... : 69/70 [00:01&lt;00:00,   38.79it/s]
-100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   38.78it/s]
-100%|██████████| Computing thresholds ... : 70/70 [00:01&lt;00:00,   38.76it/s]
-
-
-
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
+  3%|▎         | Computing thresholds ... : 2/70 [00:00&lt;00:00,   87.02it/s]
+  6%|▌         | Computing thresholds ... : 4/70 [00:00&lt;00:00,   89.44it/s]
+  9%|▊         | Computing thresholds ... : 6/70 [00:00&lt;00:00,   90.48it/s]
+ 11%|█▏        | Computing thresholds ... : 8/70 [00:00&lt;00:00,   90.95it/s]
+ 14%|█▍        | Computing thresholds ... : 10/70 [00:00&lt;00:00,   91.29it/s]
+ 17%|█▋        | Computing thresholds ... : 12/70 [00:00&lt;00:00,   91.61it/s]
+ 20%|██        | Computing thresholds ... : 14/70 [00:00&lt;00:00,   91.79it/s]
+ 23%|██▎       | Computing thresholds ... : 16/70 [00:00&lt;00:00,   91.88it/s]
+ 26%|██▌       | Computing thresholds ... : 18/70 [00:00&lt;00:00,   91.97it/s]
+ 29%|██▊       | Computing thresholds ... : 20/70 [00:00&lt;00:00,   92.08it/s]
+ 31%|███▏      | Computing thresholds ... : 22/70 [00:00&lt;00:00,   92.19it/s]
+ 34%|███▍      | Computing thresholds ... : 24/70 [00:00&lt;00:00,   92.29it/s]
+ 37%|███▋      | Computing thresholds ... : 26/70 [00:00&lt;00:00,   92.30it/s]
+ 40%|████      | Computing thresholds ... : 28/70 [00:00&lt;00:00,   92.34it/s]
+ 43%|████▎     | Computing thresholds ... : 30/70 [00:00&lt;00:00,   92.40it/s]
+ 46%|████▌     | Computing thresholds ... : 32/70 [00:00&lt;00:00,   92.47it/s]
+ 49%|████▊     | Computing thresholds ... : 34/70 [00:00&lt;00:00,   92.50it/s]
+ 51%|█████▏    | Computing thresholds ... : 36/70 [00:00&lt;00:00,   92.57it/s]
+ 54%|█████▍    | Computing thresholds ... : 38/70 [00:00&lt;00:00,   92.62it/s]
+ 57%|█████▋    | Computing thresholds ... : 40/70 [00:00&lt;00:00,   92.66it/s]
+ 60%|██████    | Computing thresholds ... : 42/70 [00:00&lt;00:00,   92.66it/s]
+ 63%|██████▎   | Computing thresholds ... : 44/70 [00:00&lt;00:00,   92.69it/s]
+ 66%|██████▌   | Computing thresholds ... : 46/70 [00:00&lt;00:00,   92.73it/s]
+ 69%|██████▊   | Computing thresholds ... : 48/70 [00:00&lt;00:00,   92.77it/s]
+ 71%|███████▏  | Computing thresholds ... : 50/70 [00:00&lt;00:00,   92.78it/s]
+ 74%|███████▍  | Computing thresholds ... : 52/70 [00:00&lt;00:00,   92.80it/s]
+ 77%|███████▋  | Computing thresholds ... : 54/70 [00:00&lt;00:00,   92.83it/s]
+ 80%|████████  | Computing thresholds ... : 56/70 [00:00&lt;00:00,   92.84it/s]
+ 83%|████████▎ | Computing thresholds ... : 58/70 [00:00&lt;00:00,   92.84it/s]
+ 86%|████████▌ | Computing thresholds ... : 60/70 [00:00&lt;00:00,   92.86it/s]
+ 89%|████████▊ | Computing thresholds ... : 62/70 [00:00&lt;00:00,   92.85it/s]
+ 91%|█████████▏| Computing thresholds ... : 64/70 [00:00&lt;00:00,   92.88it/s]
+ 94%|█████████▍| Computing thresholds ... : 66/70 [00:00&lt;00:00,   92.90it/s]
+ 97%|█████████▋| Computing thresholds ... : 68/70 [00:00&lt;00:00,   92.90it/s]
+100%|██████████| Computing thresholds ... : 70/70 [00:00&lt;00:00,   92.90it/s]
+100%|██████████| Computing thresholds ... : 70/70 [00:00&lt;00:00,   92.70it/s]
 
 
   0%|          | n_interp : 0/3 [00:00&lt;?,       ?it/s]
@@ -862,14 +809,11 @@ representative subsample of the data.</p>
   0%|          | Repairing epochs : 0/27 [00:00&lt;?,       ?it/s]
 
 
- 22%|██▏       | Repairing epochs : 6/27 [00:00&lt;00:00,  332.55it/s]
+ 44%|████▍     | Repairing epochs : 12/27 [00:00&lt;00:00,  731.83it/s]
 
 
- 48%|████▊     | Repairing epochs : 13/27 [00:00&lt;00:00,  371.02it/s]
-
-
- 78%|███████▊  | Repairing epochs : 21/27 [00:00&lt;00:00,  397.87it/s]
-100%|██████████| Repairing epochs : 27/27 [00:00&lt;00:00,  408.10it/s]
+ 96%|█████████▋| Repairing epochs : 26/27 [00:00&lt;00:00,  797.29it/s]
+ 96%|█████████▋| Repairing epochs : 26/27 [00:00&lt;00:00,  765.59it/s]
 
 
 
@@ -878,108 +822,81 @@ representative subsample of the data.</p>
 
 
 
- 10%|█         | Fold : 1/10 [00:00&lt;00:00,   50.95it/s]
+ 10%|█         | Fold : 1/10 [00:00&lt;00:00,   57.13it/s]
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   53.62it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   59.13it/s]
 
 
 
- 30%|███       | Fold : 3/10 [00:00&lt;00:00,   54.63it/s]
+ 30%|███       | Fold : 3/10 [00:00&lt;00:00,   59.99it/s]
 
 
 
- 40%|████      | Fold : 4/10 [00:00&lt;00:00,   54.90it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   60.50it/s]
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   55.29it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   60.70it/s]
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   55.58it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   60.95it/s]
 
 
 
- 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   55.67it/s]
+ 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   61.10it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   55.06it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   60.27it/s]
 
 
 
- 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   55.19it/s]
+ 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   60.19it/s]
 
 
 
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   55.09it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   55.03it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   60.11it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   60.10it/s]
 
 
- 33%|███▎      | n_interp : 1/3 [00:00&lt;00:00,    3.80it/s]
+ 33%|███▎      | n_interp : 1/3 [00:00&lt;00:00,    4.63it/s]
 
 
   0%|          | Repairing epochs : 0/155 [00:00&lt;?,       ?it/s]
 
 
-  5%|▍         | Repairing epochs : 7/155 [00:00&lt;00:00,  411.84it/s]
+  9%|▉         | Repairing epochs : 14/155 [00:00&lt;00:00,  863.79it/s]
 
 
- 10%|▉         | Repairing epochs : 15/155 [00:00&lt;00:00,  439.20it/s]
+ 19%|█▊        | Repairing epochs : 29/155 [00:00&lt;00:00,  887.40it/s]
 
 
- 15%|█▍        | Repairing epochs : 23/155 [00:00&lt;00:00,  446.37it/s]
+ 28%|██▊       | Repairing epochs : 44/155 [00:00&lt;00:00,  894.43it/s]
 
 
- 20%|██        | Repairing epochs : 31/155 [00:00&lt;00:00,  451.17it/s]
+ 38%|███▊      | Repairing epochs : 59/155 [00:00&lt;00:00,  896.11it/s]
 
 
- 25%|██▌       | Repairing epochs : 39/155 [00:00&lt;00:00,  453.73it/s]
+ 48%|████▊     | Repairing epochs : 74/155 [00:00&lt;00:00,  896.39it/s]
 
 
- 30%|███       | Repairing epochs : 47/155 [00:00&lt;00:00,  456.03it/s]
+ 57%|█████▋    | Repairing epochs : 89/155 [00:00&lt;00:00,  896.07it/s]
 
 
- 35%|███▌      | Repairing epochs : 55/155 [00:00&lt;00:00,  457.94it/s]
+ 67%|██████▋   | Repairing epochs : 104/155 [00:00&lt;00:00,  898.53it/s]
 
 
- 41%|████      | Repairing epochs : 63/155 [00:00&lt;00:00,  459.28it/s]
+ 77%|███████▋  | Repairing epochs : 119/155 [00:00&lt;00:00,  899.05it/s]
 
 
- 46%|████▌     | Repairing epochs : 71/155 [00:00&lt;00:00,  460.73it/s]
+ 86%|████████▋ | Repairing epochs : 134/155 [00:00&lt;00:00,  900.41it/s]
 
 
- 51%|█████     | Repairing epochs : 79/155 [00:00&lt;00:00,  461.82it/s]
-
-
- 56%|█████▌    | Repairing epochs : 87/155 [00:00&lt;00:00,  462.49it/s]
-
-
- 61%|██████▏   | Repairing epochs : 95/155 [00:00&lt;00:00,  463.26it/s]
-
-
- 66%|██████▋   | Repairing epochs : 103/155 [00:00&lt;00:00,  464.44it/s]
-
-
- 72%|███████▏  | Repairing epochs : 111/155 [00:00&lt;00:00,  464.99it/s]
-
-
- 77%|███████▋  | Repairing epochs : 119/155 [00:00&lt;00:00,  465.64it/s]
-
-
- 82%|████████▏ | Repairing epochs : 127/155 [00:00&lt;00:00,  466.26it/s]
-
-
- 87%|████████▋ | Repairing epochs : 135/155 [00:00&lt;00:00,  466.78it/s]
-
-
- 92%|█████████▏| Repairing epochs : 143/155 [00:00&lt;00:00,  466.82it/s]
-
-
- 97%|█████████▋| Repairing epochs : 151/155 [00:00&lt;00:00,  467.10it/s]
-100%|██████████| Repairing epochs : 155/155 [00:00&lt;00:00,  465.31it/s]
+ 96%|█████████▌| Repairing epochs : 149/155 [00:00&lt;00:00,  900.64it/s]
+ 99%|█████████▉| Repairing epochs : 154/155 [00:00&lt;00:00,  893.77it/s]
 
 
 
@@ -988,111 +905,77 @@ representative subsample of the data.</p>
 
 
 
- 10%|█         | Fold : 1/10 [00:00&lt;00:00,   55.55it/s]
+ 10%|█         | Fold : 1/10 [00:00&lt;00:00,   59.83it/s]
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   54.97it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   60.15it/s]
 
 
 
- 30%|███       | Fold : 3/10 [00:00&lt;00:00,   55.14it/s]
+ 30%|███       | Fold : 3/10 [00:00&lt;00:00,   60.52it/s]
 
 
 
- 40%|████      | Fold : 4/10 [00:00&lt;00:00,   55.06it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   60.81it/s]
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   55.32it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,   61.06it/s]
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   55.46it/s]
+ 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   61.78it/s]
 
 
 
- 70%|███████   | Fold : 7/10 [00:00&lt;00:00,   55.62it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   60.91it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   55.13it/s]
+ 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   60.79it/s]
 
 
 
- 90%|█████████ | Fold : 9/10 [00:00&lt;00:00,   55.21it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   60.66it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   60.65it/s]
 
 
-
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   55.09it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   55.08it/s]
-
-
- 67%|██████▋   | n_interp : 2/3 [00:00&lt;00:00,    2.50it/s]
+ 67%|██████▋   | n_interp : 2/3 [00:00&lt;00:00,    3.50it/s]
 
 
   0%|          | Repairing epochs : 0/162 [00:00&lt;?,       ?it/s]
 
 
-  4%|▍         | Repairing epochs : 7/162 [00:00&lt;00:00,  437.29it/s]
+  9%|▉         | Repairing epochs : 15/162 [00:00&lt;00:00,  891.48it/s]
 
 
-  9%|▉         | Repairing epochs : 15/162 [00:00&lt;00:00,  459.97it/s]
+ 19%|█▉        | Repairing epochs : 31/162 [00:00&lt;00:00,  923.15it/s]
 
 
- 14%|█▍        | Repairing epochs : 23/162 [00:00&lt;00:00,  469.78it/s]
+ 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  930.96it/s]
 
 
- 19%|█▉        | Repairing epochs : 31/162 [00:00&lt;00:00,  471.99it/s]
+ 39%|███▉      | Repairing epochs : 63/162 [00:00&lt;00:00,  937.02it/s]
 
 
- 24%|██▍       | Repairing epochs : 39/162 [00:00&lt;00:00,  474.44it/s]
+ 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  942.63it/s]
 
 
- 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  475.03it/s]
+ 58%|█████▊    | Repairing epochs : 94/162 [00:00&lt;00:00,  935.78it/s]
 
 
- 34%|███▍      | Repairing epochs : 55/162 [00:00&lt;00:00,  475.88it/s]
+ 68%|██████▊   | Repairing epochs : 110/162 [00:00&lt;00:00,  937.40it/s]
 
 
- 39%|███▉      | Repairing epochs : 63/162 [00:00&lt;00:00,  476.84it/s]
+ 78%|███████▊  | Repairing epochs : 126/162 [00:00&lt;00:00,  941.38it/s]
 
 
- 44%|████▍     | Repairing epochs : 71/162 [00:00&lt;00:00,  476.64it/s]
+ 88%|████████▊ | Repairing epochs : 142/162 [00:00&lt;00:00,  943.04it/s]
 
 
- 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  478.30it/s]
-
-
- 54%|█████▎    | Repairing epochs : 87/162 [00:00&lt;00:00,  477.17it/s]
-
-
- 59%|█████▊    | Repairing epochs : 95/162 [00:00&lt;00:00,  475.92it/s]
-
-
- 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  475.91it/s]
-
-
- 69%|██████▊   | Repairing epochs : 111/162 [00:00&lt;00:00,  476.36it/s]
-
-
- 73%|███████▎  | Repairing epochs : 119/162 [00:00&lt;00:00,  476.51it/s]
-
-
- 78%|███████▊  | Repairing epochs : 127/162 [00:00&lt;00:00,  477.81it/s]
-
-
- 83%|████████▎ | Repairing epochs : 135/162 [00:00&lt;00:00,  478.60it/s]
-
-
- 88%|████████▊ | Repairing epochs : 143/162 [00:00&lt;00:00,  478.42it/s]
-
-
- 93%|█████████▎| Repairing epochs : 151/162 [00:00&lt;00:00,  478.65it/s]
-
-
- 99%|█████████▉| Repairing epochs : 160/162 [00:00&lt;00:00,  480.85it/s]
-100%|██████████| Repairing epochs : 162/162 [00:00&lt;00:00,  479.21it/s]
+ 98%|█████████▊| Repairing epochs : 158/162 [00:00&lt;00:00,  947.77it/s]
+ 99%|█████████▉| Repairing epochs : 161/162 [00:00&lt;00:00,  941.03it/s]
 
 
 
@@ -1101,28 +984,28 @@ representative subsample of the data.</p>
 
 
 
- 20%|██        | Fold : 2/10 [00:00&lt;00:00,   74.67it/s]
+ 20%|██        | Fold : 2/10 [00:00&lt;00:00,   80.29it/s]
 
 
 
- 40%|████      | Fold : 4/10 [00:00&lt;00:00,   76.79it/s]
+ 40%|████      | Fold : 4/10 [00:00&lt;00:00,   81.77it/s]
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   79.60it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,   82.52it/s]
 
 
 
- 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   80.63it/s]
+ 80%|████████  | Fold : 8/10 [00:00&lt;00:00,   82.62it/s]
 
 
 
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   80.93it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,   80.62it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   83.00it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,   82.82it/s]
 
 
-100%|██████████| n_interp : 3/3 [00:01&lt;00:00,    2.34it/s]
-100%|██████████| n_interp : 3/3 [00:01&lt;00:00,    2.36it/s]
+100%|██████████| n_interp : 3/3 [00:00&lt;00:00,    3.41it/s]
+100%|██████████| n_interp : 3/3 [00:00&lt;00:00,    3.43it/s]
 
 
 
@@ -1134,65 +1017,35 @@ Estimated consensus=1.00 and n_interpolate=32
   0%|          | Repairing epochs : 0/162 [00:00&lt;?,       ?it/s]
 
 
-  4%|▍         | Repairing epochs : 7/162 [00:00&lt;00:00,  427.26it/s]
+  9%|▊         | Repairing epochs : 14/162 [00:00&lt;00:00,  874.28it/s]
 
 
-  9%|▉         | Repairing epochs : 15/162 [00:00&lt;00:00,  454.57it/s]
+ 19%|█▊        | Repairing epochs : 30/162 [00:00&lt;00:00,  915.78it/s]
 
 
- 14%|█▍        | Repairing epochs : 23/162 [00:00&lt;00:00,  465.73it/s]
+ 28%|██▊       | Repairing epochs : 46/162 [00:00&lt;00:00,  923.20it/s]
 
 
- 19%|█▉        | Repairing epochs : 31/162 [00:00&lt;00:00,  469.23it/s]
+ 38%|███▊      | Repairing epochs : 61/162 [00:00&lt;00:00,  926.75it/s]
 
 
- 24%|██▍       | Repairing epochs : 39/162 [00:00&lt;00:00,  472.10it/s]
+ 48%|████▊     | Repairing epochs : 77/162 [00:00&lt;00:00,  929.89it/s]
 
 
- 29%|██▉       | Repairing epochs : 47/162 [00:00&lt;00:00,  473.11it/s]
+ 57%|█████▋    | Repairing epochs : 92/162 [00:00&lt;00:00,  927.12it/s]
 
 
- 34%|███▍      | Repairing epochs : 55/162 [00:00&lt;00:00,  473.52it/s]
+ 66%|██████▌   | Repairing epochs : 107/162 [00:00&lt;00:00,  927.85it/s]
 
 
- 39%|███▉      | Repairing epochs : 63/162 [00:00&lt;00:00,  474.15it/s]
+ 75%|███████▌  | Repairing epochs : 122/162 [00:00&lt;00:00,  928.64it/s]
 
 
- 44%|████▍     | Repairing epochs : 71/162 [00:00&lt;00:00,  473.94it/s]
+ 85%|████████▌ | Repairing epochs : 138/162 [00:00&lt;00:00,  933.18it/s]
 
 
- 49%|████▉     | Repairing epochs : 79/162 [00:00&lt;00:00,  475.06it/s]
-
-
- 54%|█████▎    | Repairing epochs : 87/162 [00:00&lt;00:00,  474.28it/s]
-
-
- 59%|█████▊    | Repairing epochs : 95/162 [00:00&lt;00:00,  473.17it/s]
-
-
- 64%|██████▎   | Repairing epochs : 103/162 [00:00&lt;00:00,  473.27it/s]
-
-
- 69%|██████▊   | Repairing epochs : 111/162 [00:00&lt;00:00,  473.65it/s]
-
-
- 73%|███████▎  | Repairing epochs : 119/162 [00:00&lt;00:00,  473.57it/s]
-
-
- 78%|███████▊  | Repairing epochs : 127/162 [00:00&lt;00:00,  474.65it/s]
-
-
- 83%|████████▎ | Repairing epochs : 135/162 [00:00&lt;00:00,  475.24it/s]
-
-
- 88%|████████▊ | Repairing epochs : 143/162 [00:00&lt;00:00,  475.24it/s]
-
-
- 93%|█████████▎| Repairing epochs : 151/162 [00:00&lt;00:00,  475.18it/s]
-
-
- 98%|█████████▊| Repairing epochs : 159/162 [00:00&lt;00:00,  476.54it/s]
-100%|██████████| Repairing epochs : 162/162 [00:00&lt;00:00,  475.64it/s]
+ 95%|█████████▌| Repairing epochs : 154/162 [00:00&lt;00:00,  935.70it/s]
+ 99%|█████████▉| Repairing epochs : 161/162 [00:00&lt;00:00,  930.65it/s]
 No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
 </pre></div>
 </div>
@@ -1262,7 +1115,7 @@ repaired.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;MNELineFigure size 640x300 with 2 Axes&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 16.915 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.113 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-visualize-bad-epochs-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/9d3e69826a86abb695c16aa2b83fb4a2/plot_visualize_bad_epochs.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_visualize_bad_epochs.ipynb</span></code></a></p>
@@ -1323,8 +1176,8 @@ repaired.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1335,7 +1188,7 @@ repaired.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-23.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
       <br/>
     
   </p>
@@ -1344,8 +1197,7 @@ repaired.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
-    <br/>
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       
@@ -1358,7 +1210,7 @@ repaired.</p>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.24.0.
 </p></div>
       
     </div>

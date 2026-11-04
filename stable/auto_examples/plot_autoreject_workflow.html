@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.5.1 documentation</title>
+    <title>Preprocessing workflow with autoreject and ICA &#8212; autoreject 0.5.2 documentation</title>
   
   
   
@@ -27,8 +26,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -39,12 +38,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/style.css?v=ab2538f3" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../_static/documentation_options.js?v=037dbd9b"></script>
+    <script src="../_static/documentation_options.js?v=ae2dcd57"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -52,7 +51,7 @@
     <script src="../_static/copybutton.js?v=fd10adb8"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/plot_autoreject_workflow';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/autoreject/autoreject/main/doc/_static/versions.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -65,6 +64,7 @@
     <link rel="next" title="Visualize bad sensors per trial" href="plot_visualize_bad_epochs.html" />
     <link rel="prev" title="Detect bad sensors using RANSAC" href="plot_ransac.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.5" />
   
@@ -114,7 +114,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -134,7 +134,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.5.1 documentation</p>
+    <p class="title logo__title">autoreject 0.5.2 documentation</p>
   
 </a></div>
     
@@ -193,7 +193,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -204,15 +204,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -258,7 +258,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -267,7 +267,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -281,7 +281,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -344,15 +344,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -396,7 +396,7 @@
   </div>
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button type="button" id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
   <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
     <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
   </svg>
@@ -414,7 +414,7 @@
 <li class="toctree-l1"><a class="reference internal" href="plot_auto_repair.html">Automatically repair epochs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_global_reject.html">Plotting the cross-validation curve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_ransac.html">Detect bad sensors using RANSAC</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Preprocessing workflow with <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> and ICA</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Preprocessing workflow with <code class="docutils literal notranslate"><span class="pre">autoreject</span></code> and ICA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_visualize_bad_epochs.html">Visualize bad sensors per trial</a></li>
 </ul>
 </div>
@@ -453,7 +453,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -529,7 +529,7 @@ installed with the command <code class="docutils literal notranslate"><span clas
 </span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>🌍 Preparing to download ds002778 …
 📥 Checking 12 files, downloading as needed (5 concurrent downloads).
-Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18.4/18.4 MB 19.6 MB/s 0:00:00
+Overall ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 18.4/18.4 MB 19.0 MB/s 0:00:00
 ✅ Finished downloading ds002778 (downloaded 0 files and 0 B).
 </pre></div>
 </div>
@@ -583,54 +583,34 @@ number of channels to interpolate was set to check some low numbers</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 31%|███▏      | Creating augmented epochs : 10/32 [00:00&lt;00:00,  622.31it/s]
- 69%|██████▉   | Creating augmented epochs : 22/32 [00:00&lt;00:00,  661.30it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  672.49it/s]
+ 75%|███████▌  | Creating augmented epochs : 24/32 [00:00&lt;00:00, 1481.30it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00, 1484.86it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   56.66it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   59.17it/s]
-  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   59.98it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   60.31it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   60.46it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   60.57it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   60.65it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   60.63it/s]
- 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   60.71it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   60.81it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   60.85it/s]
- 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   60.94it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   61.04it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   61.07it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   61.06it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   61.09it/s]
- 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   61.05it/s]
- 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   61.25it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   61.30it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   61.30it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   61.32it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   61.50it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   61.48it/s]
- 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   61.43it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   61.46it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   61.51it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   61.50it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   61.55it/s]
- 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   61.56it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.57it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   61.37it/s]
-
-
-
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,  113.86it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,  117.76it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,  119.70it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,  120.75it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,  121.47it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,  121.60it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,  121.82it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,  121.81it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,  121.88it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,  122.02it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,  122.09it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,  122.18it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,  122.25it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,  122.35it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,  122.29it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  122.41it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  122.16it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
 
 
   0%|          | Repairing epochs : 0/3 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 3/3 [00:00&lt;00:00,  613.26it/s]
+ 67%|██████▋   | Repairing epochs : 2/3 [00:00&lt;00:00,  715.93it/s]
 
 
 
@@ -639,15 +619,15 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  292.25it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  304.15it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  308.12it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  316.05it/s]
 
 
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   24.47it/s]
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   26.42it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  659.56it/s]
+ 75%|███████▌  | Repairing epochs : 3/4 [00:00&lt;00:00,  848.42it/s]
 
 
 
@@ -656,15 +636,15 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  302.61it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  308.56it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  319.81it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  321.82it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   23.97it/s]
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   26.03it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  646.32it/s]
+ 75%|███████▌  | Repairing epochs : 3/4 [00:00&lt;00:00,  861.84it/s]
 
 
 
@@ -673,15 +653,15 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  306.72it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  311.14it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  319.92it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  321.04it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   23.95it/s]
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   26.03it/s]
 
 
   0%|          | Repairing epochs : 0/4 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 4/4 [00:00&lt;00:00,  635.00it/s]
+ 75%|███████▌  | Repairing epochs : 3/4 [00:00&lt;00:00,  856.10it/s]
 
 
 
@@ -690,12 +670,12 @@ number of channels to interpolate was set to check some low numbers</p>
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  334.73it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  337.23it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  350.55it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  350.54it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   24.41it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   24.37it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   26.61it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   26.56it/s]
 
 
 
@@ -705,10 +685,7 @@ Estimated consensus=0.10 and n_interpolate=1
 
 
   0%|          | Repairing epochs : 0/17 [00:00&lt;?,       ?it/s]
-
-
- 65%|██████▍   | Repairing epochs : 11/17 [00:00&lt;00:00,  658.09it/s]
-100%|██████████| Repairing epochs : 17/17 [00:00&lt;00:00,  688.78it/s]
+ 94%|█████████▍| Repairing epochs : 16/17 [00:00&lt;00:00, 1206.36it/s]
 Dropped 27 epochs: 54, 58, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
@@ -769,57 +746,34 @@ Using data from preloaded Raw for 97 events and 1536 original time points ...
 Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 31%|███▏      | Creating augmented epochs : 10/32 [00:00&lt;00:00,  624.63it/s]
- 66%|██████▌   | Creating augmented epochs : 21/32 [00:00&lt;00:00,  649.22it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  660.17it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  657.22it/s]
+ 75%|███████▌  | Creating augmented epochs : 24/32 [00:00&lt;00:00, 1484.62it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00, 1494.28it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   54.33it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   55.00it/s]
-  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   55.24it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   55.74it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   55.99it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   55.99it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   56.08it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   56.22it/s]
- 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   56.35it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   56.44it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   56.48it/s]
- 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   56.48it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   56.54it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   56.62it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   56.73it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   56.76it/s]
- 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   56.77it/s]
- 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   56.75it/s]
- 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   56.77it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   56.81it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   56.77it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   56.85it/s]
- 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   56.94it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   56.99it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   57.08it/s]
- 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   57.17it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   57.26it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   57.33it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   57.40it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   57.43it/s]
- 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   57.50it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   57.52it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   57.17it/s]
-
-
-
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,  107.15it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,  109.72it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,  110.70it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,  111.27it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,  111.71it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,  111.87it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,  112.30it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,  112.61it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,  112.79it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,  112.83it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,  112.84it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,  112.83it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,  112.81it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,  112.81it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,  112.77it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  112.72it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  112.58it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
 
 
   0%|          | Repairing epochs : 0/7 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  738.68it/s]
+ 86%|████████▌ | Repairing epochs : 6/7 [00:00&lt;00:00, 1057.34it/s]
 
 
 
@@ -828,15 +782,15 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  318.14it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  325.21it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  325.45it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  332.68it/s]
 
 
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   23.28it/s]
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   25.38it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  775.59it/s]
+ 91%|█████████ | Repairing epochs : 10/11 [00:00&lt;00:00, 1145.39it/s]
 
 
 
@@ -845,18 +799,15 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  332.79it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  333.09it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  336.95it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  338.88it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   21.95it/s]
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   24.38it/s]
 
 
   0%|          | Repairing epochs : 0/15 [00:00&lt;?,       ?it/s]
-
-
- 87%|████████▋ | Repairing epochs : 13/15 [00:00&lt;00:00,  796.19it/s]
-100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  795.10it/s]
+ 93%|█████████▎| Repairing epochs : 14/15 [00:00&lt;00:00, 1256.02it/s]
 
 
 
@@ -865,18 +816,15 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  320.00it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  319.83it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  321.24it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  321.62it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   20.71it/s]
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   23.36it/s]
 
 
   0%|          | Repairing epochs : 0/15 [00:00&lt;?,       ?it/s]
-
-
- 87%|████████▋ | Repairing epochs : 13/15 [00:00&lt;00:00,  801.46it/s]
-100%|██████████| Repairing epochs : 15/15 [00:00&lt;00:00,  799.59it/s]
+ 93%|█████████▎| Repairing epochs : 14/15 [00:00&lt;00:00, 1260.50it/s]
 
 
 
@@ -885,12 +833,12 @@ Running autoreject on ch_type=eeg
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  337.62it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  338.20it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  341.19it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  342.42it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   20.33it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   20.40it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   23.15it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   23.21it/s]
 
 
 
@@ -902,14 +850,8 @@ Estimated consensus=0.40 and n_interpolate=4
   0%|          | Repairing epochs : 0/43 [00:00&lt;?,       ?it/s]
 
 
- 26%|██▌       | Repairing epochs : 11/43 [00:00&lt;00:00,  680.15it/s]
-
-
- 53%|█████▎    | Repairing epochs : 23/43 [00:00&lt;00:00,  715.66it/s]
-
-
- 84%|████████▎ | Repairing epochs : 36/43 [00:00&lt;00:00,  744.00it/s]
-100%|██████████| Repairing epochs : 43/43 [00:00&lt;00:00,  751.48it/s]
+ 49%|████▉     | Repairing epochs : 21/43 [00:00&lt;00:00, 1251.69it/s]
+ 98%|█████████▊| Repairing epochs : 42/43 [00:00&lt;00:00, 1309.46it/s]
 Dropped 23 epochs: 62, 63, 64, 65, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 86, 89, 91, 92, 95, 96
 </pre></div>
 </div>
@@ -1158,9 +1100,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header general-f48c237d-4b47-425b-bb97-6a47542025a3"
+<tr class="mne-repr-section-header general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40"
      title="Hide section"
-    onclick="toggleVisibility('general-f48c237d-4b47-425b-bb97-6a47542025a3')">
+    onclick="toggleVisibility('general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1172,19 +1114,19 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element general-f48c237d-4b47-425b-bb97-6a47542025a3 ">
+<tr class="repr-element general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40 ">
     <td class="mne-repr-section-toggle"></td>
     <td>MNE object type</td>
     <td>Epochs</td>
 </tr>
-<tr class="repr-element general-f48c237d-4b47-425b-bb97-6a47542025a3 ">
+<tr class="repr-element general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Measurement date</td>
 
     <td>2011-04-06 at 12:43:10 UTC</td>
 
 </tr>
-<tr class="repr-element general-f48c237d-4b47-425b-bb97-6a47542025a3 ">
+<tr class="repr-element general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Participant</td>
 
@@ -1193,7 +1135,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 </tr>
-<tr class="repr-element general-f48c237d-4b47-425b-bb97-6a47542025a3 ">
+<tr class="repr-element general-7b3afd1b-5fb4-4bc1-a726-3bd7f426bb40 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Experimenter</td>
 
@@ -1208,9 +1150,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255"
+<tr class="mne-repr-section-header acquisition-62d10a71-233d-4b59-a026-47dbf26761b6"
      title="Hide section"
-    onclick="toggleVisibility('acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255')">
+    onclick="toggleVisibility('acquisition-62d10a71-233d-4b59-a026-47dbf26761b6')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1225,14 +1167,14 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Total number of events</td>
     <td>97</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Events counts</td>
 
@@ -1246,35 +1188,35 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time range</td>
     <td>0.000 – 2.998 s</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Baseline</td>
     <td>off</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Sampling frequency</td>
     <td>512.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Time points</td>
     <td>1,536</td>
 </tr>
 
 
-<tr class="repr-element acquisition-b0bc2bc4-e7f7-4d98-a4b1-6044e0418255 ">
+<tr class="repr-element acquisition-62d10a71-233d-4b59-a026-47dbf26761b6 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Metadata</td>
     <td>No metadata set</td>
@@ -1288,9 +1230,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header channels-f6157d42-7746-4f7c-ac7d-fbed17d6976a"
+<tr class="mne-repr-section-header channels-ada6046c-eda3-482e-8031-7f46c81f3385"
      title="Hide section"
-    onclick="toggleVisibility('channels-f6157d42-7746-4f7c-ac7d-fbed17d6976a')">
+    onclick="toggleVisibility('channels-ada6046c-eda3-482e-8031-7f46c81f3385')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1303,7 +1245,7 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="repr-element channels-f6157d42-7746-4f7c-ac7d-fbed17d6976a ">
+<tr class="repr-element channels-ada6046c-eda3-482e-8031-7f46c81f3385 ">
     <td class="mne-repr-section-toggle"></td>
     <td>EEG</td>
     <td>
@@ -1316,7 +1258,7 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element channels-f6157d42-7746-4f7c-ac7d-fbed17d6976a ">
+<tr class="repr-element channels-ada6046c-eda3-482e-8031-7f46c81f3385 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Head & sensor digitization</td>
 
@@ -1331,9 +1273,9 @@ this file apply (plus whatever default styling the IDE applies).
 
 
 
-<tr class="mne-repr-section-header filters-d80954a5-c21c-4754-b4db-0890268bb22b"
+<tr class="mne-repr-section-header filters-b576710e-d229-4af8-934c-b7b19dff95f7"
      title="Hide section"
-    onclick="toggleVisibility('filters-d80954a5-c21c-4754-b4db-0890268bb22b')">
+    onclick="toggleVisibility('filters-b576710e-d229-4af8-934c-b7b19dff95f7')">
     <th class="mne-repr-section-toggle">
         <button >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
@@ -1345,14 +1287,14 @@ this file apply (plus whatever default styling the IDE applies).
 </tr>
 
 
-<tr class="repr-element filters-d80954a5-c21c-4754-b4db-0890268bb22b ">
+<tr class="repr-element filters-b576710e-d229-4af8-934c-b7b19dff95f7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Highpass</td>
     <td>1.00 Hz</td>
 </tr>
 
 
-<tr class="repr-element filters-d80954a5-c21c-4754-b4db-0890268bb22b ">
+<tr class="repr-element filters-b576710e-d229-4af8-934c-b7b19dff95f7 ">
     <td class="mne-repr-section-toggle"></td>
     <td>Lowpass</td>
     <td>104.00 Hz</td>
@@ -1385,56 +1327,34 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 <img src="../_images/sphx_glr_plot_autoreject_workflow_008.png" srcset="../_images/sphx_glr_plot_autoreject_workflow_008.png" alt="plot autoreject workflow" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running autoreject on ch_type=eeg
 
   0%|          | Creating augmented epochs : 0/32 [00:00&lt;?,       ?it/s]
- 38%|███▊      | Creating augmented epochs : 12/32 [00:00&lt;00:00,  747.87it/s]
- 78%|███████▊  | Creating augmented epochs : 25/32 [00:00&lt;00:00,  771.48it/s]
-100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00,  773.50it/s]
+ 75%|███████▌  | Creating augmented epochs : 24/32 [00:00&lt;00:00, 1483.68it/s]
+100%|██████████| Creating augmented epochs : 32/32 [00:00&lt;00:00, 1493.32it/s]
 
   0%|          | Computing thresholds ... : 0/32 [00:00&lt;?,       ?it/s]
-  3%|▎         | Computing thresholds ... : 1/32 [00:00&lt;00:00,   55.69it/s]
-  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,   57.06it/s]
-  9%|▉         | Computing thresholds ... : 3/32 [00:00&lt;00:00,   57.61it/s]
- 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,   57.95it/s]
- 16%|█▌        | Computing thresholds ... : 5/32 [00:00&lt;00:00,   58.08it/s]
- 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,   58.22it/s]
- 22%|██▏       | Computing thresholds ... : 7/32 [00:00&lt;00:00,   58.30it/s]
- 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,   58.40it/s]
- 28%|██▊       | Computing thresholds ... : 9/32 [00:00&lt;00:00,   58.44it/s]
- 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,   58.50it/s]
- 34%|███▍      | Computing thresholds ... : 11/32 [00:00&lt;00:00,   58.52it/s]
- 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,   58.55it/s]
- 41%|████      | Computing thresholds ... : 13/32 [00:00&lt;00:00,   58.54it/s]
- 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,   58.56it/s]
- 47%|████▋     | Computing thresholds ... : 15/32 [00:00&lt;00:00,   58.58it/s]
- 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,   58.63it/s]
- 53%|█████▎    | Computing thresholds ... : 17/32 [00:00&lt;00:00,   58.57it/s]
- 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,   58.57it/s]
- 59%|█████▉    | Computing thresholds ... : 19/32 [00:00&lt;00:00,   58.58it/s]
- 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,   58.57it/s]
- 66%|██████▌   | Computing thresholds ... : 21/32 [00:00&lt;00:00,   58.54it/s]
- 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,   58.53it/s]
- 72%|███████▏  | Computing thresholds ... : 23/32 [00:00&lt;00:00,   58.51it/s]
- 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,   58.49it/s]
- 78%|███████▊  | Computing thresholds ... : 25/32 [00:00&lt;00:00,   58.45it/s]
- 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,   58.43it/s]
- 84%|████████▍ | Computing thresholds ... : 27/32 [00:00&lt;00:00,   58.39it/s]
- 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,   58.34it/s]
- 91%|█████████ | Computing thresholds ... : 29/32 [00:00&lt;00:00,   58.28it/s]
- 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,   58.27it/s]
- 97%|█████████▋| Computing thresholds ... : 31/32 [00:00&lt;00:00,   58.22it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   58.21it/s]
-100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,   58.30it/s]
-
-
-
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
-  0%|          | Repairing epochs : 0/0 [00:00&lt;?,       ?it/s]
+  6%|▋         | Computing thresholds ... : 2/32 [00:00&lt;00:00,  110.28it/s]
+ 12%|█▎        | Computing thresholds ... : 4/32 [00:00&lt;00:00,  112.72it/s]
+ 19%|█▉        | Computing thresholds ... : 6/32 [00:00&lt;00:00,  113.49it/s]
+ 25%|██▌       | Computing thresholds ... : 8/32 [00:00&lt;00:00,  114.00it/s]
+ 31%|███▏      | Computing thresholds ... : 10/32 [00:00&lt;00:00,  114.56it/s]
+ 38%|███▊      | Computing thresholds ... : 12/32 [00:00&lt;00:00,  114.74it/s]
+ 44%|████▍     | Computing thresholds ... : 14/32 [00:00&lt;00:00,  115.04it/s]
+ 50%|█████     | Computing thresholds ... : 16/32 [00:00&lt;00:00,  115.24it/s]
+ 56%|█████▋    | Computing thresholds ... : 18/32 [00:00&lt;00:00,  115.51it/s]
+ 62%|██████▎   | Computing thresholds ... : 20/32 [00:00&lt;00:00,  115.56it/s]
+ 69%|██████▉   | Computing thresholds ... : 22/32 [00:00&lt;00:00,  115.56it/s]
+ 75%|███████▌  | Computing thresholds ... : 24/32 [00:00&lt;00:00,  115.54it/s]
+ 81%|████████▏ | Computing thresholds ... : 26/32 [00:00&lt;00:00,  115.51it/s]
+ 88%|████████▊ | Computing thresholds ... : 28/32 [00:00&lt;00:00,  115.51it/s]
+ 94%|█████████▍| Computing thresholds ... : 30/32 [00:00&lt;00:00,  115.43it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  115.39it/s]
+100%|██████████| Computing thresholds ... : 32/32 [00:00&lt;00:00,  115.27it/s]
 
 
   0%|          | n_interp : 0/4 [00:00&lt;?,       ?it/s]
 
 
   0%|          | Repairing epochs : 0/7 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 7/7 [00:00&lt;00:00,  740.35it/s]
+ 86%|████████▌ | Repairing epochs : 6/7 [00:00&lt;00:00, 1052.79it/s]
 
 
 
@@ -1443,15 +1363,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  319.72it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  320.69it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  308.69it/s]
 
 
- 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   22.85it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  310.37it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  308.98it/s]
+
+
+ 25%|██▌       | n_interp : 1/4 [00:00&lt;00:00,   24.15it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  779.02it/s]
+ 91%|█████████ | Repairing epochs : 10/11 [00:00&lt;00:00, 1153.87it/s]
 
 
 
@@ -1460,15 +1384,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  319.02it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  319.42it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  300.97it/s]
 
 
- 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   21.56it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  303.87it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  302.42it/s]
+
+
+ 50%|█████     | n_interp : 2/4 [00:00&lt;00:00,   22.92it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  781.53it/s]
+ 91%|█████████ | Repairing epochs : 10/11 [00:00&lt;00:00, 1154.03it/s]
 
 
 
@@ -1477,15 +1405,19 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  333.53it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  332.89it/s]
+ 50%|█████     | Fold : 5/10 [00:00&lt;00:00,  293.77it/s]
 
 
- 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   21.39it/s]
+
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  294.40it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  293.17it/s]
+
+
+ 75%|███████▌  | n_interp : 3/4 [00:00&lt;00:00,   22.33it/s]
 
 
   0%|          | Repairing epochs : 0/11 [00:00&lt;?,       ?it/s]
-100%|██████████| Repairing epochs : 11/11 [00:00&lt;00:00,  783.09it/s]
+ 91%|█████████ | Repairing epochs : 10/11 [00:00&lt;00:00, 1141.59it/s]
 
 
 
@@ -1494,12 +1426,12 @@ you optimize your use of <code class="docutils literal notranslate"><span class=
 
 
 
- 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  356.57it/s]
-100%|██████████| Fold : 10/10 [00:00&lt;00:00,  357.45it/s]
+ 60%|██████    | Fold : 6/10 [00:00&lt;00:00,  315.05it/s]
+100%|██████████| Fold : 10/10 [00:00&lt;00:00,  318.57it/s]
 
 
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   21.58it/s]
-100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   21.58it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   22.40it/s]
+100%|██████████| n_interp : 4/4 [00:00&lt;00:00,   22.42it/s]
 
 
 
@@ -1511,11 +1443,8 @@ Estimated consensus=0.40 and n_interpolate=2
   0%|          | Repairing epochs : 0/37 [00:00&lt;?,       ?it/s]
 
 
- 32%|███▏      | Repairing epochs : 12/37 [00:00&lt;00:00,  704.14it/s]
-
-
- 68%|██████▊   | Repairing epochs : 25/37 [00:00&lt;00:00,  745.24it/s]
-100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  761.03it/s]
+ 57%|█████▋    | Repairing epochs : 21/37 [00:00&lt;00:00, 1267.71it/s]
+ 97%|█████████▋| Repairing epochs : 36/37 [00:00&lt;00:00, 1286.08it/s]
 Dropped 11 epochs: 62, 63, 64, 65, 69, 71, 72, 73, 80, 95, 96
 For automatic theme detection, "darkdetect" has to be installed! You can install it with `pip install darkdetect`
 
@@ -1560,11 +1489,8 @@ assurance metrics.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | Repairing epochs : 0/37 [00:00&lt;?,       ?it/s]
 
 
- 32%|███▏      | Repairing epochs : 12/37 [00:00&lt;00:00,  726.84it/s]
-
-
- 68%|██████▊   | Repairing epochs : 25/37 [00:00&lt;00:00,  758.10it/s]
-100%|██████████| Repairing epochs : 37/37 [00:00&lt;00:00,  771.02it/s]
+ 57%|█████▋    | Repairing epochs : 21/37 [00:00&lt;00:00, 1288.18it/s]
+ 97%|█████████▋| Repairing epochs : 36/37 [00:00&lt;00:00, 1308.34it/s]
 No bad epochs were found for your data. Returning a copy of the data you wanted to clean. Interpolation may have been done.
 Number of epochs originally: 97, after autoreject: 97
 </pre></div>
@@ -1580,7 +1506,7 @@ time-frequency analysis. We want to emphasize that there
 is no subsitute for visual inspection. Irrespective of the rejection
 method used, we highly recommend users to inspect their preprocessed
 data before further analyses.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.961 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.829 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-autoreject-workflow-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/88aa0ebf52f0f32e2f92cc901577e2ba/plot_autoreject_workflow.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_autoreject_workflow.ipynb</span></code></a></p>
@@ -1631,7 +1557,7 @@ data before further analyses.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1663,8 +1589,8 @@ data before further analyses.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1675,7 +1601,7 @@ data before further analyses.</p>
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-09-23.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
       <br/>
     
   </p>
@@ -1684,8 +1610,7 @@ data before further analyses.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
-    <br/>
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.2.0.
   </p>
 </div>
       
@@ -1698,7 +1623,7 @@ data before further analyses.</p>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.24.0.
 </p></div>
       
     </div>
