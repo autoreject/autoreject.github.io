@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev5+gd7be5ec36 documentation</title>
+    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev6+g190c7669f documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=a395bd57"></script>
+    <script src="../../_static/documentation_options.js?v=de09975e"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev5+gd7be5ec36" />
+  <meta name="docsearch:version" content="0.6.0.dev6+g190c7669f" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev5+gd7be5ec36 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev6+g190c7669f documentation</p>
   
 </a></div>
     
@@ -472,7 +472,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">check_cv</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">_clean_by_interp</span><span class="p">,</span> <span class="n">interpolate_bads</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">,</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">_clean_by_interp</span><span class="p">,</span> <span class="n">_interp_matrices</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">,</span>
                     <span class="n">_pbar</span><span class="p">,</span> <span class="n">_handle_picks</span><span class="p">,</span> <span class="n">_check_data</span><span class="p">,</span> <span class="n">_precompute_interp</span><span class="p">,</span>
                     <span class="n">_get_interp_data</span><span class="p">,</span> <span class="n">_restore_interp_data</span><span class="p">,</span>
                     <span class="n">_get_picks_by_type</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">)</span>
@@ -669,8 +669,10 @@
 <span class="sd">    decim : int</span>
 <span class="sd">        The decimation factor: Increment for selecting every nth time slice.</span>
 <span class="sd">    random_state : int | np.random.RandomState | None</span>
-<span class="sd">        The seed of the pseudo random number generator to use.</span>
-<span class="sd">        Defaults to None.</span>
+<span class="sd">        Unused, as the threshold estimation is deterministic. It will be</span>
+<span class="sd">        removed in a future release.</span>
+
+<span class="sd">        .. deprecated:: 0.5</span>
 <span class="sd">    ch_types : str | list of str | None</span>
 <span class="sd">        The channel types for which to find the rejection dictionary.</span>
 <span class="sd">        e.g., ['mag', 'grad']. If None, the rejection dictionary</span>
@@ -756,8 +758,7 @@
         <span class="n">best_thresh</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">bayes_opt</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">initial_x</span><span class="p">,</span>
                                    <span class="n">all_threshes</span><span class="p">,</span>
                                    <span class="n">expected_improvement</span><span class="p">,</span>
-                                   <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                   <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+                                   <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">reject</span><span class="p">[</span><span class="n">ch_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_thresh</span>
 
     <span class="k">return</span> <span class="n">reject</span></div>
@@ -788,6 +789,34 @@
         <span class="n">keep</span> <span class="o">=</span> <span class="n">deltas</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresh</span><span class="p">,</span> <span class="n">deltas</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">keep</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_thresh_cv_loss</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">threshes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Get the cross-validated loss of channel-level thresholds.</span>
+
+<span class="sd">    This is ``-np.mean`` over the folds of the score of a</span>
+<span class="sd">    ``_ChannelAutoReject(thresh)`` fit on the train set, for each threshold.</span>
+<span class="sd">    The kept train epochs (whose peak-to-peak is at most the threshold) are the</span>
+<span class="sd">    first ones when sorted by peak-to-peak, so the means for all thresholds are</span>
+<span class="sd">    obtained at once from a cumulative sum.</span>
+<span class="sd">    """</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">this_data</span><span class="p">[</span><span class="n">train</span><span class="p">]</span>
+        <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">deltas</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'stable'</span><span class="p">)</span>
+        <span class="n">deltas</span> <span class="o">=</span> <span class="n">deltas</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+        <span class="c1"># the mean of the first k sorted epochs, for each k</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">means</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">means</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">this_data</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">loss_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">median</span> <span class="o">-</span> <span class="n">means</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">loss_k</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">loss_k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>  <span class="c1"># as BaseAutoReject.score does</span>
+        <span class="c1"># the epoch with the smallest peak-to-peak is always kept</span>
+        <span class="n">n_keep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">deltas</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">threshes</span><span class="p">,</span> <span class="n">deltas</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                 <span class="n">side</span><span class="o">=</span><span class="s1">'right'</span><span class="p">)</span>
+        <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_k</span><span class="p">[</span><span class="n">n_keep</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">losses</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_compute_thresh</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'bayesian_optimization'</span><span class="p">,</span>
@@ -831,30 +860,12 @@
         <span class="n">rs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">best_thresh</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">thresh</span>
     <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'bayesian_optimization'</span><span class="p">:</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="c1"># none of this depends on the threshold, so hoist it out of ``func``,</span>
-        <span class="c1"># which is called once per candidate threshold</span>
-        <span class="n">folds</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-            <span class="c1"># keep the train indices, not the (much larger) train data</span>
-            <span class="n">deltas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">this_data</span><span class="p">[</span><span class="n">train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">folds</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">train</span><span class="p">,</span> <span class="n">deltas</span><span class="p">,</span> <span class="n">deltas</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
-                          <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">this_data</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+        <span class="c1"># the loss of every candidate threshold, computed all at once</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="n">_thresh_cv_loss</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">all_threshes</span><span class="p">)</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">thresh</span><span class="p">):</span>
-            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">thresh</span> <span class="o">-</span> <span class="n">all_threshes</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">thresh</span> <span class="o">=</span> <span class="n">all_threshes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">thresh</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
-                <span class="n">scores</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">deltas</span><span class="p">,</span> <span class="n">delta_min</span><span class="p">,</span> <span class="n">median</span> <span class="ow">in</span> <span class="n">folds</span><span class="p">:</span>
-                    <span class="c1"># _ChannelAutoReject.fit + BaseAutoReject.score, inlined</span>
-                    <span class="n">keep</span> <span class="o">=</span> <span class="n">deltas</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="n">delta_min</span><span class="p">)</span>
-                    <span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span><span class="n">this_data</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="n">keep</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mean_</span><span class="p">))</span>
-                        <span class="k">else</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">median</span> <span class="o">-</span> <span class="n">mean_</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
-                <span class="n">cache</span><span class="p">[</span><span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">thresh</span><span class="p">]</span>
+            <span class="c1"># the largest candidate threshold that is not above thresh</span>
+            <span class="k">return</span> <span class="n">losses</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">all_threshes</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
 
         <span class="n">n_epochs</span> <span class="o">=</span> <span class="n">all_threshes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
@@ -865,8 +876,7 @@
         <span class="n">best_thresh</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">bayes_opt</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">initial_x</span><span class="p">,</span>
                                    <span class="n">all_threshes</span><span class="p">,</span>
                                    <span class="n">expected_improvement</span><span class="p">,</span>
-                                   <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                   <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+                                   <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">best_thresh</span>
 
@@ -931,6 +941,8 @@
     <span class="n">picks</span> <span class="o">=</span> <span class="n">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
     <span class="n">_check_data</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">check_loc</span><span class="o">=</span><span class="n">augment</span><span class="p">,</span>
                 <span class="n">ch_constraint</span><span class="o">=</span><span class="s1">'data_channels'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">augment</span> <span class="ow">and</span> <span class="n">dots</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># compute once rather than for each channel</span>
+        <span class="n">dots</span> <span class="o">=</span> <span class="n">_precompute_interp</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
     <span class="n">picks_by_type</span> <span class="o">=</span> <span class="n">_get_picks_by_type</span><span class="p">(</span><span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
     <span class="n">picks_by_type</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">picks_by_type</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">picks_by_type</span>  <span class="c1"># XXX</span>
     <span class="k">if</span> <span class="n">picks_by_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1268,17 +1280,18 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">interp_chs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">groups</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">interp_chs</span><span class="p">),</span> <span class="nb">list</span><span class="p">())</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epoch_idx</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># precompute once for MNE-Python 1.14+</span>
-        <span class="n">dots</span> <span class="o">=</span> <span class="n">_get_interp_data</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'accurate'</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">interp_chs</span><span class="p">,</span> <span class="n">epoch_idxs</span> <span class="ow">in</span> <span class="n">_pbar</span><span class="p">(</span>
-            <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span>
-            <span class="n">desc</span><span class="o">=</span><span class="s1">'Repairing epochs'</span><span class="p">,</span>
-            <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">):</span>
-        <span class="n">these_epochs</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">epoch_idxs</span><span class="p">]</span>
-        <span class="n">these_epochs</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'bads'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">interp_chs</span><span class="p">)</span>
-        <span class="n">interpolate_bads</span><span class="p">(</span><span class="n">these_epochs</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
-                         <span class="n">reset_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">epochs</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">epoch_idxs</span><span class="p">]</span> <span class="o">=</span> <span class="n">these_epochs</span><span class="o">.</span><span class="n">_data</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">dots</span> <span class="o">=</span> <span class="n">_get_interp_data</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'accurate'</span><span class="p">)</span>
+    <span class="n">picks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span>
+    <span class="n">pick_of</span> <span class="o">=</span> <span class="p">{</span><span class="n">epochs</span><span class="o">.</span><span class="n">ch_names</span><span class="p">[</span><span class="n">pick</span><span class="p">]:</span> <span class="n">pick</span> <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">}</span>
+    <span class="n">mats</span> <span class="o">=</span> <span class="n">_interp_matrices</span><span class="p">(</span>
+        <span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'accurate'</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s1">'Repairing epochs'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">interp_chs</span><span class="p">,</span> <span class="n">epoch_idxs</span><span class="p">),</span> <span class="n">mat</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">mats</span><span class="p">):</span>
+        <span class="n">bad_picks</span> <span class="o">=</span> <span class="p">[</span><span class="n">pick_of</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">interp_chs</span><span class="p">]</span>
+        <span class="n">epochs</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">epoch_idxs</span><span class="p">,</span> <span class="n">bad_picks</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+            <span class="n">mat</span><span class="p">,</span> <span class="n">epochs</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">epoch_idxs</span><span class="p">,</span> <span class="n">picks</span><span class="p">)])</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_run_local_reject_cv</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">thresh_func</span><span class="p">,</span> <span class="n">picks_</span><span class="p">,</span> <span class="n">n_interpolate</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span>
@@ -1512,7 +1525,8 @@
 
         <span class="c1"># XXX : maybe use an mne function in pick.py ?</span>
         <span class="n">picks_by_type</span> <span class="o">=</span> <span class="n">_get_picks_by_type</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="n">_precompute_interp</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="n">_precompute_interp</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">picks_</span><span class="p">,</span>
+                                       <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
 
         <span class="n">thresh_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_compute_thresholds</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
                               <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thresh_method</span><span class="p">,</span>
@@ -2033,7 +2047,7 @@
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-03.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
       <br/>
     
   </p>

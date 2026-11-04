@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>What’s new? &#8212; autoreject 0.6.0.dev5+gd7be5ec36 documentation</title>
+    <title>What’s new? &#8212; autoreject 0.6.0.dev6+g190c7669f documentation</title>
   
   
   
@@ -43,7 +43,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="_static/documentation_options.js?v=a395bd57"></script>
+    <script src="_static/documentation_options.js?v=de09975e"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev5+gd7be5ec36" />
+  <meta name="docsearch:version" content="0.6.0.dev6+g190c7669f" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev5+gd7be5ec36 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev6+g190c7669f documentation</p>
   
 </a></div>
     
@@ -476,6 +476,12 @@
 <li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> is now about 5x faster, with unchanged results: the cross-validation splits, test-fold medians and train-fold peak-to-peaks are hoisted out of the threshold and parameter searches, the peak-to-peaks needed to pick the channels to interpolate are computed for all epochs at once, and epochs that need the same set of channels interpolated are now repaired together instead of one at a time, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/359">#359</a></p></li>
 <li><p>The channel-level thresholds computed with <code class="docutils literal notranslate"><span class="pre">thresh_method='bayesian_optimization'</span></code> are now compared on a single cross-validation split rather than on a freshly drawn one per candidate threshold. This only affects <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code>, where the results were not reproducible to begin with, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/359">#359</a></p></li>
 <li><p>With MNE-Python 1.14+, <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> precomputes the EEG and MEG interpolation data once with <a class="reference external" href="https://mne.tools/dev/generated/mne.channels.compute_interpolation_data.html#mne.channels.compute_interpolation_data" title="(in MNE v1.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mne.channels.compute_interpolation_data()</span></code></a> and interpolates via the public <a class="reference external" href="https://mne.tools/dev/generated/mne.Epochs.html#mne.Epochs.interpolate_bads" title="(in MNE v1.14)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mne.Epochs.interpolate_bads()</span></code></a>, with results unchanged up to floating point precision, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/368">#368</a></p></li>
+<li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> is faster (about 15% for MEG+EEG data), with results unchanged up to floating point precision: the matrices that interpolate the bad channels are obtained by interpolating an identity matrix over the picked channels only, and then applied to all epochs at once, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p><a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> now computes the MEG and EEG interpolation data once instead of once per channel with MNE-Python &lt; 1.14, which made it about 3x faster for 51 gradiometers and many times faster for more channels, with results unchanged up to floating point precision, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p>With MNE-Python &lt; 1.14, <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> computes the MEG dot products once instead of twice and no longer recreates the MEG coils for every interpolation, which made it about 25% faster for MEG data, with results unchanged up to floating point precision, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> parameter of <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> and <a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> is now also used to compute the MEG interpolation data, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p>The Bayesian optimization of the thresholds now uses a small NumPy implementation of the Gaussian process regression instead of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.gaussian_process.GaussianProcessRegressor</span></code></a>, whose input validation dominated the computation time. This makes <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> about 20 to 30% faster, with unchanged results, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> and <a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> are faster (about 30% for MEG and 45% for EEG data), with results unchanged up to floating point precision: the cross-validated loss of all candidate thresholds of a channel is computed at once from cumulative sums, and MNE-Python no longer checks the measurement info again for every set of channels to interpolate, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
 </ul>
 </section>
 <section id="bug">
@@ -484,6 +490,7 @@
 <li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject.transform" title="autoreject.AutoReject.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">autoreject.AutoReject.transform()</span></code></a> now emits a single warning when all epochs are marked as bad, regardless of the MNE-Python version, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/366">#366</a></p></li>
 <li><p><a class="reference internal" href="generated/autoreject.read_auto_reject.html#autoreject.read_auto_reject" title="autoreject.read_auto_reject"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.read_auto_reject()</span></code></a> now restores <code class="docutils literal notranslate"><span class="pre">verbose=False</span></code> as <code class="docutils literal notranslate"><span class="pre">False</span></code> rather than <code class="docutils literal notranslate"><span class="pre">0</span></code>, which made a loaded <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> warn about channels marked as bad as if it were verbose, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/368">#368</a></p></li>
 <li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject.fit" title="autoreject.AutoReject.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">autoreject.AutoReject.fit()</span></code></a> no longer raises an <code class="docutils literal notranslate"><span class="pre">IndexError</span></code> or silently interpolates MEG channels with the wrong precomputed dot products when other channels come before the MEG channels in the epochs, as in CTF recordings (<a class="reference external" href="https://github.com/autoreject/autoreject/issues/365">#365</a>), by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/368">#368</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autoreject.utils.clean_by_interp</span></code> no longer modifies an <a class="reference external" href="https://mne.tools/dev/generated/mne.Evoked.html#mne.Evoked" title="(in MNE v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mne.Evoked</span></code></a> passed to it, which also made it interpolate each channel from neighbors that had already been interpolated (<a class="reference external" href="https://github.com/autoreject/autoreject/issues/364">#364</a>), by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
 </ul>
 </section>
 </section>
@@ -718,7 +725,7 @@ rejection thresholds for only subset of channel types in the data, by <a class="
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-03.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
       <br/>
     
   </p>

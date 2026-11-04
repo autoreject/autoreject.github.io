@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.utils &#8212; autoreject 0.6.0.dev5+gd7be5ec36 documentation</title>
+    <title>autoreject.utils &#8212; autoreject 0.6.0.dev6+g190c7669f documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=a395bd57"></script>
+    <script src="../../_static/documentation_options.js?v=de09975e"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev5+gd7be5ec36" />
+  <meta name="docsearch:version" content="0.6.0.dev6+g190c7669f" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev5+gd7be5ec36 documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev6+g190c7669f documentation</p>
   
 </a></div>
     
@@ -452,6 +452,8 @@
 <span class="c1">#          Denis A. Engemann &lt;denis.engemann@gmail.com&gt;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -674,31 +676,52 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_clean_by_interp</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">Evoked</span><span class="p">,</span> <span class="n">_get_epochs_type</span><span class="p">())):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognized type for inst'</span><span class="p">)</span>
     <span class="n">inst_interp</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">mesg</span> <span class="o">=</span> <span class="s1">'Creating augmented epochs'</span>
     <span class="n">picks</span> <span class="o">=</span> <span class="n">_handle_picks</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="n">inst_interp</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
     <span class="n">dots</span> <span class="o">=</span> <span class="n">_get_interp_data</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">)</span>
-
-    <span class="n">BaseEpochs</span> <span class="o">=</span> <span class="n">_get_epochs_type</span><span class="p">()</span>
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'ch_names'</span><span class="p">][</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">ch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">pick</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_pbar</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">)),</span>
-                                        <span class="n">desc</span><span class="o">=</span><span class="n">mesg</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)):</span>
-        <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'bads'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span><span class="p">]</span>
-        <span class="n">pick_interp</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_channels</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'ch_names'</span><span class="p">],</span> <span class="p">[</span><span class="n">ch</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">data_orig</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-        <span class="n">interpolate_bads</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span>
-                         <span class="n">reset_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">mne</span><span class="o">.</span><span class="n">Evoked</span><span class="p">):</span>
-            <span class="n">inst_interp</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pick</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pick_interp</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">BaseEpochs</span><span class="p">):</span>
-            <span class="n">inst_interp</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unrecognized type for inst'</span><span class="p">)</span>
-        <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[:,</span> <span class="n">pick_interp</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_orig</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'bads'</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst_interp</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'bads'</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># interpolate each channel from all the other picks, in one go</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">ch_names</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">]</span>
+    <span class="n">loo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">_interp_matrices</span><span class="p">(</span>
+        <span class="n">inst</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="p">[[</span><span class="n">ch</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">ch_names</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s1">'Creating augmented epochs'</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)))</span>
+    <span class="n">inst_interp</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+        <span class="n">loo</span><span class="p">,</span> <span class="n">inst</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="p">:])</span>
     <span class="k">return</span> <span class="n">inst_interp</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_interp_matrices</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="p">,</span> <span class="n">bad_sets</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Get the matrix that interpolates each set of bads from the picks.</span>
+
+<span class="sd">    Interpolating an identity matrix gives the interpolation matrix itself,</span>
+<span class="sd">    so this works on n_picks x n_picks data rather than on all of the data.</span>
+<span class="sd">    Yields, for each set of bad channel names, an array of shape</span>
+<span class="sd">    (n_bads, n_picks) to apply to the data of the picks. Rows of bads that</span>
+<span class="sd">    are not interpolated (e.g., not MEG or EEG) leave the data as is.</span>
+<span class="sd">    """</span>
+    <span class="n">picks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">picks</span><span class="p">)</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">))</span>
+    <span class="n">evoked</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">EvokedArray</span><span class="p">(</span><span class="n">eye</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">),</span>
+                             <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_has_interp_data</span><span class="p">()</span> <span class="ow">and</span> <span class="n">dots</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># the dots are for the MEG channels of info, so pick those of evoked</span>
+        <span class="n">meg_picks</span> <span class="o">=</span> <span class="n">_meg_dots_picks</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">meg_picks</span><span class="p">,</span> <span class="n">picks</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">picks</span><span class="p">,</span> <span class="n">meg_picks</span><span class="p">)])</span>
+        <span class="n">dots</span> <span class="o">=</span> <span class="n">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">ii</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">evoked</span><span class="o">.</span><span class="n">ch_names</span><span class="p">)}</span>
+    <span class="c1"># the Info was checked when creating evoked, and only its bads change, so</span>
+    <span class="c1"># do not let MNE-Python (1.13+) check it again for every set of bads</span>
+    <span class="n">skip_checks</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">evoked</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="s1">'_skip_checks'</span><span class="p">,</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">skip_checks</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">bads</span> <span class="ow">in</span> <span class="n">_pbar</span><span class="p">(</span><span class="n">bad_sets</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">bads_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">bads</span><span class="p">]</span>
+            <span class="n">evoked</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">'bads'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bads</span><span class="p">)</span>
+            <span class="n">interpolate_bads</span><span class="p">(</span><span class="n">evoked</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">picks</span><span class="p">)),</span> <span class="n">dots</span><span class="o">=</span><span class="n">dots</span><span class="p">,</span>
+                             <span class="n">reset_bads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">evoked</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">bads_idx</span><span class="p">]</span>  <span class="c1"># a copy, as it is fancy indexing</span>
+            <span class="n">evoked</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">bads_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">eye</span><span class="p">[</span><span class="n">bads_idx</span><span class="p">]</span>
 
 
 <span class="c1"># Origins (head frame, in meters) used for EEG (spherical spline) and MEG</span>
@@ -712,18 +735,19 @@
     <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mne</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span> <span class="s1">'compute_interpolation_data'</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_precompute_interp</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_precompute_interp</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Precompute the interpolation data for the channel types in picks."""</span>
     <span class="k">if</span> <span class="n">_has_interp_data</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">_get_interp_data</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_get_interp_data</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
     <span class="n">ch_types</span> <span class="o">=</span> <span class="p">{</span><span class="n">channel_type</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">pick</span><span class="p">)</span> <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="n">picks</span><span class="p">}</span>
     <span class="k">if</span> <span class="p">{</span><span class="s1">'mag'</span><span class="p">,</span> <span class="s1">'grad'</span><span class="p">}</span> <span class="o">&amp;</span> <span class="n">ch_types</span><span class="p">:</span>
         <span class="n">this_info</span> <span class="o">=</span> <span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">_meg_dots_picks</span><span class="p">(</span><span class="n">info</span><span class="p">),</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">this_info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">templates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">this_info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                             <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_get_interp_data</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_interp_data</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Get MNE's precomputed interpolation data, computing what is missing.</span>
 
 <span class="sd">    The data is computed for the EEG and MEG channels in picks only, so other</span>
@@ -734,6 +758,9 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_has_interp_data</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">dots</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">mne.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_interpolation_data</span><span class="p">,</span> <span class="n">InterpolationData</span>
+    <span class="c1"># n_jobs was added after compute_interpolation_data</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span> <span class="k">if</span> <span class="s1">'n_jobs'</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span>
+        <span class="n">compute_interpolation_data</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span> <span class="k">else</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="c1"># anything else (e.g., the dot products of files written with</span>
     <span class="c1"># MNE-Python &lt; 1.14) is recomputed</span>
     <span class="n">dots</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="p">(</span>
@@ -749,7 +776,7 @@
         <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dots</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">names</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">dots</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s1">'ch_names'</span><span class="p">]):</span>
             <span class="n">dots</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">compute_interpolation_data</span><span class="p">(</span>
                 <span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">type_picks</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="s1">'error'</span><span class="p">))</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">dots</span>
 
 
@@ -937,9 +964,9 @@
     <span class="k">return</span> <span class="n">pick_types</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[])</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_compute_dots</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">templates</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_compute_dots</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Compute all-to-all dots."""</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">mne.forward._lead_dots</span><span class="w"> </span><span class="kn">import</span> <span class="n">_do_self_dots</span><span class="p">,</span> <span class="n">_do_cross_dots</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">mne.forward._lead_dots</span><span class="w"> </span><span class="kn">import</span> <span class="n">_do_self_dots</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">mne.forward._make_forward</span><span class="w"> </span><span class="kn">import</span> <span class="n">_create_meg_coils</span><span class="p">,</span> <span class="n">_read_coil_defs</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">mne.bem</span><span class="w"> </span><span class="kn">import</span> <span class="n">_check_origin</span>
 
@@ -950,10 +977,9 @@
     <span class="n">my_origin</span> <span class="o">=</span> <span class="n">_check_origin</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">),</span> <span class="n">info</span><span class="p">)</span>
     <span class="n">int_rad</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span> <span class="o">=</span> <span class="n">_setup_dots</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="s1">'meg'</span><span class="p">)</span>
     <span class="n">self_dots</span> <span class="o">=</span> <span class="n">_do_self_dots</span><span class="p">(</span><span class="n">int_rad</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="n">my_origin</span><span class="p">,</span> <span class="s1">'meg'</span><span class="p">,</span>
-                              <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_do_cross_dots</span><span class="p">(</span><span class="n">int_rad</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span> <span class="n">coils</span><span class="p">,</span>
-                                <span class="n">my_origin</span><span class="p">,</span> <span class="s1">'meg'</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-    <span class="k">return</span> <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span>
+                              <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+    <span class="c1"># the cross dots of the coils with themselves are the self dots</span>
+    <span class="k">return</span> <span class="n">self_dots</span><span class="p">,</span> <span class="n">self_dots</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">):</span>
@@ -968,26 +994,20 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_fast_map_meg_channels</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">,</span>
                            <span class="n">dots</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'fast'</span><span class="p">):</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">mne.forward._field_interpolation</span><span class="w"> </span><span class="kn">import</span> <span class="n">_compute_mapping_matrix</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">mne.forward._make_forward</span><span class="w"> </span><span class="kn">import</span> <span class="n">_create_meg_coils</span><span class="p">,</span> <span class="n">_read_coil_defs</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">mne.bem</span><span class="w"> </span><span class="kn">import</span> <span class="n">_check_origin</span>
 
     <span class="n">miss</span> <span class="o">=</span> <span class="mf">1e-4</span>  <span class="c1"># Smoothing criterion for MEG</span>
 
     <span class="n">info_from</span> <span class="o">=</span> <span class="n">pick_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">templates</span> <span class="o">=</span> <span class="n">_read_coil_defs</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="s1">'error'</span><span class="p">)</span>
-    <span class="n">coils_from</span> <span class="o">=</span> <span class="n">_create_meg_coils</span><span class="p">(</span><span class="n">info_from</span><span class="p">[</span><span class="s1">'chs'</span><span class="p">],</span> <span class="s1">'normal'</span><span class="p">,</span>
-                                   <span class="n">info_from</span><span class="p">[</span><span class="s1">'dev_head_t'</span><span class="p">],</span> <span class="n">templates</span><span class="p">)</span>
     <span class="n">my_origin</span> <span class="o">=</span> <span class="n">_check_origin</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">),</span> <span class="n">info_from</span><span class="p">)</span>
-    <span class="n">int_rad</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span> <span class="o">=</span> <span class="n">_setup_dots</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">info_from</span><span class="p">,</span>
-                                                  <span class="n">coils_from</span><span class="p">,</span> <span class="s1">'meg'</span><span class="p">)</span>
+    <span class="c1"># the coils are only needed to compute the dots (_setup_dots ignores them)</span>
+    <span class="n">int_rad</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">lut_fun</span><span class="p">,</span> <span class="n">n_fact</span> <span class="o">=</span> <span class="n">_setup_dots</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">info_from</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+                                                  <span class="s1">'meg'</span><span class="p">)</span>
 
     <span class="c1"># This function needs a clean input. It hates the presence of other</span>
     <span class="c1"># channels than MEG channels. Make sure all is picked.</span>
     <span class="k">if</span> <span class="n">dots</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">dots</span> <span class="o">=</span> <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_compute_dots</span><span class="p">(</span>
-            <span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">templates</span><span class="o">=</span><span class="n">templates</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">dots</span>
+        <span class="n">dots</span> <span class="o">=</span> <span class="n">_compute_dots</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">templates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="n">self_dots</span><span class="p">,</span> <span class="n">cross_dots</span> <span class="o">=</span> <span class="n">_pick_dots</span><span class="p">(</span><span class="n">dots</span><span class="p">,</span> <span class="n">pick_from</span><span class="p">,</span> <span class="n">pick_to</span><span class="p">)</span>
 
@@ -1067,7 +1087,7 @@
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-03.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
       <br/>
     
   </p>
