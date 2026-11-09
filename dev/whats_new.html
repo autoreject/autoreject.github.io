@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>What’s new? &#8212; autoreject 0.6.0.dev6+g190c7669f documentation</title>
+    <title>What’s new? &#8212; autoreject 0.6.0.dev1+geadc1401d documentation</title>
   
   
   
@@ -43,7 +43,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="_static/documentation_options.js?v=de09975e"></script>
+    <script src="_static/documentation_options.js?v=acaf35e0"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev6+g190c7669f" />
+  <meta name="docsearch:version" content="0.6.0.dev1+geadc1401d" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -133,7 +133,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev6+g190c7669f documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev1+geadc1401d documentation</p>
   
 </a></div>
     
@@ -482,6 +482,7 @@
 <li><p>The <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> parameter of <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> and <a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> is now also used to compute the MEG interpolation data, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
 <li><p>The Bayesian optimization of the thresholds now uses a small NumPy implementation of the Gaussian process regression instead of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="(in scikit-learn v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.gaussian_process.GaussianProcessRegressor</span></code></a>, whose input validation dominated the computation time. This makes <a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> about 20 to 30% faster, with unchanged results, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
 <li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> and <a class="reference internal" href="generated/autoreject.compute_thresholds.html#autoreject.compute_thresholds" title="autoreject.compute_thresholds"><code class="xref py py-func docutils literal notranslate"><span class="pre">autoreject.compute_thresholds()</span></code></a> are faster (about 30% for MEG and 45% for EEG data), with results unchanged up to floating point precision: the cross-validated loss of all candidate thresholds of a channel is computed at once from cumulative sums, and MNE-Python no longer checks the measurement info again for every set of channels to interpolate, by <a class="reference external" href="https://larsoner.com">Eric Larson</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/369">#369</a></p></li>
+<li><p><a class="reference internal" href="generated/autoreject.AutoReject.html#autoreject.AutoReject" title="autoreject.AutoReject"><code class="xref py py-class docutils literal notranslate"><span class="pre">autoreject.AutoReject</span></code></a> is faster (10 to 40% less fitting time on MEG data), with unchanged results: in the search over <code class="docutils literal notranslate"><span class="pre">consensus</span></code>, the loss is computed once for each distinct set of kept training epochs, by <a class="reference external" href="https://github.com/BabaSanfour">Hamza Abdelhedi</a> in <a class="reference external" href="https://github.com/autoreject/autoreject/issues/370">#370</a></p></li>
 </ul>
 </section>
 <section id="bug">
@@ -725,7 +726,7 @@ rejection thresholds for only subset of channel types in the data, by <a class="
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-09.
       <br/>
     
   </p>

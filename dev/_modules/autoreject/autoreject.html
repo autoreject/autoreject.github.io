@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev6+g190c7669f documentation</title>
+    <title>autoreject.autoreject &#8212; autoreject 0.6.0.dev1+geadc1401d documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=de09975e"></script>
+    <script src="../../_static/documentation_options.js?v=acaf35e0"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.6.0.dev6+g190c7669f" />
+  <meta name="docsearch:version" content="0.6.0.dev1+geadc1401d" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">autoreject 0.6.0.dev6+g190c7669f documentation</p>
+    <p class="title logo__title">autoreject 0.6.0.dev1+geadc1401d documentation</p>
   
 </a></div>
     
@@ -1339,9 +1339,9 @@
 
         <span class="n">pbar</span> <span class="o">=</span> <span class="n">_pbar</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">'Fold'</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pbar</span><span class="p">):</span>
-            <span class="n">X_interp_train</span> <span class="o">=</span> <span class="n">X_interp</span><span class="p">[</span><span class="n">train</span><span class="p">]</span>  <span class="c1"># does not depend on consensus</span>
             <span class="n">counts_train</span> <span class="o">=</span> <span class="n">bad_sensor_counts</span><span class="p">[</span><span class="n">train</span><span class="p">]</span>
             <span class="n">median</span> <span class="o">=</span> <span class="n">medians</span><span class="p">[</span><span class="n">fold</span><span class="p">]</span>
+            <span class="n">fold_loss</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>  <span class="c1"># consensus values keeping the same epochs</span>
             <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">this_consensus</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">consensus</span><span class="p">):</span>
                 <span class="c1"># \kappa must be greater than \rho</span>
                 <span class="k">if</span> <span class="n">this_consensus</span> <span class="o">*</span> <span class="n">n_channels</span> <span class="o">&lt;=</span> <span class="n">n_interp</span><span class="p">:</span>
@@ -1351,15 +1351,15 @@
                 <span class="n">local_reject</span><span class="o">.</span><span class="n">consensus_</span><span class="p">[</span><span class="n">ch_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">this_consensus</span>
                 <span class="n">bad_epochs</span> <span class="o">=</span> <span class="n">local_reject</span><span class="o">.</span><span class="n">_get_bad_epochs</span><span class="p">(</span>
                     <span class="n">counts_train</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks_</span><span class="p">,</span> <span class="n">ch_type</span><span class="o">=</span><span class="n">ch_type</span><span class="p">)</span>
-
-                <span class="n">good_epochs_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">bad_epochs</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-
-                <span class="n">local_reject</span><span class="o">.</span><span class="n">mean_</span> <span class="o">=</span> <span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span>
-                    <span class="n">X_interp_train</span><span class="p">,</span> <span class="n">good_epochs_idx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-                <span class="c1"># BaseAutoReject.score with the median hoisted out</span>
-                <span class="n">loss</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">jdx</span><span class="p">,</span> <span class="n">fold</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mean_</span><span class="p">))</span>
-                    <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">median</span> <span class="o">-</span> <span class="n">mean_</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">bad_epochs</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fold_loss</span><span class="p">:</span>
+                    <span class="n">mean_</span> <span class="o">=</span> <span class="n">_slicemean</span><span class="p">(</span>
+                        <span class="n">X_interp</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">bad_epochs</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="c1"># BaseAutoReject.score with the median hoisted out</span>
+                    <span class="n">fold_loss</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mean_</span><span class="p">))</span>
+                        <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">median</span> <span class="o">-</span> <span class="n">mean_</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+                <span class="n">loss</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">jdx</span><span class="p">,</span> <span class="n">fold</span><span class="p">]</span> <span class="o">=</span> <span class="n">fold_loss</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">local_reject</span><span class="p">,</span> <span class="n">loss</span>
 
@@ -2047,7 +2047,7 @@
 
   <p class="copyright">
     
-      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-04.
+      © Copyright 2016-2026, autoreject developers. Last updated on 2026-11-09.
       <br/>
     
   </p>
